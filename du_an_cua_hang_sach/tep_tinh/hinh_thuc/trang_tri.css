@@ -1,1 +1,453 @@
-/* Tệp CSS trang trí giao diện - Sẽ hoàn thiện ở Epic 3 */
+/*
+ * Tệp CSS trang trí giao diện cho Hệ thống Quản lý Cửa hàng Sách.
+ * Sử dụng màu sắc chuyên nghiệp, bố cục responsive.
+ */
+
+/* ========== Đặt lại mặc định ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ========== Tiêu đề chính ========== */
+.tieu_de_chinh {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.noi_dung_tieu_de {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.tieu_de_chinh h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.mo_ta {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ========== Thanh công cụ ========== */
+.thanh_cong_cu {
+    background: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.noi_dung_cong_cu {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Nhóm tìm kiếm */
+.nhom_tim_kiem {
+    display: flex;
+    flex: 1;
+    min-width: 250px;
+}
+
+.nhom_tim_kiem input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.nhom_tim_kiem input:focus {
+    border-color: #1a237e;
+}
+
+.nhom_tim_kiem button {
+    border-radius: 0 6px 6px 0;
+}
+
+/* Nhóm sắp xếp */
+.nhom_sap_xep {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nhom_sap_xep label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.nhom_sap_xep select {
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.nhom_sap_xep select:focus {
+    border-color: #1a237e;
+}
+
+/* ========== Các nút bấm ========== */
+.nut {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.nut_chinh {
+    background-color: #1a237e;
+    color: white;
+}
+
+.nut_chinh:hover {
+    background-color: #283593;
+    transform: translateY(-1px);
+}
+
+.nut_phu {
+    background-color: #5c6bc0;
+    color: white;
+}
+
+.nut_phu:hover {
+    background-color: #3f51b5;
+    transform: translateY(-1px);
+}
+
+.nut_lam_moi {
+    background-color: #43a047;
+    color: white;
+}
+
+.nut_lam_moi:hover {
+    background-color: #388e3c;
+    transform: translateY(-1px);
+}
+
+.nut_them {
+    background-color: #ff6f00;
+    color: white;
+}
+
+.nut_them:hover {
+    background-color: #e65100;
+    transform: translateY(-1px);
+}
+
+.nut_xoa {
+    background-color: #e53935;
+    color: white;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.nut_xoa:hover {
+    background-color: #c62828;
+}
+
+/* ========== Nội dung chính ========== */
+.noi_dung_chinh {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* ========== Thông báo ========== */
+.thong_bao {
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.thong_bao.thanh_cong {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.thong_bao.loi {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+.thong_bao.thong_tin {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #90caf9;
+}
+
+.an_di {
+    display: none !important;
+}
+
+/* ========== Bảng dữ liệu ========== */
+.bang_du_lieu {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+}
+
+#bang_san_pham {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+#bang_san_pham thead {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: white;
+}
+
+#bang_san_pham th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#bang_san_pham td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#bang_san_pham tbody tr:hover {
+    background-color: #f5f7ff;
+}
+
+#bang_san_pham tbody tr:nth-child(even) {
+    background-color: #fafbff;
+}
+
+#bang_san_pham tbody tr:nth-child(even):hover {
+    background-color: #f0f3ff;
+}
+
+.dang_tai {
+    text-align: center;
+    color: #999;
+    padding: 40px !important;
+    font-style: italic;
+}
+
+/* Nhãn loại hàng */
+.nhan_loai {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.nhan_sach {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.nhan_tap_chi {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.nhan_bao_giay {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* ========== Hộp thoại (Modal) ========== */
+.hop_thoai {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.noi_dung_hop_thoai {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.tieu_de_hop_thoai {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.tieu_de_hop_thoai h2 {
+    font-size: 20px;
+    color: #1a237e;
+}
+
+.nut_dong {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.nut_dong:hover {
+    color: #333;
+}
+
+#bieu_mau_them {
+    padding: 25px;
+}
+
+/* ========== Nhóm nhập liệu ========== */
+.nhom_nhap {
+    margin-bottom: 18px;
+}
+
+.nhom_nhap label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.bat_buoc {
+    color: #e53935;
+}
+
+.nhom_nhap input,
+.nhom_nhap select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.nhom_nhap input:focus,
+.nhom_nhap select:focus {
+    border-color: #1a237e;
+}
+
+.nhom_nhap input.loi_nhap,
+.nhom_nhap select.loi_nhap {
+    border-color: #e53935;
+    background-color: #fff5f5;
+}
+
+.nhap_loi {
+    color: #e53935;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+.nhom_rieng {
+    padding: 15px;
+    background-color: #f8f9ff;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    border: 1px dashed #c5cae9;
+}
+
+.nhom_nut {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.nut_xac_nhan {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+}
+
+/* ========== Chân trang ========== */
+.chan_trang {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a237e;
+    color: white;
+    font-size: 13px;
+    margin-top: 30px;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    .noi_dung_cong_cu {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nhom_tim_kiem {
+        min-width: 100%;
+    }
+
+    .nhom_sap_xep {
+        justify-content: center;
+    }
+
+    .tieu_de_chinh h1 {
+        font-size: 22px;
+    }
+
+    #bang_san_pham th,
+    #bang_san_pham td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}

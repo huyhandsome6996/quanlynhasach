@@ -4,9 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống Quản lý Cửa hàng Sách</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'hinh_thuc/trang_tri.css' %}">
 </head>
 <body>
-    <h1>Hệ thống Quản lý Cửa hàng Sách</h1>
-    <p>Trang chủ đang được xây dựng...</p>
+    <!-- Thanh tiêu đề chính -->
+    <header class="tieu_de_chinh">
+        <div class="noi_dung_tieu_de">
+            <h1>Hệ thống Quản lý Cửa hàng Sách</h1>
+            <p class="mo_ta">Phiên bản Ứng dụng Web - Môn Lập trình Nâng cao</p>
+        </div>
+    </header>
+
+    <!-- Thanh công cụ -->
+    <nav class="thanh_cong_cu">
+        <div class="noi_dung_cong_cu">
+            <!-- Ô tìm kiếm -->
+            <div class="nhom_tim_kiem">
+                <input type="text" id="o_tim_kiem" placeholder="Tìm kiếm theo tên sản phẩm..." />
+                <button id="nut_tim_kiem" class="nut nut_chinh">Tìm kiếm</button>
+            </div>
+
+            <!-- Nút sắp xếp -->
+            <div class="nhom_sap_xep">
+                <label for="chon_sap_xep">Sắp xếp theo:</label>
+                <select id="chon_sap_xep">
+                    <option value="gia_ban">Giá bán</option>
+                    <option value="ten_san_pham">Tên sản phẩm</option>
+                    <option value="ton_kho">Tồn kho</option>
+                </select>
+                <button id="nut_sap_xep" class="nut nut_phu">Sắp xếp</button>
+            </div>
+
+            <!-- Nút làm mới -->
+            <button id="nut_lam_moi" class="nut nut_lam_moi">Làm mới</button>
+
+            <!-- Nút thêm sản phẩm -->
+            <button id="nut_mo_form" class="nut nut_them">+ Thêm sản phẩm</button>
+        </div>
+    </nav>
+
+    <!-- Khu vực nội dung chính -->
+    <main class="noi_dung_chinh">
+        <!-- Thông báo -->
+        <div id="thong_bao" class="thong_bao an_di"></div>
+
+        <!-- Bảng hiển thị dữ liệu -->
+        <div class="bang_du_lieu">
+            <table id="bang_san_pham">
+                <thead>
+                    <tr>
+                        <th>Mã số</th>
+                        <th>Loại hàng</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá cơ bản</th>
+                        <th>Giá bán</th>
+                        <th>Tồn kho</th>
+                        <th>Chi tiết</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="than_bang">
+                    <!-- Dữ liệu sẽ được JavaScript render vào đây -->
+                    <tr>
+                        <td colspan="8" class="dang_tai">Đang tải dữ liệu...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Biểu mẫu thêm sản phẩm (Modal) -->
+    <div id="form_them" class="hop_thoai an_di">
+        <div class="noi_dung_hop_thoai">
+            <div class="tieu_de_hop_thoai">
+                <h2>Thêm sản phẩm mới</h2>
+                <button id="nut_dong_form" class="nut_dong">&times;</button>
+            </div>
+            <form id="bieu_mau_them">
+                <!-- Loại hàng -->
+                <div class="nhom_nhap">
+                    <label for="chon_loai_hang">Loại hàng <span class="bat_buoc">*</span></label>
+                    <select id="chon_loai_hang" name="loai_hang" required>
+                        <option value="">-- Chọn loại hàng --</option>
+                        <option value="Sách">Sách</option>
+                        <option value="Tạp chí">Tạp chí</option>
+                        <option value="Báo giấy">Báo giấy</option>
+                    </select>
+                </div>
+
+                <!-- Mã số -->
+                <div class="nhom_nhap">
+                    <label for="nhap_ma_so">Mã số <span class="bat_buoc">*</span></label>
+                    <input type="text" id="nhap_ma_so" name="ma_so" placeholder="Ví dụ: MH006" required />
+                </div>
+
+                <!-- Tên sản phẩm -->
+                <div class="nhom_nhap">
+                    <label for="nhap_ten">Tên sản phẩm <span class="bat_buoc">*</span></label>
+                    <input type="text" id="nhap_ten" name="ten_san_pham" placeholder="Ví dụ: Sách Lập trình C" required />
+                </div>
+
+                <!-- Giá cơ bản -->
+                <div class="nhom_nhap">
+                    <label for="nhap_gia">Giá cơ bản (VNĐ) <span class="bat_buoc">*</span></label>
+                    <input type="number" id="nhap_gia" name="gia_co_ban" placeholder="Ví dụ: 100000" min="0" required />
+                </div>
+
+                <!-- Tồn kho -->
+                <div class="nhom_nhap">
+                    <label for="nhap_ton_kho">Số lượng tồn kho <span class="bat_buoc">*</span></label>
+                    <input type="number" id="nhap_ton_kho" name="ton_kho" placeholder="Ví dụ: 50" min="0" required />
+                </div>
+
+                <!-- Các trường riêng cho Sách -->
+                <div id="nhom_sach" class="nhom_rieng an_di">
+                    <div class="nhom_nhap">
+                        <label for="nhap_tac_gia">Tác giả <span class="bat_buoc">*</span></label>
+                        <input type="text" id="nhap_tac_gia" name="tac_gia" placeholder="Ví dụ: Nguyễn Văn A" />
+                    </div>
+                    <div class="nhom_nhap">
+                        <label for="nhap_nha_xuat_ban">Nhà xuất bản <span class="bat_buoc">*</span></label>
+                        <input type="text" id="nhap_nha_xuat_ban" name="nha_xuat_ban" placeholder="Ví dụ: NXB Giáo dục" />
+                    </div>
+                </div>
+
+                <!-- Các trường riêng cho Tạp chí -->
+                <div id="nhom_tap_chi" class="nhom_rieng an_di">
+                    <div class="nhom_nhap">
+                        <label for="nhap_so_phat_hanh">Số phát hành <span class="bat_buoc">*</span></label>
+                        <input type="text" id="nhap_so_phat_hanh" name="so_phat_hanh" placeholder="Ví dụ: Số 123" />
+                    </div>
+                </div>
+
+                <!-- Các trường riêng cho Báo giấy -->
+                <div id="nhom_bao_giay" class="nhom_rieng an_di">
+                    <div class="nhom_nhap">
+                        <label for="nhap_ngay_xuat_ban">Ngày xuất bản <span class="bat_buoc">*</span></label>
+                        <input type="date" id="nhap_ngay_xuat_ban" name="ngay_xuat_ban" />
+                    </div>
+                </div>
+
+                <!-- Nút submit -->
+                <div class="nhom_nut">
+                    <button type="submit" class="nut nut_chinh nut_xac_nhan">Thêm sản phẩm</button>
+                    <button type="button" id="nut_huy" class="nut nut_phu">Hủy bỏ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chân trang -->
+    <footer class="chan_trang">
+        <p>Hệ thống Quản lý Cửa hàng Sách &copy; 2025 - Môn Lập trình Nâng cao</p>
+    </footer>
+
+    <!-- Các tệp JavaScript -->
+    <script src="{% static 'ma_lenh/goi_du_lieu.js' %}"></script>
+    <script src="{% static 'ma_lenh/tuong_tac.js' %}"></script>
 </body>
 </html>
