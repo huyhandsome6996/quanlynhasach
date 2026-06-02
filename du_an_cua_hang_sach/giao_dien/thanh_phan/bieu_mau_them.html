@@ -1,0 +1,79 @@
+<!-- Biểu mẫu thêm sản phẩm (Modal) -->
+<div id="form_them" class="hop_thoai an_di">
+    <div class="noi_dung_hop_thoai">
+        <div class="tieu_de_hop_thoai">
+            <h2>Thêm sản phẩm mới</h2>
+            <button id="nut_dong_form" class="nut_dong">&times;</button>
+        </div>
+        <form id="bieu_mau_them">
+            <!-- Loại hàng -->
+            <div class="nhom_nhap">
+                <label for="chon_loai_hang">Loại hàng <span class="bat_buoc">*</span></label>
+                <select id="chon_loai_hang" name="loai_hang" required>
+                    <option value="">-- Chọn loại hàng --</option>
+                    <option value="Sách">Sách</option>
+                    <option value="Tạp chí">Tạp chí</option>
+                    <option value="Báo giấy">Báo giấy</option>
+                </select>
+            </div>
+
+            <!-- Mã số -->
+            <div class="nhom_nhap">
+                <label for="nhap_ma_so">Mã số <span class="bat_buoc">*</span></label>
+                <input type="text" id="nhap_ma_so" name="ma_so" placeholder="Ví dụ: MH006" required />
+            </div>
+
+            <!-- Tên sản phẩm -->
+            <div class="nhom_nhap">
+                <label for="nhap_ten">Tên sản phẩm <span class="bat_buoc">*</span></label>
+                <input type="text" id="nhap_ten" name="ten_san_pham" placeholder="Ví dụ: Sách Lập trình C" required />
+            </div>
+
+            <!-- Giá cơ bản -->
+            <div class="nhom_nhap">
+                <label for="nhap_gia">Giá cơ bản (VNĐ) <span class="bat_buoc">*</span></label>
+                <input type="number" id="nhap_gia" name="gia_co_ban" placeholder="Ví dụ: 100000" min="0" required />
+            </div>
+
+            <!-- Tồn kho -->
+            <div class="nhom_nhap">
+                <label for="nhap_ton_kho">Số lượng tồn kho <span class="bat_buoc">*</span></label>
+                <input type="number" id="nhap_ton_kho" name="ton_kho" placeholder="Ví dụ: 50" min="0" required />
+            </div>
+
+            <!-- Các trường riêng cho Sách -->
+            <div id="nhom_sach" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_tac_gia">Tác giả <span class="bat_buoc">*</span></label>
+                    <input type="text" id="nhap_tac_gia" name="tac_gia" placeholder="Ví dụ: Nguyễn Văn A" />
+                </div>
+                <div class="nhom_nhap">
+                    <label for="nhap_nha_xuat_ban">Nhà xuất bản <span class="bat_buoc">*</span></label>
+                    <input type="text" id="nhap_nha_xuat_ban" name="nha_xuat_ban" placeholder="Ví dụ: NXB Giáo dục" />
+                </div>
+            </div>
+
+            <!-- Các trường riêng cho Tạp chí -->
+            <div id="nhom_tap_chi" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_so_phat_hanh">Số phát hành <span class="bat_buoc">*</span></label>
+                    <input type="text" id="nhap_so_phat_hanh" name="so_phat_hanh" placeholder="Ví dụ: Số 123" />
+                </div>
+            </div>
+
+            <!-- Các trường riêng cho Báo giấy -->
+            <div id="nhom_bao_giay" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_ngay_xuat_ban">Ngày xuất bản <span class="bat_buoc">*</span></label>
+                    <input type="date" id="nhap_ngay_xuat_ban" name="ngay_xuat_ban" />
+                </div>
+            </div>
+
+            <!-- Nút submit -->
+            <div class="nhom_nut">
+                <button type="submit" class="nut nut_chinh nut_xac_nhan">Thêm sản phẩm</button>
+                <button type="button" id="nut_huy" class="nut nut_phu">Hủy bỏ</button>
+            </div>
+        </form>
+    </div>
+</div>
