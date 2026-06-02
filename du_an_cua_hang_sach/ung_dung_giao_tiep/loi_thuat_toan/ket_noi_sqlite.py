@@ -17,9 +17,9 @@ def lay_duong_dan_db():
     Trả về:
         str: Đường dẫn tuyệt đối đến db.sqlite3.
     """
-    # Đường dẫn tương đối từ tệp này đến db.sqlite3
+    # Từ ket_noi_sqlite.py (loi_thuat_toan -> ung_dung_giao_tiep -> du_an_cua_hang_sach)
     thu_muc_hien_tai = os.path.dirname(os.path.abspath(__file__))
-    duong_dan_du_an = os.path.dirname(os.path.dirname(os.path.dirname(thu_muc_hien_tai)))
+    duong_dan_du_an = os.path.dirname(os.path.dirname(thu_muc_hien_tai))
     return os.path.join(duong_dan_du_an, 'db.sqlite3')
 
 
