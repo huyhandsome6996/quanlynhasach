@@ -133,6 +133,13 @@ def them_san_pham(request):
         if ton_kho < 0:
             return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Số lượng tồn kho không được âm.'}, status=400)
 
+        # Kiểm tra trùng mã số trong danh sách liên kết đôi (RAM)
+        node_hien_tai = Danh_sach_cua_hang.head
+        while node_hien_tai is not None:
+            if node_hien_tai.data.ma_so == ma_so:
+                return JsonResponse({'trang_thai': 'loi', 'thong_bao': f'Mã số "{ma_so}" đã tồn tại trong cửa hàng.'}, status=400)
+            node_hien_tai = node_hien_tai.next
+
         # Tạo đối tượng OOP tương ứng với loại hàng
         from .loi_thuat_toan.lop_doi_tuong import Sach, TapChi, BaoGiay
 
