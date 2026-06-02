@@ -6,8 +6,8 @@ Mỗi đường dẫn được gắn với một hàm xử lý yêu cầu tươn
 from django.urls import path
 from . import xu_ly_yeu_cau
 
-# Danh sách các đường dẫn URL của ứng dụng
-danh_sach_duong_dan = [
+# Django yêu cầu biến phải tên là 'urlpatterns'
+urlpatterns = [
     # Trang chủ - Hiển thị giao diện chính
     path('', xu_ly_yeu_cau.trang_chu, name='trang_chu'),
 
