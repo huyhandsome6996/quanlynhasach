@@ -1,158 +1,245 @@
 """
-Tệp chứa cấu trúc dữ liệu Danh sách liên kết đôi (DoublyLinkedList)
-và lớp Node (Mắt xích).
-
-Quy tắc: Tên biến, tên hàm, chú thích sử dụng tiếng Việt.
-Ngoại lệ: Các từ khóa cốt lõi của cấu trúc dữ liệu gồm Node, DoublyLinkedList, head, next, data.
+Module cấu trúc dữ liệu Danh sách liên kết đôi (Doubly Linked List).
+Tự cài đặt thay vì dùng list có sẵn của Python để hiểu sâu về con trỏ/tham chiếu.
 """
 
 
 class Node:
     """
-    Lớp Node (Mắt xích) - Đại diện cho một phần tử trong danh sách liên kết đôi.
-
-    Thuộc tính:
-        data: Biến lưu trữ đối tượng sản phẩm (Sách, Tạp chí, Báo giấy...).
-        truoc: Con trỏ trỏ về Node phía trước nó.
-        next: Con trỏ trỏ đến Node phía sau nó.
+    Lớp Node - đơn vị cơ bản của danh sách liên kết đôi.
+    Chứa dữ liệu (đối tượng sản phẩm) và hai liên kết next, prev.
     """
 
     def __init__(self, data):
-        """
-        Khởi tạo một Node mới.
-
-        Tham số:
-            data: Đối tượng dữ liệu cần lưu trữ trong Node.
-        """
         self.data = data
-        self.truoc = None
-        self.next = None
+        self.truoc = None  # Con trỏ tới node trước (prev)
+        self.next = None   # Con trỏ tới node sau (next)
 
     def __str__(self):
-        """Trả về chuỗi mô tả dữ liệu của Node."""
         return str(self.data)
 
 
 class DoublyLinkedList:
     """
-    Lớp DoublyLinkedList (Danh sách liên kết đôi) - Cấu trúc dữ liệu chính
-    quản lý toàn bộ mặt hàng trong cửa hàng trên bộ nhớ RAM.
-
-    Thuộc tính:
-        head: Trỏ đến Node đầu tiên trong danh sách.
-        cuoi: Trỏ đến Node cuối cùng trong danh sách.
-        so_luong: Số lượng phần tử hiện có trong danh sách.
+    Lớp Danh sách liên kết đôi - quản lý dữ liệu thay cho list Python.
+    Cài đặt các phương thức: insert_tail, remove_node, search_by_id, sort_list.
     """
 
     def __init__(self):
-        """Khởi tạo danh sách liên kết đôi rỗng."""
-        self.head = None
-        self.cuoi = None
-        self.so_luong = 0
+        self.head = None    # Con trỏ đầu danh sách
+        self.cuoi = None    # Con trỏ cuối danh sách
+        self.so_luong = 0   # Đếm số phần tử
+
+    # ==================== THÊM PHẦN TỬ ====================
 
     def them_vao_cuoi(self, data):
         """
-        Thêm một phần tử mới vào cuối danh sách liên kết đôi.
-
-        Tham số:
-            data: Đối tượng dữ liệu cần thêm vào danh sách.
+        insert_tail() - Thêm một phần tử mới vào cuối danh sách.
+        Độ phức tạp: O(1) nhờ duy trì con trỏ cuối.
         """
         node_moi = Node(data)
-
-        # Trường hợp danh sách đang rỗng
         if self.head is None:
             self.head = node_moi
             self.cuoi = node_moi
         else:
-            # Nối Node mới vào sau Node cuối hiện tại
             self.cuoi.next = node_moi
             node_moi.truoc = self.cuoi
             self.cuoi = node_moi
-
         self.so_luong += 1
+
+    # ==================== XÓA PHẦN TỬ ====================
 
     def xoa_node(self, ma_so):
         """
-        Xóa một Node khỏi danh sách dựa trên mã số mặt hàng.
-
-        Tham số:
-            ma_so: Mã số định danh duy nhất của mặt hàng cần xóa.
-
-        Trả về:
-            True nếu xóa thành công, False nếu không tìm thấy Node cần xóa.
+        remove_node() - Xóa một node theo mã số.
+        Duyệt tuần tự và cập nhật liên kết prev/next.
+        Trả về True nếu xóa thành công, False nếu không tìm thấy.
         """
         node_hien_tai = self.head
-
         while node_hien_tai is not None:
-            # So sánh mã số của dữ liệu trong Node với mã số cần tìm
             if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
-                # Trường hợp Node cần xóa là Node đầu tiên
                 if node_hien_tai == self.head:
                     self.head = node_hien_tai.next
                     if self.head is not None:
                         self.head.truoc = None
                     else:
-                        # Danh sách chỉ có 1 phần tử, sau khi xóa thì danh sách rỗng
                         self.cuoi = None
-
-                # Trường hợp Node cần xóa là Node cuối cùng
                 elif node_hien_tai == self.cuoi:
                     self.cuoi = node_hien_tai.truoc
                     self.cuoi.next = None
-
-                # Trường hợp Node cần xóa nằm ở giữa danh sách
                 else:
                     node_hien_tai.truoc.next = node_hien_tai.next
                     node_hien_tai.next.truoc = node_hien_tai.truoc
-
                 self.so_luong -= 1
                 return True
-
             node_hien_tai = node_hien_tai.next
-
         return False
+
+    # ==================== TÌM KIẾM ====================
+
+    def tim_theo_ma_so(self, ma_so):
+        """
+        search_by_id() - Tìm kiếm một sản phẩm theo Mã số (ID).
+        Trả về đối tượng sản phẩm nếu tìm thấy, None nếu không.
+        Độ phức tạp: O(n).
+        """
+        node_hien_tai = self.head
+        while node_hien_tai is not None:
+            if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
+                return node_hien_tai.data
+            node_hien_tai = node_hien_tai.next
+        return None
 
     def tim_kiem(self, tu_khoa):
         """
-        Tìm kiếm các mặt hàng chứa từ khóa trong tên sản phẩm.
-        Duyệt tuần tự qua các Node bằng con trỏ next.
-
-        Tham số:
-            tu_khoa: Chuỗi từ khóa cần tìm kiếm (không phân biệt hoa/thường).
-
-        Trả về:
-            Danh sách (list Python) các đối tượng dữ liệu thỏa mãn điều kiện.
+        Tìm kiếm theo Tên sản phẩm (substring match, case-insensitive).
+        Trả về danh sách (list) các đối tượng phù hợp.
         """
         ket_qua = []
         node_hien_tai = self.head
         tu_khoa_chu_thuong = tu_khoa.lower()
-
         while node_hien_tai is not None:
-            # Tìm kiếm trong tên sản phẩm (không phân biệt hoa/thường)
             if hasattr(node_hien_tai.data, 'ten_san_pham'):
                 ten_chu_thuong = node_hien_tai.data.ten_san_pham.lower()
                 if tu_khoa_chu_thuong in ten_chu_thuong:
                     ket_qua.append(node_hien_tai.data)
+            node_hien_tai = node_hien_tai.next
+        return ket_qua
+
+    def tim_theo_the_loai(self, the_loai):
+        """
+        Tìm kiếm theo Thể loại (loại hàng).
+        Trả về danh sách các sản phẩm thuộc thể loại được chỉ định.
+        """
+        ket_qua = []
+        node_hien_tai = self.head
+        the_loai_chu_thuong = the_loai.lower()
+        while node_hien_tai is not None:
+            if hasattr(node_hien_tai.data, 'loai_hang'):
+                if the_loai_chu_thuong in node_hien_tai.data.loai_hang.lower():
+                    ket_qua.append(node_hien_tai.data)
+            node_hien_tai = node_hien_tai.next
+        return ket_qua
+
+    def tim_kiem_nang_cao(self, tu_khoa):
+        """
+        Tìm kiếm nâng cao: tìm đồng thời theo Mã số, Tên, và Thể loại.
+        Trả về danh sách kết quả không trùng lặp.
+        """
+        ket_qua = []
+        ma_da_them = set()
+        node_hien_tai = self.head
+        tu_khoa_lower = tu_khoa.lower()
+        while node_hien_tai is not None:
+            data = node_hien_tai.data
+            da_khop = False
+            if hasattr(data, 'ma_so') and tu_khoa_lower in data.ma_so.lower():
+                da_khop = True
+            if not da_khop and hasattr(data, 'ten_san_pham') and tu_khoa_lower in data.ten_san_pham.lower():
+                da_khop = True
+            if not da_khop and hasattr(data, 'loai_hang') and tu_khoa_lower in data.loai_hang.lower():
+                da_khop = True
+            if da_khop and data.ma_so not in ma_da_them:
+                ket_qua.append(data)
+                ma_da_them.add(data.ma_so)
+            node_hien_tai = node_hien_tai.next
+        return ket_qua
+
+    # ==================== CẬP NHẬT ====================
+
+    def cap_nhat_node(self, ma_so, du_lieu_moi):
+        """
+        Cập nhật thông tin một node theo mã số.
+        du_lieu_moi là dict chứa các trường cần cập nhật.
+        Trả về đối tượng đã cập nhật nếu thành công, None nếu không tìm thấy.
+        """
+        node_hien_tai = self.head
+        while node_hien_tai is not None:
+            if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
+                doi_tuong = node_hien_tai.data
+                for thuoc_tinh, gia_tri in du_lieu_moi.items():
+                    if hasattr(doi_tuong, thuoc_tinh):
+                        setattr(doi_tuong, thuoc_tinh, gia_tri)
+                return doi_tuong
+            node_hien_tai = node_hien_tai.next
+        return None
+
+    # ==================== THỐNG KÊ ====================
+
+    def thong_ke(self):
+        """
+        Thống kê dữ liệu: tổng số lượng, mặt hàng đắt nhất/rẻ nhất,
+        cảnh báo hàng sắp hết (tồn kho <= 5), thống kê theo loại hàng.
+        Trả về dict chứa tất cả thông tin thống kê.
+        """
+        if self.so_luong == 0:
+            return {
+                'tong_so': 0,
+                'dat_nhat': None,
+                're_nhat': None,
+                'sap_het_hang': [],
+                'theo_loai': {},
+                'tong_gia_tri_kho': 0,
+                'tong_ton_kho': 0
+            }
+
+        dat_nhat = None
+        re_nhat = None
+        gia_cao_nhat = -1
+        gia_thap_nhat = float('inf')
+        sap_het_hang = []
+        theo_loai = {}
+        tong_gia_tri_kho = 0
+        tong_ton_kho = 0
+
+        node_hien_tai = self.head
+        while node_hien_tai is not None:
+            data = node_hien_tai.data
+            if hasattr(data, 'tinh_gia_ban'):
+                gia_ban = data.tinh_gia_ban()
+                if gia_ban > gia_cao_nhat:
+                    gia_cao_nhat = gia_ban
+                    dat_nhat = data
+                if gia_ban < gia_thap_nhat:
+                    gia_thap_nhat = gia_ban
+                    re_nhat = data
+
+            if hasattr(data, 'ton_kho'):
+                tong_ton_kho += data.ton_kho
+                tong_gia_tri_kho += data.gia_co_ban * data.ton_kho
+                if data.ton_kho <= 5:
+                    sap_het_hang.append(data)
+
+            if hasattr(data, 'loai_hang'):
+                loai = data.loai_hang
+                if loai not in theo_loai:
+                    theo_loai[loai] = {'so_luong': 0, 'tong_ton': 0}
+                theo_loai[loai]['so_luong'] += 1
+                theo_loai[loai]['tong_ton'] += data.ton_kho
 
             node_hien_tai = node_hien_tai.next
 
-        return ket_qua
+        return {
+            'tong_so': self.so_luong,
+            'dat_nhat': dat_nhat.chuyen_thanh_dict() if dat_nhat else None,
+            're_nhat': re_nhat.chuyen_thanh_dict() if re_nhat else None,
+            'sap_het_hang': [item.chuyen_thanh_dict() for item in sap_het_hang],
+            'theo_loai': theo_loai,
+            'tong_gia_tri_kho': tong_gia_tri_kho,
+            'tong_ton_kho': tong_ton_kho
+        }
+
+    # ==================== SẮP XẾP (MERGE SORT) ====================
 
     def sap_xep_tron(self, tieu_chi='gia_ban'):
         """
-        Sắp xếp danh sách liên kết đôi bằng thuật toán Sắp xếp trộn (Merge Sort).
-        Thao tác trực tiếp trên các con trỏ next, truoc - KHÔNG dùng list.sort().
-
-        Tham số:
-            tieu_chi: Tiêu chí sắp xếp. Mặc định là 'gia_ban' (sắp xếp theo giá bán).
+        sort_list() - Sắp xếp danh sách liên kết bằng thuật toán Merge Sort.
+        Hỗ trợ sắp xếp theo: gia_ban, ten_san_pham, ton_kho.
+        Độ phức tạp: O(n log n).
         """
         if self.head is None or self.head.next is None:
             return
-
-        # Bước 1: Chia danh sách thành hai nửa
         nua_dau, nua_sau = self._chia_doi()
-
-        # Bước 2: Đưa mỗi nửa vào một DoublyLinkedList tạm để gọi đệ quy
         ds_nua_dau = DoublyLinkedList()
         ds_nua_dau.head = nua_dau
         node_cuoi_dau = nua_dau
@@ -160,7 +247,6 @@ class DoublyLinkedList:
             node_cuoi_dau = node_cuoi_dau.next
         ds_nua_dau.cuoi = node_cuoi_dau
         ds_nua_dau.so_luong = self._dem_node(nua_dau)
-
         ds_nua_sau = DoublyLinkedList()
         ds_nua_sau.head = nua_sau
         node_cuoi_sau = nua_sau
@@ -168,57 +254,33 @@ class DoublyLinkedList:
             node_cuoi_sau = node_cuoi_sau.next
         ds_nua_sau.cuoi = node_cuoi_sau
         ds_nua_sau.so_luong = self._dem_node(nua_sau)
-
-        # Bước 3: Gọi đệ quy sắp xếp từng nửa
         ds_nua_dau.sap_xep_tron(tieu_chi)
         ds_nua_sau.sap_xep_tron(tieu_chi)
-
-        # Bước 4: Trộn hai nửa đã sắp xếp
         self._tron(ds_nua_dau, ds_nua_sau, tieu_chi)
 
     def _chia_doi(self):
-        """
-        Chia danh sách liên kết đôi thành hai nửa bằng kỹ thuật con trỏ nhanh/chậm.
-
-        Trả về:
-            Tuple (nua_dau, nua_sau) - Node đầu của mỗi nửa.
-        """
+        """Chia danh sách liên kết thành 2 nửa bằng kỹ thuật fast/slow pointer."""
         con_tro_cham = self.head
         con_tro_nhanh = self.head
-
         while con_tro_nhanh.next is not None and con_tro_nhanh.next.next is not None:
             con_tro_cham = con_tro_cham.next
             con_tro_nhanh = con_tro_nhanh.next.next
-
-        # Cắt đôi danh sách
         nua_dau = self.head
         nua_sau = con_tro_cham.next
         con_tro_cham.next = None
         if nua_sau is not None:
             nua_sau.truoc = None
-
-        return nua_dau, nua_sau
+        return (nua_dau, nua_sau)
 
     def _tron(self, ds_a, ds_b, tieu_chi):
-        """
-        Trộn hai danh sách liên kết đôi đã sắp xếp thành một danh sách duy nhất.
-        Thao tác trực tiếp trên các con trỏ next, truoc.
-
-        Tham số:
-            ds_a: Danh sách liên kết đôi thứ nhất đã sắp xếp.
-            ds_b: Danh sách liên kết đôi thứ hai đã sắp xếp.
-            tieu_chi: Tiêu chí so sánh khi trộn.
-        """
-        node_tam = Node(None)  # Node tạm thời để dễ thao tác
+        """Trộn hai danh sách đã sắp xếp thành một danh sách có thứ tự."""
+        node_tam = Node(None)
         hien_tai = node_tam
-
         node_a = ds_a.head
         node_b = ds_b.head
-
         while node_a is not None and node_b is not None:
             gia_tri_a = self._lay_gia_tri(node_a.data, tieu_chi)
             gia_tri_b = self._lay_gia_tri(node_b.data, tieu_chi)
-
             if gia_tri_a <= gia_tri_b:
                 hien_tai.next = node_a
                 node_a.truoc = hien_tai
@@ -227,37 +289,21 @@ class DoublyLinkedList:
                 hien_tai.next = node_b
                 node_b.truoc = hien_tai
                 node_b = node_b.next
-
             hien_tai = hien_tai.next
-
-        # Nối phần còn lại của danh sách A
         if node_a is not None:
             hien_tai.next = node_a
             node_a.truoc = hien_tai
             self.cuoi = ds_a.cuoi
-
-        # Nối phần còn lại của danh sách B
         if node_b is not None:
             hien_tai.next = node_b
             node_b.truoc = hien_tai
             self.cuoi = ds_b.cuoi
-
-        # Cập nhật head và xóa liên kết của Node tạm
         self.head = node_tam.next
         if self.head is not None:
             self.head.truoc = None
 
     def _lay_gia_tri(self, doi_tuong, tieu_chi):
-        """
-        Lấy giá trị của đối tượng theo tiêu chí tương ứng để so sánh.
-
-        Tham số:
-            doi_tuong: Đối tượng mặt hàng cần lấy giá trị.
-            tieu_chi: Chuỗi tiêu chí ('gia_ban', 'ten_san_pham', 'ton_kho').
-
-        Trả về:
-            Giá trị tương ứng với tiêu chí.
-        """
+        """Lấy giá trị so sánh từ đối tượng theo tiêu chí sắp xếp."""
         if tieu_chi == 'gia_ban':
             if hasattr(doi_tuong, 'tinh_gia_ban'):
                 return doi_tuong.tinh_gia_ban()
@@ -269,15 +315,7 @@ class DoublyLinkedList:
         return 0
 
     def _dem_node(self, node_dau):
-        """
-        Đếm số lượng Node từ một Node đầu tiên cho trước.
-
-        Tham số:
-            node_dau: Node bắt đầu đếm.
-
-        Trả về:
-            Số lượng Node đếm được.
-        """
+        """Đếm số node từ node_dau đến cuối."""
         dem = 0
         node_hien_tai = node_dau
         while node_hien_tai is not None:
@@ -285,17 +323,12 @@ class DoublyLinkedList:
             node_hien_tai = node_hien_tai.next
         return dem
 
-    def chuyen_thanh_danh_sach(self):
-        """
-        Chuyển đổi danh sách liên kết đôi thành danh sách (list) Python
-        để dễ dàng serialize thành JSON gửi về giao diện.
+    # ==================== TIỆN ÍCH ====================
 
-        Trả về:
-            Danh sách (list) chứa các từ điển (dict) mô tả từng mặt hàng.
-        """
+    def chuyen_thanh_danh_sach(self):
+        """Chuyển toàn bộ danh sách liên kết thành mảng dict để trả về JSON."""
         ket_qua = []
         node_hien_tai = self.head
-
         while node_hien_tai is not None:
             du_lieu = node_hien_tai.data
             if hasattr(du_lieu, 'chuyen_thanh_dict'):
@@ -303,14 +336,15 @@ class DoublyLinkedList:
             else:
                 ket_qua.append(str(du_lieu))
             node_hien_tai = node_hien_tai.next
-
         return ket_qua
 
     def __str__(self):
-        """Trả về chuỗi mô tả toàn bộ danh sách."""
         danh_sach = []
         node_hien_tai = self.head
         while node_hien_tai is not None:
             danh_sach.append(str(node_hien_tai.data))
             node_hien_tai = node_hien_tai.next
         return ' <-> '.join(danh_sach)
+
+    def __len__(self):
+        return self.so_luong
