@@ -32,6 +32,10 @@ class DoublyLinkedList:
 
     # ==================== THÊM PHẦN TỬ ====================
 
+    # ============================================================
+    # THÊM PHẦN TỬ
+    # ============================================================
+
     def them_vao_cuoi(self, data):
         """
         insert_tail() - Thêm một phần tử mới vào cuối danh sách.
@@ -61,13 +65,14 @@ class DoublyLinkedList:
                 if node_hien_tai == self.head:
                     self.head = node_hien_tai.next
                     if self.head is not None:
-                        self.head.truoc = None
+                        self.head.truoc = None  # Node đầu mới không có truoc
                     else:
                         self.cuoi = None
                 elif node_hien_tai == self.cuoi:
                     self.cuoi = node_hien_tai.truoc
                     self.cuoi.next = None
                 else:
+                    # Bỏ qua Node hiện tại bằng cách nối Node trước và Node sau
                     node_hien_tai.truoc.next = node_hien_tai.next
                     node_hien_tai.next.truoc = node_hien_tai.truoc
                 self.so_luong -= 1
@@ -231,17 +236,23 @@ class DoublyLinkedList:
 
     # ==================== SẮP XẾP (MERGE SORT) ====================
 
+    # ============================================================
+    # SẮP XẾP - THUẬT TOÁN MERGE SORT
+    # ============================================================
+
     def sap_xep_tron(self, tieu_chi='gia_ban'):
         """
         sort_list() - Sắp xếp danh sách liên kết bằng thuật toán Merge Sort.
         Hỗ trợ sắp xếp theo: gia_ban, ten_san_pham, ton_kho.
         Độ phức tạp: O(n log n).
         """
+        # Danh sách rỗng hoặc chỉ có 1 phần tử → không cần sắp xếp
         if self.head is None or self.head.next is None:
             return
         nua_dau, nua_sau = self._chia_doi()
         ds_nua_dau = DoublyLinkedList()
         ds_nua_dau.head = nua_dau
+        # Tìm Node cuối của nửa đầu
         node_cuoi_dau = nua_dau
         while node_cuoi_dau.next is not None:
             node_cuoi_dau = node_cuoi_dau.next
@@ -249,6 +260,7 @@ class DoublyLinkedList:
         ds_nua_dau.so_luong = self._dem_node(nua_dau)
         ds_nua_sau = DoublyLinkedList()
         ds_nua_sau.head = nua_sau
+        # Tìm Node cuối của nửa sau
         node_cuoi_sau = nua_sau
         while node_cuoi_sau.next is not None:
             node_cuoi_sau = node_cuoi_sau.next
@@ -267,7 +279,7 @@ class DoublyLinkedList:
             con_tro_nhanh = con_tro_nhanh.next.next
         nua_dau = self.head
         nua_sau = con_tro_cham.next
-        con_tro_cham.next = None
+        con_tro_cham.next = None   # Cắt liên kết giữa hai nửa
         if nua_sau is not None:
             nua_sau.truoc = None
         return (nua_dau, nua_sau)
@@ -279,6 +291,7 @@ class DoublyLinkedList:
         node_a = ds_a.head
         node_b = ds_b.head
         while node_a is not None and node_b is not None:
+            # Lấy giá trị để so sánh
             gia_tri_a = self._lay_gia_tri(node_a.data, tieu_chi)
             gia_tri_b = self._lay_gia_tri(node_b.data, tieu_chi)
             if gia_tri_a <= gia_tri_b:

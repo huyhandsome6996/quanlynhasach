@@ -8,6 +8,7 @@ Danh_sach_cua_hang = None
 def khoi_tao_danh_sach():
     global Danh_sach_cua_hang
     from .loi_thuat_toan.danh_sach_lien_ket import DoublyLinkedList
+    from .loi_thuat_toan.cau_truc_du_lieu import NganXep, HangDoi
     from .loi_thuat_toan.ket_noi_sqlite import tai_du_lieu
     Danh_sach_cua_hang = DoublyLinkedList()
     tai_du_lieu(Danh_sach_cua_hang)
@@ -15,6 +16,10 @@ def khoi_tao_danh_sach():
         print(f'[KHOI DONG] Da nap {Danh_sach_cua_hang.so_luong} mat hang vao danh sach lien ket doi.')
     except UnicodeEncodeError:
         print(f'[KHOI DONG] Da nap {Danh_sach_cua_hang.so_luong} mat hang.')
+
+# ============================================================
+# TRANG CHỦ
+# ============================================================
 
 def trang_chu(request):
     if Danh_sach_cua_hang is None:
@@ -26,6 +31,10 @@ def lay_danh_sach(request):
         khoi_tao_danh_sach()
     danh_sach = Danh_sach_cua_hang.chuyen_thanh_danh_sach()
     return JsonResponse({'trang_thai': 'thanh_cong', 'so_luong': Danh_sach_cua_hang.so_luong, 'danh_sach': danh_sach})
+
+# ============================================================
+# API: THÊM SẢN PHẨM
+# ============================================================
 
 @csrf_exempt
 @require_http_methods(['POST'])
@@ -54,12 +63,18 @@ def them_san_pham(request):
         if loai_hang == 'Sách':
             tac_gia = du_lieu.get('tac_gia', '').strip()
             nha_xuat_ban = du_lieu.get('nha_xuat_ban', '').strip()
+            if not tac_gia or not nha_xuat_ban:
+                return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Vui lòng nhập tác giả và nhà xuất bản.'}, status=400)
             san_pham_moi = Sach(ma_so, ten_san_pham, gia_co_ban, ton_kho, tac_gia, nha_xuat_ban)
         elif loai_hang == 'Tạp chí':
             so_phat_hanh = du_lieu.get('so_phat_hanh', '').strip()
+            if not so_phat_hanh:
+                return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Vui lòng nhập số phát hành.'}, status=400)
             san_pham_moi = TapChi(ma_so, ten_san_pham, gia_co_ban, ton_kho, so_phat_hanh)
         elif loai_hang == 'Báo giấy':
             ngay_xuat_ban = du_lieu.get('ngay_xuat_ban', '').strip()
+            if not ngay_xuat_ban:
+                return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Vui lòng nhập ngày xuất bản.'}, status=400)
             san_pham_moi = BaoGiay(ma_so, ten_san_pham, gia_co_ban, ton_kho, ngay_xuat_ban)
         else:
             return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Loại hàng không hợp lệ.'}, status=400)
@@ -102,6 +117,10 @@ def tim_kiem_san_pham(request):
         if hasattr(mat_hang, 'chuyen_thanh_dict'):
             danh_sach_ket_qua.append(mat_hang.chuyen_thanh_dict())
     return JsonResponse({'trang_thai': 'thanh_cong', 'so_luong': len(danh_sach_ket_qua), 'danh_sach': danh_sach_ket_qua})
+
+# ============================================================
+# API: SẮP XẾP
+# ============================================================
 
 def sap_xep_danh_sach(request):
     if Danh_sach_cua_hang is None:

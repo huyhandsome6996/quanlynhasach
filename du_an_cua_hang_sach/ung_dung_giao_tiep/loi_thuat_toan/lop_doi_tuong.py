@@ -31,13 +31,17 @@ class MatHang(ABC):
             'ten_san_pham': self.ten_san_pham,
             'gia_co_ban': self.gia_co_ban,
             'ton_kho': self.ton_kho,
-            'gia_ban': self.tinh_gia_ban()
+            'gia_ban': self.tinh_gia_ban()  # Gọi phương thức đa hình
         }
 
     def __str__(self):
         """Ghi đè __str__ - tính đa hình khi in đối tượng."""
         return f'[{self.ma_so}] {self.loai_hang} - {self.ten_san_pham} | Giá bán: {self.tinh_gia_ban():.0f}đ | Tồn kho: {self.ton_kho}'
 
+
+# ============================================================
+# CÁC LỚP CON - KẾ THỪA TỪ MatHang
+# ============================================================
 
 class Sach(MatHang):
     """

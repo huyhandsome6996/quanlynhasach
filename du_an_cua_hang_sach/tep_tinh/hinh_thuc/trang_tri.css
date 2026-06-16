@@ -67,7 +67,18 @@ body {
 .nhom_tim_kiem {
     display: flex;
     flex: 1;
-    min-width: 250px;
+    min-width: 280px;
+}
+
+.tim_tieu_chi {
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    background: #f8f9ff;
 }
 
 .nhom_tim_kiem input {
@@ -75,7 +86,6 @@ body {
     padding: 10px 15px;
     border: 2px solid #e0e0e0;
     border-right: none;
-    border-radius: 6px 0 0 6px;
     font-size: 14px;
     outline: none;
     transition: border-color 0.3s;
@@ -114,6 +124,13 @@ body {
 
 .nhom_sap_xep select:focus {
     border-color: #1a237e;
+}
+
+/* Nhóm chức năng */
+.nhom_chuc_nang {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 /* ========== Các nút bấm ========== */
@@ -158,6 +175,56 @@ body {
     transform: translateY(-1px);
 }
 
+.nut_thong_ke {
+    background-color: #00897b;
+    color: white;
+}
+
+.nut_thong_ke:hover {
+    background-color: #00695c;
+    transform: translateY(-1px);
+}
+
+.nut_gio_hang {
+    background-color: #f57c00;
+    color: white;
+    position: relative;
+}
+
+.nut_gio_hang:hover {
+    background-color: #e65100;
+    transform: translateY(-1px);
+}
+
+.dem_gio {
+    background-color: #e53935;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 6px;
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+.nut_hoan_tac {
+    background-color: #7b1fa2;
+    color: white;
+}
+
+.nut_hoan_tac:hover {
+    background-color: #6a1b9a;
+    transform: translateY(-1px);
+}
+
+.nut_lam_lai {
+    background-color: #9c27b0;
+    color: white;
+}
+
+.nut_lam_lai:hover {
+    background-color: #7b1fa2;
+    transform: translateY(-1px);
+}
+
 .nut_them {
     background-color: #ff6f00;
     color: white;
@@ -180,11 +247,108 @@ body {
     background-color: #c62828;
 }
 
+.nut_sua {
+    background-color: #1565c0;
+    color: white;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.nut_sua:hover {
+    background-color: #0d47a1;
+}
+
+.nut_gio_nho {
+    background-color: #f57c00;
+    color: white;
+    padding: 6px 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.nut_gio_nho:hover {
+    background-color: #e65100;
+}
+
+.nhom_thao_tac {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
 /* ========== Nội dung chính ========== */
 .noi_dung_chinh {
     max-width: 1200px;
     margin: 20px auto;
     padding: 0 20px;
+}
+
+/* ========== Thống kê ========== */
+.khu_vuc_thong_ke {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.khu_vuc_thong_ke h3 {
+    color: #1a237e;
+    margin-bottom: 15px;
+}
+
+.bang_thong_ke {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.the_thong_ke {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.so_lieu {
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #e3f2fd, #f5f7ff);
+    border-radius: 8px;
+}
+
+.so_lieu .so {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a237e;
+}
+
+.so_lieu .nhan_so {
+    font-size: 13px;
+    color: #666;
+}
+
+.the_chi_tiet {
+    padding: 12px;
+    background: #fafbff;
+    border-radius: 8px;
+    border-left: 4px solid #1a237e;
+}
+
+.the_chi_tiet h4 {
+    color: #1a237e;
+    margin-bottom: 5px;
+}
+
+.the_chi_tiet p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 3px;
 }
 
 /* ========== Thông báo ========== */
@@ -295,6 +459,16 @@ body {
     color: #2e7d32;
 }
 
+.nhan_luan_van {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.nhan_ban_thao {
+    background-color: #fce4ec;
+    color: #c62828;
+}
+
 /* ========== Hộp thoại (Modal) ========== */
 .hop_thoai {
     position: fixed;
@@ -383,19 +557,6 @@ body {
     border-color: #1a237e;
 }
 
-.nhom_nhap input.loi_nhap,
-.nhom_nhap select.loi_nhap {
-    border-color: #e53935;
-    background-color: #fff5f5;
-}
-
-.nhap_loi {
-    color: #e53935;
-    font-size: 12px;
-    margin-top: 4px;
-    display: none;
-}
-
 .nhom_rieng {
     padding: 15px;
     background-color: #f8f9ff;
@@ -414,6 +575,36 @@ body {
     flex: 1;
     padding: 12px;
     font-size: 16px;
+}
+
+/* ========== Giỏ hàng ========== */
+.noi_dung_gio {
+    padding: 20px;
+}
+
+.bang_gio_hang {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.bang_gio_hang th {
+    padding: 10px;
+    background: #1a237e;
+    color: white;
+    text-align: left;
+}
+
+.bang_gio_hang td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.tong_tien_gio {
+    text-align: right;
+    padding: 15px 0;
+    font-size: 18px;
+    color: #1a237e;
 }
 
 /* ========== Chân trang ========== */
@@ -441,6 +632,10 @@ body {
         justify-content: center;
     }
 
+    .nhom_chuc_nang {
+        justify-content: center;
+    }
+
     .tieu_de_chinh h1 {
         font-size: 22px;
     }
@@ -449,6 +644,10 @@ body {
     #bang_san_pham td {
         padding: 8px 10px;
         font-size: 12px;
+    }
+
+    .the_thong_ke {
+        flex-direction: column;
     }
 }
 

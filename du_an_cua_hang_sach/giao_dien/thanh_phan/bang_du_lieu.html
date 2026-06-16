@@ -3,6 +3,15 @@
     <!-- Thông báo -->
     <div id="thong_bao" class="thong_bao an_di"></div>
 
+    <!-- Khu vực thống kê (ẩn mặc định) -->
+    <div id="khu_vuc_thong_ke" class="khu_vuc_thong_ke an_di">
+        <h3>Thống kê cửa hàng</h3>
+        <div class="bang_thong_ke" id="bang_thong_ke">
+            <!-- Sẽ được JavaScript render vào đây -->
+        </div>
+        <button class="nut nut_phu" onclick="document.getElementById('khu_vuc_thong_ke').classList.add('an_di')">Đóng thống kê</button>
+    </div>
+
     <!-- Bảng hiển thị dữ liệu -->
     <div class="bang_du_lieu">
         <table id="bang_san_pham">
@@ -19,7 +28,6 @@
                 </tr>
             </thead>
             <tbody id="than_bang">
-                <!-- Dữ liệu sẽ được JavaScript render vào đây -->
                 <tr>
                     <td colspan="8" class="dang_tai">Đang tải dữ liệu...</td>
                 </tr>
