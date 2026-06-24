@@ -6,6 +6,8 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from models.subclasses import Sach, TapChi, Bao, LuanVan, BanThao
 from models.linked_list import DanhSachLienKetDoi
+from models.ngan_xep import NganXep       # Stack LIFO
+from models.hang_doi import HangDoi       # Queue FIFO
 from data.sqlite_db import luu_du_lieu_sqlite, doc_du_lieu_sqlite
 
 print("=" * 60)
@@ -19,11 +21,11 @@ if os.path.exists(db_path):
 
 # 2. Khởi tạo đối tượng OOP (Tính Đa Hình)
 #    Mỗi loại có cách tính giá bán khác nhau:
-#       - Sách      = giá cơ bản * 1.20  (+20%)
-#       - Tạp chí    = giá cơ bản * 0.90  (-10%)
-#       - Báo        = giá cơ bản * 1.00  (giữ nguyên)
-#       - Luận văn   = giá cơ bản * 1.30  (+30%)
-#       - Bản thảo mới = giá cơ bản * 1.50 (+50%)
+#       - Sách          = giá cơ bản * 1.20  (+20%)
+#       - Tạp chí       = giá cơ bản * 0.90  (-10%)
+#       - Báo           = giá cơ bản * 1.00  (giữ nguyên)
+#       - Luận văn      = giá cơ bản * 1.30  (+30%)
+#       - Bản thảo mới  = giá cơ bản * 1.50  (+50%)
 sp1 = Sach("S01", "Lập trình C++ Nâng cao",  100000, 10, "Bjarne",   "NXB Trẻ")
 sp2 = TapChi("T01", "Công Nghệ PC",           50000, 20, "Số 15")
 sp3 = Bao("B01",   "Báo Tuổi Trẻ",            5000,  100, "25/06/2025")
@@ -65,17 +67,77 @@ print("\n5. XÓA SẢN PHẨM MÃ 'B01':")
 ds.xoa_nut_theo_ma("B01")
 print(f"   → Còn lại {ds.so_luong} sản phẩm trong danh sách")
 
-# 7. Kiểm thử Lưu trữ SQLite
-print("\n6. LƯU DỮ LIỆU VÀO SQLITE:")
+# ====================================================================
+# 7. KIỂM THỬ NGĂN XẾP (STACK) - Dùng cho UNDO/REDO
+# ====================================================================
+print("\n" + "=" * 60)
+print("6. KIỂM THỬ NGĂN XẾP (STACK LIFO)")
+print("=" * 60)
+ngan_xep = NganXep()
+
+# Đẩy 3 thao tác vào
+ngan_xep.day_vao({"thao_tac": "them", "sp": sp1})
+ngan_xep.day_vao({"thao_tac": "them", "sp": sp2})
+ngan_xep.day_vao({"thao_tac": "xoa",  "sp": sp3})
+print(f"   - Đã đẩy 3 phần tử. Số lượng: {ngan_xep.so_luong}")
+print(f"   - Phần tử trên đỉnh (Peek): {ngan_xep.xem_dinh()['thao_tac']}")
+
+# Lấy ra theo LIFO (vào sau, ra trước)
+print("   - Lấy ra theo thứ tự LIFO:")
+while not ngan_xep.rong():
+    pt = ngan_xep.lay_ra()
+    print(f"     → {pt['thao_tac']} {pt['sp'].ma_so}")
+
+# ====================================================================
+# 8. KIỂM THỬ HÀNG ĐỢI (QUEUE) - Dùng cho GIỎ HÀNG
+# ====================================================================
+print("\n" + "=" * 60)
+print("7. KIỂM THỬ HÀNG ĐỢI (QUEUE FIFO) - MÔ PHỎNG GIỎ HÀNG")
+print("=" * 60)
+gio_hang = HangDoi()
+
+# Thêm 3 món vào giỏ (giống người dùng click "Thêm vào giỏ")
+gio_hang.them_vao(sp1)
+gio_hang.them_vao(sp2)
+gio_hang.them_vao(sp4)
+print(f"   - Đã thêm 3 món vào giỏ. Số lượng: {gio_hang.so_luong}")
+
+# Xem danh sách món trong giỏ
+print("   - Các món trong giỏ (theo thứ tự FIFO):")
+tong_tien = 0
+for i, sp in enumerate(gio_hang.xem_danh_sach()):
+    gia = sp.tinh_gia_ban()
+    tong_tien += gia
+    print(f"     {i+1}. [{sp.ma_so}] {sp.ten} - {gia:,.0f} đ")
+print(f"   - TỔNG TIỀN: {tong_tien:,.0f} đ")
+
+# Thanh toán: lấy từng món ra theo FIFO (vào trước, ra trước)
+print("   - Bắt đầu thanh toán (lấy ra theo FIFO):")
+tong_thanh_toan = 0
+while not gio_hang.rong():
+    sp = gio_hang.lay_ra()
+    gia = sp.tinh_gia_ban()
+    tong_thanh_toan += gia
+    print(f"     → Đã thanh toán: [{sp.ma_so}] {sp.ten} - {gia:,.0f} đ")
+print(f"   - TỔNG ĐÃ THANH TOÁN: {tong_thanh_toan:,.0f} đ")
+print(f"   - Giỏ hàng rỗng sau khi thanh toán? {gio_hang.rong()}")
+
+# ====================================================================
+# 9. KIỂM THỬ LƯU TRỮ SQLITE
+# ====================================================================
+print("\n" + "=" * 60)
+print("8. LƯU DỮ LIỆU VÀO SQLITE")
+print("=" * 60)
 luu_du_lieu_sqlite(ds.duyet_danh_sach())
 print("   → Đã lưu thành công")
 
-# 8. Đọc từ SQLite và kiểm tra đa hình
-print("\n7. ĐỌC DỮ LIỆU TỪ SQLITE (kiểm tra đa hình có còn không):")
+# 10. Đọc từ SQLite và kiểm tra đa hình
+print("\n9. ĐỌC DỮ LIỆU TỪ SQLITE (kiểm tra đa hình có còn không):")
 data_tu_db = doc_du_lieu_sqlite()
 for sp in data_tu_db:
     print(f"   {sp.__class__.__name__:10} | {sp}")
 
 print("\n" + "=" * 60)
 print("MỌI THỨ HOẠT ĐỘNG HOÀN HẢO!")
+print("Đã kiểm tra đủ: OOP + Linked List + Stack + Queue + SQLite")
 print("=" * 60)
