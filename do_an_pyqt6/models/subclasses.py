@@ -1,3 +1,25 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: PHAN ANH TÚ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI (RẤT QUAN TRỌNG - HAY HỎI THI):
+#    1. KẾ THỪA (Inheritance): class Sach(MatHang) -> Sach con của MatHang
+#    2. super().__init__(...) -> gọi hàm tạo của lớp CHA
+#    3. GHI ĐÈ PHƯƠNG THỨC (Override): định nghĩa lại tinh_gia_ban()
+#       ở từng lớp con với công thức khác nhau.
+#    4. TÍNH ĐA HÌNH (Polymorphism): cùng 1 lời gọi tinh_gia_ban()
+#       nhưng mỗi loại đối tượng trả về kết quả khác nhau.
+#    5. 5 LỚP CON: Sach, TapChi, Bao, LuanVan, BanThao
+#       - Sach     : gia_ban = gia_co_ban * 1.20 (+20%)
+#       - TapChi   : gia_ban = gia_co_ban * 0.90 (-10%)
+#       - Bao      : gia_ban = gia_co_ban * 1.00 (giữ nguyên)
+#       - LuanVan  : gia_ban = gia_co_ban * 1.30 (+30%)
+#       - BanThao  : gia_ban = gia_co_ban * 1.50 hoặc 1.20 (theo tình trạng)
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    5 lớp con kế thừa từ MatHang. Mỗi lớp có thêm thuộc tính riêng
+#    và ghi đè phương thức tinh_gia_ban() theo công thức riêng.
+# ================================================================
+
 from models.item import MatHang
 
 # ====================================================================

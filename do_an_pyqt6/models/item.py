@@ -1,3 +1,20 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: PHAN ANH TÚ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. LỚP (Class) trong Python - cú pháp class + __init__
+#    2. Thuộc tính (Attribute) + self
+#    3. Phương thức (Method) - hàm bên trong lớp
+#    4. Ép kiểu an toàn: str(), float(), int()
+#    5. Đây là LỚP CHA - sẽ bị 5 LỚP CON KẾ THỪA và GHI ĐÈ
+#       tinh_gia_ban() -> đây chính là TÍNH ĐA HÌNH (polymorphism)
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Lớp MatHang (lớp cha). Chứa các thuộc tính chung cho mọi loại
+#    mặt hàng: ma_so, ten, gia_co_ban, so_luong. Phương thức
+#    tinh_gia_ban() mặc định trả về gia_co_ban (lớp con sẽ ghi đè).
+# ================================================================
+
 # Lớp cha: Mặt hàng (Item)
 # Chứa các thuộc tính chung cho mọi loại mặt hàng.
 class MatHang:

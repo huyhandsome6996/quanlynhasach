@@ -1,3 +1,19 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: BÙI GIA NGỌ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. SQLite - tạo bảng CREATE TABLE IF NOT EXISTS
+#    2. SQLite - INSERT, DELETE, SELECT (câu lệnh SQL cơ bản)
+#    3. Thư viện sqlite3 của Python: connect, cursor, execute, commit
+#    4. Kết hợp OOP + CSDL: dùng TÍNH ĐA HÌNH khi đọc/ghi sản phẩm
+#    5. Xử lý ngoại lệ try/except để chương trình không bị crash
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Toàn bộ thao tác lưu/đọc dữ liệu xuống file SQLite. Bảng SanPham
+#    có 7 cột (ma_so, loai, ten, gia_co_ban, so_luong, thong_tin_1,
+#    thong_tin_2). Khi đọc lên, dùng đa hình để tạo đúng lớp con.
+# ================================================================
+
 import sqlite3
 import os
 from models.subclasses import Sach, TapChi, Bao, LuanVan, BanThao

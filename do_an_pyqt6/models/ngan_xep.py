@@ -1,3 +1,18 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: BÙI GIA NGỌ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. NGĂN XẾP (STACK) - cấu trúc LIFO: Last In, First Out
+#    2. Tưởng tượng như CHỒNG ĐĨA: đĩa để cuối cùng lấy ra trước
+#    3. 3 thao tác chính: PUSH (day_vao), POP (lay_ra), PEEK (xem_dinh)
+#    4. Ứng dụng: tính năng UNDO/REDO trong phần mềm
+#    5. Cài đặt bằng Linked List (mỗi Node có 1 con trỏ duoi)
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Cài đặt NganXep (Stack) bằng con trỏ. Dùng trong main_window.py
+#    để tạo 2 Stack: ngan_xep_hoan_tac (Undo) + ngan_xep_lam_lai (Redo).
+# ================================================================
+
 # ====================================================================
 # NGĂN XẾP (STACK) - Cấu trúc LIFO: Vào sau, ra trước
 # --------------------------------------------------------------------

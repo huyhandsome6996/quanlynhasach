@@ -1,3 +1,22 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: HỒ QUANG HUY
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. PyQt6 - QMainWindow, QHBoxLayout, QVBoxLayout, QTableWidget
+#    2. Bắt sự kiện click nút (.clicked.connect)
+#    3. Undo/Redo dùng 2 Stack (LIFO) - đây là phần thi hay hỏi
+#    4. Giỏ hàng dùng Queue (FIFO) - kết nối với hang_doi.py
+#    5. Phân quyền: ẩn/hiện nút Xóa theo vai trò (Admin/Nhân viên)
+#    6. Thống kê: tính tổng giá trị kho bằng TÍNH ĐA HÌNH
+#    7. Tìm kiếm nâng cao theo: Tất cả / Tên / Mã / Loại
+#    8. Sắp xếp theo: Tên / Mã / Giá cơ bản / Giá bán / Số lượng
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Toàn bộ giao diện chính + logic xử lý của chương trình. File
+#    lớn nhất, khó nhất. Bám sát cấu trúc dữ liệu tự cài (không dùng
+#    list Python để lưu sản phẩm mà dùng DanhSachLienKetDoi).
+# ================================================================
+
 import os
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QPushButton, QTableWidget, QTableWidgetItem, QHeaderView,

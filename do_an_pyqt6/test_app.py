@@ -1,3 +1,21 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: BÙI GIA NGỌ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. Cách viết test case bằng Python (gọi hàm + in ra + assert)
+#    2. Kiểm thử OOP đa hình (mỗi lớp con có giá bán khác nhau)
+#    3. Kiểm thử Linked List: thêm, xóa, tìm kiếm, sắp xếp
+#    4. Kiểm thử Stack LIFO (đẩy 3 phần tử, lấy ra theo LIFO)
+#    5. Kiểm thử Queue FIFO (mô phỏng giỏ hàng + thanh toán)
+#    6. Kiểm thử SQLite (lưu rồi đọc lên xem đa hình còn không)
+#    7. Kiểm thử phân quyền (sai mk, sai tên, admin, nhân viên)
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    File kiểm thử tự nguyên dự án. Mở terminal gõ:
+#       python test_app.py
+#    Nếu in ra "MỌI THỨ HOẠT ĐỘNG HOÀN HẢO!" là pass.
+# ================================================================
+
 import os
 import sys
 

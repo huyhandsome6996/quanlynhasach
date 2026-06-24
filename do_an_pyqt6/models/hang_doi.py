@@ -1,3 +1,21 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: PHAN ANH TÚ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. HÀNG ĐỢI (QUEUE) - cấu trúc FIFO: First In, First Out
+#    2. Tưởng tượng như XẾP HÀNG MUA VÉ: người đến trước phục vụ trước
+#    3. 3 thao tác chính: ENQUEUE (them_vao), DEQUEUE (lay_ra), PEEK
+#    4. Ứng dụng: GIỎ HÀNG trong phần mềm (món nào thêm trước thanh toán trước)
+#    5. Cài đặt bằng Linked List: mỗi Node có 1 con trỏ `sau`
+#    6. Có 2 con trỏ quản lý: `dau` (để lấy ra) + `cuoi` (để thêm vào)
+#    7. Đây là tính năng "THÊM ĐIỂM" theo barem: Giỏ hàng dùng Queue
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Cài đặt HangDoi (Queue) bằng con trỏ. Dùng trong main_window.py
+#    để làm GIỎ HÀNG. Món nào khách bấm "Thêm vào giỏ" trước sẽ được
+#    thanh toán trước (FIFO).
+# ================================================================
+
 # ====================================================================
 # HÀNG ĐỢI (QUEUE) - Cấu trúc FIFO: Vào trước, ra trước
 # --------------------------------------------------------------------

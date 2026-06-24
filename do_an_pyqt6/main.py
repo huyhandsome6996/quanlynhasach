@@ -1,3 +1,19 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: HỒ QUANG HUY
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. PyQt6 - QApplication (bắt buộc có 1 instance)
+#    2. Vòng lặp đăng nhập: while True + dialog
+#    3. Style toàn cục (QSS - giống CSS của web)
+#    4. Quy trình: đăng nhập -> mở cửa sổ chính -> đăng xuất -> lặp lại
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Đây là FILE CHẠY ĐẦU TIÊN của chương trình (entry point).
+#    Mở terminal gõ:  python main.py
+#    File này khởi tạo QApplication, hiện màn hình đăng nhập, sau đó
+#    mở cửa sổ chính (CuaSoChinh) và truyền người dùng vào để phân quyền.
+# ================================================================
+
 import sys
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import CuaSoChinh

@@ -1,3 +1,21 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: PHAN ANH TÚ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. PyQt6 - QDialog (hộp thoại pop-up)
+#    2. Các widget cơ bản: QLabel, QLineEdit, QComboBox, QSpinBox,
+#       QDoubleSpinBox, QPushButton
+#    3. Layout: QVBoxLayout (xếp dọc), QHBoxLayout (xếp ngang)
+#    4. Bắt sự kiện: .clicked.connect(tên_hàm)
+#    5. Kiểm tra dữ liệu nhập (validation): bắt lỗi bỏ trống, sai định dạng
+#    6. Tạo đối tượng OOP từ dữ liệu form (gọi constructor lớp con)
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Hộp thoại HopThoaiThemMoi: dùng cho cả THÊM MỚI và SỬA sản phẩm.
+#    Form tự ẩn/hiện ô nhập theo loại mặt hàng (Sách có 2 ô: tác giả
+#    + NXB, còn Tạp chí chỉ có 1 ô: số phát hành).
+# ================================================================
+
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout,
                              QLabel, QLineEdit, QPushButton, QComboBox,
                              QMessageBox, QSpinBox, QDoubleSpinBox)

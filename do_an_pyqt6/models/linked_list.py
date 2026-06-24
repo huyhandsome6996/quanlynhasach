@@ -1,3 +1,18 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: HỒ QUANG HUY
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. Danh sách liên kết ĐÔI (Doubly Linked List) - con trỏ trước/sau
+#    2. Thao tác: thêm cuối, xóa theo mã, tìm kiếm, duyệt
+#    3. Thuật toán MERGE SORT (đệ quy) trên Linked List
+#    4. Kỹ thuật 2 con trỏ (nhanh/chậm) để tìm điểm giữa
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Cài đặt cấu trúc Node + lớp DanhSachLienKetDoi. Đây là xương
+#    sống của chương trình: mọi sản phẩm đều được lưu trong cấu trúc
+#    này trên RAM trước khi ghi xuống SQLite.
+# ================================================================
+
 # Cài đặt cấu trúc Node cho Danh sách liên kết đôi
 class Nut:
     def __init__(self, du_lieu):

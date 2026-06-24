@@ -1,3 +1,20 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: PHAN ANH TÚ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. PyQt6 - QDialog + QLineEdit (ô nhập văn bản)
+#    2. QLineEdit.EchoMode.Password - ẩn mật khẩu thành dấu chấm
+#    3. Bắt sự kiện nhấn Enter: .returnPressed.connect(...)
+#    4. Gọi hàm kiểm tra đăng nhập từ models.nguoi_dung
+#    5. QMessageBox.warning / .critical / .information - hộp thoại thông báo
+#    6. Đây là giao diện của tính năng "THÊM ĐIỂM": Đăng nhập phân quyền
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Hộp thoại HopThoaiDangNhap: form nhập tên đăng nhập + mật khẩu.
+#    Nếu đúng -> lưu người dùng vào self.nguoi_dung_hien_tai và đóng
+#    hộp thoại (self.accept()). Nếu sai -> báo lỗi và xóa mật khẩu.
+# ================================================================
+
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout,
                              QLabel, QLineEdit, QPushButton,
                              QMessageBox, QFrame)

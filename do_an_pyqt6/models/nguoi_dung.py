@@ -1,3 +1,18 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: BÙI GIA NGỌ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. Lớp (Class) + Hàm tạo __init__ + Phương thức (Method)
+#    2. Phân quyền: 2 vai trò (Admin / Nhân viên)
+#    3. Hàm kiểm tra đăng nhập (duyệt danh sách + so sánh chuỗi)
+#    4. Đây là tính năng "THÊM ĐIỂM" theo barem: Đăng nhập phân quyền
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Cài đặt lớp NguoiDung + danh sách tài khoản mẫu + hàm
+#    kiem_tra_dang_nhap(). Trả về đối tượng NguoiDung nếu đúng,
+#    trả về None nếu sai.
+# ================================================================
+
 # ====================================================================
 # NGƯỜI DÙNG & PHÂN QUYỀN (Admin / Nhân viên)
 # --------------------------------------------------------------------

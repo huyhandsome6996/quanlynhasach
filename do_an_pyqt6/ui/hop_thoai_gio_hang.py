@@ -1,3 +1,20 @@
+# ================================================================
+# 👤 PHỤ TRÁCH: PHAN ANH TÚ
+# ----------------------------------------------------------------
+# 📚 KIẾN THỨC CẦN HỌC ĐI THI:
+#    1. PyQt6 - QTableWidget (bảng hiển thị)
+#    2. QTableWidgetItem - ô trong bảng
+#    3. QHeaderView.ResizeMode.Stretch - tự động giãn cột
+#    4. Truy cập đối tượng cha (parent) qua self.cua_so_cha
+#    5. Vòng lặp while not <queue>.rong(): để duyệt + lấy ra FIFO
+#    6. Đây là giao diện của tính năng "THÊM ĐIỂM": Giỏ hàng dùng Queue
+# ----------------------------------------------------------------
+# 📝 NỘI DUNG FILE:
+#    Hộp thoại HopThoaiGioHang: bảng hiển thị các sản phẩm trong giỏ
+#    (theo thứ tự FIFO), nút Bỏ khỏi giỏ, nút Thanh Toán (lấy từng món
+#    ra theo FIFO, trừ tồn kho, lưu xuống SQLite).
+# ================================================================
+
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout,
                              QLabel, QPushButton, QTableWidget,
                              QTableWidgetItem, QHeaderView, QMessageBox)
