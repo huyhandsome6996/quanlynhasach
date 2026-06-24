@@ -145,25 +145,31 @@ class HopThoaiGioHang(QDialog):
         tong_tien = 0.0
         so_mon = 0
 
-        # Lấy từng món theo thứ tự FIFO (vào trước, ra trước)
-        while not self.cua_so_cha.gio_hang.rong():
-            sp = self.cua_so_cha.gio_hang.lay_ra()
-            # Tìm sản phẩm trong kho để giảm tồn kho
-            sp_trong_kho = self.cua_so_cha.danh_sach.tim_kiem_theo_ma(sp.ma_so)
-            if sp_trong_kho is not None and sp_trong_kho.so_luong > 0:
-                sp_trong_kho.so_luong -= 1
-                tong_tien += sp.tinh_gia_ban()
-                so_mon += 1
+        # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+        try:
+            # Lấy từng món theo thứ tự FIFO (vào trước, ra trước)
+            while not self.cua_so_cha.gio_hang.rong():
+                sp = self.cua_so_cha.gio_hang.lay_ra()
+                # Tìm sản phẩm trong kho để giảm tồn kho
+                sp_trong_kho = self.cua_so_cha.danh_sach.tim_kiem_theo_ma(sp.ma_so)
+                if sp_trong_kho is not None and sp_trong_kho.so_luong > 0:
+                    sp_trong_kho.so_luong -= 1
+                    tong_tien += sp.tinh_gia_ban()
+                    so_mon += 1
 
-        # Lưu lại dữ liệu xuống SQLite
-        self.cua_so_cha.luu_du_lieu_ra_file()
-        self.cua_so_cha.cap_nhat_bang_hien_thi()
-        self.cap_nhat_bang_gio_hang()
+            # Lưu lại dữ liệu xuống SQLite
+            self.cua_so_cha.luu_du_lieu_ra_file()
+            self.cua_so_cha.cap_nhat_bang_hien_thi()
+            self.cap_nhat_bang_gio_hang()
 
-        QMessageBox.information(
-            self, "Thanh Toán Thành Công",
-            f"Đã thanh toán {so_mon} món hàng.\n"
-            f"Tổng tiền: {tong_tien:,.0f} đ\n"
-            f"Cảm ơn quý khách!"
-        )
-        self.close()
+            QMessageBox.information(
+                self, "Thanh Toán Thành Công",
+                f"Đã thanh toán {so_mon} món hàng.\n"
+                f"Tổng tiền: {tong_tien:,.0f} đ\n"
+                f"Cảm ơn quý khách!"
+            )
+            self.close()
+        except Exception as e:
+            # Nếu có lỗi khi thanh toán → báo lỗi, KHÔNG crash
+            QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                 f"Đã có lỗi xảy ra khi THANH TOÁN:\n{str(e)}")

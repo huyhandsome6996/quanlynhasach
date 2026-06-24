@@ -219,25 +219,31 @@ class CuaSoChinh(QMainWindow):
         """Mở hộp thoại Thêm sản phẩm mới."""
         hop_thoai = HopThoaiThemMoi(self)  # Không truyền san_pham_cu → chế độ THÊM
         if hop_thoai.exec() == QDialog.DialogCode.Accepted:
-            sp_moi = hop_thoai.san_pham_moi
+            # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+            try:
+                sp_moi = hop_thoai.san_pham_moi
 
-            # Kiểm tra trùng mã ID trước khi thêm
-            if self.danh_sach.tim_kiem_theo_ma(sp_moi.ma_so):
-                QMessageBox.warning(self, "Lỗi", "Mã sản phẩm này đã tồn tại trong kho!")
-                return
+                # Kiểm tra trùng mã ID trước khi thêm
+                if self.danh_sach.tim_kiem_theo_ma(sp_moi.ma_so):
+                    QMessageBox.warning(self, "Lỗi", "Mã sản phẩm này đã tồn tại trong kho!")
+                    return
 
-            # Thêm vào Danh Sách Liên Kết Đôi
-            self.danh_sach.them_vao_cuoi(sp_moi)
-            self.luu_du_lieu_ra_file()
-            self.cap_nhat_bang_hien_thi()
+                # Thêm vào Danh Sách Liên Kết Đôi
+                self.danh_sach.them_vao_cuoi(sp_moi)
+                self.luu_du_lieu_ra_file()
+                self.cap_nhat_bang_hien_thi()
 
-            # Ghi vào Stack Undo (để có thể Hoàn Tác được)
-            # Thao tác này là "THÊM" → Undo sẽ XÓA sản phẩm đó đi
-            self.ngan_xep_hoan_tac.day_vao({"thao_tac": "them", "sp": sp_moi})
-            # Khi có thao tác mới → xóa sạch ngăn xếp Redo (chuỗi redo bị đứt)
-            self.ngan_xep_lam_lai.xoa_tat_ca()
+                # Ghi vào Stack Undo (để có thể Hoàn Tác được)
+                # Thao tác này là "THÊM" → Undo sẽ XÓA sản phẩm đó đi
+                self.ngan_xep_hoan_tac.day_vao({"thao_tac": "them", "sp": sp_moi})
+                # Khi có thao tác mới → xóa sạch ngăn xếp Redo (chuỗi redo bị đứt)
+                self.ngan_xep_lam_lai.xoa_tat_ca()
 
-            QMessageBox.information(self, "Thành công", "Đã lưu mặt hàng mới thành công!")
+                QMessageBox.information(self, "Thành công", "Đã lưu mặt hàng mới thành công!")
+            except Exception as e:
+                # Nếu có lỗi bất ngờ (vd: CSDL bị khóa, mã bị trùng,...) thì báo lỗi, không crash
+                QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                     f"Đã có lỗi xảy ra khi THÊM sản phẩm:\n{str(e)}")
 
     def hien_thi_form_sua(self):
         """Mở hộp thoại Sửa sản phẩm đang chọn trên bảng."""
@@ -255,26 +261,32 @@ class CuaSoChinh(QMainWindow):
         # Mở hộp thoại ở chế độ SỬA (truyền sp_cu vào)
         hop_thoai = HopThoaiThemMoi(self, san_pham_cu=sp_cu)
         if hop_thoai.exec() == QDialog.DialogCode.Accepted:
-            sp_sua = hop_thoai.san_pham_moi
+            # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+            try:
+                sp_sua = hop_thoai.san_pham_moi
 
-            # Cập nhật dữ liệu: xóa node cũ, thêm node mới
-            self.danh_sach.xoa_nut_theo_ma(ma_so)
-            self.danh_sach.them_vao_cuoi(sp_sua)
+                # Cập nhật dữ liệu: xóa node cũ, thêm node mới
+                self.danh_sach.xoa_nut_theo_ma(ma_so)
+                self.danh_sach.them_vao_cuoi(sp_sua)
 
-            self.luu_du_lieu_ra_file()
-            self.cap_nhat_bang_hien_thi()
+                self.luu_du_lieu_ra_file()
+                self.cap_nhat_bang_hien_thi()
 
-            # Ghi vào Stack Undo (để có thể Hoàn Tác được)
-            # Thao tác này là "SỬA" → Undo sẽ khôi phục lại sp_cu
-            self.ngan_xep_hoan_tac.day_vao({
-                "thao_tac": "sua",
-                "sp_cu": sp_cu,    # Sản phẩm trước khi sửa
-                "sp_moi": sp_sua   # Sản phẩm sau khi sửa
-            })
-            # Khi có thao tác mới → xóa sạch ngăn xếp Redo
-            self.ngan_xep_lam_lai.xoa_tat_ca()
+                # Ghi vào Stack Undo (để có thể Hoàn Tác được)
+                # Thao tác này là "SỬA" → Undo sẽ khôi phục lại sp_cu
+                self.ngan_xep_hoan_tac.day_vao({
+                    "thao_tac": "sua",
+                    "sp_cu": sp_cu,    # Sản phẩm trước khi sửa
+                    "sp_moi": sp_sua   # Sản phẩm sau khi sửa
+                })
+                # Khi có thao tác mới → xóa sạch ngăn xếp Redo
+                self.ngan_xep_lam_lai.xoa_tat_ca()
 
-            QMessageBox.information(self, "Thành công", "Đã cập nhật thông tin sản phẩm!")
+                QMessageBox.information(self, "Thành công", "Đã cập nhật thông tin sản phẩm!")
+            except Exception as e:
+                # Nếu có lỗi (vd: CSDL bị khóa) → báo lỗi, KHÔNG crash
+                QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                     f"Đã có lỗi xảy ra khi SỬA sản phẩm:\n{str(e)}")
 
     def xu_ly_xoa_san_pham(self):
         """Xóa sản phẩm đang chọn trên bảng."""
@@ -303,22 +315,28 @@ class CuaSoChinh(QMainWindow):
         )
 
         if xac_nhan == QMessageBox.StandardButton.Yes:
-            # Phải lưu sản phẩm bị xóa TRƯỚC khi xóa (để có thể Undo)
-            sp_bi_xoa = self.danh_sach.tim_kiem_theo_ma(ma_so)
-            thanh_cong = self.danh_sach.xoa_nut_theo_ma(ma_so)
-            if thanh_cong:
-                self.luu_du_lieu_ra_file()
-                self.cap_nhat_bang_hien_thi()
+            # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+            try:
+                # Phải lưu sản phẩm bị xóa TRƯỚC khi xóa (để có thể Undo)
+                sp_bi_xoa = self.danh_sach.tim_kiem_theo_ma(ma_so)
+                thanh_cong = self.danh_sach.xoa_nut_theo_ma(ma_so)
+                if thanh_cong:
+                    self.luu_du_lieu_ra_file()
+                    self.cap_nhat_bang_hien_thi()
 
-                # Ghi vào Stack Undo (để có thể Hoàn Tác được)
-                # Thao tác này là "XÓA" → Undo sẽ THÊM lại sản phẩm đó
-                self.ngan_xep_hoan_tac.day_vao({"thao_tac": "xoa", "sp": sp_bi_xoa})
-                # Khi có thao tác mới → xóa sạch ngăn xếp Redo
-                self.ngan_xep_lam_lai.xoa_tat_ca()
+                    # Ghi vào Stack Undo (để có thể Hoàn Tác được)
+                    # Thao tác này là "XÓA" → Undo sẽ THÊM lại sản phẩm đó
+                    self.ngan_xep_hoan_tac.day_vao({"thao_tac": "xoa", "sp": sp_bi_xoa})
+                    # Khi có thao tác mới → xóa sạch ngăn xếp Redo
+                    self.ngan_xep_lam_lai.xoa_tat_ca()
 
-                QMessageBox.information(self, "Thành công", "Đã xóa xong!")
-            else:
-                QMessageBox.warning(self, "Lỗi", "Không thể xóa. Có lỗi xảy ra.")
+                    QMessageBox.information(self, "Thành công", "Đã xóa xong!")
+                else:
+                    QMessageBox.warning(self, "Lỗi", "Không thể xóa. Có lỗi xảy ra.")
+            except Exception as e:
+                # Nếu có lỗi khi xóa (vd: CSDL bị khóa) → báo lỗi, KHÔNG crash
+                QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                     f"Đã có lỗi xảy ra khi XÓA sản phẩm:\n{str(e)}")
 
     # ==================================================================
     # XỬ LÝ: UNDO / REDO (sử dụng Stack LIFO)
@@ -338,29 +356,36 @@ class CuaSoChinh(QMainWindow):
         thao_tac = self.ngan_xep_hoan_tac.lay_ra()
         kieu = thao_tac["thao_tac"]
 
-        if kieu == "them":
-            # Đã THÊM → bây giờ XÓA để hoàn tác
-            sp = thao_tac["sp"]
-            self.danh_sach.xoa_nut_theo_ma(sp.ma_so)
+        # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+        try:
+            if kieu == "them":
+                # Đã THÊM → bây giờ XÓA để hoàn tác
+                sp = thao_tac["sp"]
+                self.danh_sach.xoa_nut_theo_ma(sp.ma_so)
 
-        elif kieu == "xoa":
-            # Đã XÓA → bây giờ THÊM lại để hoàn tác
-            sp = thao_tac["sp"]
-            self.danh_sach.them_vao_cuoi(sp)
+            elif kieu == "xoa":
+                # Đã XÓA → bây giờ THÊM lại để hoàn tác
+                sp = thao_tac["sp"]
+                self.danh_sach.them_vao_cuoi(sp)
 
-        elif kieu == "sua":
-            # Đã SỬA từ sp_cu → sp_moi → bây giờ khôi phục lại sp_cu
-            ma_so = thao_tac["sp_moi"].ma_so
-            self.danh_sach.xoa_nut_theo_ma(ma_so)
-            self.danh_sach.them_vao_cuoi(thao_tac["sp_cu"])
+            elif kieu == "sua":
+                # Đã SỬA từ sp_cu → sp_moi → bây giờ khôi phục lại sp_cu
+                ma_so = thao_tac["sp_moi"].ma_so
+                self.danh_sach.xoa_nut_theo_ma(ma_so)
+                self.danh_sach.them_vao_cuoi(thao_tac["sp_cu"])
 
-        # Đẩy thao tác này sang Stack Redo (để có thể Làm Lại)
-        self.ngan_xep_lam_lai.day_vao(thao_tac)
+            # Đẩy thao tác này sang Stack Redo (để có thể Làm Lại)
+            self.ngan_xep_lam_lai.day_vao(thao_tac)
 
-        # Lưu + vẽ lại bảng
-        self.luu_du_lieu_ra_file()
-        self.cap_nhat_bang_hien_thi()
-        QMessageBox.information(self, "Hoàn Tác", f"Đã hoàn tác thao tác '{kieu}' thành công!")
+            # Lưu + vẽ lại bảng
+            self.luu_du_lieu_ra_file()
+            self.cap_nhat_bang_hien_thi()
+            QMessageBox.information(self, "Hoàn Tác", f"Đã hoàn tác thao tác '{kieu}' thành công!")
+        except Exception as e:
+            # Nếu có lỗi khi hoàn tác → đẩy thao tác trở lại Stack Undo để không mất dữ liệu
+            self.ngan_xep_hoan_tac.day_vao(thao_tac)
+            QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                 f"Đã có lỗi xảy ra khi HOÀN TÁC:\n{str(e)}")
 
     def xu_ly_lam_lai(self):
         """
@@ -377,27 +402,34 @@ class CuaSoChinh(QMainWindow):
         thao_tac = self.ngan_xep_lam_lai.lay_ra()
         kieu = thao_tac["thao_tac"]
 
-        if kieu == "them":
-            # Làm lại THÊM → thêm lại sp
-            self.danh_sach.them_vao_cuoi(thao_tac["sp"])
+        # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+        try:
+            if kieu == "them":
+                # Làm lại THÊM → thêm lại sp
+                self.danh_sach.them_vao_cuoi(thao_tac["sp"])
 
-        elif kieu == "xoa":
-            # Làm lại XÓA → xóa sp
-            self.danh_sach.xoa_nut_theo_ma(thao_tac["sp"].ma_so)
+            elif kieu == "xoa":
+                # Làm lại XÓA → xóa sp
+                self.danh_sach.xoa_nut_theo_ma(thao_tac["sp"].ma_so)
 
-        elif kieu == "sua":
-            # Làm lại SỬA → áp dụng sp_moi
-            ma_so = thao_tac["sp_cu"].ma_so
-            self.danh_sach.xoa_nut_theo_ma(ma_so)
-            self.danh_sach.them_vao_cuoi(thao_tac["sp_moi"])
+            elif kieu == "sua":
+                # Làm lại SỬA → áp dụng sp_moi
+                ma_so = thao_tac["sp_cu"].ma_so
+                self.danh_sach.xoa_nut_theo_ma(ma_so)
+                self.danh_sach.them_vao_cuoi(thao_tac["sp_moi"])
 
-        # Đẩy thao tác trở lại Stack Undo
-        self.ngan_xep_hoan_tac.day_vao(thao_tac)
+            # Đẩy thao tác trở lại Stack Undo
+            self.ngan_xep_hoan_tac.day_vao(thao_tac)
 
-        # Lưu + vẽ lại bảng
-        self.luu_du_lieu_ra_file()
-        self.cap_nhat_bang_hien_thi()
-        QMessageBox.information(self, "Làm Lại", f"Đã làm lại thao tác '{kieu}' thành công!")
+            # Lưu + vẽ lại bảng
+            self.luu_du_lieu_ra_file()
+            self.cap_nhat_bang_hien_thi()
+            QMessageBox.information(self, "Làm Lại", f"Đã làm lại thao tác '{kieu}' thành công!")
+        except Exception as e:
+            # Nếu có lỗi → đẩy thao tác trở lại Stack Redo để không mất dữ liệu
+            self.ngan_xep_lam_lai.day_vao(thao_tac)
+            QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                 f"Đã có lỗi xảy ra khi LÀM LẠI:\n{str(e)}")
 
     # ==================================================================
     # XỬ LÝ: TÌM KIẾM NÂNG CAO (TÊN / MÃ / LOẠI)
@@ -525,13 +557,18 @@ class CuaSoChinh(QMainWindow):
             QMessageBox.warning(self, "Hết Hàng", "Sản phẩm này đã hết tồn kho!")
             return
 
-        # Thêm sản phẩm vào CUỐI hàng đợi (FIFO)
-        self.gio_hang.them_vao(sp)
-        QMessageBox.information(
-            self, "Đã Thêm Vào Giỏ",
-            f"Đã thêm '{sp.ten}' vào giỏ.\n"
-            f"Giỏ hiện có: {self.gio_hang.so_luong} món."
-        )
+        # ----- BỌC TRY/EXCEPT ĐỂ CHƯƠNG TRÌNH KHÔNG BỊ CRASH KHI CÓ LỖI -----
+        try:
+            # Thêm sản phẩm vào CUỐI hàng đợi (FIFO)
+            self.gio_hang.them_vao(sp)
+            QMessageBox.information(
+                self, "Đã Thêm Vào Giỏ",
+                f"Đã thêm '{sp.ten}' vào giỏ.\n"
+                f"Giỏ hiện có: {self.gio_hang.so_luong} món."
+            )
+        except Exception as e:
+            QMessageBox.critical(self, "Lỗi Nghiêm Trọng",
+                                 f"Đã có lỗi xảy ra khi THÊM VÀO GIỎ:\n{str(e)}")
 
     def xu_ly_xem_gio_hang(self):
         """Mở hộp thoại Giỏ Hàng để xem/xóa/thanh toán."""
