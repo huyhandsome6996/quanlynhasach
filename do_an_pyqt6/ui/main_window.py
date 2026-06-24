@@ -13,10 +13,15 @@ from ui.hop_thoai_gio_hang import HopThoaiGioHang
 
 
 class CuaSoChinh(QMainWindow):
-    def __init__(self):
+    def __init__(self, nguoi_dung_hien_tai=None):
         super().__init__()
         self.setWindowTitle("Hệ Thống Quản Lý Cửa Hàng Sách (PyQt6 + Linked List + Stack + Queue)")
         self.resize(1100, 700)
+
+        # ===== THÔNG TIN NGƯỜI DÙNG ĐĂNG NHẬP (PHÂN QUYỀN) =====
+        # - Admin    : toàn quyền (xem + thêm + sửa + xóa + giỏ hàng)
+        # - Nhân viên: KHÔNG được XÓA (chỉ xem + thêm + sửa + giỏ hàng)
+        self.nguoi_dung = nguoi_dung_hien_tai
 
         # ===== CÁC CẤU TRÚC DỮ LIỆU CHÍNH =====
         # 1. Danh sách liên kết đôi: chứa toàn bộ mặt hàng trên RAM
@@ -30,6 +35,7 @@ class CuaSoChinh(QMainWindow):
 
         self.thiet_lap_giao_dien()
         self.doc_du_lieu_tu_file()
+        self.cap_nhat_tieu_de_theo_quyen()
 
     # ==================================================================
     # THIẾT LẬP GIAO DIỆN
@@ -103,18 +109,24 @@ class CuaSoChinh(QMainWindow):
         nut_sua.setStyleSheet("background-color: #2196F3; color: white; font-weight: bold; font-size: 14px; padding: 10px;")
         nut_sua.clicked.connect(self.hien_thi_form_sua)
 
-        nut_xoa = QPushButton("🗑️ Xóa Mặt Hàng")
-        nut_xoa.setStyleSheet("background-color: #f44336; color: white; font-weight: bold; font-size: 14px; padding: 10px;")
-        nut_xoa.clicked.connect(self.xu_ly_xoa_san_pham)
+        self.nut_xoa = QPushButton("🗑️ Xóa Mặt Hàng")
+        self.nut_xoa.setStyleSheet("background-color: #f44336; color: white; font-weight: bold; font-size: 14px; padding: 10px;")
+        self.nut_xoa.clicked.connect(self.xu_ly_xoa_san_pham)
 
         nut_thong_ke = QPushButton("📊 Xem Thống Kê")
         nut_thong_ke.setStyleSheet("background-color: #9C27B0; color: white; font-weight: bold; font-size: 14px; padding: 10px;")
         nut_thong_ke.clicked.connect(self.xu_ly_thong_ke)
 
+        # Nút đăng xuất (để đổi tài khoản)
+        nut_dang_xuat = QPushButton("🚪 Đăng Xuất")
+        nut_dang_xuat.setStyleSheet("background-color: #616161; color: white; font-weight: bold; font-size: 14px; padding: 10px;")
+        nut_dang_xuat.clicked.connect(self.xu_ly_dang_xuat)
+
         layout_chuc_nang.addWidget(nut_them)
         layout_chuc_nang.addWidget(nut_sua)
-        layout_chuc_nang.addWidget(nut_xoa)
+        layout_chuc_nang.addWidget(self.nut_xoa)
         layout_chuc_nang.addWidget(nut_thong_ke)
+        layout_chuc_nang.addWidget(nut_dang_xuat)
         layout_chinh.addLayout(layout_chuc_nang)
 
         # ----- DÒNG NÚT UNDO/REDO + GIỎ HÀNG -----
@@ -144,6 +156,42 @@ class CuaSoChinh(QMainWindow):
 
         widget_chinh.setLayout(layout_chinh)
         self.setCentralWidget(widget_chinh)
+
+    # ==================================================================
+    # PHÂN QUYỀN (Admin / Nhân viên)
+    # ==================================================================
+    def cap_nhat_tieu_de_theo_quyen(self):
+        """
+        Cập nhật tiêu đề + ẩn/hiện nút Xóa tùy theo quyền người dùng.
+        - Admin    : được XÓA, tiêu đề ghi 'Admin'
+        - Nhân viên: KHÔNG được XÓA, tiêu đề ghi 'Nhân viên'
+        """
+        if self.nguoi_dung is None:
+            # Trường hợp không đăng nhập (dự phòng) → mặc định là admin
+            vai_tro = "Admin"
+            self.nut_xoa.show()
+        elif self.nguoi_dung.la_admin():
+            vai_tro = "Admin"
+            self.nut_xoa.show()  # Admin được phép xóa
+        else:
+            vai_tro = "Nhân viên"
+            self.nut_xoa.hide()  # Nhân viên KHÔNG được xóa → ẩn nút
+
+        # Cập nhật tiêu đề cửa sổ cho người dùng biết đang đăng nhập bằng tài khoản nào
+        self.setWindowTitle(
+            f"Hệ Thống Quản Lý Cửa Hàng Sách  |  "
+            f"Đăng nhập: {self.nguoi_dung.ten_dang_nhap if self.nguoi_dung else '?'} ({vai_tro})"
+        )
+
+    def xu_ly_dang_xuat(self):
+        """Đóng cửa sổ chính để quay về màn hình đăng nhập."""
+        xac_nhan = QMessageBox.question(
+            self, "Đăng xuất",
+            "Bạn có muốn đăng xuất và quay về màn hình đăng nhập?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        if xac_nhan == QMessageBox.StandardButton.Yes:
+            self.close()  # Đóng cửa sổ chính → main.py sẽ chạy lại màn hình đăng nhập
 
     # ==================================================================
     # XỬ LÝ: THÊM / SỬA / XÓA  (CÓ LƯU LỊCH SỬ ĐỂ UNDO/REDO)
@@ -211,6 +259,16 @@ class CuaSoChinh(QMainWindow):
 
     def xu_ly_xoa_san_pham(self):
         """Xóa sản phẩm đang chọn trên bảng."""
+        # ----- KIỂM TRA PHÂN QUYỀN -----
+        # Chỉ Admin mới được xóa. Nhân viên không được (nút đã ẩn nhưng vẫn chặn cho chắc)
+        if self.nguoi_dung is not None and not self.nguoi_dung.la_admin():
+            QMessageBox.warning(
+                self, "Không Đủ Quyền",
+                "Bạn là 'Nhân viên' nên KHÔNG ĐƯỢC PHÉP XÓA sản phẩm.\n"
+                "Vui lòng liên hệ Admin để thực hiện thao tác này."
+            )
+            return
+
         dong_dang_chon = self.bang_du_lieu.currentRow()
         if dong_dang_chon < 0:
             QMessageBox.warning(self, "Cảnh Báo", "Bạn chưa click chọn sản phẩm nào trên bảng!")

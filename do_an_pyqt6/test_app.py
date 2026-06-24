@@ -8,6 +8,7 @@ from models.subclasses import Sach, TapChi, Bao, LuanVan, BanThao
 from models.linked_list import DanhSachLienKetDoi
 from models.ngan_xep import NganXep       # Stack LIFO
 from models.hang_doi import HangDoi       # Queue FIFO
+from models.nguoi_dung import kiem_tra_dang_nhap  # Phân quyền Admin/NV
 from data.sqlite_db import luu_du_lieu_sqlite, doc_du_lieu_sqlite
 
 print("=" * 60)
@@ -138,6 +139,46 @@ for sp in data_tu_db:
     print(f"   {sp.__class__.__name__:10} | {sp}")
 
 print("\n" + "=" * 60)
+print("9. TẠM KẾT PHẦN KIỂM THỬ CẤU TRÚC DỮ LIỆU")
+print("Đã kiểm tra: OOP + Linked List + Stack + Queue + SQLite")
+print("=" * 60)
+
+# ====================================================================
+# 10. KIỂM THỬ ĐĂNG NHẬP PHÂN QUYỀN (Admin / Nhân viên)
+# ====================================================================
+print("\n" + "=" * 60)
+print("10. KIỂM THỬ ĐĂNG NHẬP PHÂN QUYỀN (ADMIN / NHÂN VIÊN)")
+print("=" * 60)
+
+# Test sai mật khẩu
+nguoi_sai = kiem_tra_dang_nhap("admin", "sai_mat_khau")
+print(f"   - Đăng nhập sai mật khẩu → trả về: {nguoi_sai}")
+assert nguoi_sai is None, "Sai mật khẩu phải trả về None!"
+
+# Test sai tên đăng nhập
+nguoi_sai_2 = kiem_tra_dang_nhap("khong_co_nguoi_nay", "123")
+print(f"   - Đăng nhập sai tên       → trả về: {nguoi_sai_2}")
+assert nguoi_sai_2 is None, "Sai tên đăng nhập phải trả về None!"
+
+# Test tài khoản Admin
+admin = kiem_tra_dang_nhap("admin", "123")
+print(f"   - Đăng nhập admin/123     → trả về: {admin.ten_dang_nhap} ({admin.quyen})")
+print(f"     + Là Admin?     {admin.la_admin()}")
+print(f"     + Là Nhân viên? {admin.la_nhan_vien()}")
+assert admin.la_admin() is True
+assert admin.la_nhan_vien() is False
+
+# Test tài khoản Nhân viên
+nv = kiem_tra_dang_nhap("nhanvien", "123")
+print(f"   - Đăng nhập nhanvien/123  → trả về: {nv.ten_dang_nhap} ({nv.quyen})")
+print(f"     + Là Admin?     {nv.la_admin()}")
+print(f"     + Là Nhân viên? {nv.la_nhan_vien()}")
+assert nv.la_admin() is False
+assert nv.la_nhan_vien() is True
+
+print("   → Phân quyền hoạt động đúng: Admin = toàn quyền, Nhân viên = không được xóa!")
+
+print("\n" + "=" * 60)
 print("MỌI THỨ HOẠT ĐỘNG HOÀN HẢO!")
-print("Đã kiểm tra đủ: OOP + Linked List + Stack + Queue + SQLite")
+print("Đã kiểm tra đủ: OOP + Linked List + Stack + Queue + SQLite + Phân quyền")
 print("=" * 60)

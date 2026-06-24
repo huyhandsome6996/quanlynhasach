@@ -1,10 +1,12 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import CuaSoChinh
+from ui.hop_thoai_dang_nhap import HopThoaiDangNhap
+
 
 def chay_ung_dung():
     app = QApplication(sys.argv)
-    
+
     # CSS (QSS) cho PyQt6 - Đơn giản, đẹp mắt
     app.setStyleSheet("""
         QMainWindow {
@@ -51,10 +53,32 @@ def chay_ung_dung():
             font-weight: bold;
         }
     """)
-    
-    cua_so = CuaSoChinh()
-    cua_so.show()
-    sys.exit(app.exec())
+
+    # ===== VÒNG LẶP ĐĂNG NHẬP =====
+    # Mỗi lần đăng xuất sẽ quay lại đây để đăng nhập lại
+    while True:
+        # 1. Hiện màn hình đăng nhập
+        man_hinh_dang_nhap = HopThoaiDangNhap()
+        ket_qua = man_hinh_dang_nhap.exec()
+
+        # 2. Nếu bấm "Thoát" hoặc đóng cửa sổ → kết thúc chương trình
+        if ket_qua != HopThoaiDangNhap.DialogCode.Accepted:
+            print("Đã thoát chương trình.")
+            return 0
+
+        # 3. Nếu đăng nhập thành công → mở cửa sổ chính, truyền người dùng vào
+        nguoi_dung = man_hinh_dang_nhap.nguoi_dung_hien_tai
+        cua_so = CuaSoChinh(nguoi_dung_hien_tai=nguoi_dung)
+        cua_so.show()
+
+        # 4. Chạy app cho đến khi cửa sổ chính bị đóng
+        #    (khi bấm "Đăng xuất" cửa sổ sẽ đóng → app.exec() trả về)
+        app.exec()
+
+        # 5. Hỏi xem có muốn đăng nhập lại bằng tài khoản khác không
+        #    (nếu đóng bằng nút X thì cũng coi như đăng xuất)
+        print("Đã đăng xuất. Quay lại màn hình đăng nhập...")
+
 
 if __name__ == "__main__":
-    chay_ung_dung()
+    sys.exit(chay_ung_dung())
