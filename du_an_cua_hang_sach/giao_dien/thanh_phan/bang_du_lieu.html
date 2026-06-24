@@ -1,35 +1,35 @@
 <!-- Khu vực nội dung chính -->
-<main class="noi_dung_chinh">
-    <!-- Thông báo -->
-    <div id="thong_bao" class="thong_bao an_di"></div>
+<main class="noi_dung_chinh" id="noi_dung_chinh">
+    <!-- Thông báo (aria-live để screen reader đọc khi có thông báo mới) -->
+    <div id="thong_bao" class="thong_bao an_di" role="status" aria-live="polite"></div>
 
     <!-- Khu vực thống kê (ẩn mặc định) -->
-    <div id="khu_vuc_thong_ke" class="khu_vuc_thong_ke an_di">
+    <section id="khu_vuc_thong_ke" class="khu_vuc_thong_ke an_di" aria-label="Thống kê cửa hàng">
         <h3>Thống kê cửa hàng</h3>
         <div class="bang_thong_ke" id="bang_thong_ke">
             <!-- Sẽ được JavaScript render vào đây -->
         </div>
-        <button class="nut nut_phu" onclick="document.getElementById('khu_vuc_thong_ke').classList.add('an_di')">Đóng thống kê</button>
-    </div>
+        <button class="nut nut_phu" type="button" onclick="document.getElementById('khu_vuc_thong_ke').classList.add('an_di')">Đóng thống kê</button>
+    </section>
 
     <!-- Bảng hiển thị dữ liệu -->
     <div class="bang_du_lieu">
         <table id="bang_san_pham">
             <thead>
                 <tr>
-                    <th>Mã số</th>
-                    <th>Loại hàng</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá cơ bản</th>
-                    <th>Giá bán</th>
-                    <th>Tồn kho</th>
-                    <th>Chi tiết</th>
-                    <th>Thao tác</th>
+                    <th scope="col">Mã số</th>
+                    <th scope="col">Loại hàng</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Giá cơ bản</th>
+                    <th scope="col">Giá bán</th>
+                    <th scope="col">Tồn kho</th>
+                    <th scope="col">Chi tiết</th>
+                    <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody id="than_bang">
                 <tr>
-                    <td colspan="8" class="dang_tai">Đang tải dữ liệu...</td>
+                    <td colspan="8" class="dang_tai">Đang tải dữ liệu…</td>
                 </tr>
             </tbody>
         </table>
