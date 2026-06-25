@@ -47,19 +47,19 @@
 </div>
 
 <h3>1.2. Cú pháp khai báo lớp trong Python</h3>
-<div class="code-block">
-<span class="keyword">class</span> <span class="function">TenLop</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, tham_so_1, tham_so_2):   <span class="comment"># Hàm tạo</span>
-        self.thuoc_tinh_1 = tham_so_1       <span class="comment"># Gán thuộc tính</span>
+<pre class="code-block">
+<code class="language-python">class TenLop:
+    def __init__(self, tham_so_1, tham_so_2):   # Hàm tạo
+        self.thuoc_tinh_1 = tham_so_1       # Gán thuộc tính
         self.thuoc_tinh_2 = tham_so_2
 
-    <span class="keyword">def</span> <span class="function">phuong_thuc</span>(self):                  <span class="comment"># Phương thức</span>
-        <span class="function">print</span>(<span class="string">f"Thuộc tính 1 = {self.thuoc_tinh_1}"</span>)
+    def phuong_thuc(self):                  # Phương thức
+        print(f"Thuộc tính 1 = {self.thuoc_tinh_1}")
 
-<span class="comment"># Sử dụng:</span>
-obj = TenLop(<span class="string">"giá trị 1"</span>, <span class="number">123</span>)     <span class="comment"># Tạo đối tượng</span>
-obj.phuong_thuc()                  <span class="comment"># Gọi phương thức</span>
-</div>
+# Sử dụng:
+obj = TenLop("giá trị 1", 123)     # Tạo đối tượng
+obj.phuong_thuc()                  # Gọi phương thức</code>
+</pre>
 
 <h3>1.3. Giải thích từng từ khóa</h3>
 <table>
@@ -71,29 +71,29 @@ obj.phuong_thuc()                  <span class="comment"># Gọi phương thức
 </table>
 
 <h3>1.4. Lớp MatHang trong đồ án</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/item.py</span>
-<span class="keyword">class</span> <span class="function">MatHang</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, ma_so, ten, gia_co_ban, so_luong):
-        <span class="comment"># Ép kiểu an toàn để tránh lỗi nhập liệu</span>
-        self.ma_so = <span class="keyword">str</span>(ma_so).strip()
-        self.ten = <span class="keyword">str</span>(ten).strip()
-        self.gia_co_ban = <span class="keyword">float</span>(gia_co_ban)
-        self.so_luong = <span class="keyword">int</span>(so_luong)
+<code class="language-python">class MatHang:
+    def __init__(self, ma_so, ten, gia_co_ban, so_luong):
+        # Ép kiểu an toàn để tránh lỗi nhập liệu
+        self.ma_so = str(ma_so).strip()
+        self.ten = str(ten).strip()
+        self.gia_co_ban = float(gia_co_ban)
+        self.so_luong = int(so_luong)
 
-    <span class="keyword">def</span> <span class="function">tinh_gia_ban</span>(self):
-        <span class="comment"># Mặc định: giá bán = giá cơ bản (lớp con sẽ GHI ĐÈ)</span>
-        <span class="keyword">return</span> self.gia_co_ban
+    def tinh_gia_ban(self):
+        # Mặc định: giá bán = giá cơ bản (lớp con sẽ GHI ĐÈ)
+        return self.gia_co_ban
 
-    <span class="keyword">def</span> <span class="function">to_dict</span>(self):
-        <span class="keyword">return</span> {
-            <span class="string">"loai"</span>: <span class="string">"MatHang"</span>,
-            <span class="string">"ma_so"</span>: self.ma_so,
-            <span class="string">"ten"</span>: self.ten,
-            <span class="string">"gia_co_ban"</span>: self.gia_co_ban,
-            <span class="string">"so_luong"</span>: self.so_luong
-        }
-</div>
+    def to_dict(self):
+        return {
+            "loai": "MatHang",
+            "ma_so": self.ma_so,
+            "ten": self.ten,
+            "gia_co_ban": self.gia_co_ban,
+            "so_luong": self.so_luong
+        }</code>
+</pre>
 
 <p><strong>Giải thích từng dòng:</strong></p>
 <ul>
@@ -113,14 +113,14 @@ obj.phuong_thuc()                  <span class="comment"># Gọi phương thức
     thuộc tính/phương thức mới, hoặc <strong>ghi đè</strong> (override) phương thức cũ.
 </p>
 
-<div class="code-block">
-<span class="comment"># Cú pháp: class LopCon(LopCha):</span>
-<span class="keyword">class</span> <span class="function">Sach</span>(MatHang):              <span class="comment"># Sach kế thừa MatHang</span>
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, ma_so, ten, gia_co_ban, so_luong, tac_gia, nha_xuat_ban):
-        <span class="keyword">super</span>().__init__(ma_so, ten, gia_co_ban, so_luong)  <span class="comment"># Gọi __init__ lớp cha</span>
-        self.tac_gia = tac_gia                <span class="comment"># Thuộc tính riêng của Sach</span>
-        self.nha_xuat_ban = nha_xuat_ban
-</div>
+<pre class="code-block">
+<code class="language-python"># Cú pháp: class LopCon(LopCha):
+class Sach(MatHang):              # Sach kế thừa MatHang
+    def __init__(self, ma_so, ten, gia_co_ban, so_luong, tac_gia, nha_xuat_ban):
+        super().__init__(ma_so, ten, gia_co_ban, so_luong)  # Gọi __init__ lớp cha
+        self.tac_gia = tac_gia                # Thuộc tính riêng của Sach
+        self.nha_xuat_ban = nha_xuat_ban</code>
+</pre>
 
 <p><strong>Giải thích:</strong></p>
 <ul>
@@ -196,48 +196,48 @@ obj.phuong_thuc()                  <span class="comment"># Gọi phương thức
 </table>
 
 <h3>2.4. Code thực tế</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/subclasses.py</span>
-<span class="keyword">class</span> <span class="function">Sach</span>(MatHang):
-    <span class="keyword">def</span> <span class="function">tinh_gia_ban</span>(self):
-        <span class="keyword">return</span> self.gia_co_ban * <span class="number">1.20</span>     <span class="comment"># +20%</span>
+<code class="language-python">class Sach(MatHang):
+    def tinh_gia_ban(self):
+        return self.gia_co_ban * 1.20     # +20%
 
-<span class="keyword">class</span> <span class="function">TapChi</span>(MatHang):
-    <span class="keyword">def</span> <span class="function">tinh_gia_ban</span>(self):
-        <span class="keyword">return</span> self.gia_co_ban * <span class="number">0.90</span>     <span class="comment"># -10%</span>
+class TapChi(MatHang):
+    def tinh_gia_ban(self):
+        return self.gia_co_ban * 0.90     # -10%
 
-<span class="keyword">class</span> <span class="function">Bao</span>(MatHang):
-    <span class="keyword">def</span> <span class="function">tinh_gia_ban</span>(self):
-        <span class="keyword">return</span> self.gia_co_ban * <span class="number">1.00</span>     <span class="comment"># giữ nguyên</span>
+class Bao(MatHang):
+    def tinh_gia_ban(self):
+        return self.gia_co_ban * 1.00     # giữ nguyên
 
-<span class="keyword">class</span> <span class="function">LuanVan</span>(MatHang):
-    <span class="keyword">def</span> <span class="function">tinh_gia_ban</span>(self):
-        <span class="keyword">return</span> self.gia_co_ban * <span class="number">1.30</span>     <span class="comment"># +30%</span>
+class LuanVan(MatHang):
+    def tinh_gia_ban(self):
+        return self.gia_co_ban * 1.30     # +30%
 
-<span class="keyword">class</span> <span class="function">BanThao</span>(MatHang):
-    <span class="keyword">def</span> <span class="function">tinh_gia_ban</span>(self):
-        <span class="keyword">if</span> self.tinh_trang.lower() == <span class="string">"mới"</span>:
-            <span class="keyword">return</span> self.gia_co_ban * <span class="number">1.50</span> <span class="comment"># +50% (mới)</span>
-        <span class="keyword">else</span>:
-            <span class="keyword">return</span> self.gia_co_ban * <span class="number">1.20</span> <span class="comment"># +20% (cũ)</span>
-</div>
+class BanThao(MatHang):
+    def tinh_gia_ban(self):
+        if self.tinh_trang.lower() == "mới":
+            return self.gia_co_ban * 1.50 # +50% (mới)
+        else:
+            return self.gia_co_ban * 1.20 # +20% (cũ)</code>
+</pre>
 
 <h3>2.5. Cách đa hình hoạt động</h3>
-<div class="code-block">
-<span class="comment"># Tạo 5 đối tượng khác loại</span>
+<pre class="code-block">
+<code class="language-python"># Tạo 5 đối tượng khác loại
 ds = [
-    Sach(<span class="string">"S01"</span>, <span class="string">"Sách A"</span>, <span class="number">100000</span>, <span class="number">10</span>, <span class="string">"TG"</span>, <span class="string">"NXB"</span>),
-    TapChi(<span class="string">"T01"</span>, <span class="string">"Tạp chí B"</span>, <span class="number">100000</span>, <span class="number">5</span>, <span class="string">"Số 1"</span>),
-    Bao(<span class="string">"B01"</span>, <span class="string">"Báo C"</span>, <span class="number">100000</span>, <span class="number">20</span>, <span class="string">"01/01/2025"</span>),
-    LuanVan(<span class="string">"LV01"</span>, <span class="string">"Luận văn D"</span>, <span class="number">100000</span>, <span class="number">2</span>, <span class="string">"ĐH Bách Khoa"</span>),
-    BanThao(<span class="string">"BT01"</span>, <span class="string">"Bản thảo E"</span>, <span class="number">100000</span>, <span class="number">1</span>, <span class="string">"mới"</span>),
+    Sach("S01", "Sách A", 100000, 10, "TG", "NXB"),
+    TapChi("T01", "Tạp chí B", 100000, 5, "Số 1"),
+    Bao("B01", "Báo C", 100000, 20, "01/01/2025"),
+    LuanVan("LV01", "Luận văn D", 100000, 2, "ĐH Bách Khoa"),
+    BanThao("BT01", "Bản thảo E", 100000, 1, "mới"),
 ]
 
-<span class="comment"># CÙNG 1 lời gọi tinh_gia_ban() — 5 kết quả khác nhau!</span>
-<span class="keyword">for</span> sp <span class="keyword">in</span> ds:
-    <span class="function">print</span>(sp.tinh_gia_ban())
-<span class="comment"># In ra: 120000, 90000, 100000, 130000, 150000</span>
-</div>
+# CÙNG 1 lời gọi tinh_gia_ban() — 5 kết quả khác nhau!
+for sp in ds:
+    print(sp.tinh_gia_ban())
+# In ra: 120000, 90000, 100000, 130000, 150000</code>
+</pre>
 
 <div class="tip">
     <strong>💡 Đây chính là ĐA HÌNH!</strong> Cùng <code>sp.tinh_gia_ban()</code> nhưng mỗi sp
@@ -295,50 +295,50 @@ ds = [
 <h3>3.4. Cài đặt trong đồ án (file <code>models/hang_doi.py</code>)</h3>
 
 <h4>3.4.1. Lớp NutHangDoi</h4>
-<div class="code-block">
-<span class="keyword">class</span> <span class="function">NutHangDoi</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, du_lieu):
+<pre class="code-block">
+<code class="language-python">class NutHangDoi:
+    def __init__(self, du_lieu):
         self.du_lieu = du_lieu
-        self.sau = <span class="keyword">None</span>      <span class="comment"># Trỏ tới mắt xích đứng SAU mình</span>
-</div>
+        self.sau = None      # Trỏ tới mắt xích đứng SAU mình</code>
+</pre>
 
 <h4>3.4.2. Lớp HangDoi</h4>
-<div class="code-block">
-<span class="keyword">class</span> <span class="function">HangDoi</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self):
-        self.dau = <span class="keyword">None</span>      <span class="comment"># Phần tử ĐẦU (lấy ra ở đây)</span>
-        self.cuoi = <span class="keyword">None</span>     <span class="comment"># Phần tử CUỐI (thêm vào ở đây)</span>
-        self.so_luong = <span class="number">0</span>
-</div>
+<pre class="code-block">
+<code class="language-python">class HangDoi:
+    def __init__(self):
+        self.dau = None      # Phần tử ĐẦU (lấy ra ở đây)
+        self.cuoi = None     # Phần tử CUỐI (thêm vào ở đây)
+        self.so_luong = 0</code>
+</pre>
 <p><strong>Khác Stack:</strong> Queue cần <strong>2 con trỏ</strong> <code>dau</code> và <code>cuoi</code>
 vì thao tác ở 2 đầu khác nhau.</p>
 
 <h4>3.4.3. Hàm them_vao() — ENQUEUE</h4>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">them_vao</span>(self, du_lieu):
+<pre class="code-block">
+<code class="language-python">def them_vao(self, du_lieu):
     nut_moi = NutHangDoi(du_lieu)
-    <span class="keyword">if</span> self.cuoi <span class="keyword">is</span> <span class="keyword">None</span>:
-        <span class="comment"># Hàng rỗng → phần tử mới là vừa đầu vừa cuối</span>
+    if self.cuoi is None:
+        # Hàng rỗng → phần tử mới là vừa đầu vừa cuối
         self.dau = nut_moi
         self.cuoi = nut_moi
-    <span class="keyword">else</span>:
-        self.cuoi.sau = nut_moi     <span class="comment"># Phần tử cuối hiện tại trỏ tới phần tử mới</span>
-        self.cuoi = nut_moi          <span class="comment"># Cập nhật lại con trỏ `cuoi`</span>
-    self.so_luong += <span class="number">1</span>
-</div>
+    else:
+        self.cuoi.sau = nut_moi     # Phần tử cuối hiện tại trỏ tới phần tử mới
+        self.cuoi = nut_moi          # Cập nhật lại con trỏ `cuoi`
+    self.so_luong += 1</code>
+</pre>
 
 <h4>3.4.4. Hàm lay_ra() — DEQUEUE</h4>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">lay_ra</span>(self):
-    <span class="keyword">if</span> self.dau <span class="keyword">is</span> <span class="keyword">None</span>:
-        <span class="keyword">return</span> <span class="keyword">None</span>                <span class="comment"># Hàng rỗng</span>
-    nut_lay = self.dau              <span class="comment"># Lưu phần tử đầu</span>
-    self.dau = self.dau.sau         <span class="comment"># Đầu mới = phần tử đứng sau</span>
-    <span class="keyword">if</span> self.dau <span class="keyword">is</span> <span class="keyword">None</span>:
-        self.cuoi = <span class="keyword">None</span>            <span class="comment"># Nếu lấy hết → cuoi cũng None</span>
-    self.so_luong -= <span class="number">1</span>
-    <span class="keyword">return</span> nut_lay.du_lieu
-</div>
+<pre class="code-block">
+<code class="language-python">def lay_ra(self):
+    if self.dau is None:
+        return None                # Hàng rỗng
+    nut_lay = self.dau              # Lưu phần tử đầu
+    self.dau = self.dau.sau         # Đầu mới = phần tử đứng sau
+    if self.dau is None:
+        self.cuoi = None            # Nếu lấy hết → cuoi cũng None
+    self.so_luong -= 1
+    return nut_lay.du_lieu</code>
+</pre>
 
 <h3>3.5. Ứng dụng: GIỎ HÀNG + THANH TOÁN theo FIFO</h3>
 <p>
@@ -347,15 +347,15 @@ vì thao tác ở 2 đầu khác nhau.</p>
     lấy từng món ra theo FIFO, món nào thêm trước sẽ thanh toán trước.
 </p>
 
-<div class="code-block">
-<span class="comment"># Hàm thanh toán (trong hop_thoai_gio_hang.py)</span>
-<span class="keyword">while not</span> self.cua_so_cha.gio_hang.rong():
-    sp = self.cua_so_cha.gio_hang.lay_ra()      <span class="comment"># Lấy món ĐẦU tiên</span>
+<pre class="code-block">
+<code class="language-python"># Hàm thanh toán (trong hop_thoai_gio_hang.py)
+while not self.cua_so_cha.gio_hang.rong():
+    sp = self.cua_so_cha.gio_hang.lay_ra()      # Lấy món ĐẦU tiên
     sp_trong_kho = self.cua_so_cha.danh_sach.tim_kiem_theo_ma(sp.ma_so)
-    <span class="keyword">if</span> sp_trong_kho <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and</span> sp_trong_kho.so_luong &gt; <span class="number">0</span>:
-        sp_trong_kho.so_luong -= <span class="number">1</span>            <span class="comment"># Giảm tồn kho</span>
-        tong_tien += sp.tinh_gia_ban()         <span class="comment"># Đa hình!</span>
-</div>
+    if sp_trong_kho is not None and sp_trong_kho.so_luong &gt; 0:
+        sp_trong_kho.so_luong -= 1            # Giảm tồn kho
+        tong_tien += sp.tinh_gia_ban()         # Đa hình!</code>
+</pre>
 
 <h3>3.6. Mô phỏng Queue — giỏ hàng + thanh toán FIFO</h3>
 <div class="demo-box">
@@ -389,47 +389,47 @@ vì thao tác ở 2 đầu khác nhau.</p>
 </p>
 
 <h3>4.2. Cấu trúc cơ bản 1 QDialog</h3>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QDialog, QVBoxLayout, QPushButton
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QDialog, QVBoxLayout, QPushButton
 
-<span class="keyword">class</span> <span class="function">HopThoaiCuaToi</span>(QDialog):
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, parent=<span class="keyword">None</span>):
-        <span class="keyword">super</span>().__init__(parent)
-        self.setWindowTitle(<span class="string">"Hộp thoại của tôi"</span>)
-        self.resize(<span class="number">400</span>, <span class="number">300</span>)
+class HopThoaiCuaToi(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Hộp thoại của tôi")
+        self.resize(400, 300)
         self.thiet_lap_giao_dien()
 
-    <span class="keyword">def</span> <span class="function">thiet_lap_giao_dien</span>(self):
+    def thiet_lap_giao_dien(self):
         layout = QVBoxLayout()
-        layout.addWidget(QLabel(<span class="string">"Nhập gì đó:"</span>))
+        layout.addWidget(QLabel("Nhập gì đó:"))
         self.nhap = QLineEdit()
 
-        nut_luu = QPushButton(<span class="string">"Lưu"</span>)
-        nut_luu.clicked.connect(self.<span class="function">chap_nhan</span>)    <span class="comment"># → Accepted</span>
+        nut_luu = QPushButton("Lưu")
+        nut_luu.clicked.connect(self.chap_nhan)    # → Accepted
 
-        nut_huy = QPushButton(<span class="string">"Hủy"</span>)
-        nut_huy.clicked.connect(self.reject)        <span class="comment"># → Rejected</span>
+        nut_huy = QPushButton("Hủy")
+        nut_huy.clicked.connect(self.reject)        # → Rejected
 
         layout.addWidget(self.nhap)
         layout.addWidget(nut_luu)
         layout.addWidget(nut_huy)
         self.setLayout(layout)
 
-    <span class="keyword">def</span> <span class="function">chap_nhan</span>(self):
-        <span class="comment"># Kiểm tra dữ liệu rồi mới accept</span>
-        <span class="keyword">if not</span> self.nhap.text().strip():
-            QMessageBox.warning(self, <span class="string">"Lỗi"</span>, <span class="string">"Không được bỏ trống!"</span>)
-            <span class="keyword">return</span>
-        self.accept()       <span class="comment"># Đóng dialog với kết quả Accepted</span>
+    def chap_nhan(self):
+        # Kiểm tra dữ liệu rồi mới accept
+        if not self.nhap.text().strip():
+            QMessageBox.warning(self, "Lỗi", "Không được bỏ trống!")
+            return
+        self.accept()       # Đóng dialog với kết quả Accepted
 
 
-<span class="comment"># Cách gọi từ cửa sổ chính:</span>
+# Cách gọi từ cửa sổ chính:
 hop_thoai = HopThoaiCuaToi(self)
-<span class="keyword">if</span> hop_thoai.exec() == QDialog.DialogCode.Accepted:
-    <span class="comment"># User bấm Lưu</span>
+if hop_thoai.exec() == QDialog.DialogCode.Accepted:
+    # User bấm Lưu
     text = hop_thoai.nhap.text()
-    <span class="function">print</span>(<span class="string">f"Đã nhập: {text}"</span>)
-</div>
+    print(f"Đã nhập: {text}")</code>
+</pre>
 
 <h3>4.3. HopThoaiThemMoi — form Thêm/Sửa sản phẩm</h3>
 <p>Đặc điểm:</p>
@@ -613,5 +613,6 @@ hop_thoai = HopThoaiCuaToi(self)
 </div>
 
 <script src="app.js"></script>
+    <script src="highlight.js"></script>
 </body>
 </html>

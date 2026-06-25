@@ -71,15 +71,15 @@
 <h3>1.3. Cài đặt trong đồ án (file <code>models/linked_list.py</code>)</h3>
 
 <h4>1.3.1. Lớp Nut (Node) — một mắt xích</h4>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="comment"># Cài đặt cấu trúc Node cho Danh sách liên kết đôi</span>
-<span class="keyword">class</span> <span class="function">Nut</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, du_lieu):
-        self.du_lieu = du_lieu      <span class="comment"># Dữ liệu mà nút này chứa</span>
-        self.truoc = <span class="keyword">None</span>       <span class="comment"># Con trỏ trỏ về nút trước (chưa có gì)</span>
-        self.sau   = <span class="keyword">None</span>       <span class="comment"># Con trỏ trỏ tới nút sau (chưa có gì)</span>
-</div>
+<code class="language-python"># Cài đặt cấu trúc Node cho Danh sách liên kết đôi
+class Nut:
+    def __init__(self, du_lieu):
+        self.du_lieu = du_lieu      # Dữ liệu mà nút này chứa
+        self.truoc = None       # Con trỏ trỏ về nút trước (chưa có gì)
+        self.sau   = None       # Con trỏ trỏ tới nút sau (chưa có gì)</code>
+</pre>
 
 <p><strong>Giải thích từng dòng:</strong></p>
 <ul>
@@ -91,14 +91,14 @@
 </ul>
 
 <h4>1.3.2. Lớp DanhSachLienKetDoi</h4>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="keyword">class</span> <span class="function">DanhSachLienKetDoi</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self):
-        self.dau = <span class="keyword">None</span>       <span class="comment"># Head — con trỏ tới nút ĐẦU TIÊN</span>
-        self.cuoi = <span class="keyword">None</span>      <span class="comment"># Tail — con trỏ tới nút CUỐI CÙNG</span>
-        self.so_luong = <span class="number">0</span>     <span class="comment"># Đếm số nút đang có</span>
-</div>
+<code class="language-python">class DanhSachLienKetDoi:
+    def __init__(self):
+        self.dau = None       # Head — con trỏ tới nút ĐẦU TIÊN
+        self.cuoi = None      # Tail — con trỏ tới nút CUỐI CÙNG
+        self.so_luong = 0     # Đếm số nút đang có</code>
+</pre>
 
 <p>
     Lớp này chỉ cần giữ 3 thông tin: <strong>đầu</strong>, <strong>cuối</strong>, <strong>số lượng</strong>.
@@ -107,19 +107,19 @@
 </p>
 
 <h4>1.3.3. Phương thức them_vao_cuoi() — thêm 1 nút vào cuối danh sách</h4>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="keyword">def</span> <span class="function">them_vao_cuoi</span>(self, du_lieu):
-    nut_moi = Nut(du_lieu)              <span class="comment"># 1. Tạo nút mới chứa dữ liệu</span>
-    <span class="keyword">if</span> self.dau <span class="keyword">is</span> <span class="keyword">None</span>:             <span class="comment"># 2. Nếu danh sách đang rỗng</span>
-        self.dau = nut_moi                  <span class="comment">#    → nút mới là vừa đầu vừa cuối</span>
+<code class="language-python">def them_vao_cuoi(self, du_lieu):
+    nut_moi = Nut(du_lieu)              # 1. Tạo nút mới chứa dữ liệu
+    if self.dau is None:             # 2. Nếu danh sách đang rỗng
+        self.dau = nut_moi                  #    → nút mới là vừa đầu vừa cuối
         self.cuoi = nut_moi
-    <span class="keyword">else</span>:                              <span class="comment"># 3. Nếu đã có nút khác</span>
-        self.cuoi.sau = nut_moi             <span class="comment">#    → nút cuối hiện tại trỏ tới nút mới</span>
-        nut_moi.truoc = self.cuoi           <span class="comment">#    → nút mới trỏ ngược về nút cuối</span>
-        self.cuoi = nut_moi                 <span class="comment">#    → cập nhật lại con trỏ `cuoi`</span>
-    self.so_luong += <span class="number">1</span>                  <span class="comment"># 4. Tăng bộ đếm</span>
-</div>
+    else:                              # 3. Nếu đã có nút khác
+        self.cuoi.sau = nut_moi             #    → nút cuối hiện tại trỏ tới nút mới
+        nut_moi.truoc = self.cuoi           #    → nút mới trỏ ngược về nút cuối
+        self.cuoi = nut_moi                 #    → cập nhật lại con trỏ `cuoi`
+    self.so_luong += 1                  # 4. Tăng bộ đếm</code>
+</pre>
 
 <p><strong>Diagram minh họa — thêm nút "S02" vào danh sách đã có "S01":</strong></p>
 <div class="demo-box">
@@ -143,28 +143,28 @@
 </div>
 
 <h4>1.3.4. Phương thức xoa_nut_theo_ma() — xóa 1 nút</h4>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="keyword">def</span> <span class="function">xoa_nut_theo_ma</span>(self, ma_so):
-    hien_tai = self.dau                   <span class="comment"># Bắt đầu từ nút đầu tiên</span>
-    <span class="keyword">while</span> hien_tai <span class="keyword">is not</span> <span class="keyword">None</span>:         <span class="comment"># Duyệt qua từng nút</span>
-        <span class="keyword">if</span> hien_tai.du_lieu.ma_so == ma_so:  <span class="comment"># Tìm thấy nút cần xóa</span>
-            <span class="comment"># CẬP NHẬT CON TRỎ CỦA NÚT TRƯỚC & SAU ĐỂ "BỎ QUA" NÚT HIỆN TẠI</span>
-            <span class="keyword">if</span> hien_tai.truoc <span class="keyword">is not</span> <span class="keyword">None</span>:
-                hien_tai.truoc.sau = hien_tai.sau    <span class="comment"># Nút trước trỏ sang nút sau</span>
-            <span class="keyword">else</span>:
-                self.dau = hien_tai.sau                <span class="comment"># Nếu là nút đầu → cập nhật dau</span>
+<code class="language-python">def xoa_nut_theo_ma(self, ma_so):
+    hien_tai = self.dau                   # Bắt đầu từ nút đầu tiên
+    while hien_tai is not None:         # Duyệt qua từng nút
+        if hien_tai.du_lieu.ma_so == ma_so:  # Tìm thấy nút cần xóa
+            # CẬP NHẬT CON TRỎ CỦA NÚT TRƯỚC &amp; SAU ĐỂ "BỎ QUA" NÚT HIỆN TẠI
+            if hien_tai.truoc is not None:
+                hien_tai.truoc.sau = hien_tai.sau    # Nút trước trỏ sang nút sau
+            else:
+                self.dau = hien_tai.sau                # Nếu là nút đầu → cập nhật dau
 
-            <span class="keyword">if</span> hien_tai.sau <span class="keyword">is not</span> <span class="keyword">None</span>:
-                hien_tai.sau.truoc = hien_tai.truoc    <span class="comment"># Nút sau trỏ ngược về nút trước</span>
-            <span class="keyword">else</span>:
-                self.cuoi = hien_tai.truoc              <span class="comment"># Nếu là nút cuối → cập nhật cuoi</span>
+            if hien_tai.sau is not None:
+                hien_tai.sau.truoc = hien_tai.truoc    # Nút sau trỏ ngược về nút trước
+            else:
+                self.cuoi = hien_tai.truoc              # Nếu là nút cuối → cập nhật cuoi
 
-            self.so_luong -= <span class="number">1</span>
-            <span class="keyword">return</span> <span class="keyword">True</span>                       <span class="comment"># Xóa xong, thoát hàm</span>
-        hien_tai = hien_tai.sau            <span class="comment"># Chưa thấy → đi tới nút tiếp theo</span>
-    <span class="keyword">return</span> <span class="keyword">False</span>                            <span class="comment"># Không tìm thấy → trả False</span>
-</div>
+            self.so_luong -= 1
+            return True                       # Xóa xong, thoát hàm
+        hien_tai = hien_tai.sau            # Chưa thấy → đi tới nút tiếp theo
+    return False                            # Không tìm thấy → trả False</code>
+</pre>
 
 <div class="note">
     <strong>💡 Ý tưởng cốt lõi:</strong> Để xóa 1 nút trong DSLK đôi, ta KHÔNG xóa vật lý
@@ -244,38 +244,38 @@
     Khi <code>nhanh</code> đi hết danh sách thì <code>cham</code> đang ở giữa!
 </p>
 
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="keyword">def</span> <span class="function">_chia_doi</span>(self, dau):
-    nhanh = dau                            <span class="comment"># Con trỏ nhanh đi 2 bước/lần</span>
-    cham  = dau                            <span class="comment"># Con trỏ chậm đi 1 bước/lần</span>
-    <span class="keyword">while</span> nhanh.sau <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and</span> nhanh.sau.sau <span class="keyword">is not</span> <span class="keyword">None</span>:
-        nhanh = nhanh.sau.sau              <span class="comment"># Nhanh đi 2 bước</span>
-        cham  = cham.sau                   <span class="comment"># Chậm đi 1 bước</span>
+<code class="language-python">def _chia_doi(self, dau):
+    nhanh = dau                            # Con trỏ nhanh đi 2 bước/lần
+    cham  = dau                            # Con trỏ chậm đi 1 bước/lần
+    while nhanh.sau is not None and nhanh.sau.sau is not None:
+        nhanh = nhanh.sau.sau              # Nhanh đi 2 bước
+        cham  = cham.sau                   # Chậm đi 1 bước
 
-    giua = cham.sau                        <span class="comment"># Điểm giữa = nút ngay sau `cham`</span>
-    cham.sau = <span class="keyword">None</span>                      <span class="comment"># Cắt đôi: chấm dứt nửa đầu</span>
-    <span class="keyword">return</span> giua                            <span class="comment"># Trả về đầu của nửa sau</span>
-</div>
+    giua = cham.sau                        # Điểm giữa = nút ngay sau `cham`
+    cham.sau = None                      # Cắt đôi: chấm dứt nửa đầu
+    return giua                            # Trả về đầu của nửa sau</code>
+</pre>
 
 <h3>2.4. Hàm đệ quy _merge_sort()</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="keyword">def</span> <span class="function">_merge_sort</span>(self, dau, tieu_chi, tang_dan):
-    <span class="comment"># Điều kiện dừng đệ quy: 0 hoặc 1 nút thì đã sắp xếp rồi</span>
-    <span class="keyword">if</span> dau <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> dau.sau <span class="keyword">is</span> <span class="keyword">None</span>:
-        <span class="keyword">return</span> dau
+<code class="language-python">def _merge_sort(self, dau, tieu_chi, tang_dan):
+    # Điều kiện dừng đệ quy: 0 hoặc 1 nút thì đã sắp xếp rồi
+    if dau is None or dau.sau is None:
+        return dau
 
-    <span class="comment"># 1. CHIA — Cắt đôi danh sách</span>
+    # 1. CHIA — Cắt đôi danh sách
     giua = self._chia_doi(dau)
 
-    <span class="comment"># 2. GỌI ĐỆ QUY — Sắp xếp từng nửa</span>
+    # 2. GỌI ĐỆ QUY — Sắp xếp từng nửa
     trai = self._merge_sort(dau,  tieu_chi, tang_dan)
     phai = self._merge_sort(giua, tieu_chi, tang_dan)
 
-    <span class="comment"># 3. TRỘN — Gộp 2 nửa đã sắp xếp</span>
-    <span class="keyword">return</span> self._tron(trai, phai, tieu_chi, tang_dan)
-</div>
+    # 3. TRỘN — Gộp 2 nửa đã sắp xếp
+    return self._tron(trai, phai, tieu_chi, tang_dan)</code>
+</pre>
 
 <div class="warning">
     <strong>⚠️ Hiểu về đệ quy (recursion):</strong> Hàm <code>_merge_sort</code> gọi chính
@@ -286,39 +286,39 @@
 </div>
 
 <h3>2.5. Hàm trộn _tron()</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/linked_list.py</span>
-<span class="keyword">def</span> <span class="function">_tron</span>(self, trai, phai, tieu_chi, tang_dan):
-    <span class="keyword">if</span> trai <span class="keyword">is</span> <span class="keyword">None</span>: <span class="keyword">return</span> phai
-    <span class="keyword">if</span> phai <span class="keyword">is</span> <span class="keyword">None</span>: <span class="keyword">return</span> trai
+<code class="language-python">def _tron(self, trai, phai, tieu_chi, tang_dan):
+    if trai is None: return phai
+    if phai is None: return trai
 
-    <span class="comment"># Lấy giá trị để so sánh bằng hàm getattr (lấy thuộc tính động)</span>
-    gt_trai = <span class="function">getattr</span>(trai.du_lieu, tieu_chi)
-    gt_phai = <span class="function">getattr</span>(phai.du_lieu, tieu_chi)
+    # Lấy giá trị để so sánh bằng hàm getattr (lấy thuộc tính động)
+    gt_trai = getattr(trai.du_lieu, tieu_chi)
+    gt_phai = getattr(phai.du_lieu, tieu_chi)
 
-    <span class="comment"># Tránh lỗi phân biệt chữ hoa/thường khi sắp xếp theo tên</span>
-    <span class="keyword">if</span> <span class="function">isinstance</span>(gt_trai, <span class="keyword">str</span>): gt_trai = gt_trai.lower()
-    <span class="keyword">if</span> <span class="function">isinstance</span>(gt_phai, <span class="keyword">str</span>): gt_phai = gt_phai.lower()
+    # Tránh lỗi phân biệt chữ hoa/thường khi sắp xếp theo tên
+    if isinstance(gt_trai, str): gt_trai = gt_trai.lower()
+    if isinstance(gt_phai, str): gt_phai = gt_phai.lower()
 
-    <span class="comment"># Quyết định nút nào nhỏ hơn → đặt trước</span>
-    <span class="keyword">if</span> tang_dan:
+    # Quyết định nút nào nhỏ hơn → đặt trước
+    if tang_dan:
         dk = gt_trai &lt;= gt_phai
-    <span class="keyword">else</span>:
+    else:
         dk = gt_trai &gt;= gt_phai
 
-    <span class="keyword">if</span> dk:
+    if dk:
         ket_qua = trai
         ket_qua.sau = self._tron(trai.sau, phai, tieu_chi, tang_dan)
-        <span class="keyword">if</span> ket_qua.sau: ket_qua.sau.truoc = ket_qua
-        ket_qua.truoc = <span class="keyword">None</span>
-        <span class="keyword">return</span> ket_qua
-    <span class="keyword">else</span>:
+        if ket_qua.sau: ket_qua.sau.truoc = ket_qua
+        ket_qua.truoc = None
+        return ket_qua
+    else:
         ket_qua = phai
         ket_qua.sau = self._tron(trai, phai.sau, tieu_chi, tang_dan)
-        <span class="keyword">if</span> ket_qua.sau: ket_qua.sau.truoc = ket_qua
-        ket_qua.truoc = <span class="keyword">None</span>
-        <span class="keyword">return</span> ket_qua
-</div>
+        if ket_qua.sau: ket_qua.sau.truoc = ket_qua
+        ket_qua.truoc = None
+        return ket_qua</code>
+</pre>
 
 <p><strong>Giải thích chi tiết:</strong></p>
 <ul>
@@ -372,26 +372,26 @@
 </div>
 
 <h3>3.2. Cài đặt PyQt6</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">terminal</span>
-pip install PyQt6
-</div>
+<code class="language-python">pip install PyQt6</code>
+</pre>
 
 <h3>3.3. Cấu trúc 1 chương trình PyQt6 tối giản</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">main.py (tối giản)</span>
-<span class="keyword">import</span> sys
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QApplication, QMainWindow
+<code class="language-python">import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow
 
-app = QApplication(sys.argv)             <span class="comment"># 1. TẠO APP (bắt buộc)</span>
+app = QApplication(sys.argv)             # 1. TẠO APP (bắt buộc)
 
-cua_so = QMainWindow()                   <span class="comment"># 2. TẠO CỬA SỔ CHÍNH</span>
-cua_so.setWindowTitle(<span class="string">"Chương trình đầu tiên"</span>)
-cua_so.resize(<span class="number">800</span>, <span class="number">600</span>)
+cua_so = QMainWindow()                   # 2. TẠO CỬA SỔ CHÍNH
+cua_so.setWindowTitle("Chương trình đầu tiên")
+cua_so.resize(800, 600)
 
-cua_so.show()                            <span class="comment"># 3. HIỆN CỬA SỔ LÊN MÀN HÌNH</span>
-sys.exit(app.exec())                     <span class="comment"># 4. CHẠY VÒNG LẶP SỰ KIỆN</span>
-</div>
+cua_so.show()                            # 3. HIỆN CỬA SỔ LÊN MÀN HÌNH
+sys.exit(app.exec())                     # 4. CHẠY VÒNG LẶP SỰ KIỆN</code>
+</pre>
 
 <p><strong>Giải thích từng dòng:</strong></p>
 <ul>
@@ -408,97 +408,97 @@ sys.exit(app.exec())                     <span class="comment"># 4. CHẠY VÒNG
 <h3>3.4. Các WIDGET cơ bản (thành phần GUI)</h3>
 
 <h4>3.4.1. QLabel — nhãn chữ</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QLabel
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QLabel
 
-nhan = QLabel(<span class="string">"Nhập tên:"</span>)      <span class="comment"># Tạo nhãn có chữ "Nhập tên:"</span>
-nhan.setStyleSheet(<span class="string">"font-size: 14px; color: blue;"</span>)  <span class="comment"># Đổi kiểu</span>
-</div>
+nhan = QLabel("Nhập tên:")      # Tạo nhãn có chữ "Nhập tên:"
+nhan.setStyleSheet("font-size: 14px; color: blue;")  # Đổi kiểu</code>
+</pre>
 <p><code>QLabel</code> dùng để hiển thị chữ tĩnh — không cho người dùng chỉnh sửa.</p>
 
 <h4>3.4.2. QLineEdit — ô nhập 1 dòng</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QLineEdit
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QLineEdit
 
-nhap_ten = QLineEdit()                <span class="comment"># Tạo ô nhập</span>
-nhap_ten.setPlaceholderText(<span class="string">"vd: Nguyễn Văn A"</span>)  <span class="comment"># Chữ mờ gợi ý</span>
-text = nhap_ten.text()                <span class="comment"># Lấy chữ người dùng đã nhập (trả về str)</span>
-nhap_ten.clear()                      <span class="comment"># Xóa trắng ô nhập</span>
-</div>
+nhap_ten = QLineEdit()                # Tạo ô nhập
+nhap_ten.setPlaceholderText("vd: Nguyễn Văn A")  # Chữ mờ gợi ý
+text = nhap_ten.text()                # Lấy chữ người dùng đã nhập (trả về str)
+nhap_ten.clear()                      # Xóa trắng ô nhập</code>
+</pre>
 
 <h4>3.4.3. QPushButton — nút bấm</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QPushButton
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QPushButton
 
-nut = QPushButton(<span class="string">"Lưu"</span>)               <span class="comment"># Tạo nút có chữ "Lưu"</span>
-nut.setStyleSheet(<span class="string">"background-color: green; color: white;"</span>)
-nut.clicked.connect(ham_xu_ly)            <span class="comment"># Khi bấm → gọi hàm `ham_xu_ly`</span>
-</div>
+nut = QPushButton("Lưu")               # Tạo nút có chữ "Lưu"
+nut.setStyleSheet("background-color: green; color: white;")
+nut.clicked.connect(ham_xu_ly)            # Khi bấm → gọi hàm `ham_xu_ly`</code>
+</pre>
 <p><strong>Quan trọng:</strong> <code>.clicked.connect(ten_ham)</code> là cách <strong>bắt sự kiện</strong> —
 nghĩa là khi user click nút, hàm <code>ten_ham</code> sẽ tự chạy. <strong>Chú ý: truyền tên hàm (không có ngoặc)</strong>.</p>
 
 <h4>3.4.4. QComboBox — danh sách thả xuống</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QComboBox
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QComboBox
 
 combo = QComboBox()
-combo.addItems([<span class="string">"Sách"</span>, <span class="string">"Tạp chí"</span>, <span class="string">"Báo"</span>])  <span class="comment"># Thêm các lựa chọn</span>
-gia_tri = combo.currentText()           <span class="comment"># Lấy giá trị đang chọn (vd: "Sách")</span>
-combo.currentTextChanged.connect(ham_xu_ly)  <span class="comment"># Khi đổi lựa chọn → gọi hàm</span>
-</div>
+combo.addItems(["Sách", "Tạp chí", "Báo"])  # Thêm các lựa chọn
+gia_tri = combo.currentText()           # Lấy giá trị đang chọn (vd: "Sách")
+combo.currentTextChanged.connect(ham_xu_ly)  # Khi đổi lựa chọn → gọi hàm</code>
+</pre>
 
 <h4>3.4.5. QSpinBox / QDoubleSpinBox — nhập số</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QSpinBox, QDoubleSpinBox
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QSpinBox, QDoubleSpinBox
 
-nhap_sl = QSpinBox()                    <span class="comment"># Nhập số nguyên</span>
-nhap_sl.setMinimum(<span class="number">0</span>)                  <span class="comment"># Số nhỏ nhất = 0</span>
-nhap_sl.setMaximum(<span class="number">99999</span>)              <span class="comment"># Số lớn nhất</span>
-sl = nhap_sl.value()                    <span class="comment"># Lấy giá trị (trả về int)</span>
+nhap_sl = QSpinBox()                    # Nhập số nguyên
+nhap_sl.setMinimum(0)                  # Số nhỏ nhất = 0
+nhap_sl.setMaximum(99999)              # Số lớn nhất
+sl = nhap_sl.value()                    # Lấy giá trị (trả về int)
 
-nhap_gia = QDoubleSpinBox()             <span class="comment"># Nhập số thập phân</span>
-nhap_gia.setSuffix(<span class="string">" VNĐ"</span>)             <span class="comment"># Thêm hậu tố hiển thị</span>
-gia = nhap_gia.value()                  <span class="comment"># Trả về float</span>
-</div>
+nhap_gia = QDoubleSpinBox()             # Nhập số thập phân
+nhap_gia.setSuffix(" VNĐ")             # Thêm hậu tố hiển thị
+gia = nhap_gia.value()                  # Trả về float</code>
+</pre>
 
 <h4>3.4.6. QTableWidget — bảng dữ liệu</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QTableWidget, QTableWidgetItem, QHeaderView
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView
 
 bang = QTableWidget()
-bang.setColumnCount(<span class="number">5</span>)                          <span class="comment"># 5 cột</span>
-bang.setHorizontalHeaderLabels([<span class="string">"Mã"</span>, <span class="string">"Tên"</span>, <span class="string">"Giá"</span>, <span class="string">"SL"</span>, <span class="string">"Loại"</span>])
-bang.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)  <span class="comment"># Cột tự giãn</span>
-bang.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)  <span class="comment"># Không cho sửa trực tiếp</span>
+bang.setColumnCount(5)                          # 5 cột
+bang.setHorizontalHeaderLabels(["Mã", "Tên", "Giá", "SL", "Loại"])
+bang.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)  # Cột tự giãn
+bang.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)  # Không cho sửa trực tiếp
 
-<span class="comment"># Thêm 1 dòng</span>
+# Thêm 1 dòng
 dong = bang.rowCount()
 bang.insertRow(dong)
-bang.setItem(dong, <span class="number">0</span>, QTableWidgetItem(<span class="string">"S01"</span>))      <span class="comment"># Cột 0 = "S01"</span>
-bang.setItem(dong, <span class="number">1</span>, QTableWidgetItem(<span class="string">"Lập trình C++"</span>))
+bang.setItem(dong, 0, QTableWidgetItem("S01"))      # Cột 0 = "S01"
+bang.setItem(dong, 1, QTableWidgetItem("Lập trình C++"))
 
-<span class="comment"># Lấy giá trị ô đang chọn</span>
-dong_chon = bang.currentRow()           <span class="comment"># Trả về số (index dòng đang chọn, -1 nếu chưa chọn)</span>
-gia_tri = bang.item(dong_chon, <span class="number">0</span>).text()    <span class="comment"># Lấy text ô ở dòng chon, cột 0</span>
+# Lấy giá trị ô đang chọn
+dong_chon = bang.currentRow()           # Trả về số (index dòng đang chọn, -1 nếu chưa chọn)
+gia_tri = bang.item(dong_chon, 0).text()    # Lấy text ô ở dòng chon, cột 0
 
-<span class="comment"># Xóa toàn bộ dòng</span>
-bang.setRowCount(<span class="number">0</span>)
-</div>
+# Xóa toàn bộ dòng
+bang.setRowCount(0)</code>
+</pre>
 
 <h4>3.4.7. QMessageBox — hộp thoại thông báo</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QMessageBox
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QMessageBox
 
-QMessageBox.information(parent, <span class="string">"Tiêu đề"</span>, <span class="string">"Thành công!"</span>)   <span class="comment"># Xanh</span>
-QMessageBox.warning(parent,     <span class="string">"Tiêu đề"</span>, <span class="string">"Cảnh báo!"</span>)    <span class="comment"># Vàng</span>
-QMessageBox.critical(parent,    <span class="string">"Tiêu đề"</span>, <span class="string">"Lỗi!"</span>)          <span class="comment"># Đỏ</span>
+QMessageBox.information(parent, "Tiêu đề", "Thành công!")   # Xanh
+QMessageBox.warning(parent,     "Tiêu đề", "Cảnh báo!")    # Vàng
+QMessageBox.critical(parent,    "Tiêu đề", "Lỗi!")          # Đỏ
 
-<span class="comment"># Hộp thoại Yes/No</span>
-ket_qua = QMessageBox.question(parent, <span class="string">"Xác nhận"</span>, <span class="string">"Bạn chắc?"</span>,
+# Hộp thoại Yes/No
+ket_qua = QMessageBox.question(parent, "Xác nhận", "Bạn chắc?",
                               QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-<span class="keyword">if</span> ket_qua == QMessageBox.StandardButton.Yes:
-    <span class="function">print</span>(<span class="string">"Đồng ý"</span>)
-</div>
+if ket_qua == QMessageBox.StandardButton.Yes:
+    print("Đồng ý")</code>
+</pre>
 
 <h3>3.5. Layout — cách xếp widget trong cửa sổ</h3>
 <p>
@@ -507,46 +507,46 @@ ket_qua = QMessageBox.question(parent, <span class="string">"Xác nhận"</span>
 </p>
 
 <h4>3.5.1. QVBoxLayout — xếp dọc</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QVBoxLayout, QLabel, QLineEdit, QPushButton
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QVBoxLayout, QLabel, QLineEdit, QPushButton
 
-layout_doc = QVBoxLayout()              <span class="comment"># Layout xếp dọc</span>
-layout_doc.addWidget(QLabel(<span class="string">"Tên:"</span>))      <span class="comment"># Widget 1 ở trên</span>
-layout_doc.addWidget(QLineEdit())       <span class="comment"># Widget 2 ở giữa</span>
-layout_doc.addWidget(QPushButton(<span class="string">"Lưu"</span>))    <span class="comment"># Widget 3 ở dưới</span>
+layout_doc = QVBoxLayout()              # Layout xếp dọc
+layout_doc.addWidget(QLabel("Tên:"))      # Widget 1 ở trên
+layout_doc.addWidget(QLineEdit())       # Widget 2 ở giữa
+layout_doc.addWidget(QPushButton("Lưu"))    # Widget 3 ở dưới
 
 widget_trung_tam = QWidget()
 widget_trung_tam.setLayout(layout_doc)
-cua_so.setCentralWidget(widget_trung_tam)
-</div>
+cua_so.setCentralWidget(widget_trung_tam)</code>
+</pre>
 
 <h4>3.5.2. QHBoxLayout — xếp ngang</h4>
-<div class="code-block">
-<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QHBoxLayout
+<pre class="code-block">
+<code class="language-python">from PyQt6.QtWidgets import QHBoxLayout
 
-layout_ngang = QHBoxLayout()            <span class="comment"># Layout xếp ngang</span>
-layout_ngang.addWidget(QPushButton(<span class="string">"Left"</span>))
-layout_ngang.addWidget(QPushButton(<span class="string">"Center"</span>))
-layout_ngang.addWidget(QPushButton(<span class="string">"Right"</span>))
-</div>
+layout_ngang = QHBoxLayout()            # Layout xếp ngang
+layout_ngang.addWidget(QPushButton("Left"))
+layout_ngang.addWidget(QPushButton("Center"))
+layout_ngang.addWidget(QPushButton("Right"))</code>
+</pre>
 
 <h4>3.5.3. Kết hợp Layout lồng nhau</h4>
 <p>
     Thực tế ta hay <strong>lồng</strong> các layout: layout ngang chứa 3 nút, rồi nhét vào
     layout dọc. Đây là cách tạo giao diện phức tạp.
 </p>
-<div class="code-block">
-layout_chinh = QVBoxLayout()                <span class="comment"># Layout dọc chính</span>
+<pre class="code-block">
+<code class="language-python">layout_chinh = QVBoxLayout()                # Layout dọc chính
 
-layout_chinh.addWidget(QLabel(<span class="string">"Tiêu đề"</span>))
+layout_chinh.addWidget(QLabel("Tiêu đề"))
 
-layout_nut = QHBoxLayout()                  <span class="comment"># Layout ngang chứa 3 nút</span>
-layout_nut.addWidget(QPushButton(<span class="string">"Thêm"</span>))
-layout_nut.addWidget(QPushButton(<span class="string">"Sửa"</span>))
-layout_nut.addWidget(QPushButton(<span class="string">"Xóa"</span>))
+layout_nut = QHBoxLayout()                  # Layout ngang chứa 3 nút
+layout_nut.addWidget(QPushButton("Thêm"))
+layout_nut.addWidget(QPushButton("Sửa"))
+layout_nut.addWidget(QPushButton("Xóa"))
 
-layout_chinh.addLayout(layout_nut)          <span class="comment"># NHÉT layout ngang vào layout dọc</span>
-</div>
+layout_chinh.addLayout(layout_nut)          # NHÉT layout ngang vào layout dọc</code>
+</pre>
 
 <div class="note">
     <strong>💡 Quy tắc:</strong> <code>addWidget()</code> để thêm widget, <code>addLayout()</code>
@@ -558,9 +558,9 @@ layout_chinh.addLayout(layout_nut)          <span class="comment"># NHÉT layout
     PyQt6 hỗ trợ <strong>QSS</strong> — cú pháp gần giống CSS của web. Ta có thể style
     toàn app hoặc từng widget.
 </p>
-<div class="code-block">
-<span class="comment"># Style toàn app</span>
-app.setStyleSheet(<span class="string">"""
+<pre class="code-block">
+<code class="language-python"># Style toàn app
+app.setStyleSheet("""
     QMainWindow {
         background-color: #f5f7fa;
     }
@@ -579,11 +579,11 @@ app.setStyleSheet(<span class="string">"""
         border: 1px solid #cbd5e1;
         border-radius: 4px;
     }
-"""</span>)
+""")
 
-<span class="comment"># Style 1 widget</span>
-nut.setStyleSheet(<span class="string">"background-color: red; color: white; font-weight: bold;"</span>)
-</div>
+# Style 1 widget
+nut.setStyleSheet("background-color: red; color: white; font-weight: bold;")</code>
+</pre>
 
 </section>
 
@@ -596,26 +596,26 @@ nut.setStyleSheet(<span class="string">"background-color: red; color: white; fon
 <p>Đây là file LỚN NHẤT và KHÓ NHẤT của đồ án. Phân tích từng phần.</p>
 
 <h3>4.1. Khai báo lớp và hàm tạo</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">ui/main_window.py</span>
-<span class="keyword">class</span> <span class="function">CuaSoChinh</span>(QMainWindow):
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, nguoi_dung_hien_tai=<span class="keyword">None</span>):
-        <span class="keyword">super</span>().__init__()                          <span class="comment"># Gọi __init__ của QMainWindow</span>
-        self.setWindowTitle(<span class="string">"Hệ Thống Quản Lý Cửa Hàng Sách"</span>)
-        self.resize(<span class="number">1100</span>, <span class="number">700</span>)
+<code class="language-python">class CuaSoChinh(QMainWindow):
+    def __init__(self, nguoi_dung_hien_tai=None):
+        super().__init__()                          # Gọi __init__ của QMainWindow
+        self.setWindowTitle("Hệ Thống Quản Lý Cửa Hàng Sách")
+        self.resize(1100, 700)
 
-        <span class="comment"># Thông tin người dùng đăng nhập</span>
+        # Thông tin người dùng đăng nhập
         self.nguoi_dung = nguoi_dung_hien_tai
 
-        <span class="comment"># 4 cấu trúc dữ liệu chính</span>
-        self.danh_sach = DanhSachLienKetDoi()       <span class="comment"># 1. DSLK đôi - chứa sản phẩm</span>
-        self.ngan_xep_hoan_tac = NganXep()          <span class="comment"># 2. Stack Undo</span>
-        self.ngan_xep_lam_lai = NganXep()           <span class="comment"># 3. Stack Redo</span>
-        self.gio_hang = HangDoi()                   <span class="comment"># 4. Queue giỏ hàng</span>
+        # 4 cấu trúc dữ liệu chính
+        self.danh_sach = DanhSachLienKetDoi()       # 1. DSLK đôi - chứa sản phẩm
+        self.ngan_xep_hoan_tac = NganXep()          # 2. Stack Undo
+        self.ngan_xep_lam_lai = NganXep()           # 3. Stack Redo
+        self.gio_hang = HangDoi()                   # 4. Queue giỏ hàng
 
         self.thiet_lap_giao_dien()
-        self.doc_du_lieu_tu_file()
-</div>
+        self.doc_du_lieu_tu_file()</code>
+</pre>
 
 <p><strong>Giải thích từng dòng:</strong></p>
 <ul>
@@ -629,32 +629,32 @@ nut.setStyleSheet(<span class="string">"background-color: red; color: white; fon
 </ul>
 
 <h3>4.2. Hàm thiet_lap_giao_dien() — xây dựng UI</h3>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">thiet_lap_giao_dien</span>(self):
+<pre class="code-block">
+<code class="language-python">def thiet_lap_giao_dien(self):
     widget_chinh = QWidget()
     self.setCentralWidget(widget_chinh)
     layout_chinh = QVBoxLayout(widget_chinh)
 
-    <span class="comment"># 1. HÀNG TRÊN: thanh tìm kiếm + combo tiêu chí</span>
+    # 1. HÀNG TRÊN: thanh tìm kiếm + combo tiêu chí
     self.nhap_tim_kiem = QLineEdit()
     self.cb_tieu_chi_tim = QComboBox()
-    self.cb_tieu_chi_tim.addItems([<span class="string">"Tất cả"</span>, <span class="string">"Theo Tên"</span>, <span class="string">"Theo Mã"</span>, <span class="string">"Theo Loại"</span>])
+    self.cb_tieu_chi_tim.addItems(["Tất cả", "Theo Tên", "Theo Mã", "Theo Loại"])
     self.nhap_tim_kiem.textChanged.connect(self.xu_ly_tim_kiem)
 
-    <span class="comment"># 2. BẢNG CHÍNH: QTableWidget hiển thị sản phẩm</span>
+    # 2. BẢNG CHÍNH: QTableWidget hiển thị sản phẩm
     self.bang_du_lieu = QTableWidget()
-    self.bang_du_lieu.setColumnCount(<span class="number">7</span>)
+    self.bang_du_lieu.setColumnCount(7)
 
-    <span class="comment"># 3. CÁC NÚT</span>
-    nut_them = QPushButton(<span class="string">"➕ Thêm"</span>)
+    # 3. CÁC NÚT
+    nut_them = QPushButton("➕ Thêm")
     nut_them.clicked.connect(self.hien_thi_form_them)
-    nut_xoa = QPushButton(<span class="string">"❌ Xóa"</span>)
+    nut_xoa = QPushButton("❌ Xóa")
     nut_xoa.clicked.connect(self.xu_ly_xoa_san_pham)
 
-    <span class="comment"># 4. PHÂN QUYỀN: ẩn nút Xóa nếu là Nhân viên</span>
-    <span class="keyword">if</span> self.nguoi_dung <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and not</span> self.nguoi_dung.la_admin():
-        nut_xoa.setVisible(<span class="keyword">False</span>)
-</div>
+    # 4. PHÂN QUYỀN: ẩn nút Xóa nếu là Nhân viên
+    if self.nguoi_dung is not None and not self.nguoi_dung.la_admin():
+        nut_xoa.setVisible(False)</code>
+</pre>
 
 <p><strong>Các điểm quan trọng:</strong></p>
 <ul>
@@ -666,36 +666,36 @@ nut.setStyleSheet(<span class="string">"background-color: red; color: white; fon
 </ul>
 
 <h3>4.3. Hàm hien_thi_form_them() — xử lý nút Thêm</h3>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">hien_thi_form_them</span>(self):
-    hop_thoai = HopThoaiThemMoi(self)                      <span class="comment"># 1. Mở dialog</span>
-    <span class="keyword">if</span> hop_thoai.exec() == QDialog.DialogCode.Accepted:  <span class="comment"># 2. Nếu user bấm Lưu</span>
-        <span class="keyword">try</span>:
-            sp_moi = hop_thoai.san_pham_moi                <span class="comment"># 3. Lấy đối tượng</span>
-            <span class="comment"># 4. Kiểm tra trùng mã</span>
-            <span class="keyword">if</span> self.danh_sach.tim_kiem_theo_ma(sp_moi.ma_so):
-                QMessageBox.warning(self, <span class="string">"Lỗi"</span>, <span class="string">"Mã đã tồn tại!"</span>)
-                <span class="keyword">return</span>
-            <span class="comment"># 5. Thêm vào DSLK + lưu SQLite + vẽ lại bảng</span>
+<pre class="code-block">
+<code class="language-python">def hien_thi_form_them(self):
+    hop_thoai = HopThoaiThemMoi(self)                      # 1. Mở dialog
+    if hop_thoai.exec() == QDialog.DialogCode.Accepted:  # 2. Nếu user bấm Lưu
+        try:
+            sp_moi = hop_thoai.san_pham_moi                # 3. Lấy đối tượng
+            # 4. Kiểm tra trùng mã
+            if self.danh_sach.tim_kiem_theo_ma(sp_moi.ma_so):
+                QMessageBox.warning(self, "Lỗi", "Mã đã tồn tại!")
+                return
+            # 5. Thêm vào DSLK + lưu SQLite + vẽ lại bảng
             self.danh_sach.them_vao_cuoi(sp_moi)
             self.luu_du_lieu_ra_file()
             self.cap_nhat_bang_hien_thi()
-            <span class="comment"># 6. Ghi vào Stack Undo</span>
-            self.ngan_xep_hoan_tac.day_vao({<span class="string">"thao_tac"</span>: <span class="string">"them"</span>, <span class="string">"sp"</span>: sp_moi})
-            self.ngan_xep_lam_lai.xoa_tat_ca()             <span class="comment"># Xóa Redo stack</span>
-        <span class="keyword">except</span> <span class="keyword">Exception</span> <span class="keyword">as</span> e:
-            QMessageBox.critical(self, <span class="string">"Lỗi"</span>, <span class="string">f"Lỗi: {e}"</span>)
-</div>
+            # 6. Ghi vào Stack Undo
+            self.ngan_xep_hoan_tac.day_vao({"thao_tac": "them", "sp": sp_moi})
+            self.ngan_xep_lam_lai.xoa_tat_ca()             # Xóa Redo stack
+        except Exception as e:
+            QMessageBox.critical(self, "Lỗi", f"Lỗi: {e}")</code>
+</pre>
 
 <h3>4.4. Hàm xu_ly_thong_ke() — thống kê tổng giá trị kho</h3>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">xu_ly_thong_ke</span>(self):
-    tong_gia_tri = <span class="number">0.0</span>
-    tong_so_luong = <span class="number">0</span>
-    <span class="keyword">for</span> sp <span class="keyword">in</span> self.danh_sach.duyet_danh_sach():
-        tong_gia_tri += sp.tinh_gia_ban() * sp.so_luong   <span class="comment"># ĐA HÌNH!</span>
-        tong_so_luong += sp.so_luong
-</div>
+<pre class="code-block">
+<code class="language-python">def xu_ly_thong_ke(self):
+    tong_gia_tri = 0.0
+    tong_so_luong = 0
+    for sp in self.danh_sach.duyet_danh_sach():
+        tong_gia_tri += sp.tinh_gia_ban() * sp.so_luong   # ĐA HÌNH!
+        tong_so_luong += sp.so_luong</code>
+</pre>
 
 <div class="tip">
     <strong>💡 Tại sao dùng <code>sp.tinh_gia_ban()</code>?</strong> Vì <strong>tính đa hình</strong>:
@@ -724,38 +724,38 @@ nut.setStyleSheet(<span class="string">"background-color: red; color: white; fon
 </div>
 
 <h3>5.2. Cấu trúc 1 "thao tác" trong Stack</h3>
-<div class="code-block">
-<span class="comment"># Thao tác THÊM</span>
-{<span class="string">"thao_tac"</span>: <span class="string">"them"</span>, <span class="string">"sp"</span>: sp_moi}
+<pre class="code-block">
+<code class="language-python"># Thao tác THÊM
+{"thao_tac": "them", "sp": sp_moi}
 
-<span class="comment"># Thao tác XÓA</span>
-{<span class="string">"thao_tac"</span>: <span class="string">"xoa"</span>, <span class="string">"sp"</span>: sp_bi_xoa}
+# Thao tác XÓA
+{"thao_tac": "xoa", "sp": sp_bi_xoa}
 
-<span class="comment"># Thao tác SỬA</span>
-{<span class="string">"thao_tac"</span>: <span class="string">"sua"</span>, <span class="string">"sp_cu"</span>: sp_cu, <span class="string">"sp_moi"</span>: sp_moi}
-</div>
+# Thao tác SỬA
+{"thao_tac": "sua", "sp_cu": sp_cu, "sp_moi": sp_moi}</code>
+</pre>
 
 <h3>5.3. Hàm xu_ly_hoan_tac() — Undo</h3>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">xu_ly_hoan_tac</span>(self):
-    thao_tac = self.ngan_xep_hoan_tac.lay_ra()      <span class="comment"># Lấy từ đỉnh Stack Undo</span>
-    kieu = thao_tac[<span class="string">"thao_tac"</span>]
+<pre class="code-block">
+<code class="language-python">def xu_ly_hoan_tac(self):
+    thao_tac = self.ngan_xep_hoan_tac.lay_ra()      # Lấy từ đỉnh Stack Undo
+    kieu = thao_tac["thao_tac"]
 
-    <span class="keyword">if</span> kieu == <span class="string">"them"</span>:
-        <span class="comment"># Đã THÊM → Undo = XÓA</span>
-        self.danh_sach.xoa_nut_theo_ma(thao_tac[<span class="string">"sp"</span>].ma_so)
-    <span class="keyword">elif</span> kieu == <span class="string">"xoa"</span>:
-        <span class="comment"># Đã XÓA → Undo = THÊM lại</span>
-        self.danh_sach.them_vao_cuoi(thao_tac[<span class="string">"sp"</span>])
-    <span class="keyword">elif</span> kieu == <span class="string">"sua"</span>:
-        <span class="comment"># Đã SỬA → Undo = khôi phục sp_cu</span>
-        self.danh_sach.xoa_nut_theo_ma(thao_tac[<span class="string">"sp_moi"</span>].ma_so)
-        self.danh_sach.them_vao_cuoi(thao_tac[<span class="string">"sp_cu"</span>])
+    if kieu == "them":
+        # Đã THÊM → Undo = XÓA
+        self.danh_sach.xoa_nut_theo_ma(thao_tac["sp"].ma_so)
+    elif kieu == "xoa":
+        # Đã XÓA → Undo = THÊM lại
+        self.danh_sach.them_vao_cuoi(thao_tac["sp"])
+    elif kieu == "sua":
+        # Đã SỬA → Undo = khôi phục sp_cu
+        self.danh_sach.xoa_nut_theo_ma(thao_tac["sp_moi"].ma_so)
+        self.danh_sach.them_vao_cuoi(thao_tac["sp_cu"])
 
-    self.ngan_xep_lam_lai.day_vao(thao_tac)         <span class="comment"># Đẩy sang Redo</span>
+    self.ngan_xep_lam_lai.day_vao(thao_tac)         # Đẩy sang Redo
     self.luu_du_lieu_ra_file()
-    self.cap_nhat_bang_hien_thi()
-</div>
+    self.cap_nhat_bang_hien_thi()</code>
+</pre>
 
 <h3>5.4. Mô phỏng Undo/Redo tương tác</h3>
 <div class="demo-box">
@@ -918,5 +918,6 @@ nut.setStyleSheet(<span class="string">"background-color: red; color: white; fon
 </div>
 
 <script src="app.js"></script>
+    <script src="highlight.js"></script>
 </body>
 </html>
