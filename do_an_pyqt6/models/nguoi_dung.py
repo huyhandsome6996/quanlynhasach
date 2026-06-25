@@ -44,7 +44,7 @@ class NguoiDung:
 # DANH SÁCH TÀI KHOẢN MẶC ĐỊNH
 # --------------------------------------------------------------------
 # Trong thực tế tài khoản sẽ lưu trong CSDL, nhưng để đơn giản
-# (đến thằng ngu cũng hiểu) thì mình lưu sẵn 2 tài khoản mẫu:
+# lưu sẵn 2 tài khoản mẫu:
 #    - admin / 123     : toàn quyền
 #    - nhanvien / 123  : không được xóa
 # ====================================================================
