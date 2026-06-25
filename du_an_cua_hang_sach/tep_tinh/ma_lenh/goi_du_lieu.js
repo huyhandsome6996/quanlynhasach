@@ -1,33 +1,40 @@
 /**
- * Tệp goi_du_lieu.js - Đoạn mã JavaScript giao tiếp máy chủ.
- * Chứa các hàm dùng Fetch API để gọi các endpoint trên máy chủ Django.
+ * goi_du_lieu.js — Các hàm giao tiếp với máy chủ Django bằng Fetch API.
+ * ==========================================================================
  *
- * Các hàm chính:
- *   - lay_danh_sach():          Gọi API GET /danh-sach
- *   - tim_kiem(tu_khoa, tieu_chi): Gọi API GET /tim-kiem
- *   - sap_xep(tieu_chi):        Gọi API GET /sap-xep
- *   - them_san_pham(du_lieu):    Gọi API POST /them-san-pham
- *   - sua_san_pham(du_lieu):     Gọi API POST /sua-san-pham
- *   - xoa_san_pham(ma_so):      Gọi API POST /xoa-san-pham
- *   - lay_thong_ke():           Gọi API GET /thong-ke
- *   - them_vao_gio_hang(ma_so): Gọi API POST /them-gio-hang
- *   - xem_gio_hang():           Gọi API GET /xem-gio-hang
- *   - xoa_khoi_gio_hang(ma_so):Gọi API POST /xoa-gio-hang
- *   - thanh_toan_gio_hang():    Gọi API POST /thanh-toan
- *   - hoan_tac():               Gọi API POST /hoan-tac
- *   - lam_lai():                Gọi API POST /lam-lai
+ * Mỗi hàm tương ứng 1 endpoint API:
+ *   - lay_danh_sach()          → GET  /danh-sach
+ *   - tim_kiem(tu_khoa, tc)    → GET  /tim-kiem
+ *   - sap_xep(tieu_chi)        → GET  /sap-xep
+ *   - them_san_pham(du_lieu)   → POST /them-san-pham
+ *   - sua_san_pham(du_lieu)    → POST /sua-san-pham
+ *   - xoa_san_pham(ma_so)      → POST /xoa-san-pham
+ *   - lay_thong_ke()           → GET  /thong-ke
+ *   - them_vao_gio_hang(ma_so) → POST /them-gio-hang
+ *   - xem_gio_hang()           → GET  /xem-gio-hang
+ *   - xoa_khoi_gio_hang(ma_so) → POST /xoa-gio-hang
+ *   - thanh_toan_gio_hang()    → POST /thanh-toan
+ *   - hoan_tac()               → POST /hoan-tac
+ *   - lam_lai()                → POST /lam-lai
  */
 
 
 /**
  * Gọi API GET /danh-sach để lấy toàn bộ danh sách mặt hàng.
+ *
+ * Trả về: object JSON từ server, VD:
+ *   { trang_thai: 'thanh_cong', so_luong: 5, danh_sach: [...] }
+ * Nếu lỗi → trả null và hiện thông báo.
  */
 async function lay_danh_sach() {
     try {
+        // await fetch(...) gửi request GET và chờ phản hồi.
         const phan_hoi = await fetch('/danh-sach');
+        // Chuyển body phản hồi từ JSON string → object JavaScript.
         const du_lieu = await phan_hoi.json();
         return du_lieu;
     } catch (loi) {
+        // Lỗi mạng (server không phản hồi, mất mạng...).
         console.error('Lỗi khi lấy danh sách:', loi);
         hien_thong_bao('Không thể kết nối đến máy chủ.', 'loi');
         return null;
@@ -39,11 +46,13 @@ async function lay_danh_sach() {
  * Gọi API GET /tim-kiem để tìm kiếm sản phẩm theo từ khóa và tiêu chí.
  *
  * Tham số:
- *   tu_khoa (string):   Từ khóa tìm kiếm.
- *   tieu_chi (string):  Tiêu chí tìm kiếm ('ten', 'ma', 'loai').
+ *   tu_khoa  (string): Từ khóa cần tìm (VD: "Kiều").
+ *   tieu_chi (string): 'ten' | 'ma' | 'loai'.
  */
 async function tim_kiem(tu_khoa, tieu_chi) {
     try {
+        // encodeURIComponent: mã hóa ký tự đặc biệt (VD: khoảng trắng → %20)
+        // để truyền an toàn trong URL.
         const phan_hoi = await fetch(`/tim-kiem?tu_khoa=${encodeURIComponent(tu_khoa)}&tieu_chi=${encodeURIComponent(tieu_chi)}`);
         const du_lieu = await phan_hoi.json();
         return du_lieu;
@@ -59,7 +68,7 @@ async function tim_kiem(tu_khoa, tieu_chi) {
  * Gọi API GET /sap-xep để sắp xếp danh sách theo tiêu chí.
  *
  * Tham số:
- *   tieu_chi (string): Tiêu chí sắp xếp ('gia_ban', 'ten_san_pham', 'ton_kho').
+ *   tieu_chi (string): 'gia_ban' | 'ten_san_pham' | 'ton_kho'.
  */
 async function sap_xep(tieu_chi) {
     try {
@@ -78,16 +87,21 @@ async function sap_xep(tieu_chi) {
  * Gọi API POST /them-san-pham để thêm một sản phẩm mới.
  *
  * Tham số:
- *   du_lieu (object): Đối tượng chứa thông tin sản phẩm cần thêm.
+ *   du_lieu (object): Đối tượng chứa thông tin sản phẩm.
+ *
+ * Trả về: { trang_thai: number, du_lieu: object }
+ *   - trang_thai: HTTP status code (200, 400, 500...).
+ *   - du_lieu: object JSON phản hồi từ server.
  */
 async function them_san_pham(du_lieu) {
     try {
         const phan_hoi = await fetch('/them-san-pham', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(du_lieu)
+            method:  'POST',                                    // Phương thức HTTP POST.
+            headers: { 'Content-Type': 'application/json' },    // Báo cho server biết body là JSON.
+            body:    JSON.stringify(du_lieu)                     // Đổi object JS → JSON string.
         });
         const ket_qua = await phan_hoi.json();
+        // Trả về cả status code + body JSON để tuong_tac.js xử lý phân biệt lỗi.
         return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
     } catch (loi) {
         console.error('Lỗi khi thêm sản phẩm:', loi);
@@ -101,14 +115,14 @@ async function them_san_pham(du_lieu) {
  * Gọi API POST /sua-san-pham để sửa thông tin một sản phẩm.
  *
  * Tham số:
- *   du_lieu (object): Đối tượng chứa thông tin sản phẩm cần sửa.
+ *   du_lieu (object): Đối tượng chứa mã số sản phẩm cần sửa + các trường mới.
  */
 async function sua_san_pham(du_lieu) {
     try {
         const phan_hoi = await fetch('/sua-san-pham', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(du_lieu)
+            body:    JSON.stringify(du_lieu)
         });
         const ket_qua = await phan_hoi.json();
         return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
@@ -129,9 +143,9 @@ async function sua_san_pham(du_lieu) {
 async function xoa_san_pham(ma_so) {
     try {
         const phan_hoi = await fetch('/xoa-san-pham', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ma_so: ma_so })
+            body:    JSON.stringify({ ma_so: ma_so })
         });
         const ket_qua = await phan_hoi.json();
         return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
@@ -165,9 +179,9 @@ async function lay_thong_ke() {
 async function them_vao_gio_hang(ma_so) {
     try {
         const phan_hoi = await fetch('/them-gio-hang', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ma_so: ma_so })
+            body:    JSON.stringify({ ma_so: ma_so })
         });
         const ket_qua = await phan_hoi.json();
         return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
@@ -180,7 +194,7 @@ async function them_vao_gio_hang(ma_so) {
 
 
 /**
- * Gọi API GET /xem-gio-hang để xem giỏ hàng.
+ * Gọi API GET /xem-gio-hang để xem toàn bộ giỏ hàng.
  */
 async function xem_gio_hang() {
     try {
@@ -200,9 +214,9 @@ async function xem_gio_hang() {
 async function xoa_khoi_gio_hang(ma_so) {
     try {
         const phan_hoi = await fetch('/xoa-gio-hang', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ma_so: ma_so })
+            body:    JSON.stringify({ ma_so: ma_so })
         });
         const ket_qua = await phan_hoi.json();
         return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
@@ -214,13 +228,14 @@ async function xoa_khoi_gio_hang(ma_so) {
 
 
 /**
- * Gọi API POST /thanh-toan để thanh toán giỏ hàng.
+ * Gọi API POST /thanh-toan để thanh toán toàn bộ giỏ hàng.
  */
 async function thanh_toan_gio_hang() {
     try {
         const phan_hoi = await fetch('/thanh-toan', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' }
+            // Không cần body vì server tự đọc toàn bộ giỏ từ queue.
         });
         const ket_qua = await phan_hoi.json();
         return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
@@ -238,7 +253,7 @@ async function thanh_toan_gio_hang() {
 async function hoan_tac() {
     try {
         const phan_hoi = await fetch('/hoan-tac', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' }
         });
         const ket_qua = await phan_hoi.json();
@@ -257,7 +272,7 @@ async function hoan_tac() {
 async function lam_lai() {
     try {
         const phan_hoi = await fetch('/lam-lai', {
-            method: 'POST',
+            method:  'POST',
             headers: { 'Content-Type': 'application/json' }
         });
         const ket_qua = await phan_hoi.json();

@@ -1,35 +1,63 @@
 <!DOCTYPE html>
+<!-- ↑ Khai báo tài liệu HTML5 — phải có ở đầu mỗi file HTML. -->
+
+<!-- <html lang="vi">: Thẻ gốc, ngôn ngữ tiếng Việt. -->
 <html lang="vi">
 <head>
+    <!-- <meta charset>: Bảng mã UTF-8 — hiển thị tiếng Việt có dấu. -->
     <meta charset="UTF-8">
+    <!-- <meta viewport>: Responsive — co giãn theo màn hình điện thoại/máy tính. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta description>: Mô tả trang cho SEO. -->
     <meta name="description" content="Đăng nhập hệ thống Quản lý Cửa hàng Sách">
+    <!-- <meta theme-color>: Màu thanh địa chỉ trên mobile. -->
     <meta name="theme-color" content="#047857">
+    <!-- <title>: Tiêu đề hiện trên tab trình duyệt. -->
     <title>Đăng nhập · Quản lý Cửa hàng Sách</title>
 
-    
+    <!-- Dong duoi: lenh `load static` cua Django de dung duoc the `static` ben duoi. -->
     {% load static %}
+    <!-- preconnect: gợi ý trình duyệt kết nối sẵn tới Google Fonts để tải nhanh hơn. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Nạp font Inter từ Google Fonts. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Nạp file CSS nội bộ trang_tri.css. -->
     <link rel="stylesheet" href="{% static 'hinh_thuc/trang_tri.css' %}">
 </head>
+
+<!-- <body class="trang_dang_nhap">: body với class CSS riêng để style riêng cho trang đăng nhập
+     (căn giữa khung đăng nhập, đổi màu nền). -->
 <body class="trang_dang_nhap">
-    <!-- Thẻ bọc ngoài căn giữa -->
+    <!-- <div class="hop_dang_nhap">: Khung bọc ngoài căn giữa màn hình. -->
     <div class="hop_dang_nhap">
-        <!-- Tiêu đề -->
+
+        <!-- Khung tiêu đề trang đăng nhập. -->
         <div class="tieu_de_dang_nhap">
+            <!-- <h1>: Tiêu đề cấp 1 — lớn nhất, quan trọng nhất. -->
             <h1>📚 Hệ thống Quản lý Cửa hàng Sách</h1>
+            <!-- <p>: Đoạn văn mô tả ngắn. -->
             <p class="mo_ta">Đăng nhập để tiếp tục · Môn Lập trình Nâng cao</p>
         </div>
 
-        <!-- Thông báo lỗi -->
+        <!-- Khung thông báo lỗi — ẩn mặc định (class "an_di"), JS sẽ hiện khi có lỗi. -->
+        <!-- role="status" + aria-live: screen reader sẽ đọc thông báo khi nó xuất hiện. -->
         <div id="thong_bao_dang_nhap" class="thong_bao_dang_nhap an_di" role="status" aria-live="polite"></div>
 
-        <!-- Form đăng nhập -->
+        <!-- <form>: Biểu mẫu thu thập dữ liệu từ người dùng.
+             novalidate: tắt validate mặc định của trình duyệt để JS tự validate (tiếng Việt). -->
         <form id="bieu_mau_dang_nhap" novalidate>
+            <!-- <div class="nhom_nhap">: Nhóm 1 input + label. -->
             <div class="nhom_nhap">
+                <!-- <label for="...">: Nhãn cho input. for= phải khớp với id của input
+                     để khi bấm vào label, con trỏ tự nhảy vào input. -->
                 <label for="o_ten_dang_nhap">Tên đăng nhập</label>
+                <!-- <input type="text">: Ô nhập văn bản 1 dòng.
+                     id: định danh để JS truy cập.
+                     name: tên biến khi form submit truyền thống.
+                     placeholder: chữ gợi ý mờ khi chưa nhập.
+                     autocomplete: gợi ý trình duyệt nhớ tên đăng nhập.
+                     required: HTML5 validate bắt buộc nhập. -->
                 <input type="text" id="o_ten_dang_nhap" name="ten_dang_nhap"
                        placeholder="Nhập tên đăng nhập"
                        autocomplete="username" required />
@@ -37,33 +65,44 @@
 
             <div class="nhom_nhap">
                 <label for="o_mat_khau">Mật khẩu</label>
+                <!-- <input type="password">: Ô nhập mật khẩu — ký tự nhập sẽ hiển thị thành dấu chấm. -->
                 <input type="password" id="o_mat_khau" name="mat_khau"
                        placeholder="Nhập mật khẩu"
                        autocomplete="current-password" required />
             </div>
 
+            <!-- <button type="submit">: Nút gửi form. Khi bấm, sự kiện submit sẽ được kích hoạt. -->
             <button type="submit" id="nut_dang_nhap" class="nut nut_chinh nut_dang_nhap">
                 Đăng nhập
             </button>
         </form>
 
-        <!-- Bảng gợi ý tài khoản mẫu -->
+        <!-- Khung bảng gợi ý tài khoản mẫu để người test dễ đăng nhập. -->
         <div class="goi_y_tai_khoan">
             <h3>Tài khoản mẫu để test</h3>
+            <!-- <table>: Bảng dữ liệu. -->
             <table class="bang_tai_khoan">
+                <!-- <thead>: Phần đầu bảng (header) — các cột tiêu đề. -->
                 <thead>
+                    <!-- <tr>: Một hàng (table row). -->
                     <tr>
+                        <!-- <th scope="col">: Ô tiêu đề cột (table header). -->
                         <th scope="col">Tài khoản</th>
                         <th scope="col">Mật khẩu</th>
                         <th scope="col">Quyền</th>
                     </tr>
                 </thead>
+                <!-- <tbody>: Phần thân bảng — dữ liệu thực tế. -->
                 <tbody>
+                    <!-- Hàng 1: tài khoản admin. -->
                     <tr>
-                        <td><code>admin</code></td>
+                        <!-- <td>: Ô dữ liệu (table data). -->
+                        <td><code>admin</code></td>          <!-- <code>: định dạng mã nguồn. -->
                         <td><code>123</code></td>
+                        <!-- <span>: thẻ inline (không xuống dòng) để bọc và style 1 đoạn text. -->
                         <td><span class="nhan_vai_tro admin">Admin</span> Toàn quyền (xem + thêm + sửa + xóa)</td>
                     </tr>
+                    <!-- Hàng 2: tài khoản nhân viên. -->
                     <tr>
                         <td><code>nhanvien</code></td>
                         <td><code>123</code></td>
@@ -73,39 +112,45 @@
             </table>
         </div>
 
-        <!-- Chú thích -->
+        <!-- Chú thích cuối trang về các công nghệ dùng trong dự án. -->
         <p class="chu_thich">
             Hệ thống dùng <strong>DoublyLinkedList</strong> + <strong>Merge Sort</strong> +
             <strong>Stack (Undo/Redo)</strong> + <strong>Queue (Giỏ hàng)</strong> + <strong>SQLite</strong>.
+            <!-- <strong>: chữ in đậm, nhấn mạnh. -->
         </p>
     </div>
 
-    <!-- Script xử lý đăng nhập -->
+    <!-- <script>: Khối mã JavaScript nội tuyến (không phải file ngoài). -->
     <script>
     /**
-     * Xử lý submit form đăng nhập.
+     * Xử lý sự kiện submit form đăng nhập.
      * Gọi API POST /api/dang-nhap, nếu thành công → chuyển về trang chủ.
      */
+
+    // Lấy form theo id, gắn listener cho sự kiện "submit".
     document.getElementById('bieu_mau_dang_nhap').addEventListener('submit', async function (e) {
+        // e.preventDefault() — NGĂN trình duyệt gửi form theo cách truyền thống (sẽ reload trang).
         e.preventDefault();
 
+        // Lấy giá trị người dùng nhập, .trim() để xoá khoảng trắng đầu/cuối.
         var ten_dang_nhap = document.getElementById('o_ten_dang_nhap').value.trim();
         var mat_khau      = document.getElementById('o_mat_khau').value.trim();
         var thong_bao     = document.getElementById('thong_bao_dang_nhap');
         var nut           = document.getElementById('nut_dang_nhap');
 
-        // --- Validate phía client ---
+        // Validate phía client: kiểm tra cả 2 ô đã nhập chưa.
         if (!ten_dang_nhap || !mat_khau) {
             thong_bao.textContent = 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.';
             thong_bao.className = 'thong_bao_dang_nhap loi';
             return;
         }
 
-        // Vô hiệu hoá nút + đổi chữ
+        // Vô hiệu hoá nút + đổi chữ → báo hiệu đang xử lý, tránh người dùng bấm liên tục.
         nut.disabled = true;
         nut.textContent = 'Đang đăng nhập...';
 
         try {
+            // Gọi API POST /api/dang-nhap với JSON body.
             var phan_hoi = await fetch('/api/dang-nhap', {
                 method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -117,17 +162,19 @@
             var du_lieu = await phan_hoi.json();
 
             if (du_lieu.trang_thai === 'thanh_cong') {
+                // Thành công → thông báo + chuyển hướng về trang chủ sau 800ms.
                 thong_bao.textContent = du_lieu.thong_bao + ' Đang chuyển về trang chủ...';
                 thong_bao.className = 'thong_bao_dang_nhap thanh_cong';
-                // Chuyển về trang chủ sau 800ms
                 setTimeout(function () { window.location.href = '/'; }, 800);
             } else {
+                // Sai mật khẩu / tài khoản → hiện thông báo lỗi, mở lại nút.
                 thong_bao.textContent = du_lieu.thong_bao;
                 thong_bao.className = 'thong_bao_dang_nhap loi';
                 nut.disabled = false;
                 nut.textContent = 'Đăng nhập';
             }
         } catch (loi) {
+            // Lỗi mạng / server không phản hồi.
             thong_bao.textContent = 'Không thể kết nối đến máy chủ. Vui lòng thử lại.';
             thong_bao.className = 'thong_bao_dang_nhap loi';
             nut.disabled = false;

@@ -1,14 +1,30 @@
-<!-- Thanh tiêu đề chính -->
+<!-- ====================================================================
+     dau_trang.html — Header chính của trang (tiêu đề + thông tin người dùng).
+     Được chèn vào trang_chu.html qua lenh `include` cua Django.
+     ==================================================================== -->
+
+<!-- <header>: Thẻ HTML5 ngữ nghĩa cho phần đầu trang (khác <head>).
+     Các công cụ tìm kiếm và screen reader hiểu đây là header chính. -->
 <header class="tieu_de_chinh">
+
+    <!-- <div>: Thẻ chứa không có ý nghĩa ngữ nghĩa, chỉ để nhóm + style CSS. -->
     <div class="noi_dung_tieu_de">
+        <!-- <h1>: Tiêu đề cấp 1 — lớn nhất, mỗi trang chỉ nên có 1. -->
         <h1>Hệ thống Quản lý Cửa hàng Sách</h1>
+        <!-- <p class="mo_ta">: Đoạn văn mô tả ngắn dưới tiêu đề. -->
         <p class="mo_ta">Ứng dụng Web · Môn Lập trình Nâng cao · DoublyLinkedList + MergeSort + Stack + Queue</p>
     </div>
 
-    <!-- Khung thông tin người dùng + nút đăng xuất -->
+    <!-- Khung thông tin người dùng: tên + vai trò + nút đăng xuất. -->
     <div class="khung_nguoi_dung" id="khung_nguoi_dung">
+        <!-- <span>: thẻ inline (không xuống dòng) để bọc 1 đoạn text nhỏ.
+             id="ten_nguoi_dung": JS sẽ cập nhật nội dung sau khi tải thông tin người dùng. -->
         <span class="ten_nguoi_dung" id="ten_nguoi_dung">Đang tải...</span>
+        <!-- Nhãn vai trò (Admin/Nhân viên) — JS sẽ đổi class + nội dung. -->
         <span class="nhan_vai_tro" id="nhan_vai_tro">...</span>
+        <!-- <a href="/dang-xuat">: Liên kết đăng xuất.
+             class="nut nut_dang_xuat": style CSS thành dạng nút bấm.
+             title="Đăng xuất": tooltip khi di chuột vào. -->
         <a href="/dang-xuat" class="nut nut_dang_xuat" title="Đăng xuất">Đăng xuất</a>
     </div>
 </header>

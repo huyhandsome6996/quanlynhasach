@@ -1,16 +1,14 @@
 """
-Tệp chứa các cấu trúc dữ liệu bổ sung cho hệ thống quản lý cửa hàng sách.
+Tệp chứa 2 cấu trúc dữ liệu tự cài đặt: Ngăn xếp (Stack) và Hàng đợi (Queue).
+===========================================================================
 
 Bao gồm:
     1. NganXep (Stack):  Dùng cho tính năng Undo/Redo.
     2. HangDoi (Queue):  Dùng cho tính năng Giỏ hàng.
 
-Cả hai cấu trúc đều tự cài đặt, KHÔNG dùng list Python thay thế.
-
-Quy ước: Tên biến, tên hàm, chú thích sử dụng tiếng Việt.
-Ngoại lệ: Các từ khóa cốt lõi (Stack, Queue, Node, v.v.).
+Cả hai cấu trúc đều TỰ CÀI ĐẶT (dùng lớp Node liên kết qua con trỏ),
+KHÔNG dùng list Python thay thế — để đúng tinh thần môn Lập trình Nâng cao.
 """
-
 
 # ============================================================
 # NGĂN XẾP (STACK) - Dùng cho Undo/Redo
@@ -18,110 +16,87 @@ Ngoại lệ: Các từ khóa cốt lõi (Stack, Queue, Node, v.v.).
 
 class NodeNganXep:
     """
-    Lớp NodeNganXep (Mắt xích của Ngăn xếp).
+    Lớp NodeNganXep — một mắt xích trong Ngăn xếp.
 
     Mỗi Node chứa:
-        data: Dữ liệu (thao tác cần hoàn tác/làm lại).
-        duoi: Con trỏ trỏ đến Node phía dưới (Node trước đó trong ngăn xếp).
+        data: Dữ liệu (ở đây là thông tin thao tác cần hoàn tác/làm lại).
+        duoi: Con trỏ trỏ đến Node ngay phía dưới trong ngăn xếp.
 
-    Hình minh họa (Stack):
-        [Node C]  ← Đỉnh (top)
+    Minh họa Stack (LIFO - Last In First Out):
+        [Node C]  ← Đỉnh (top)    ← Lấy ra đầu tiên
         [Node B]
-        [Node A]  ← Đáy
+        [Node A]  ← Đáy           ← Lấy ra cuối cùng
     """
 
     def __init__(self, data):
-        """
-        Khởi tạo một NodeNganXep mới.
-
-        Tham số:
-            data: Dữ liệu cần lưu trữ (VD: thông tin thao tác).
-        """
-        self.data = data
-        self.duoi = None  # Con trỏ trỏ đến Node phía dưới
+        """Khởi tạo một Node mới với dữ liệu truyền vào, duoi = None."""
+        self.data = data        # Lưu dữ liệu của Node (thường là dict thao tác).
+        self.duoi = None        # Chưa trỏ đến Node nào (sẽ gán khi push).
 
 
 class NganXep:
     """
-    Lớp NganXep (Stack - Ngăn xếp).
+    Lớp NganXep (Stack - Ngăn xếp) — tự cài đặt theo nguyên lý LIFO.
 
-    Nguyên lý hoạt động: LIFO (Last In, First Out).
-    - Phần tử vào CUỐI CÙNG sẽ ra ĐẦU TIÊN.
-    - Giống như xếp đĩa: đĩa xếp sau cùng lấy ra trước.
+    Nguyên lý LIFO (Last In First Out):
+      - Phần tử ĐẨY VÀO cuối cùng sẽ được LẤY RA đầu tiên.
+      - Giống như xếp đĩa: đĩa xếp sau cùng nằm trên cùng → lấy ra trước.
 
-    Ứng dụng: Lưu lịch sử thao tác để thực hiện Undo/Redo.
+    Ứng dụng: Lưu lịch sử thao tác để Undo (lấy từ đỉnh undo)
+              và Redo (chuyển sang đỉnh redo).
 
     Thuộc tính:
-        dinh:    Trỏ đến Node trên cùng của ngăn xếp.
-        so_luong: Số lượng phần tử hiện có.
+        dinh:     Trỏ đến Node trên cùng của ngăn xếp (hoặc None nếu rỗng).
+        so_luong: Số Node hiện có trong ngăn xếp.
     """
 
     def __init__(self):
-        """Khởi tạo ngăn xếp rỗng."""
-        self.dinh = None
-        self.so_luong = 0
+        """Khởi tạo một ngăn xếp rỗng: đỉnh = None, số lượng = 0."""
+        self.dinh = None        # Chưa có Node nào → đỉnh là None.
+        self.so_luong = 0       # Đếm số phần tử để hiển thị / kiểm tra nhanh.
 
     def day_vao(self, data):
         """
-        Đẩy một phần tử vào ĐỈNH ngăn xếp (Push).
+        Push — đẩy một phần tử mới lên ĐỈNH ngăn xếp.
 
-        Các bước thực hiện:
-            1. Tạo Node mới chứa dữ liệu.
-            2. Node mới trỏ duoi đến Node đỉnh hiện tại.
-            3. Cập nhật đỉnh thành Node mới.
-
-        Tham số:
-            data: Dữ liệu cần đẩy vào ngăn xếp.
+        Tham số: data — dữ liệu cần lưu (thường là dict chứa
+                 'loai' thao tác, 'du_lieu_cu', 'du_lieu_moi').
         """
-        node_moi = NodeNganXep(data)
-        node_moi.duoi = self.dinh  # Node mới trỏ xuống Node đỉnh cũ
-        self.dinh = node_moi        # Cập nhật đỉnh thành Node mới
-        self.so_luong += 1
+        node_moi = NodeNganXep(data)    # Bọc dữ liệu vào một Node mới.
+        node_moi.duoi = self.dinh       # Node mới trỏ xuống Node đỉnh cũ.
+        self.dinh = node_moi            # Cập nhật đỉnh = Node mới.
+        self.so_luong += 1              # Tăng bộ đếm.
 
     def lay_ra(self):
         """
-        Lấy phần tử khỏi ĐỈNH ngăn xếp (Pop).
+        Pop — lấy phần tử trên ĐỈNH ngăn xếp ra (và xóa nó khỏi stack).
 
-        Các bước thực hiện:
-            1. Nếu ngăn xếp rỗng → trả về None.
-            2. Lưu dữ liệu của Node đỉnh.
-            3. Cập nhật đỉnh xuống Node phía dưới.
-            4. Trả về dữ liệu đã lưu.
-
-        Trả về:
-            Dữ liệu của Node đỉnh, hoặc None nếu ngăn xếp rỗng.
+        Trả về: dữ liệu của Node đỉnh, hoặc None nếu ngăn xếp rỗng.
         """
-        if self.dinh is None:
+        if self.dinh is None:           # Trường hợp ngăn xếp rỗng.
             return None
-
-        data = self.dinh.data
-        self.dinh = self.dinh.duoi  # Đỉnh trỏ xuống Node dưới
-        self.so_luong -= 1
-        return data
+        data = self.dinh.data           # Lưu dữ liệu đỉnh trước khi gỡ.
+        self.dinh = self.dinh.duoi      # Hạ đỉnh xuống Node phía dưới.
+        self.so_luong -= 1              # Giảm bộ đếm.
+        return data                     # Trả về dữ liệu đã gỡ.
 
     def xem_dinh(self):
         """
-        Xem dữ liệu tại đỉnh ngăn xếp mà KHÔNG lấy ra (Peek).
+        Peek — xem dữ liệu đỉnh mà KHÔNG lấy ra (không thay đổi stack).
 
-        Trả về:
-            Dữ liệu của Node đỉnh, hoặc None nếu ngăn xếp rỗng.
+        Trả về: dữ liệu của Node đỉnh, hoặc None nếu rỗng.
         """
         if self.dinh is None:
             return None
         return self.dinh.data
 
     def rong(self):
-        """
-        Kiểm tra ngăn xếp có rỗng không.
-
-        Trả về:
-            True: Ngăn xếp rỗng. False: Ngăn xếp có phần tử.
-        """
+        """Kiểm tra ngăn xếp có rỗng không. Trả về True/False."""
         return self.dinh is None
 
     def xoa_tat_ca(self):
-        """Xóa toàn bộ phần tử trong ngăn xếp."""
-        self.dinh = None
+        """Clear — xóa toàn bộ Node trong ngăn xếp (chỉ cần cắt đỉnh)."""
+        self.dinh = None                # Cắt liên kết → Python GC sẽ dọn Node.
         self.so_luong = 0
 
 
@@ -131,163 +106,134 @@ class NganXep:
 
 class NodeHangDoi:
     """
-    Lớp NodeHangDoi (Mắt xích của Hàng đợi).
+    Lớp NodeHangDoi — một mắt xích trong Hàng đợi.
 
     Mỗi Node chứa:
-        data: Dữ liệu (mặt hàng trong giỏ hàng).
-        sau:  Con trỏ trỏ đến Node phía sau (Node tiếp theo trong hàng đợi).
+        data: Dữ liệu (ở đây là mặt hàng trong giỏ).
+        sau:  Con trỏ trỏ đến Node phía sau (Node tiếp theo trong hàng).
 
-    Hình minh họa (Queue):
-        Đầu → [Node A] → [Node B] → [Node C] ← Cuối
+    Minh họa Queue (FIFO - First In First Out):
+        Đầu → [A] → [B] → [C] ← Cuối
+        (A vào trước → A ra trước)
     """
 
     def __init__(self, data):
-        """
-        Khởi tạo một NodeHangDoi mới.
-
-        Tham số:
-            data: Dữ liệu cần lưu trữ.
-        """
-        self.data = data
-        self.sau = None  # Con trỏ trỏ đến Node phía sau
+        """Khởi tạo Node mới với dữ liệu truyền vào, sau = None."""
+        self.data = data        # Lưu mặt hàng (đối tượng Sach/TapChi/...).
+        self.sau = None         # Chưa trỏ đến Node kế tiếp.
 
 
 class HangDoi:
     """
-    Lớp HangDoi (Queue - Hàng đợi).
+    Lớp HangDoi (Queue - Hàng đợi) — tự cài đặt theo nguyên lý FIFO.
 
-    Nguyên lý hoạt động: FIFO (First In, First Out).
-    - Phần tử vào ĐẦU TIÊN sẽ ra ĐẦU TIÊN.
-    - Giống như xếp hàng mua vé: người đến trước được phục vụ trước.
+    Nguyên lý FIFO (First In First Out):
+      - Phần tử THÊM VÀO đầu tiên sẽ được LẤY RA đầu tiên.
+      - Giống như xếp hàng mua vé: người đến trước được phục vụ trước.
 
-    Ứng dụng: Quản lý giỏ hàng - mặt hàng thêm trước sẽ thanh toán trước.
+    Ứng dụng: Quản lý giỏ hàng — mặt hàng thêm trước sẽ thanh toán trước.
 
     Thuộc tính:
-        dau:      Trỏ đến Node đầu hàng đợi (lấy ra ở đây).
-        cuoi_hang: Trỏ đến Node cuối hàng đợi (thêm vào ở đây).
-        so_luong: Số lượng phần tử hiện có.
+        dau:       Trỏ đến Node đầu hàng (lấy ra ở đây khi thanh toán).
+        cuoi_hang: Trỏ đến Node cuối hàng (thêm mới vào đây).
+        so_luong:  Số Node hiện có.
     """
 
     def __init__(self):
-        """Khởi tạo hàng đợi rỗng."""
+        """Khởi tạo hàng đợi rỗng: đầu = cuối = None, số lượng = 0."""
         self.dau = None
         self.cuoi_hang = None
         self.so_luong = 0
 
     def them_vao(self, data):
-        """
-        Thêm một phần tử vào CUỐI hàng đợi (Enqueue).
+        """Enqueue — thêm một phần tử vào CUỐI hàng đợi."""
+        node_moi = NodeHangDoi(data)        # Bọc dữ liệu vào Node mới.
 
-        Các bước thực hiện:
-            1. Tạo Node mới chứa dữ liệu.
-            2. Nếu hàng đợi rỗng → Node mới là cả đầu và cuối.
-            3. Nếu đã có phần tử → Nối Node mới sau Node cuối.
-
-        Tham số:
-            data: Dữ liệu cần thêm vào hàng đợi.
-        """
-        node_moi = NodeHangDoi(data)
-
-        # Trường hợp 1: Hàng đợi rỗng
-        if self.dau is None:
-            self.dau = node_moi
+        if self.dau is None:                # Trường hợp hàng đang rỗng.
+            self.dau = node_moi             # Node mới là cả đầu lẫn cuối.
             self.cuoi_hang = node_moi
-        else:
-            # Trường hợp 2: Hàng đợi đã có phần tử
-            self.cuoi_hang.sau = node_moi
-            self.cuoi_hang = node_moi
+        else:                               # Trường hợp đã có phần tử.
+            self.cuoi_hang.sau = node_moi   # Nối Node mới sau Node cuối.
+            self.cuoi_hang = node_moi       # Cập nhật cuối = Node mới.
 
         self.so_luong += 1
 
     def lay_ra(self):
         """
-        Lấy phần tử khỏi ĐẦU hàng đợi (Dequeue).
+        Dequeue — lấy phần tử ở ĐẦU hàng đợi ra (và xóa nó).
 
-        Các bước thực hiện:
-            1. Nếu hàng đợi rỗng → trả về None.
-            2. Lưu dữ liệu của Node đầu.
-            3. Cập nhật đầu sang Node tiếp theo.
-            4. Trả về dữ liệu đã lưu.
-
-        Trả về:
-            Dữ liệu của Node đầu, hoặc None nếu hàng đợi rỗng.
+        Trả về: dữ liệu của Node đầu, hoặc None nếu rỗng.
         """
         if self.dau is None:
             return None
 
-        data = self.dau.data
-        self.dau = self.dau.sau  # Dịch đầu sang Node sau
+        data = self.dau.data                # Lưu dữ liệu đầu.
+        self.dau = self.dau.sau             # Dịch đầu sang Node kế tiếp.
 
-        # Nếu hàng đợi chỉ còn 1 phần tử, cập nhật lại cuối
-        if self.dau is None:
-            self.cuoi_hang = None
+        if self.dau is None:                # Nếu sau khi dịch mà rỗng →
+            self.cuoi_hang = None           # phải reset cả cuối_hang.
 
         self.so_luong -= 1
         return data
 
     def xem_danh_sach(self):
         """
-        Xem toàn bộ phần tử trong hàng đợi mà KHÔNG lấy ra.
-
-        Trả về:
-            list: Danh sách dữ liệu từ đầu đến cuối hàng đợi.
+        Trả về danh sách Python chứa toàn bộ phần tử từ đầu đến cuối,
+        dùng để frontend hiển thị giỏ hàng. KHÔNG lấy phần tử ra.
         """
-        ket_qua = []
-        node_hien_tai = self.dau
-        while node_hien_tai is not None:
+        ket_qua = []                            # Danh sách kết quả.
+        node_hien_tai = self.dau                # Bắt đầu duyệt từ đầu.
+        while node_hien_tai is not None:        # Lặp đến khi hết Node.
             if hasattr(node_hien_tai.data, 'chuyen_thanh_dict'):
+                # Nếu data là đối tượng có hàm chuyen_thanh_dict → gọi để ra dict.
                 ket_qua.append(node_hien_tai.data.chuyen_thanh_dict())
             else:
+                # Nếu data đã là dict/kiểu cơ bản → giữ nguyên.
                 ket_qua.append(node_hien_tai.data)
-            node_hien_tai = node_hien_tai.sau
+            node_hien_tai = node_hien_tai.sau   # Tiến sang Node kế.
         return ket_qua
 
     def rong(self):
-        """
-        Kiểm tra hàng đợi có rỗng không.
-
-        Trả về:
-            True: Hàng đợi rỗng. False: Hàng đợi có phần tử.
-        """
+        """Kiểm tra hàng đợi có rỗng không. Trả về True/False."""
         return self.dau is None
 
     def xoa_tat_ca(self):
-        """Xóa toàn bộ phần tử trong hàng đợi."""
+        """Clear — xóa toàn bộ giỏ hàng (dùng khi thanh toán xong)."""
         self.dau = None
         self.cuoi_hang = None
         self.so_luong = 0
 
     def xoa_theo_ma(self, ma_so):
         """
-        Xóa một phần tử trong hàng đợi theo mã số.
+        Xóa một phần tử BẤT KỲ trong hàng đợi theo mã số
+        (vì khách có thể đổi ý, muốn bỏ 1 món khỏi giỏ).
 
-        Tham số:
-            ma_so (str): Mã số của mặt hàng cần xóa khỏi giỏ.
-
-        Trả về:
-            True: Xóa thành công. False: Không tìm thấy.
+        Tham số: ma_so — mã sản phẩm cần bỏ.
+        Trả về: True nếu xóa được, False nếu không tìm thấy.
         """
-        if self.dau is None:
+        if self.dau is None:                    # Hàng rỗng.
             return False
 
-        # Trường hợp Node đầu là Node cần xóa
+        # Trường hợp 1: Node cần xóa chính là Node đầu.
         if hasattr(self.dau.data, 'ma_so') and self.dau.data.ma_so == ma_so:
-            self.dau = self.dau.sau
-            if self.dau is None:
+            self.dau = self.dau.sau             # Bỏ qua Node đầu.
+            if self.dau is None:                # Nếu hàng chỉ có 1 Node.
                 self.cuoi_hang = None
             self.so_luong -= 1
             return True
 
-        # Duyệt tìm Node cần xóa
+        # Trường hợp 2: Node cần xóa nằm ở giữa hoặc cuối → duyệt tìm.
         node_hien_tai = self.dau
         while node_hien_tai.sau is not None:
+            # Nếu Node kế tiếp (node_hien_tai.sau) là Node cần xóa.
             if hasattr(node_hien_tai.sau.data, 'ma_so') and node_hien_tai.sau.data.ma_so == ma_so:
-                # Bỏ qua Node cần xóa
+                # Nếu Node cần xóa là Node cuối → cập nhật lại cuối_hang.
                 if node_hien_tai.sau == self.cuoi_hang:
                     self.cuoi_hang = node_hien_tai
+                # Bỏ qua Node cần xóa: trỏ `.sau` của Node hiện tại sang Node sau nữa.
                 node_hien_tai.sau = node_hien_tai.sau.sau
                 self.so_luong -= 1
                 return True
-            node_hien_tai = node_hien_tai.sau
+            node_hien_tai = node_hien_tai.sau   # Tiếp tục duyệt.
 
-        return False
+        return False                            # Không tìm thấy mã.

@@ -1,19 +1,33 @@
-<!-- Khu vực nội dung chính -->
+<!-- ====================================================================
+     bang_du_lieu.html — Khu vực nội dung chính: thông báo + thống kê + bảng sản phẩm.
+     Được chèn vào trang_chu.html qua lenh `include`.
+     ==================================================================== -->
+
+<!-- <main>: Thẻ HTML5 ngữ nghĩa cho nội dung CHÍNH của trang (chỉ có 1/main). -->
 <main class="noi_dung_chinh" id="noi_dung_chinh">
-    <!-- Thông báo (aria-live để screen reader đọc khi có thông báo mới) -->
+
+    <!-- Khu vực thông báo — JS sẽ đổi class + nội dung khi có thông báo.
+         role="status" aria-live="polite": screen reader đọc thông báo khi nó thay đổi. -->
     <div id="thong_bao" class="thong_bao an_di" role="status" aria-live="polite"></div>
 
-    <!-- Khu vực thống kê (ẩn mặc định) -->
+    <!-- <section>: Khu vực có chủ đề riêng trong trang.
+         class="an_di": ẩn mặc định (display:none), JS sẽ bỏ class này khi bấm "Thống kê". -->
     <section id="khu_vuc_thong_ke" class="khu_vuc_thong_ke an_di" aria-label="Thống kê cửa hàng">
         <h3>Thống kê cửa hàng</h3>
         <div class="bang_thong_ke" id="bang_thong_ke">
-            <!-- Sẽ được JavaScript render vào đây -->
+            <!-- JS sẽ chèn nội dung HTML vào đây khi người dùng bấm nút Thống kê. -->
         </div>
+        <!-- onclick="...": JS nội tuyến — bấm nút thì thêm class an_di để ẩn đi. -->
         <button class="nut nut_phu" type="button" onclick="document.getElementById('khu_vuc_thong_ke').classList.add('an_di')">Đóng thống kê</button>
     </section>
 
-    <!-- Bảng hiển thị dữ liệu -->
+    <!-- Bảng hiển thị dữ liệu sản phẩm. -->
     <div class="bang_du_lieu">
+        <!-- <table>: Bảng HTML — id để JS truy cập.
+             <thead>: phần đầu bảng (header).
+             <tr>: một hàng.
+             <th scope="col">: ô tiêu đề cột (table header). scope="col" báo cho screen reader
+             biết đây là tiêu đề CỘT (không phải hàng). -->
         <table id="bang_san_pham">
             <thead>
                 <tr>
@@ -27,12 +41,14 @@
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
+            <!-- <tbody>: Phần thân bảng — chứa các hàng dữ liệu thực tế.
+                 id="than_bang": JS (hàm ve_bang) sẽ innerHTML chèn các <tr> vào đây. -->
             <tbody id="than_bang">
                 <tr>
+                    <!-- colspan="8": Ô này trải dài qua 8 cột (vì đang loading chưa có dữ liệu). -->
                     <td colspan="8" class="dang_tai">Đang tải dữ liệu…</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
-

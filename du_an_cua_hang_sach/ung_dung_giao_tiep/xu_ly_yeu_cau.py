@@ -37,8 +37,11 @@ def khoi_tao_danh_sach():
     global Danh_sach_cua_hang, Bo_undoredo, Gio_hang_hien_tai
     from .loi_thuat_toan.danh_sach_lien_ket import DoublyLinkedList
     from .loi_thuat_toan.cau_truc_du_lieu import NganXep, HangDoi
-    from .loi_thuat_toan.ket_noi_sqlite import tai_du_lieu
+    from .loi_thuat_toan.ket_noi_sqlite import tai_du_lieu, tao_du_lieu_mau_neu_rong
     from .loi_thuat_toan.nguoi_dung import khoi_tao_nguoi_dung_mac_dinh
+
+    # Bảng SQLite + dữ liệu mẫu + tài khoản mẫu (chỉ tạo lần đầu)
+    tao_du_lieu_mau_neu_rong()
 
     Danh_sach_cua_hang = DoublyLinkedList()
     tai_du_lieu(Danh_sach_cua_hang)
