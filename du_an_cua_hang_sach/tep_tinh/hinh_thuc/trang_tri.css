@@ -56,9 +56,9 @@
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    padding: 0; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    box-sizing: border-box; /* Ép viền và padding gộp vào trong width (chống phình to) */
 }
 
 html {
@@ -66,13 +66,25 @@ html {
 }
 
 body {
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
-    background-color: var(--mau-nen);
-    color: var(--mau-chu-chinh);
-    line-height: 1.6;
-    font-size: 14px;
+    /* Khai báo font chữ. Máy tính sẽ thử dùng 'Inter' trước, nếu không có sẽ tự lùi về các font hệ thống như Segoe UI */
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif; /* Chọn kiểu dáng font chữ */
+    
+    /* Lấy màu nền từ biến --mau-nen đã khai báo ở :root (trên cùng) */
+    background-color: var(--mau-nen); /* Đổ màu nền */
+    
+    /* Màu chữ tổng thể của cả trang web */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    
+    /* Khoảng cách giữa các dòng chữ (bằng 1.6 lần cỡ chữ) giúp dễ đọc hơn */
+    line-height: 1.6; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
+    
+    /* Kích thước chữ mặc định cho toàn trang là 14 pixel */
+    font-size: 14px; /* Kích thước chữ */
+    
+    /* 2 dòng này giúp nét chữ hiển thị trên màn hình sắc nét và mịn màng hơn (chống mờ) */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
     /* Kẻ ngang mờ phía dưới header để tạo chiều sâu */
     background-image:
         linear-gradient(to bottom, transparent 0, transparent 100%);
@@ -88,146 +100,178 @@ table,
 
 /* ========== Tiêu đề chính (Header) ========== */
 .tieu_de_chinh {
-    background: var(--mau-bieu-dien);
-    color: var(--mau-chu-chinh);
-    padding: 28px 0 24px;
-    border-bottom: 1px solid var(--mau-vien);
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    padding: 28px 0 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
     /* Vạch accent mảnh phía dưới header — tạo điểm nhấn duy nhất */
-    box-shadow: inset 0 -3px 0 var(--mau-nhan);
+    box-shadow: inset 0 -3px 0 var(--mau-nhan); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 .noi_dung_tieu_de {
-    max-width: var(--rong-toi-da);
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
+    /* Ép chiều rộng tối đa không vượt quá 1280px để web không bị bẹp trên màn hình to */
+    max-width: var(--rong-toi-da); /* Chiều rộng tối đa (không thể kéo giãn to hơn) */
+    
+    /* margin: 0 auto; là câu thần chú ĐẨY KHỐI VÀO GIỮA MÀN HÌNH (trên dưới 0, trái phải tự động chia đều) */
+    margin: 0 auto; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    
+    /* Căn lề trong: trên dưới 0, trái phải thụt vào 24px */
+    padding: 0 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    
+    /* Bật tính năng Flexbox: Biến thẻ này thành 1 cái hộp linh hoạt, các phần tử con sẽ xếp hàng NGANG */
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    
+    /* Căn chỉnh các phần tử con bám theo đường chân chữ (chữ to chữ nhỏ đều thẳng hàng dưới) */
+    align-items: baseline; /* Căn ngang bám theo đường chân chữ */
+    
+    /* Dàn đều các phần tử: 1 thằng dạt sang trái, 1 thằng dạt sang phải, ở giữa rỗng */
+    justify-content: space-between; /* Dàn đều: đẩy bám sát 2 bên lề, ở giữa rỗng */
+    
+    /* Khoảng cách giữa các phần tử con là 24px (giống margin nhưng an toàn hơn) */
+    gap: 24px; /* Tạo khoảng trống giữa các phần tử con */
+    
+    /* Nếu màn hình nhỏ (điện thoại) không đủ chỗ xếp ngang, cho phép rớt xuống hàng dưới */
+    flex-wrap: wrap; /* Nếu thiếu chỗ xếp ngang, cho phép rớt xuống hàng dưới */
 }
 
 /* Canh trái tiêu đề thay vì giữa — thoát khỏi layout AI mặc định */
 .tieu_de_chinh h1 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--mau-chu-chinh);
-    line-height: 1.2;
+    font-size: 22px; /* Kích thước chữ */
+    font-weight: 700; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    letter-spacing: -0.02em; /* Khoảng cách giữa các chữ cái */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    line-height: 1.2; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
 }
 
 .tieu_de_chinh h1::before {
     content: "";
     display: inline-block;
-    width: 4px;
-    height: 22px;
-    background: var(--mau-nhan);
-    border-radius: 2px;
-    margin-right: 12px;
-    vertical-align: -4px;
+    width: 4px; /* Chiều rộng của phần tử */
+    height: 22px; /* Chiều cao của phần tử */
+    background: var(--mau-nhan); /* Đổ màu nền hoặc hình nền */
+    border-radius: 2px; /* Bo cong các góc của viền */
+    margin-right: 12px; /* Đẩy phần tử khác ra xa ở phía phải */
+    vertical-align: -4px; /* Căn chỉnh phần tử theo chiều dọc so với chữ xung quanh */
 }
 
 .mo_ta {
-    font-size: 12.5px;
-    color: var(--mau-chu-mo);
-    font-weight: 500;
-    letter-spacing: 0.01em;
+    font-size: 12.5px; /* Kích thước chữ */
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    letter-spacing: 0.01em; /* Khoảng cách giữa các chữ cái */
 }
 
 /* ========== Thanh công cụ ========== */
 .thanh_cong_cu {
-    background: var(--mau-bieu-dien);
-    padding: 14px 0;
-    box-shadow: var(--bong-nho);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--mau-vien);
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    padding: 14px 0; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    box-shadow: var(--bong-nho); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
+    position: sticky; /* Bám dính vào cạnh màn hình khi cuộn chuột qua */
+    top: 0; /* Định vị khoảng cách từ mép trên cùng */
+    z-index: 100; /* Thứ tự xếp lớp (số to hơn sẽ đè lên thằng số nhỏ) */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
 }
 
 .noi_dung_cong_cu {
-    max-width: var(--rong-toi-da);
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    max-width: var(--rong-toi-da); /* Chiều rộng tối đa (không thể kéo giãn to hơn) */
+    margin: 0 auto; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    padding: 0 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    gap: 20px; /* Tạo khoảng trống giữa các phần tử con */
+    flex-wrap: wrap; /* Nếu thiếu chỗ xếp ngang, cho phép rớt xuống hàng dưới */
 }
 
 /* Nhóm tìm kiếm — nhập liệu liền khối */
 .nhom_tim_kiem {
-    display: flex;
-    flex: 1;
-    min-width: 280px;
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-vua);
-    background: var(--mau-bieu-dien);
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    flex: 1; /* Tự động giãn ra chiếm hết không gian trống còn lại */
+    min-width: 280px; /* Chiều rộng tối thiểu (không thể bóp nhỏ hơn) */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    overflow: hidden; /* Giấu/Cắt bỏ phần nội dung bị tràn ra ngoài khung */
+    transition: border-color 0.2s, box-shadow 0.2s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 .nhom_tim_kiem:focus-within {
     border-color: var(--mau-nhan);
-    box-shadow: 0 0 0 3px var(--mau-nhan-nhe);
+    box-shadow: 0 0 0 3px var(--mau-nhan-nhe); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 .tim_tieu_chi {
-    padding: 9px 14px;
-    border: none;
-    background: var(--mau-bieu-dien-phu);
-    font-size: 13px;
-    color: var(--mau-chu-chinh);
-    outline: none;
-    cursor: pointer;
-    border-right: 1px solid var(--mau-vien);
-    font-weight: 500;
+    /* Khoảng cách từ chữ tới mép viền: trên dưới 9px, trái phải 14px */
+    padding: 9px 14px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    
+    /* Xóa bỏ đường viền xấu xí mặc định của trình duyệt */
+    border: none; /* Kẻ đường viền xung quanh phần tử */
+    
+    /* Đổ màu nền cho nút */
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    
+    /* Cỡ chữ 13 pixel */
+    font-size: 13px; /* Kích thước chữ */
+    
+    /* Màu chữ lấy từ biến */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    
+    /* outline: none; dùng để xóa cái vạch viền sáng lên khi người dùng click chuột vào nút */
+    outline: none; /* Tắt viền sáng mặc định của trình duyệt khi click vào */
+    
+    /* Biến con trỏ chuột thành hình BÀN TAY khi lướt qua nút này */
+    cursor: pointer; /* Đổi biểu tượng chuột thành BÀN TAY khi lướt qua */
+    
+    /* Kẻ 1 vạch ngăn cách mỏng màu xám ở cạnh BÊN PHẢI của nút */
+    border-right: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh phải */
+    
+    /* Độ đậm của chữ (400 là bình thường, 500 là hơi đậm, 700 là in đậm) */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 .nhom_tim_kiem input {
-    flex: 1;
-    padding: 9px 14px;
-    border: none;
-    font-size: 13px;
-    outline: none;
-    color: var(--mau-chu-chinh);
-    background: transparent;
+    flex: 1; /* Tự động giãn ra chiếm hết không gian trống còn lại */
+    padding: 9px 14px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border: none; /* Kẻ đường viền xung quanh phần tử */
+    font-size: 13px; /* Kích thước chữ */
+    outline: none; /* Tắt viền sáng mặc định của trình duyệt khi click vào */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    background: transparent; /* Đổ màu nền hoặc hình nền */
 }
 
 .nhom_tim_kiem input::placeholder {
-    color: var(--mau-chu-mo);
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
 }
 
 .nhom_tim_kiem button {
-    border-radius: 0;
-    border: none;
-    border-left: 1px solid var(--mau-nhan-vien);
+    border-radius: 0; /* Bo cong các góc của viền */
+    border: none; /* Kẻ đường viền xung quanh phần tử */
+    border-left: 1px solid var(--mau-nhan-vien); /* Kẻ đường viền ở cạnh trái */
 }
 
 /* Nhóm sắp xếp */
 .nhom_sap_xep {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    gap: 8px; /* Tạo khoảng trống giữa các phần tử con */
 }
 
 .nhom_sap_xep label {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--mau-chu-phu);
-    white-space: nowrap;
+    font-size: 13px; /* Kích thước chữ */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    color: var(--mau-chu-phu); /* Đổi màu chữ */
+    white-space: nowrap; /* Ép chữ không được rớt dòng, phải nằm trên 1 hàng */
 }
 
 .nhom_sap_xep select {
-    padding: 8px 12px;
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-vua);
-    font-size: 13px;
-    background: var(--mau-bieu-dien);
-    color: var(--mau-chu-chinh);
-    outline: none;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 8px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    font-size: 13px; /* Kích thước chữ */
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    outline: none; /* Tắt viền sáng mặc định của trình duyệt khi click vào */
+    cursor: pointer; /* Đổi biểu tượng chuột thành BÀN TAY khi lướt qua */
+    transition: border-color 0.2s, box-shadow 0.2s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 .nhom_sap_xep select:hover {
@@ -236,21 +280,21 @@ table,
 
 .nhom_sap_xep select:focus {
     border-color: var(--mau-nhan);
-    box-shadow: 0 0 0 3px var(--mau-nhan-nhe);
+    box-shadow: 0 0 0 3px var(--mau-nhan-nhe); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 /* Nhóm chức năng */
 .nhom_chuc_nang {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    align-items: center;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    gap: 6px; /* Tạo khoảng trống giữa các phần tử con */
+    flex-wrap: wrap; /* Nếu thiếu chỗ xếp ngang, cho phép rớt xuống hàng dưới */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
 }
 
 /* Dấu phân cách nhẹ giữa các nhóm chức năng */
 .nhom_chuc_nang .nut + .nut_hoan_tac {
-    margin-left: 4px;
-    position: relative;
+    margin-left: 4px; /* Đẩy phần tử khác ra xa ở phía trái */
+    position: relative; /* Vị trí tương đối (làm mốc cho phần tử con bám theo) */
 }
 
 /* ========== Nút bấm ========== */
@@ -264,30 +308,30 @@ table,
  *   - nut_gio_nho:  icon giỏ hàng trong bảng
  */
 .nut {
-    padding: 8px 14px;
-    border: 1px solid var(--mau-vien);
-    background: var(--mau-bieu-dien);
-    color: var(--mau-chu-chinh);
-    border-radius: var(--bo-vua);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    line-height: 1.2;
+    padding: 8px 14px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    font-size: 13px; /* Kích thước chữ */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    cursor: pointer; /* Đổi biểu tượng chuột thành BÀN TAY khi lướt qua */
+    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
+    white-space: nowrap; /* Ép chữ không được rớt dòng, phải nằm trên 1 hàng */
+    display: inline-flex; /* Flexbox nhưng gọn gàng theo chiều ngang như một dòng chữ */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    gap: 6px; /* Tạo khoảng trống giữa các phần tử con */
+    line-height: 1.2; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
     user-select: none;
 }
 
 .nut:hover {
-    background: var(--mau-bieu-dien-phu);
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
     border-color: var(--mau-vien-manh);
 }
 
 .nut:active {
-    transform: translateY(1px);
+    transform: translateY(1px); /* Biến đổi hình dạng (phóng to, thu nhỏ, xoay, dịch chuyển) */
 }
 
 .nut:focus-visible {
@@ -297,27 +341,27 @@ table,
 
 /* Nút chính: nền accent */
 .nut_chinh {
-    background: var(--mau-nhan);
-    color: #ffffff;
+    background: var(--mau-nhan); /* Đổ màu nền hoặc hình nền */
+    color: #ffffff; /* Đổi màu chữ */
     border-color: var(--mau-nhan);
 }
 
 .nut_chinh:hover {
-    background: var(--mau-nhan-vo);
+    background: var(--mau-nhan-vo); /* Đổ màu nền hoặc hình nền */
     border-color: var(--mau-nhan-vo);
 }
 
 /* Nút phụ: viền accent, chữ accent */
 .nut_phu {
-    background: var(--mau-bieu-dien);
-    color: var(--mau-nhan);
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-nhan); /* Đổi màu chữ */
     border-color: var(--mau-nhan-vien);
 }
 
 .nut_phu:hover {
-    background: var(--mau-nhan-nhe);
+    background: var(--mau-nhan-nhe); /* Đổ màu nền hoặc hình nền */
     border-color: var(--mau-nhan);
-    color: var(--mau-nhan-vo);
+    color: var(--mau-nhan-vo); /* Đổi màu chữ */
 }
 
 /* Các nút chức năng giữ style trung tính — không tô màu rải rác */
@@ -330,363 +374,363 @@ table,
 }
 
 .nut_them {
-    background: var(--mau-nhan);
-    color: #ffffff;
+    background: var(--mau-nhan); /* Đổ màu nền hoặc hình nền */
+    color: #ffffff; /* Đổi màu chữ */
     border-color: var(--mau-nhan);
-    font-weight: 600;
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 .nut_them:hover {
-    background: var(--mau-nhan-vo);
+    background: var(--mau-nhan-vo); /* Đổ màu nền hoặc hình nền */
     border-color: var(--mau-nhan-vo);
 }
 
 /* Bộ đếm giỏ hàng — pill nhỏ trên nút */
 .dem_gio {
-    background: var(--mau-nguy-hiem);
-    color: #fff;
-    border-radius: var(--bo-tron);
-    padding: 1px 7px;
-    font-size: 11px;
-    font-weight: 700;
-    margin-left: 2px;
-    min-width: 18px;
-    text-align: center;
-    line-height: 1.4;
+    background: var(--mau-nguy-hiem); /* Đổ màu nền hoặc hình nền */
+    color: #fff; /* Đổi màu chữ */
+    border-radius: var(--bo-tron); /* Bo cong các góc của viền */
+    padding: 1px 7px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    font-size: 11px; /* Kích thước chữ */
+    font-weight: 700; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    margin-left: 2px; /* Đẩy phần tử khác ra xa ở phía trái */
+    min-width: 18px; /* Chiều rộng tối thiểu (không thể bóp nhỏ hơn) */
+    text-align: center; /* Căn giữa chữ */
+    line-height: 1.4; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
 }
 
 /* Nút nhỏ trong bảng */
 .nut_xoa,
 .nut_sua {
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: var(--bo-nho);
-    font-weight: 500;
-    border: 1px solid transparent;
+    padding: 5px 10px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    font-size: 12px; /* Kích thước chữ */
+    border-radius: var(--bo-nho); /* Bo cong các góc của viền */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    border: 1px solid transparent; /* Kẻ đường viền xung quanh phần tử */
 }
 
 .nut_xoa {
-    background: var(--mau-nguy-hiem-nhe);
-    color: var(--mau-nguy-hiem);
+    background: var(--mau-nguy-hiem-nhe); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-nguy-hiem); /* Đổi màu chữ */
     border-color: #fecaca;
 }
 
 .nut_xoa:hover {
-    background: var(--mau-nguy-hiem);
-    color: #fff;
+    background: var(--mau-nguy-hiem); /* Đổ màu nền hoặc hình nền */
+    color: #fff; /* Đổi màu chữ */
     border-color: var(--mau-nguy-hiem);
 }
 
 .nut_sua {
-    background: var(--mau-nhan-nhe);
-    color: var(--mau-nhan-vo);
+    background: var(--mau-nhan-nhe); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-nhan-vo); /* Đổi màu chữ */
     border-color: var(--mau-nhan-vien);
 }
 
 .nut_sua:hover {
-    background: var(--mau-nhan);
-    color: #fff;
+    background: var(--mau-nhan); /* Đổ màu nền hoặc hình nền */
+    color: #fff; /* Đổi màu chữ */
     border-color: var(--mau-nhan);
 }
 
 /* Nút icon giỏ hàng nhỏ trong bảng */
 .nut_gio_nho {
-    background: var(--mau-bieu-dien);
-    color: var(--mau-chu-phu);
-    padding: 5px 8px;
-    font-size: 14px;
-    border-radius: var(--bo-nho);
-    border: 1px solid var(--mau-vien);
-    cursor: pointer;
-    line-height: 1;
-    transition: all 0.15s;
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-phu); /* Đổi màu chữ */
+    padding: 5px 8px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    font-size: 14px; /* Kích thước chữ */
+    border-radius: var(--bo-nho); /* Bo cong các góc của viền */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    cursor: pointer; /* Đổi biểu tượng chuột thành BÀN TAY khi lướt qua */
+    line-height: 1; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
+    transition: all 0.15s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 .nut_gio_nho:hover {
-    background: var(--mau-nhan-nhe);
+    background: var(--mau-nhan-nhe); /* Đổ màu nền hoặc hình nền */
     border-color: var(--mau-nhan-vien);
-    color: var(--mau-nhan-vo);
+    color: var(--mau-nhan-vo); /* Đổi màu chữ */
 }
 
 .nhom_thao_tac {
-    display: flex;
-    gap: 4px;
-    align-items: center;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    gap: 4px; /* Tạo khoảng trống giữa các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
 }
 
 /* ========== Nội dung chính ========== */
 .noi_dung_chinh {
-    max-width: var(--rong-toi-da);
-    margin: 24px auto;
-    padding: 0 24px;
+    max-width: var(--rong-toi-da); /* Chiều rộng tối đa (không thể kéo giãn to hơn) */
+    margin: 24px auto; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    padding: 0 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
 }
 
 /* ========== Khu vực thống kê ========== */
 .khu_vuc_thong_ke {
-    background: var(--mau-bieu-dien);
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-lon);
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: var(--bong-nho);
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-lon); /* Bo cong các góc của viền */
+    padding: 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    margin-bottom: 20px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    box-shadow: var(--bong-nho); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 .khu_vuc_thong_ke h3 {
-    color: var(--mau-chu-chinh);
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    margin-bottom: 16px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    letter-spacing: -0.01em; /* Khoảng cách giữa các chữ cái */
 }
 
 .bang_thong_ke {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    flex-direction: column; /* Sắp xếp các phần tử con theo chiều dọc (từ trên xuống) */
+    gap: 16px; /* Tạo khoảng trống giữa các phần tử con */
 }
 
 .the_thong_ke {
-    display: grid;
+    display: grid; /* Bật chế độ Grid (lưới) để sắp xếp theo hàng và cột */
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+    gap: 12px; /* Tạo khoảng trống giữa các phần tử con */
 }
 
 /* Mỗi thẻ số liệu: nền nhẹ, không dùng gradient AI */
 .so_lieu {
-    text-align: left;
-    padding: 16px 18px;
-    background: var(--mau-bieu-dien-phu);
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-vua);
-    position: relative;
-    overflow: hidden;
+    text-align: left; /* Căn chữ sang trái */
+    padding: 16px 18px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    position: relative; /* Vị trí tương đối (làm mốc cho phần tử con bám theo) */
+    overflow: hidden; /* Giấu/Cắt bỏ phần nội dung bị tràn ra ngoài khung */
 }
 
 .so_lieu::before {
     content: "";
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--mau-nhan);
+    position: absolute; /* Vị trí tuyệt đối (bay lơ lửng, định vị theo phần tử cha) */
+    left: 0; top: 0; bottom: 0; /* Định vị khoảng cách từ mép trái */
+    width: 3px; /* Chiều rộng của phần tử */
+    background: var(--mau-nhan); /* Đổ màu nền hoặc hình nền */
 }
 
 .so_lieu .so {
-    display: block;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--mau-chu-chinh);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 2px;
+    display: block; /* Hiển thị dưới dạng khối (chiếm trọn chiều ngang) */
+    font-size: 22px; /* Kích thước chữ */
+    font-weight: 700; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    letter-spacing: -0.02em; /* Khoảng cách giữa các chữ cái */
+    line-height: 1.2; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
+    margin-bottom: 2px; /* Đẩy phần tử khác ra xa ở phía dưới */
 }
 
 .so_lieu .nhan_so {
-    font-size: 12px;
-    color: var(--mau-chu-mo);
-    font-weight: 500;
+    font-size: 12px; /* Kích thước chữ */
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 .the_chi_tiet {
-    padding: 14px 18px;
-    background: var(--mau-bieu-dien-phu);
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-vua);
-    border-left: 3px solid var(--mau-nhan);
+    padding: 14px 18px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    border-left: 3px solid var(--mau-nhan); /* Kẻ đường viền ở cạnh trái */
 }
 
 .the_chi_tiet h4 {
-    color: var(--mau-chu-chinh);
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 6px;
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    font-size: 14px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    margin-bottom: 6px; /* Đẩy phần tử khác ra xa ở phía dưới */
 }
 
 .the_chi_tiet p {
-    font-size: 13px;
-    color: var(--mau-chu-phu);
-    margin-bottom: 2px;
+    font-size: 13px; /* Kích thước chữ */
+    color: var(--mau-chu-phu); /* Đổi màu chữ */
+    margin-bottom: 2px; /* Đẩy phần tử khác ra xa ở phía dưới */
 }
 
 /* ========== Thông báo ========== */
 .thong_bao {
-    padding: 12px 16px;
-    border-radius: var(--bo-vua);
-    margin-bottom: 16px;
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid transparent;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: opacity 0.3s ease;
+    padding: 12px 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    margin-bottom: 16px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    font-size: 13px; /* Kích thước chữ */
+    font-weight: 500; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    border: 1px solid transparent; /* Kẻ đường viền xung quanh phần tử */
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    gap: 10px; /* Tạo khoảng trống giữa các phần tử con */
+    transition: opacity 0.3s ease; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 /* Chấm tròn nhỏ phía trước thông báo thay vì icon */
 .thong_bao::before {
     content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    width: 8px; /* Chiều rộng của phần tử */
+    height: 8px; /* Chiều cao của phần tử */
+    border-radius: 50%; /* Bo cong các góc của viền */
     flex-shrink: 0;
 }
 
 .thong_bao.thanh_cong {
-    background: var(--mau-nhan-nhe);
-    color: var(--mau-nhan-vo);
+    background: var(--mau-nhan-nhe); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-nhan-vo); /* Đổi màu chữ */
     border-color: var(--mau-nhan-vien);
 }
 
 .thong_bao.thanh_cong::before { background: var(--mau-nhan); }
 
 .thong_bao.loi {
-    background: var(--mau-nguy-hiem-nhe);
-    color: var(--mau-nguy-hiem);
+    background: var(--mau-nguy-hiem-nhe); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-nguy-hiem); /* Đổi màu chữ */
     border-color: #fecaca;
 }
 
 .thong_bao.loi::before { background: var(--mau-nguy-hiem); }
 
 .thong_bao.thong_tin {
-    background: #eff6ff;
-    color: #1d4ed8;
+    background: #eff6ff; /* Đổ màu nền hoặc hình nền */
+    color: #1d4ed8; /* Đổi màu chữ */
     border-color: #bfdbfe;
 }
 
 .thong_bao.thong_tin::before { background: #2563eb; }
 
 .an_di {
-    display: none !important;
+    display: none !important; /* Ẩn phần tử này đi hoàn toàn */
 }
 
 /* ========== Bảng dữ liệu ========== */
 .bang_du_lieu {
-    background: var(--mau-bieu-dien);
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-lon);
-    box-shadow: var(--bong-nho);
-    overflow: hidden;
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-lon); /* Bo cong các góc của viền */
+    box-shadow: var(--bong-nho); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
+    overflow: hidden; /* Giấu/Cắt bỏ phần nội dung bị tràn ra ngoài khung */
 }
 
 /* Wrapper cho cuộn ngang trên màn nhỏ */
 .bang_du_lieu > table {
-    width: 100%;
+    width: 100%; /* Chiều rộng của phần tử */
 }
 
 #bang_san_pham {
-    width: 100%;
+    width: 100%; /* Chiều rộng của phần tử */
     border-collapse: collapse;
-    font-size: 13px;
+    font-size: 13px; /* Kích thước chữ */
 }
 
 #bang_san_pham thead {
-    background: var(--mau-bieu-dien-phu);
-    color: var(--mau-chu-phu);
-    border-bottom: 1px solid var(--mau-vien);
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-phu); /* Đổi màu chữ */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
 }
 
 #bang_san_pham th {
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--mau-chu-mo);
+    padding: 12px 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    text-align: left; /* Căn chữ sang trái */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    font-size: 11.5px; /* Kích thước chữ */
+    text-transform: uppercase; /* Ép tất cả các chữ biến thành in hoa */
+    letter-spacing: 0.06em; /* Khoảng cách giữa các chữ cái */
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
 }
 
 #bang_san_pham td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--mau-vien);
-    color: var(--mau-chu-chinh);
-    vertical-align: middle;
+    padding: 12px 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    vertical-align: middle; /* Căn chỉnh phần tử theo chiều dọc so với chữ xung quanh */
 }
 
 #bang_san_pham tbody tr:last-child td {
-    border-bottom: none;
+    border-bottom: none; /* Kẻ đường viền ở cạnh dưới */
 }
 
 /* Hover tinh tế — không dùng zebra stripe đậm */
 #bang_san_pham tbody tr {
-    transition: background 0.15s;
+    transition: background 0.15s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 #bang_san_pham tbody tr:hover {
-    background-color: var(--mau-nhan-nhe);
+    background-color: var(--mau-nhan-nhe); /* Đổ màu nền */
 }
 
 /* Bỏ zebra stripe — admin table hiện đại không cần */
 #bang_san_pham tbody tr:nth-child(even) {
     /* không làm gì — giữ clean */
-    background-color: transparent;
+    background-color: transparent; /* Đổ màu nền */
 }
 
 #bang_san_pham tbody tr:nth-child(even):hover {
-    background-color: var(--mau-nhan-nhe);
+    background-color: var(--mau-nhan-nhe); /* Đổ màu nền */
 }
 
 .dang_tai {
-    text-align: center;
-    color: var(--mau-chu-mo) !important;
-    padding: 48px 16px !important;
+    text-align: center; /* Căn giữa chữ */
+    color: var(--mau-chu-mo) !important; /* Đổi màu chữ */
+    padding: 48px 16px !important; /* Căn lề bên trong (từ viền vào đến nội dung) */
     font-style: italic;
-    font-size: 13px;
+    font-size: 13px; /* Kích thước chữ */
 }
 
 /* Nhãn loại hàng — pill tròn, mềm */
 .nhan_loai {
     display: inline-block;
-    padding: 3px 10px;
-    border-radius: var(--bo-tron);
-    font-size: 11.5px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    border: 1px solid transparent;
-    line-height: 1.5;
+    padding: 3px 10px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-radius: var(--bo-tron); /* Bo cong các góc của viền */
+    font-size: 11.5px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    letter-spacing: 0.01em; /* Khoảng cách giữa các chữ cái */
+    border: 1px solid transparent; /* Kẻ đường viền xung quanh phần tử */
+    line-height: 1.5; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
 }
 
 /* Mỗi loại một tint nhẹ — cùng họ accent, không loè loẹt */
 .nhan_sach {
-    background: var(--mau-nhan-nhe);
-    color: var(--mau-nhan-vo);
+    background: var(--mau-nhan-nhe); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-nhan-vo); /* Đổi màu chữ */
     border-color: var(--mau-nhan-vien);
 }
 
 .nhan_tap_chi {
-    background: #fff7ed;
-    color: #9a3412;
+    background: #fff7ed; /* Đổ màu nền hoặc hình nền */
+    color: #9a3412; /* Đổi màu chữ */
     border-color: #fed7aa;
 }
 
 .nhan_bao_giay {
-    background: #f0fdf4;
-    color: #166534;
+    background: #f0fdf4; /* Đổ màu nền hoặc hình nền */
+    color: #166534; /* Đổi màu chữ */
     border-color: #bbf7d0;
 }
 
 .nhan_luan_van {
-    background: #eef2ff;
-    color: #3730a3;
+    background: #eef2ff; /* Đổ màu nền hoặc hình nền */
+    color: #3730a3; /* Đổi màu chữ */
     border-color: #c7d2fe;
 }
 
 .nhan_ban_thao {
-    background: #fdf2f8;
-    color: #9d174d;
+    background: #fdf2f8; /* Đổ màu nền hoặc hình nền */
+    color: #9d174d; /* Đổi màu chữ */
     border-color: #fbcfe8;
 }
 
 /* ========== Hộp thoại (Modal) ========== */
 .hop_thoai {
-    position: fixed;
+    position: fixed; /* Đóng đinh trên màn hình (cuộn chuột vẫn đứng im) */
     inset: 0;
-    background-color: rgba(28, 25, 23, 0.4);
+    background-color: rgba(28, 25, 23, 0.4); /* Đổ màu nền */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    justify-content: center; /* Căn giữa các phần tử con theo trục chính (vd: ngang) */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    z-index: 1000; /* Thứ tự xếp lớp (số to hơn sẽ đè lên thằng số nhỏ) */
+    padding: 20px; /* Căn lề bên trong (từ viền vào đến nội dung) */
     animation: mo_thoai 0.2s ease-out;
 }
 
@@ -696,14 +740,14 @@ table,
 }
 
 .noi_dung_hop_thoai {
-    background: var(--mau-bieu-dien);
-    border: 1px solid var(--mau-vien);
-    border-radius: var(--bo-lon);
-    width: 100%;
-    max-width: 560px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: var(--bong-lon);
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    border: 1px solid var(--mau-vien); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-lon); /* Bo cong các góc của viền */
+    width: 100%; /* Chiều rộng của phần tử */
+    max-width: 560px; /* Chiều rộng tối đa (không thể kéo giãn to hơn) */
+    max-height: 90vh; /* Chiều cao tối đa */
+    overflow-y: auto; /* Tự động hiện thanh cuộn dọc nếu nội dung quá dài */
+    box-shadow: var(--bong-lon); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
     animation: mo_noi_dung 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -713,86 +757,86 @@ table,
 }
 
 .tieu_de_hop_thoai {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--mau-vien);
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    justify-content: space-between; /* Dàn đều: đẩy bám sát 2 bên lề, ở giữa rỗng */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    padding: 20px 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
 }
 
 .tieu_de_hop_thoai h2 {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--mau-chu-chinh);
-    letter-spacing: -0.01em;
+    font-size: 17px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    letter-spacing: -0.01em; /* Khoảng cách giữa các chữ cái */
 }
 
 .nut_dong {
-    background: none;
-    border: none;
-    width: 32px;
-    height: 32px;
-    font-size: 22px;
-    cursor: pointer;
-    color: var(--mau-chu-mo);
-    line-height: 1;
-    border-radius: var(--bo-nho);
-    transition: background 0.15s, color 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: none; /* Đổ màu nền hoặc hình nền */
+    border: none; /* Kẻ đường viền xung quanh phần tử */
+    width: 32px; /* Chiều rộng của phần tử */
+    height: 32px; /* Chiều cao của phần tử */
+    font-size: 22px; /* Kích thước chữ */
+    cursor: pointer; /* Đổi biểu tượng chuột thành BÀN TAY khi lướt qua */
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
+    line-height: 1; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
+    border-radius: var(--bo-nho); /* Bo cong các góc của viền */
+    transition: background 0.15s, color 0.15s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    justify-content: center; /* Căn giữa các phần tử con theo trục chính (vd: ngang) */
 }
 
 .nut_dong:hover {
-    background: var(--mau-bieu-dien-phu);
-    color: var(--mau-chu-chinh);
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
 }
 
 #bieu_mau_them {
-    padding: 24px;
+    padding: 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
 }
 
 /* ========== Nhóm nhập liệu ========== */
 .nhom_nhap {
-    margin-bottom: 16px;
+    margin-bottom: 16px; /* Đẩy phần tử khác ra xa ở phía dưới */
 }
 
 .nhom_nhap label {
-    display: block;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--mau-chu-phu);
-    margin-bottom: 6px;
-    letter-spacing: 0.01em;
+    display: block; /* Hiển thị dưới dạng khối (chiếm trọn chiều ngang) */
+    font-size: 12.5px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    color: var(--mau-chu-phu); /* Đổi màu chữ */
+    margin-bottom: 6px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    letter-spacing: 0.01em; /* Khoảng cách giữa các chữ cái */
 }
 
 .bat_buoc {
-    color: var(--mau-nguy-hiem);
-    margin-left: 2px;
+    color: var(--mau-nguy-hiem); /* Đổi màu chữ */
+    margin-left: 2px; /* Đẩy phần tử khác ra xa ở phía trái */
 }
 
 .nhom_nhap input,
 .nhom_nhap select {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--mau-vien-manh);
-    border-radius: var(--bo-vua);
-    font-size: 13.5px;
-    font-family: inherit;
-    color: var(--mau-chu-chinh);
-    background: var(--mau-bieu-dien);
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%; /* Chiều rộng của phần tử */
+    padding: 9px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border: 1px solid var(--mau-vien-manh); /* Kẻ đường viền xung quanh phần tử */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    font-size: 13.5px; /* Kích thước chữ */
+    font-family: inherit; /* Chọn kiểu dáng font chữ */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    outline: none; /* Tắt viền sáng mặc định của trình duyệt khi click vào */
+    transition: border-color 0.15s, box-shadow 0.15s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 .nhom_nhap input::placeholder {
-    color: var(--mau-chu-mo);
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
 }
 
 .nhom_nhap input:focus,
 .nhom_nhap select:focus {
     border-color: var(--mau-nhan);
-    box-shadow: 0 0 0 3px var(--mau-nhan-nhe);
+    box-shadow: 0 0 0 3px var(--mau-nhan-nhe); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 .nhom_nhap input:hover,
@@ -802,112 +846,112 @@ table,
 
 /* Nhóm trường riêng (theo loại hàng) — khung mờ, viền nét đứt */
 .nhom_rieng {
-    padding: 16px;
-    background: var(--mau-bieu-dien-phu);
-    border-radius: var(--bo-vua);
-    margin-bottom: 16px;
-    border: 1px dashed var(--mau-vien-manh);
+    padding: 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    border-radius: var(--bo-vua); /* Bo cong các góc của viền */
+    margin-bottom: 16px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    border: 1px dashed var(--mau-vien-manh); /* Kẻ đường viền xung quanh phần tử */
 }
 
 .nhom_nut {
-    display: flex;
-    gap: 10px;
-    margin-top: 24px;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    gap: 10px; /* Tạo khoảng trống giữa các phần tử con */
+    margin-top: 24px; /* Đẩy phần tử khác ra xa ở phía trên */
 }
 
 .nut_xac_nhan {
-    flex: 1;
-    padding: 11px 16px;
-    font-size: 14px;
-    justify-content: center;
+    flex: 1; /* Tự động giãn ra chiếm hết không gian trống còn lại */
+    padding: 11px 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    font-size: 14px; /* Kích thước chữ */
+    justify-content: center; /* Căn giữa các phần tử con theo trục chính (vd: ngang) */
 }
 
 /* ========== Giỏ hàng ========== */
 .noi_dung_gio {
-    padding: 20px 24px;
+    padding: 20px 24px; /* Căn lề bên trong (từ viền vào đến nội dung) */
 }
 
 .bang_gio_hang {
-    width: 100%;
+    width: 100%; /* Chiều rộng của phần tử */
     border-collapse: collapse;
-    font-size: 13px;
+    font-size: 13px; /* Kích thước chữ */
 }
 
 .bang_gio_hang th {
-    padding: 10px 12px;
-    background: var(--mau-bieu-dien-phu);
-    color: var(--mau-chu-mo);
-    text-align: left;
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 600;
-    border-bottom: 1px solid var(--mau-vien);
+    padding: 10px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: var(--mau-bieu-dien-phu); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
+    text-align: left; /* Căn chữ sang trái */
+    font-size: 11.5px; /* Kích thước chữ */
+    text-transform: uppercase; /* Ép tất cả các chữ biến thành in hoa */
+    letter-spacing: 0.06em; /* Khoảng cách giữa các chữ cái */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
 }
 
 .bang_gio_hang td {
-    padding: 12px;
-    border-bottom: 1px solid var(--mau-vien);
-    color: var(--mau-chu-chinh);
+    padding: 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-bottom: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh dưới */
+    color: var(--mau-chu-chinh); /* Đổi màu chữ */
 }
 
 .bang_gio_hang tbody tr:last-child td {
-    border-bottom: none;
+    border-bottom: none; /* Kẻ đường viền ở cạnh dưới */
 }
 
 .tong_tien_gio {
-    text-align: right;
-    padding: 16px 0 8px;
-    font-size: 15px;
-    color: var(--mau-chu-phu);
-    border-top: 1px solid var(--mau-vien);
-    margin-top: 8px;
+    text-align: right; /* Căn chữ sang phải */
+    padding: 16px 0 8px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    font-size: 15px; /* Kích thước chữ */
+    color: var(--mau-chu-phu); /* Đổi màu chữ */
+    border-top: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh trên */
+    margin-top: 8px; /* Đẩy phần tử khác ra xa ở phía trên */
 }
 
 .tong_tien_gio strong {
-    color: var(--mau-nhan-vo);
-    font-size: 18px;
-    font-weight: 700;
-    margin-left: 8px;
+    color: var(--mau-nhan-vo); /* Đổi màu chữ */
+    font-size: 18px; /* Kích thước chữ */
+    font-weight: 700; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    margin-left: 8px; /* Đẩy phần tử khác ra xa ở phía trái */
 }
 
 /* ========== Chân trang ========== */
 .chan_trang {
-    text-align: center;
-    padding: 24px 20px;
-    background: var(--mau-bieu-dien);
-    color: var(--mau-chu-mo);
-    font-size: 12.5px;
-    margin-top: 40px;
-    border-top: 1px solid var(--mau-vien);
+    text-align: center; /* Căn giữa chữ */
+    padding: 24px 20px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: var(--mau-bieu-dien); /* Đổ màu nền hoặc hình nền */
+    color: var(--mau-chu-mo); /* Đổi màu chữ */
+    font-size: 12.5px; /* Kích thước chữ */
+    margin-top: 40px; /* Đẩy phần tử khác ra xa ở phía trên */
+    border-top: 1px solid var(--mau-vien); /* Kẻ đường viền ở cạnh trên */
 }
 
 /* ========== Responsive ========== */
 @media (max-width: 900px) {
     .tieu_de_chinh {
-        padding: 22px 0 20px;
+        padding: 22px 0 20px; /* Căn lề bên trong (từ viền vào đến nội dung) */
     }
 
     .noi_dung_tieu_de {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+        flex-direction: column; /* Sắp xếp các phần tử con theo chiều dọc (từ trên xuống) */
+        align-items: flex-start; /* Căn phần tử con dồn lên trên cùng */
+        gap: 6px; /* Tạo khoảng trống giữa các phần tử con */
     }
 
     .tieu_de_chinh h1 {
-        font-size: 19px;
+        font-size: 19px; /* Kích thước chữ */
     }
 }
 
 @media (max-width: 768px) {
     .noi_dung_cong_cu {
-        flex-direction: column;
+        flex-direction: column; /* Sắp xếp các phần tử con theo chiều dọc (từ trên xuống) */
         align-items: stretch;
-        gap: 12px;
+        gap: 12px; /* Tạo khoảng trống giữa các phần tử con */
     }
 
     .nhom_tim_kiem {
-        min-width: 100%;
+        min-width: 100%; /* Chiều rộng tối thiểu (không thể bóp nhỏ hơn) */
     }
 
     .nhom_sap_xep {
@@ -920,8 +964,8 @@ table,
 
     #bang_san_pham th,
     #bang_san_pham td {
-        padding: 10px 12px;
-        font-size: 12.5px;
+        padding: 10px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+        font-size: 12.5px; /* Kích thước chữ */
     }
 
     .the_thong_ke {
@@ -929,12 +973,12 @@ table,
     }
 
     .noi_dung_chinh {
-        padding: 0 16px;
+        padding: 0 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
     }
 
     .noi_dung_tieu_de,
     .noi_dung_cong_cu {
-        padding: 0 16px;
+        padding: 0 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
     }
 }
 
@@ -963,276 +1007,276 @@ button:focus-visible {
    TRANG ĐĂNG NHẬP
    ============================================================ */
 .trang_dang_nhap {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ecfdf5 0%, #f6faf8 100%);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    padding: 0; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    min-height: 100vh; /* Chiều cao tối thiểu */
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    justify-content: center; /* Căn giữa các phần tử con theo trục chính (vd: ngang) */
+    background: linear-gradient(135deg, #ecfdf5 0%, #f6faf8 100%); /* Đổ màu nền hoặc hình nền */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Chọn kiểu dáng font chữ */
 }
 
 .hop_dang_nhap {
-    width: 440px;
-    max-width: 92vw;
-    background: #ffffff;
-    padding: 36px 32px 28px;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(4, 120, 87, 0.12),
+    width: 440px; /* Chiều rộng của phần tử */
+    max-width: 92vw; /* Chiều rộng tối đa (không thể kéo giãn to hơn) */
+    background: #ffffff; /* Đổ màu nền hoặc hình nền */
+    padding: 36px 32px 28px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-radius: 12px; /* Bo cong các góc của viền */
+    box-shadow: 0 10px 40px rgba(4, 120, 87, 0.12), /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
                 0 2px 6px rgba(0, 0, 0, 0.04);
-    border: 1px solid #e7e5e4;
+    border: 1px solid #e7e5e4; /* Kẻ đường viền xung quanh phần tử */
 }
 
 .tieu_de_dang_nhap {
-    text-align: center;
-    margin-bottom: 24px;
+    text-align: center; /* Căn giữa chữ */
+    margin-bottom: 24px; /* Đẩy phần tử khác ra xa ở phía dưới */
 }
 
 .tieu_de_dang_nhap h1 {
-    font-size: 22px;
-    color: #1c1917;
-    margin: 0 0 8px;
-    font-weight: 700;
+    font-size: 22px; /* Kích thước chữ */
+    color: #1c1917; /* Đổi màu chữ */
+    margin: 0 0 8px; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    font-weight: 700; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 .tieu_de_dang_nhap .mo_ta {
-    color: #78716c;
-    font-size: 13px;
-    margin: 0;
+    color: #78716c; /* Đổi màu chữ */
+    font-size: 13px; /* Kích thước chữ */
+    margin: 0; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
 }
 
 .thong_bao_dang_nhap {
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 13.5px;
-    margin-bottom: 16px;
-    text-align: center;
-    border: 1px solid transparent;
+    padding: 10px 14px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-radius: 6px; /* Bo cong các góc của viền */
+    font-size: 13.5px; /* Kích thước chữ */
+    margin-bottom: 16px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    text-align: center; /* Căn giữa chữ */
+    border: 1px solid transparent; /* Kẻ đường viền xung quanh phần tử */
 }
 
 .thong_bao_dang_nhap.loi {
-    background: #fef2f2;
-    color: #b91c1c;
+    background: #fef2f2; /* Đổ màu nền hoặc hình nền */
+    color: #b91c1c; /* Đổi màu chữ */
     border-color: #fecaca;
 }
 
 .thong_bao_dang_nhap.thanh_cong {
-    background: #ecfdf5;
-    color: #047857;
+    background: #ecfdf5; /* Đổ màu nền hoặc hình nền */
+    color: #047857; /* Đổi màu chữ */
     border-color: #a7f3d0;
 }
 
 .thong_bao_dang_nhap.an_di {
-    display: none;
+    display: none; /* Ẩn phần tử này đi hoàn toàn */
 }
 
 .hop_dang_nhap .nhom_nhap {
-    margin-bottom: 16px;
+    margin-bottom: 16px; /* Đẩy phần tử khác ra xa ở phía dưới */
 }
 
 .hop_dang_nhap .nhom_nhap label {
-    display: block;
-    font-size: 13px;
-    color: #44403c;
-    margin-bottom: 6px;
-    font-weight: 600;
+    display: block; /* Hiển thị dưới dạng khối (chiếm trọn chiều ngang) */
+    font-size: 13px; /* Kích thước chữ */
+    color: #44403c; /* Đổi màu chữ */
+    margin-bottom: 6px; /* Đẩy phần tử khác ra xa ở phía dưới */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 .hop_dang_nhap .nhom_nhap input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d6d3d1;
-    border-radius: 6px;
-    font-size: 14px;
-    color: #1c1917;
-    background: #ffffff;
-    box-sizing: border-box;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%; /* Chiều rộng của phần tử */
+    padding: 10px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border: 1px solid #d6d3d1; /* Kẻ đường viền xung quanh phần tử */
+    border-radius: 6px; /* Bo cong các góc của viền */
+    font-size: 14px; /* Kích thước chữ */
+    color: #1c1917; /* Đổi màu chữ */
+    background: #ffffff; /* Đổ màu nền hoặc hình nền */
+    box-sizing: border-box; /* Ép viền và padding gộp vào trong width (chống phình to) */
+    transition: border-color 0.15s, box-shadow 0.15s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 .hop_dang_nhap .nhom_nhap input:focus {
-    outline: none;
+    outline: none; /* Tắt viền sáng mặc định của trình duyệt khi click vào */
     border-color: #047857;
-    box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15);
+    box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 .nut_dang_nhap {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 8px;
+    width: 100%; /* Chiều rộng của phần tử */
+    padding: 12px 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    font-size: 15px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    margin-top: 8px; /* Đẩy phần tử khác ra xa ở phía trên */
 }
 
 .nut_dang_nhap:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    opacity: 0.6; /* Độ trong suốt (1 là rõ, 0.5 là mờ, 0 là tàng hình) */
+    cursor: not-allowed; /* Đổi biểu tượng chuột thành dấu CẤM */
 }
 
 .goi_y_tai_khoan {
-    margin-top: 24px;
-    padding: 16px;
-    background: #f8fafc;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    margin-top: 24px; /* Đẩy phần tử khác ra xa ở phía trên */
+    padding: 16px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: #f8fafc; /* Đổ màu nền hoặc hình nền */
+    border-radius: 8px; /* Bo cong các góc của viền */
+    border: 1px solid #e2e8f0; /* Kẻ đường viền xung quanh phần tử */
 }
 
 .goi_y_tai_khoan h3 {
-    margin: 0 0 10px;
-    font-size: 13px;
-    color: #475569;
-    font-weight: 600;
+    margin: 0 0 10px; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    font-size: 13px; /* Kích thước chữ */
+    color: #475569; /* Đổi màu chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 .bang_tai_khoan {
-    width: 100%;
+    width: 100%; /* Chiều rộng của phần tử */
     border-collapse: collapse;
-    font-size: 12.5px;
+    font-size: 12.5px; /* Kích thước chữ */
 }
 
 .bang_tai_khoan th,
 .bang_tai_khoan td {
-    padding: 6px 8px;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
+    padding: 6px 8px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    text-align: left; /* Căn chữ sang trái */
+    border-bottom: 1px solid #e2e8f0; /* Kẻ đường viền ở cạnh dưới */
 }
 
 .bang_tai_khoan th {
-    color: #64748b;
-    font-weight: 600;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    color: #64748b; /* Đổi màu chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    font-size: 11px; /* Kích thước chữ */
+    text-transform: uppercase; /* Ép tất cả các chữ biến thành in hoa */
+    letter-spacing: 0.04em; /* Khoảng cách giữa các chữ cái */
 }
 
 .bang_tai_khoan code {
-    background: #1e293b;
-    color: #f1f5f9;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'SF Mono', Menlo, monospace;
-    font-size: 12px;
+    background: #1e293b; /* Đổ màu nền hoặc hình nền */
+    color: #f1f5f9; /* Đổi màu chữ */
+    padding: 2px 6px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-radius: 4px; /* Bo cong các góc của viền */
+    font-family: 'SF Mono', Menlo, monospace; /* Chọn kiểu dáng font chữ */
+    font-size: 12px; /* Kích thước chữ */
 }
 
 .bang_tai_khoan td:last-child {
-    color: #475569;
-    font-size: 12px;
+    color: #475569; /* Đổi màu chữ */
+    font-size: 12px; /* Kích thước chữ */
 }
 
 .chu_thich {
-    text-align: center;
-    font-size: 11.5px;
-    color: #94a3b8;
-    margin: 20px 0 0;
-    line-height: 1.6;
+    text-align: center; /* Căn giữa chữ */
+    font-size: 11.5px; /* Kích thước chữ */
+    color: #94a3b8; /* Đổi màu chữ */
+    margin: 20px 0 0; /* Căn lề bên ngoài (đẩy các phần tử khác ra xa mình) */
+    line-height: 1.6; /* Khoảng cách giữa các dòng chữ (chiều cao dòng) */
 }
 
 .chu_thich strong {
-    color: #64748b;
-    font-weight: 600;
+    color: #64748b; /* Đổi màu chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
 }
 
 /* ============================================================
    KHUNG NGƯỜI DÙNG (trong dau_trang)
    ============================================================ */
 .khung_nguoi_dung {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 12px;
-    background: #ffffff;
-    border-radius: 999px;
-    border: 1px solid #d6d3d1;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    gap: 10px; /* Tạo khoảng trống giữa các phần tử con */
+    padding: 6px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: #ffffff; /* Đổ màu nền hoặc hình nền */
+    border-radius: 999px; /* Bo cong các góc của viền */
+    border: 1px solid #d6d3d1; /* Kẻ đường viền xung quanh phần tử */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Đổ bóng cho phần tử (tạo hiệu ứng nổi) */
 }
 
 .ten_nguoi_dung {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1c1917;
-    white-space: nowrap;
+    font-size: 13px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    color: #1c1917; /* Đổi màu chữ */
+    white-space: nowrap; /* Ép chữ không được rớt dòng, phải nằm trên 1 hàng */
 }
 
 .nhan_vai_tro {
     display: inline-block;
-    padding: 2px 10px;
-    border-radius: 999px;
-    font-size: 11.5px;
-    font-weight: 600;
-    white-space: nowrap;
+    padding: 2px 10px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    border-radius: 999px; /* Bo cong các góc của viền */
+    font-size: 11.5px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    white-space: nowrap; /* Ép chữ không được rớt dòng, phải nằm trên 1 hàng */
 }
 
 .nhan_vai_tro.admin {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fcd34d;
+    background: #fef3c7; /* Đổ màu nền hoặc hình nền */
+    color: #92400e; /* Đổi màu chữ */
+    border: 1px solid #fcd34d; /* Kẻ đường viền xung quanh phần tử */
 }
 
 .nhan_vai_tro.nhan_vien {
-    background: #e0e7ff;
-    color: #3730a3;
-    border: 1px solid #a5b4fc;
+    background: #e0e7ff; /* Đổ màu nền hoặc hình nền */
+    color: #3730a3; /* Đổi màu chữ */
+    border: 1px solid #a5b4fc; /* Kẻ đường viền xung quanh phần tử */
 }
 
 .nut_dang_xuat {
     display: inline-block;
-    padding: 4px 12px;
-    background: #ffffff;
-    color: #b91c1c;
-    border: 1px solid #fecaca;
-    border-radius: 999px;
-    font-size: 12.5px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    padding: 4px 12px; /* Căn lề bên trong (từ viền vào đến nội dung) */
+    background: #ffffff; /* Đổ màu nền hoặc hình nền */
+    color: #b91c1c; /* Đổi màu chữ */
+    border: 1px solid #fecaca; /* Kẻ đường viền xung quanh phần tử */
+    border-radius: 999px; /* Bo cong các góc của viền */
+    font-size: 12.5px; /* Kích thước chữ */
+    font-weight: 600; /* Độ đậm của chữ (400 mỏng, 500 vừa, 700 đậm) */
+    text-decoration: none; /* Xóa gạch chân của đường link */
+    cursor: pointer; /* Đổi biểu tượng chuột thành BÀN TAY khi lướt qua */
+    transition: background 0.15s, color 0.15s; /* Tạo hiệu ứng chuyển động mượt mà (không bị giật cục) */
 }
 
 .nut_dang_xuat:hover {
-    background: #b91c1c;
-    color: #ffffff;
+    background: #b91c1c; /* Đổ màu nền hoặc hình nền */
+    color: #ffffff; /* Đổi màu chữ */
 }
 
 /* Nhãn khóa (cho nhân viên không được xóa) */
 .nhan_bi_khoa {
     display: inline-block;
-    font-size: 14px;
-    opacity: 0.5;
-    cursor: not-allowed;
-    padding: 2px 6px;
+    font-size: 14px; /* Kích thước chữ */
+    opacity: 0.5; /* Độ trong suốt (1 là rõ, 0.5 là mờ, 0 là tàng hình) */
+    cursor: not-allowed; /* Đổi biểu tượng chuột thành dấu CẤM */
+    padding: 2px 6px; /* Căn lề bên trong (từ viền vào đến nội dung) */
 }
 
 /* Căn lại tiêu đề để có chỗ cho khung người dùng */
 .tieu_de_chinh {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
+    display: flex; /* Bật chế độ Flexbox (hộp linh hoạt) để sắp xếp các phần tử con */
+    align-items: center; /* Căn giữa các phần tử con theo trục chéo (vd: dọc) */
+    justify-content: space-between; /* Dàn đều: đẩy bám sát 2 bên lề, ở giữa rỗng */
+    gap: 16px; /* Tạo khoảng trống giữa các phần tử con */
+    flex-wrap: wrap; /* Nếu thiếu chỗ xếp ngang, cho phép rớt xuống hàng dưới */
 }
 
 .noi_dung_tieu_de {
-    flex: 1;
-    min-width: 280px;
+    flex: 1; /* Tự động giãn ra chiếm hết không gian trống còn lại */
+    min-width: 280px; /* Chiều rộng tối thiểu (không thể bóp nhỏ hơn) */
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .tieu_de_chinh {
-        flex-direction: column;
+        flex-direction: column; /* Sắp xếp các phần tử con theo chiều dọc (từ trên xuống) */
         align-items: stretch;
     }
 
     .khung_nguoi_dung {
-        justify-content: center;
+        justify-content: center; /* Căn giữa các phần tử con theo trục chính (vd: ngang) */
     }
 
     .hop_dang_nhap {
-        padding: 24px 20px;
+        padding: 24px 20px; /* Căn lề bên trong (từ viền vào đến nội dung) */
     }
 
     .tieu_de_dang_nhap h1 {
-        font-size: 18px;
+        font-size: 18px; /* Kích thước chữ */
     }
 }

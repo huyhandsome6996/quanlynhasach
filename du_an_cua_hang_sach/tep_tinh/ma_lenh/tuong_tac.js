@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 // ========== Tải thông tin người dùng hiện tại ==========
+// tương tác với dau_trang.html
 async function tai_thong_tin_nguoi_dung() {
     try {
         var phan_hoi = await fetch('/api/nguoi-dung');

@@ -42,7 +42,7 @@ urlpatterns = [
     # ============================================================
     # NHÓM 6: TÌM KIẾM + SẮP XẾP
     # ============================================================
-    path('tim-kiem',              xu_ly_yeu_cau.tim_kiem_san_pham, name='tim_kiem_san_pham'),
+    path('tim-kiem',              u_ly_yeu_cau.tim_kiem_san_pham, name='tim_kiem_san_pham'),
     path('sap-xep',               xu_ly_yeu_cau.sap_xep_danh_sach, name='sap_xep_danh_sach'),
 
     # ============================================================
