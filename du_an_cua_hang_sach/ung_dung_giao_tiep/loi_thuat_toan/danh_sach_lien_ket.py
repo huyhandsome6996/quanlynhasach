@@ -213,23 +213,23 @@ class DoublyLinkedList:
     # CẬP NHẬT
     # ============================================================
 
-        def cap_nhat_node(self, ma_so, du_lieu_moi):
-            """
-            Cập nhật các trường của Node có ma_so tương ứng.
-            du_lieu_moi là dict {ten_truong: gia_tri_moi}.
-            Trả về đối tượng đã cập nhật, hoặc None nếu không tìm thấy.
-            """
-            node_hien_tai = self.head #Duyệt từ node đầu
-            while node_hien_tai is not None: #Kiểm tra cho đến khi gặp None thì dừng
-                if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
-                    doi_tuong = node_hien_tai.data
-                    # Lặp từng cặp (tên_trường, giá_trị) trong dict và gán vào đối tượng.
-                    for thuoc_tinh, gia_tri in du_lieu_moi.items():
-                        if hasattr(doi_tuong, thuoc_tinh):
-                            setattr(doi_tuong, thuoc_tinh, gia_tri)
-                    return doi_tuong
-                node_hien_tai = node_hien_tai.next
-            return None
+    def cap_nhat_node(self, ma_so, du_lieu_moi):
+        """
+        Cập nhật các trường của Node có ma_so tương ứng.
+        du_lieu_moi là dict {ten_truong: gia_tri_moi}.
+        Trả về đối tượng đã cập nhật, hoặc None nếu không tìm thấy.
+        """
+        node_hien_tai = self.head #Duyệt từ node đầu
+        while node_hien_tai is not None: #Kiểm tra cho đến khi gặp None thì dừng
+            if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
+                doi_tuong = node_hien_tai.data
+                # Lặp từng cặp (tên_trường, giá_trị) trong dict và gán vào đối tượng.
+                for thuoc_tinh, gia_tri in du_lieu_moi.items():
+                    if hasattr(doi_tuong, thuoc_tinh):
+                        setattr(doi_tuong, thuoc_tinh, gia_tri)
+                return doi_tuong
+            node_hien_tai = node_hien_tai.next
+        return None
 
     # ============================================================
     # THỐNG KÊ
