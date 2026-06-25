@@ -28,6 +28,10 @@ def lay_danh_sach(request):
     try:
         if _kho.Danh_sach_cua_hang is None:
             _kho.khoi_tao_danh_sach()
+            
+        # [NGUYÊN LÝ DUYỆT DANH SÁCH LIÊN KẾT]
+        # Tác dụng: Hàm `chuyen_thanh_danh_sach` dùng vòng lặp while để đi từ `head` đến `None`
+        # gom toàn bộ node lại thành mảng JSON để gửi về cho giao diện (Front-end).
         danh_sach = _kho.Danh_sach_cua_hang.chuyen_thanh_danh_sach()
         return JsonResponse({
             'trang_thai': 'thanh_cong',
@@ -89,6 +93,9 @@ def them_san_pham(request):
                 status=400
             )
 
+        # [NGUYÊN LÝ TÍNH ĐA HÌNH TRONG OOP (Polymorphism)]
+        # Nguồn: Import các Class con kế thừa từ Class cha SanPham từ file `loi_thuat_toan/lop_doi_tuong.py`.
+        # Tác dụng: Tùy vào biến `loai_hang` là gì mà ta khởi tạo Object tương ứng, vì mỗi sách có thuộc tính riêng (tác giả, năm xuất bản...).
         from ..loi_thuat_toan.lop_doi_tuong import Sach, TapChi, BaoGiay, LuanVan, BanThao
 
         if loai_hang == 'Sách':
@@ -142,15 +149,24 @@ def them_san_pham(request):
                 status=400
             )
 
+        # [ĐỒNG BỘ TẦNG 1: RAM] Thêm đối tượng vào Danh Sách Liên Kết.
+        # Nguồn: Hàm `them_vao_cuoi` của cấu trúc dữ liệu tạo trong `danh_sach_lien_ket.py`.
         _kho.Danh_sach_cua_hang.them_vao_cuoi(san_pham_moi)
+        
+        # [ĐỒNG BỘ TẦNG 2: Ổ CỨNG] Ghi đè xuống Database.
+        # Nguồn: Hàm `luu_mot_san_pham` (chứa lệnh INSERT) từ `ket_noi_sqlite.py`.
         from ..loi_thuat_toan.ket_noi_sqlite import luu_mot_san_pham
         luu_mot_san_pham(san_pham_moi)
 
+        # [NGUYÊN LÝ STACK - LIFO]
+        # BƯỚC Cuối: Push hành động "Thêm" này vào đỉnh Stack Undo để lỡ người dùng muốn Hoàn tác.
         _kho.Bo_undoredo['undo'].day_vao({
             'loai':        'them',
             'du_lieu_cu':  None,
             'du_lieu_moi': san_pham_moi.chuyen_thanh_dict()
         })
+        
+        # Nếu đã có hành động mới thì lịch sử Redo bị cắt đứt (Xóa sạch Stack Redo).
         _kho.Bo_undoredo['redo'].xoa_tat_ca()
 
         return JsonResponse({
@@ -236,7 +252,10 @@ def sua_san_pham(request):
             du_lieu_moi['tac_gia']    = du_lieu.get('tac_gia', '').strip()
             du_lieu_moi['tinh_trang'] = du_lieu.get('trang_thai', '').strip()
 
+        # [ĐỒNG BỘ TẦNG 1: RAM] Cập nhật Node trên Danh Sách Liên Kết.
         _kho.Danh_sach_cua_hang.cap_nhat_node(ma_so, du_lieu_moi)
+        
+        # [ĐỒNG BỘ TẦNG 2: Ổ CỨNG] Cập nhật DB.
         from ..loi_thuat_toan.ket_noi_sqlite import cap_nhat_san_pham
         cap_nhat_san_pham(san_pham_cu)
 
@@ -287,6 +306,9 @@ def xoa_san_pham(request):
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
 
+    # [NGUYÊN LÝ PHÂN QUYỀN (AUTHORIZATION)]
+    # Tác động đồ án: Chỉ admin mới có quyền thực thi. Nhân viên gọi API này sẽ bị văng mã lỗi 403 (Forbidden).
+    # Nguồn: Hàm `la_admin` được lấy từ file `xac_thuc.py` (đọc role từ Session).
     if not la_admin(request):
         return JsonResponse(
             {'trang_thai': 'loi', 'thong_bao': 'BẠN LÀ NHÂN VIÊN - KHÔNG ĐƯỢC PHÉP XÓA SẢN PHẨM.'},
@@ -310,8 +332,10 @@ def xoa_san_pham(request):
             )
         du_lieu_cu = san_pham_cu.chuyen_thanh_dict()
 
+        # [ĐỒNG BỘ TẦNG 1: RAM] Xóa node khỏi Danh Sách Liên Kết (Cắt đứt liên kết next/truoc).
         ket_qua = _kho.Danh_sach_cua_hang.xoa_node(ma_so)
         if ket_qua:
+            # [ĐỒNG BỘ TẦNG 2: Ổ CỨNG] Chạy SQL DELETE xóa hẳn dưới DB.
             from ..loi_thuat_toan.ket_noi_sqlite import xoa_mot_san_pham
             xoa_mot_san_pham(ma_so)
 

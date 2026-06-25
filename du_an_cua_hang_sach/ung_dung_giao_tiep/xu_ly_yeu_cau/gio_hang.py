@@ -21,6 +21,9 @@ def them_vao_gio_hang(request):
     
     [Tương tác JS]: Được gọi bởi hàm `them_vao_gio_hang()` trong file `goi_du_lieu.js`.
     """
+    # [NGUYÊN LÝ ĐỒ ÁN - ĐỌC KỸ]
+    # Đảm bảo CSDL được nạp vào RAM.
+    # Nguồn: Biến `Danh_sach_cua_hang` và hàm `khoi_tao_danh_sach()` lấy từ `khoi_tao.py`.
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
@@ -31,12 +34,18 @@ def them_vao_gio_hang(request):
         san_pham = _kho.Danh_sach_cua_hang.tim_theo_ma_so(ma_so)
         if san_pham is None:
             return JsonResponse({'trang_thai': 'loi', 'thong_bao': f'Không tìm thấy sản phẩm mã {ma_so}.'}, status=404)
+        # Tạo một Dictionary để gói gọn thông tin cuốn sách.
         mon_hang = {
             'ma_so':        san_pham.ma_so,
             'ten_san_pham': san_pham.ten_san_pham,
             'gia_ban':      san_pham.tinh_gia_ban(),
             'loai_hang':    san_pham.loai_hang
         }
+        
+        # [NGUYÊN LÝ QUEUE - FIFO] (Vào trước ra trước)
+        # BƯỚC 1: Gọi hàm ENQUEUE (them_vao) để nhét món hàng vào ĐUÔI của Hàng Đợi.
+        # Nguồn: Biến `Gio_hang_hien_tai` là một đối tượng thuộc class Queue (Hàng đợi) tạo từ `khoi_tao.py`.
+        # Tác động đồ án: Chứng minh bạn biết ứng dụng Queue làm giỏ hàng (ai chọn trước thì tính tiền trước).
         _kho.Gio_hang_hien_tai.them_vao(mon_hang)
         return JsonResponse({
             'trang_thai': 'thanh_cong',
@@ -109,12 +118,19 @@ def thanh_toan(request):
     try:
         if _kho.Gio_hang_hien_tai.rong():
             return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Giỏ hàng đang trống.'}, status=400)
+        # Chuẩn bị một danh sách rỗng để chứa các món ăn ra.
         cac_mon = []
         tong_tien = 0
+        
+        # [NGUYÊN LÝ QUEUE - FIFO] (Vào trước ra trước)
+        # Vòng lặp: Lặp cho đến khi Giỏ hàng (Hàng đợi) rỗng.
         while not _kho.Gio_hang_hien_tai.rong():
+            # BƯỚC 2: Gọi lệnh DEQUEUE (lay_ra) để bốc món hàng ở ĐẦU hàng đợi ra tính tiền.
+            # Tác động đồ án: Chứng minh cách xả toàn bộ Queue theo đúng thứ tự FIFO.
             mon = _kho.Gio_hang_hien_tai.lay_ra()
-            cac_mon.append(mon)
-            tong_tien += mon.get('gia_ban', 0)
+            
+            cac_mon.append(mon) # Lưu tạm vào hóa đơn
+            tong_tien += mon.get('gia_ban', 0) # Cộng dồn tiền
         return JsonResponse({
             'trang_thai': 'thanh_cong',
             'thong_bao':  f'Đã thanh toán {len(cac_mon)} mặt hàng, tổng {tong_tien:,.0f}đ.',

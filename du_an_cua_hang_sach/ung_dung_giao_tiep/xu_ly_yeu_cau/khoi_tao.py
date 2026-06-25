@@ -14,8 +14,12 @@ from django.views.decorators.http import require_http_methods
 # ============================================================
 # BIẾN TOÀN CỤC — Giữ trạng thái ứng dụng khi server đang chạy
 # ============================================================
+# [NGUYÊN LÝ BIẾN TOÀN CỤC (GLOBAL VARIABLES)]
+# Tác động đồ án: 3 biến này nằm ở RAM. Khi Server (Django) khởi động, chúng ban đầu là None.
+# Lần đầu tiên có người truy cập web, chúng sẽ được bơm đầy dữ liệu và TỒN TẠI SUỐT QUÁ TRÌNH SERVER CHẠY.
+# Nhờ vậy, mọi người dùng đều tương tác trên chung một Danh sách liên kết, chung 1 cây Stack và Queue.
+
 # Danh_sach_cua_hang: đối tượng DoublyLinkedList (DSLK đôi) chứa mọi mặt hàng.
-#                      None nghĩa là chưa khởi tạo (sẽ tạo trong khoi_tao_danh_sach).
 Danh_sach_cua_hang = None
 # Bo_undoredo: dict chứa 2 Stack — 'undo' (hoàn tác) và 'redo' (làm lại).
 Bo_undoredo        = None
@@ -46,21 +50,27 @@ def khoi_tao_danh_sach():
     # Import hàm tạo 2 tài khoản mặc định (admin + nhân viên) nếu chưa có.
     from ..loi_thuat_toan.nguoi_dung import khoi_tao_nguoi_dung_mac_dinh
 
-    # Bảng SQLite + dữ liệu mẫu + tài khoản mẫu (chỉ tạo lần đầu).
+    # [NGUYÊN LÝ ĐỒNG BỘ MẪU]
+    # Tác động: Nếu Database SQLite chưa có bảng nào (chạy lần đầu), hàm này sẽ tạo bảng và nhét vài sách mẫu vào.
     tao_du_lieu_mau_neu_rong()
 
+    # [NGUYÊN LÝ KHỞI TẠO CẤU TRÚC DỮ LIỆU - DANH SÁCH LIÊN KẾT ĐÔI]
     # Tạo đối tượng DSLK đôi RỖNG (chưa có node nào).
     Danh_sach_cua_hang = DoublyLinkedList()
-    # Tải toàn bộ sản phẩm trong SQLite ra và nhét từng cái vào DSLK đôi.
+    
+    # [NGUYÊN LÝ TẢI DỮ LIỆU LÊN RAM]
+    # Tác động: Kéo toàn bộ sản phẩm từ SQLite ra và nhét từng cái vào DSLK đôi. Từ giờ web chỉ chạy trên RAM.
     tai_du_lieu(Danh_sach_cua_hang)
 
-    # Tạo 2 Stack dùng cho tính năng Undo (hoàn tác) + Redo (làm lại).
+    # [NGUYÊN LÝ KHỞI TẠO CẤU TRÚC DỮ LIỆU - STACK]
+    # Tạo 2 Stack dùng cho tính năng Undo (hoàn tác) + Redo (làm lại) theo nguyên lý LIFO (Last In First Out).
     ngan_xep_undo = NganXep()
     ngan_xep_redo = NganXep()
-    # Bọc 2 stack vào 1 dict để dễ tham chiếu theo tên.
+    # Bọc 2 stack vào 1 dict để dễ tham chiếu.
     Bo_undoredo = {'undo': ngan_xep_undo, 'redo': ngan_xep_redo}
 
-    # Tạo 1 Queue dùng cho giỏ hàng (theo nguyên lý FIFO — vào trước ra trước).
+    # [NGUYÊN LÝ KHỞI TẠO CẤU TRÚC DỮ LIỆU - QUEUE]
+    # Tạo 1 Queue dùng cho giỏ hàng theo nguyên lý FIFO (First In First Out — vào trước ra trước).
     Gio_hang_hien_tai = HangDoi()
 
     # Tạo 2 tài khoản mẫu (admin/admin123 và nhanvien/nv123) nếu chưa có.

@@ -29,8 +29,14 @@ def trang_chu(request):
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
+    # [NGUYÊN LÝ PHÂN QUYỀN VÀ PHIÊN LÀM VIỆC (SESSION)]
+    # Tác dụng: Kiểm tra xem Browser của người dùng có gửi kèm Cookie chứa Session ID hợp lệ không.
+    # Nếu không có key 'ten_dang_nhap' trong Session trên Server -> Trục xuất về trang đăng nhập.
     if 'ten_dang_nhap' not in request.session:
         return redirect('/dang-nhap')
+        
+    # [NGUYÊN LÝ TRẠNG THÁI (STATELESS TO STATEFUL)]
+    # Tác động đồ án: Server gom các thuộc tính session lại và nhét vào một biến để HTML có thể đọc được tên và quyền của người dùng.
     request.session['nguoi_dung'] = {
         'ten_dang_nhap': request.session.get('ten_dang_nhap'),
         'ho_ten':        request.session.get('ho_ten', ''),
@@ -76,6 +82,9 @@ def xu_ly_dang_nhap(request):
                 status=400
             )
 
+        # [NGUYÊN LÝ XÁC THỰC (AUTHENTICATION)]
+        # Nguồn: Hàm kiem_tra_dang_nhap được import từ class NguoiDung (file loi_thuat_toan/nguoi_dung.py).
+        # Tác dụng: So khớp Username/Password với cơ sở dữ liệu.
         from ..loi_thuat_toan.nguoi_dung import kiem_tra_dang_nhap
         nguoi_dung = kiem_tra_dang_nhap(ten_dang_nhap, mat_khau)
 
@@ -85,6 +94,9 @@ def xu_ly_dang_nhap(request):
                 status=401
             )
 
+        # [NGUYÊN LÝ LƯU TRỮ PHIÊN (SESSION STORAGE)]
+        # Tác động đồ án: Sau khi xác thực đúng, Server sẽ TẠO một bộ nhớ Session cho user này
+        # và trả về cho Browser một đoạn mã Cookie. Các lần sau Browser tự gửi Cookie lên là Server nhận ra.
         request.session['ten_dang_nhap'] = nguoi_dung.ten_dang_nhap
         request.session['ho_ten']        = nguoi_dung.ho_ten
         request.session['vai_tro']       = nguoi_dung.vai_tro
@@ -115,6 +127,9 @@ def xu_ly_dang_xuat(request):
     [Tương tác JS]: Được gọi khi người dùng bấm nút Đăng xuất trên `dau_trang.html`.
     """
     try:
+        # [NGUYÊN LÝ XÓA PHIÊN (SESSION DESTRUCTION)]
+        # Tác động đồ án: Lệnh flush() sẽ XÓA SẠCH toàn bộ dữ liệu Session của user này trên bộ nhớ Server.
+        # Khiến Cookie trên Browser của họ trở thành rác, bắt buộc họ phải đăng nhập lại.
         request.session.flush()
         if request.method == 'GET':
             return redirect('/dang-nhap')

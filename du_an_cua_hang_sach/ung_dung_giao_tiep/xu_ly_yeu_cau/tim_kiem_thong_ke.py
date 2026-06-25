@@ -22,6 +22,8 @@ def tim_kiem_san_pham(request):
         
     [Tương tác JS]: Được gọi bởi hàm `tim_kiem(tu_khoa, tieu_chi)` trong file `goi_du_lieu.js`.
     """
+    # [NGUYÊN LÝ ĐỒ ÁN - ĐỌC KỸ]
+    # Nguồn: Biến `Danh_sach_cua_hang` (Danh sách liên kết kép) từ file `khoi_tao.py`.
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
@@ -30,12 +32,17 @@ def tim_kiem_san_pham(request):
 
         if tieu_chi == 'ma':
             ket_qua = []
+            # [NGUYÊN LÝ TÌM KIẾM THEO MÃ SỐ]
+            # Tác dụng: Duyệt tuần tự (Linear Search) từ đầu đến cuối danh sách liên kết.
             sp = _kho.Danh_sach_cua_hang.tim_theo_ma_so(tu_khoa)
             if sp:
                 ket_qua.append(sp)
         elif tieu_chi == 'loai':
+            # [NGUYÊN LÝ TÌM KIẾM THEO LOẠI]
             ket_qua = _kho.Danh_sach_cua_hang.tim_theo_the_loai(tu_khoa)
         else:
+            # [NGUYÊN LÝ TÌM KIẾM TƯƠNG ĐỐI (Like/Contains)]
+            # Tác dụng: Kiểm tra xem từ khóa có nằm trong tên sách hoặc tên tác giả không (bỏ qua viết hoa/thường).
             ket_qua = _kho.Danh_sach_cua_hang.tim_kiem(tu_khoa)
 
         danh_sach_ket_qua = []
@@ -68,7 +75,15 @@ def sap_xep_danh_sach(request):
         _kho.khoi_tao_danh_sach()
     try:
         tieu_chi  = request.GET.get('tieu_chi', 'gia_ban').strip()
+        
+        # [NGUYÊN LÝ THUẬT TOÁN - MERGE SORT (SẮP XẾP TRỘN)]
+        # BƯỚC 1: Gọi hàm sap_xep_tron(tieu_chi) của Danh Sách Liên Kết.
+        # Tác động đồ án: Đây là THUẬT TOÁN LÕI (Điểm 9-10). Nó chia đôi danh sách (dùng kỹ thuật Thỏ & Rùa)
+        # rồi trộn lại theo tiêu chí giá bán, tồn kho, tên... với độ phức tạp tối ưu O(n log n).
+        # Nguồn: Hàm này được định nghĩa trực tiếp trong class DanhSachLienKet (file danh_sach_lien_ket.py).
         _kho.Danh_sach_cua_hang.sap_xep_tron(tieu_chi)
+        
+        # BƯỚC 2: Duyệt lại toàn bộ Danh sách đã sắp xếp để lấy mảng JSON trả về.
         danh_sach = _kho.Danh_sach_cua_hang.chuyen_thanh_danh_sach()
         return JsonResponse({
             'trang_thai': 'thanh_cong',
@@ -98,6 +113,10 @@ def lay_thong_ke(request):
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
+        # [NGUYÊN LÝ DUYỆT VÀ THỐNG KÊ (AGGREGATION)]
+        # Tác dụng: Hàm `thong_ke` duyệt qua Danh sách liên kết đúng 1 vòng duy nhất (O(n))
+        # để vừa đếm tổng số, vừa gom sách sắp hết, vừa tìm max/min giá trị. Rất tối ưu!
+        # Nguồn: Gọi từ class DanhSachLienKet trong file danh_sach_lien_ket.py.
         tk = _kho.Danh_sach_cua_hang.thong_ke()
         return JsonResponse({
             'trang_thai': 'thanh_cong',
