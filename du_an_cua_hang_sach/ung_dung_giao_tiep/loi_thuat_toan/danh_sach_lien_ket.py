@@ -149,78 +149,87 @@ class DoublyLinkedList:
         Tìm kiếm theo Tên sản phẩm — so khớp CHỨA (substring),
         không phân biệt HOA/thường.
         """
-        ket_qua = []
-        node_hien_tai = self.head
-        tu_khoa_chu_thuong = tu_khoa.lower()           # Chuẩn hoá từ khóa.
-        while node_hien_tai is not None:
-            if hasattr(node_hien_tai.data, 'ten_san_pham'):
-                ten_chu_thuong = node_hien_tai.data.ten_san_pham.lower()
+        ket_qua = [] # kết quả chứa những node có chứa từ khoá
+        node_hien_tai = self.head #  Duyệt bắt đầu từ node đầu
+        tu_khoa_chu_thuong = tu_khoa.lower()  # Chuẩn hoá từ khóa.
+        while node_hien_tai is not None: #lặp cho đến khi gặp None thì thôi
+            if hasattr(node_hien_tai.data, 'ten_san_pham'): #Dùng hasattr để kiểm tra xem thuộc tính ten_san_pham có tồn tại không.
+                ten_chu_thuong = node_hien_tai.data.ten_san_pham.lower() #Chuyển ten_san_pham sang chữ thường
                 if tu_khoa_chu_thuong in ten_chu_thuong:
-                    ket_qua.append(node_hien_tai.data)
-            node_hien_tai = node_hien_tai.next
-        return ket_qua
+                    ket_qua.append(node_hien_tai.data) #thêm vào ket_qua nếu node đó chứa tu_khoa
+            node_hien_tai = node_hien_tai.next #tiếp tục kiểm tra node tiếp theo cho đến khi gặp None
+        return ket_qua #Trả về danh sách node chứa từ khoá
 
     def tim_theo_the_loai(self, the_loai):
         """Tìm theo loại hàng (Sách/Tạp chí/...). Trả về list các đối tượng."""
-        ket_qua = []
-        node_hien_tai = self.head
-        the_loai_chu_thuong = the_loai.lower()
-        while node_hien_tai is not None:
-            if hasattr(node_hien_tai.data, 'loai_hang'):
-                if the_loai_chu_thuong in node_hien_tai.data.loai_hang.lower():
-                    ket_qua.append(node_hien_tai.data)
-            node_hien_tai = node_hien_tai.next
-        return ket_qua
+        ket_qua = [] # ket_qua chứa node chứa the_loai
+        node_hien_tai = self.head #duyệt từ đầu bắt đầu từ node đầu tiên
+        the_loai_chu_thuong = the_loai.lower() # dùng chữ thường
+        while node_hien_tai is not None: #kiểm tra tất cả các node cho đến khi gặp None
+            if hasattr(node_hien_tai.data, 'loai_hang'): #Kiểm tra xem node hiện tại có thuộc tính loai_hang ko?
+                if the_loai_chu_thuong in node_hien_tai.data.loai_hang.lower(): # kiểm tra xem có chứa the_loai_chu_thuong ko
+                    ket_qua.append(node_hien_tai.data) #thêm những node đáp ứng đúng thể loại
+            node_hien_tai = node_hien_tai.next #tiếp tục cho đến khi gặp None
+        return ket_qua 
 
     def tim_kiem_nang_cao(self, tu_khoa):
         """
         Tìm kiếm nâng cao: tìm đồng thời theo MÃ SỐ, TÊN, và LOẠI HÀNG.
         Sử dụng set để tránh trùng lặp kết quả.
+
+        -Bấm "t" là đã tự gợi ý ra "tiểu thuyết" 
         """
         ket_qua = []
-        ma_da_them = set()                             # Set các mã đã thêm.
-        node_hien_tai = self.head
-        tu_khoa_lower = tu_khoa.lower()
-        while node_hien_tai is not None:
-            data = node_hien_tai.data
-            da_khop = False
+        ma_da_them = set() # List chứa các ptu ko trùng lặp (1 núi 1 hổ)
+        node_hien_tai = self.head #Duyệt từ node đầu
+        tu_khoa_lower = tu_khoa.lower() #dùng chữ thường để so sánh
+        while node_hien_tai is not None: # Kiểm tra hết các node cho đến khi gặp None
+            data = node_hien_tai.data #gán data với data đang dc duyệt
+            da_khop = False # Gán mặc định là chưa tìm thấy (check đúng thì sang True sau)
+
+
             # Kiểm tra khớp theo mã số.
             if hasattr(data, 'ma_so') and tu_khoa_lower in data.ma_so.lower():
-                da_khop = True
+                da_khop = True # Nếu data có thuộc tính ma_so và chứa tu_khoa_Lower thì 
+                               #đổi thành True
+
+                
             # Nếu chưa khớp → kiểm tra theo tên.
             if not da_khop and hasattr(data, 'ten_san_pham') and tu_khoa_lower in data.ten_san_pham.lower():
-                da_khop = True
+                da_khop = True #Tương tự thế với ten_san_pham nếu k khớp ma_so
+
             # Nếu vẫn chưa khớp → kiểm tra theo loại hàng.
             if not da_khop and hasattr(data, 'loai_hang') and tu_khoa_lower in data.loai_hang.lower():
-                da_khop = True
+                da_khop = True #Tương tự thế với loai_hang nếu k khớp ma_so và ten_san_pham
+            
             # Nếu khớp và chưa thêm → thêm vào kết quả.
-            if da_khop and data.ma_so not in ma_da_them:
-                ket_qua.append(data)
-                ma_da_them.add(data.ma_so)
-            node_hien_tai = node_hien_tai.next
-        return ket_qua
+            if da_khop and data.ma_so not in ma_da_them: #Nếu da_khop=True và data chưa có trong ma_da_them
+                ket_qua.append(data) #Thì thêm vào ket_qua
+                ma_da_them.add(data.ma_so) #thêm vào ma_da_them để đảm bảo k bị trùng
+            node_hien_tai = node_hien_tai.next #tiếp tục node tiếp theo cho đến hết
+        return ket_qua #Trả về list kết quả
 
     # ============================================================
     # CẬP NHẬT
     # ============================================================
 
-    def cap_nhat_node(self, ma_so, du_lieu_moi):
-        """
-        Cập nhật các trường của Node có ma_so tương ứng.
-        du_lieu_moi là dict {ten_truong: gia_tri_moi}.
-        Trả về đối tượng đã cập nhật, hoặc None nếu không tìm thấy.
-        """
-        node_hien_tai = self.head
-        while node_hien_tai is not None:
-            if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
-                doi_tuong = node_hien_tai.data
-                # Lặp từng cặp (tên_trường, giá_trị) trong dict và gán vào đối tượng.
-                for thuoc_tinh, gia_tri in du_lieu_moi.items():
-                    if hasattr(doi_tuong, thuoc_tinh):
-                        setattr(doi_tuong, thuoc_tinh, gia_tri)
-                return doi_tuong
-            node_hien_tai = node_hien_tai.next
-        return None
+        def cap_nhat_node(self, ma_so, du_lieu_moi):
+            """
+            Cập nhật các trường của Node có ma_so tương ứng.
+            du_lieu_moi là dict {ten_truong: gia_tri_moi}.
+            Trả về đối tượng đã cập nhật, hoặc None nếu không tìm thấy.
+            """
+            node_hien_tai = self.head #Duyệt từ node đầu
+            while node_hien_tai is not None: #Kiểm tra cho đến khi gặp None thì dừng
+                if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
+                    doi_tuong = node_hien_tai.data
+                    # Lặp từng cặp (tên_trường, giá_trị) trong dict và gán vào đối tượng.
+                    for thuoc_tinh, gia_tri in du_lieu_moi.items():
+                        if hasattr(doi_tuong, thuoc_tinh):
+                            setattr(doi_tuong, thuoc_tinh, gia_tri)
+                    return doi_tuong
+                node_hien_tai = node_hien_tai.next
+            return None
 
     # ============================================================
     # THỐNG KÊ
