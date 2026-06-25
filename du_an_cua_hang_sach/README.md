@@ -54,7 +54,6 @@ du_an_cua_hang_sach/
 │       ├── cau_truc_du_lieu.py        # Stack (Undo/Redo) + Queue (Giỏ hàng)
 │       ├── ket_noi_sqlite.py          # SQLite CRUD + bảng người dùng
 │       ├── nguoi_dung.py              # Lớp NguoiDung + phân quyền Admin/NV
-│       ├── undo_redo_gio_hang.py      # Module Stack/Queue/UndoRedo/GioHang bổ sung
 │       └── kiem_thu.py                # Kiểm thử các cấu trúc dữ liệu
 │
 ├── giao_dien/                         # Giao diện HTML (Templates)
