@@ -1,16 +1,37 @@
 <!DOCTYPE html>
+<!--
+    ============================================================
+    TÀI LIỆU HỌC THI — BÙI GIA NGỌ
+    ============================================================
+    Phần phụ trách:
+      - Lớp OOP (lop_doi_tuong.py) — 5 lớp con kế thừa
+      - SQLite CRUD (ket_noi_sqlite.py)
+      - Người dùng + phân quyền (nguoi_dung.py)
+      - Trang đăng nhập HTML (dang_nhap.html)
+      - Kiểm thử (kiem_thu.py)
+    ============================================================
+-->
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tài liệu học thi — Bùi Gia Ngọ</title>
-<link rel="stylesheet" href="style.css">
+    <!-- Khai báo bảng mã UTF-8 để hiển thị tiếng Việt -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive: hiển thị đúng trên mọi kích thước màn hình -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề hiện trên tab trình duyệt -->
+    <title>Tài liệu học thi — Bùi Gia Ngọ</title>
+
+    <!-- Liên kết tới file CSS trang trí -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ===================== MENU ĐỈNH ===================== -->
 <div class="menu-top">
     <div class="logo">📚 HỌC THI — BÙI GIA NGỌ</div>
     <nav>
+        <a href="#phan-cong-viec">0. Phân việc</a>
         <a href="#bai1">1. Stack (LIFO)</a>
         <a href="#bai2">2. SQLite</a>
         <a href="#bai3">3. Phân quyền</a>
@@ -19,169 +40,300 @@
     </nav>
 </div>
 
+<!-- ===================== BÌA ===================== -->
 <div class="hero">
     <h1>📚 TÀI LIỆU ÔN THI</h1>
-    <div class="subtitle">Đồ án Quản lý Cửa hàng Sách — PyQt6 + Cấu trúc dữ liệu</div>
-    <div class="nguoi">👤 Phụ trách: BÙI GIA NGỌ (Stack + SQLite + Phân quyền + Test)</div>
+    <div class="subtitle">Đồ án Quản lý Cửa hàng Sách — Django + HTML/CSS/JS + Cấu trúc dữ liệu</div>
+    <div class="nguoi">👤 Phụ trách: BÙI GIA NGỌ (OOP + SQLite + Phân quyền + Test)</div>
 </div>
 
 <div class="container">
 
 <!-- ============================================================ -->
+<!-- =========== BẢNG PHÂN CHIA CÔNG VIỆC CẢ ĐỒ ÁN ============== -->
+<!-- ============================================================ -->
+<section class="chuong" id="phan-cong-viec">
+    <h2>
+        BẢNG PHÂN CHIA CÔNG VIỆC — 3 THÀNH VIÊN
+        <span class="phu-trach chung">Cả nhóm</span>
+    </h2>
+
+    <p>
+        Đồ án chia cho 3 người. Mỗi người phụ trách những file riêng —
+        ôn phần mình phụ trách trước, sau đó đọc lướt phần người khác để hiểu toàn cảnh.
+        Mỗi bài học bên dưới đều có <strong>nhãn màu</strong> cho biết ai chịu trách nhiệm:
+    </p>
+
+    <table class="bang-cong-viec">
+        <thead>
+            <tr>
+                <th>Thành viên</th>
+                <th>Vai trò</th>
+                <th>File phụ trách</th>
+                <th>Nội dung ôn</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="nhan">
+                    <span class="phu-trach huy">HUY</span>
+                    Hồ Quang Huy
+                </td>
+                <td>Trưởng nhóm — phần khó</td>
+                <td>
+                    <code>danh_sach_lien_ket.py</code><br>
+                    <code>xu_ly_yeu_cau.py</code><br>
+                    <code>duong_dan.py</code><br>
+                    <code>trang_chu.html</code>
+                </td>
+                <td>DSLK đôi, Merge Sort, Django Views, URL routes, Undo/Redo</td>
+            </tr>
+            <tr>
+                <td class="nhan">
+                    <span class="phu-trach ngo">NGỌ</span>
+                    Bùi Gia Ngọ
+                </td>
+                <td>Phần dễ — OOP + CSDL</td>
+                <td>
+                    <code>lop_doi_tuong.py</code><br>
+                    <code>ket_noi_sqlite.py</code><br>
+                    <code>nguoi_dung.py</code><br>
+                    <code>dang_nhap.html</code>
+                </td>
+                <td>Lớp OOP, Kế thừa, Đa hình, SQLite CRUD, Phân quyền, Test</td>
+            </tr>
+            <tr>
+                <td class="nhan">
+                    <span class="phu-trach tu">TÚ</span>
+                    Phan Anh Tú
+                </td>
+                <td>Phần dễ — Cấu trúc + Giao diện</td>
+                <td>
+                    <code>cau_truc_du_lieu.py</code><br>
+                    <code>undo_redo_gio_hang.py</code><br>
+                    <code>thanh_phan/*.html</code><br>
+                    <code>ma_lenh/*.js</code>
+                </td>
+                <td>Stack LIFO, Queue FIFO, Giỏ hàng, HTML partials, JavaScript</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="html-note">
+        <strong>💡 Cách học file này:</strong> Mỗi bài đều có nhãn
+        <span class="phu-trach huy">HUY</span>
+        <span class="phu-trach ngo">NGỌ</span>
+        <span class="phu-trach tu">TÚ</span>
+        cho biết ai phụ trách. Ngọ là file này — đọc kỹ từng dòng. Khi gặp nhãn HUY hoặc TÚ,
+        đó là file người khác phụ trách — chỉ cần hiểu sơ.
+    </div>
+
+    <div class="note">
+        <strong>📌 Lưu ý quan trọng:</strong> File này của Ngọ học về <strong>Stack</strong>
+        (Bài 1) — nhưng thực tế <strong>Stack/Queue do Tú phụ trách</strong> trong code.
+        Ngọ vẫn cần hiểu Stack vì nó là cơ sở cho tính năng Undo/Redo — và có thể thầy cô
+        hỏi chéo. Phần chính của Ngọ là <strong>OOP</strong> + <strong>SQLite</strong> +
+        <strong>Phân quyền</strong> (Bài 2-4). Khi thi, đề sẽ hỏi OOP và SQLite — file
+        này hướng dẫn kỹ phần đó.
+    </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- ===================== BÀI 1: STACK ========================= -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai1">
-<h2>BÀI 1 — NGĂN XẾP (STACK) — LIFO</h2>
+    <h2>
+        BÀI 1 — NGĂN XẾP (STACK) — LIFO
+        <span class="phu-trach tu">TÚ phụ trách</span>
+    </h2>
 
-<h3>1.1. Stack LÀ GÌ?</h3>
-<p>
-    <strong>Ngăn xếp (Stack)</strong> là cấu trúc dữ liệu theo nguyên tắc <strong>LIFO</strong>
-    — <em>Last In, First Out</em> (Vào sau, ra trước).
-</p>
+    <div class="note">
+        <strong>📌 Lưu ý:</strong> Stack/Queue do <strong>Tú</strong> phụ trách trong code.
+        Nhưng Ngọ vẫn cần hiểu vì nó là cơ sở của tính năng Undo/Redo — và thi có thể hỏi chéo.
+    </div>
 
-<div class="note">
-    <strong>💡 Tưởng tượng đời thường:</strong> Hãy nghĩ về <strong>chồng đĩa</strong> trong
-    nhà ăn. Bạn cất đĩa lên trên cùng chồng (push). Khi cần lấy đĩa, bạn lấy từ trên cùng
-    (pop). <strong>Đĩa cất sau cùng sẽ được lấy ra đầu tiên</strong> — đó chính là LIFO.
-</div>
+    <h3>1.1. Stack LÀ GÌ?</h3>
+    <p>
+        <strong>Ngăn xếp (Stack)</strong> là cấu trúc dữ liệu theo nguyên tắc <strong>LIFO</strong>
+        — <em>Last In, First Out</em> (Vào sau, ra trước).
+    </p>
 
-<h3>1.2. So sánh với Queue (FIFO)</h3>
-<table>
-<tr><th>Đặc điểm</th><th>Stack (LIFO)</th><th>Queue (FIFO)</th></tr>
-<tr><td>Nguyên tắc</td><td>Vào sau, ra trước</td><td>Vào trước, ra trước</td></tr>
-<tr><td>Ví dụ đời thường</td><td>Chồng đĩa</td><td>Xếp hàng mua vé</td></tr>
-<tr><td>Số đầu vào/ra</td><td>1 đầu (đỉnh)</td><td>2 đầu (đầu + cuối)</td></tr>
-<tr><td>Ứng dụng trong đồ án</td><td>Undo/Redo</td><td>Giỏ hàng + thanh toán</td></tr>
-</table>
+    <div class="note">
+        <strong>💡 Tưởng tượng đời thường:</strong> Hãy nghĩ về <strong>chồng đĩa</strong> trong
+        nhà ăn. Bạn cất đĩa lên trên cùng chồng (push). Khi cần lấy đĩa, bạn lấy từ trên cùng
+        (pop). <strong>Đĩa cất sau cùng sẽ được lấy ra đầu tiên</strong> — đó chính là LIFO.
+    </div>
 
-<h3>1.3. 3 thao tác chính</h3>
-<table>
-<tr><th>Tên tiếng Anh</th><th>Tên trong code</th><th>Tác dụng</th></tr>
-<tr><td><strong>PUSH</strong></td><td><code>day_vao(du_lieu)</code></td><td>Đẩy 1 phần tử lên đỉnh Stack</td></tr>
-<tr><td><strong>POP</strong></td><td><code>lay_ra()</code></td><td>Lấy phần tử trên đỉnh ra khỏi Stack</td></tr>
-<tr><td><strong>PEEK</strong></td><td><code>xem_dinh()</code></td><td>Xem phần tử đỉnh MÀ KHÔNG lấy ra</td></tr>
-<tr><td>—</td><td><code>rong()</code></td><td>Kiểm tra Stack có rỗng không</td></tr>
-<tr><td>—</td><td><code>xoa_tat_ca()</code></td><td>Xóa toàn bộ Stack</td></tr>
-</table>
+    <h3>1.2. So sánh với Queue (FIFO)</h3>
+    <table>
+        <tr>
+            <th>Đặc điểm</th>
+            <th>Stack (LIFO)</th>
+            <th>Queue (FIFO)</th>
+        </tr>
+        <tr><td>Nguyên tắc</td><td>Vào sau, ra trước</td><td>Vào trước, ra trước</td></tr>
+        <tr><td>Ví dụ đời thường</td><td>Chồng đĩa</td><td>Xếp hàng mua vé</td></tr>
+        <tr><td>Số đầu vào/ra</td><td>1 đầu (đỉnh)</td><td>2 đầu (đầu + cuối)</td></tr>
+        <tr><td>Ứng dụng trong đồ án</td><td>Undo/Redo</td><td>Giỏ hàng + thanh toán</td></tr>
+    </table>
 
-<h3>1.4. Cài đặt trong đồ án (file <code>models/ngan_xep.py</code>)</h3>
+    <h3>1.3. 3 thao tác chính</h3>
+    <table>
+        <tr>
+            <th>Tên tiếng Anh</th>
+            <th>Tên trong code</th>
+            <th>Tác dụng</th>
+        </tr>
+        <tr><td><strong>PUSH</strong></td><td><code>day_vao(du_lieu)</code></td><td>Đẩy 1 phần tử lên đỉnh Stack</td></tr>
+        <tr><td><strong>POP</strong></td><td><code>lay_ra()</code></td><td>Lấy phần tử trên đỉnh ra khỏi Stack</td></tr>
+        <tr><td><strong>PEEK</strong></td><td><code>xem_dinh()</code></td><td>Xem phần tử đỉnh MÀ KHÔNG lấy ra</td></tr>
+        <tr><td>—</td><td><code>rong()</code></td><td>Kiểm tra Stack có rỗng không</td></tr>
+        <tr><td>—</td><td><code>xoa_tat_ca()</code></td><td>Xóa toàn bộ Stack</td></tr>
+    </table>
 
-<h4>1.4.1. Lớp NutNganXep (Node của Stack)</h4>
-<pre class="code-block">
-<span class="filename">models/ngan_xep.py</span>
-<code class="language-python">class NutNganXep:
-    def __init__(self, du_lieu):
-        self.du_lieu = du_lieu   # Dữ liệu chứa trong mắt xích
-        self.duoi = None         # Trỏ tới mắt xích nằm ngay BÊN DƯỚI</code>
-</pre>
-<p><strong>Giải thích:</strong> Mỗi nút trong Stack chỉ cần <strong>1 con trỏ <code>duoi</code></strong>
-(trỏ xuống nút bên dưới). Khác với DSLK đôi (cần 2 con trỏ truoc + sau).</p>
+    <h3>1.4. Cài đặt trong đồ án (file <code>cau_truc_du_lieu.py</code>)</h3>
 
-<h4>1.4.2. Lớp NganXep</h4>
-<pre class="code-block">
-<span class="filename">models/ngan_xep.py</span>
+    <h4>1.4.1. Lớp NodeNganXep (Node của Stack)</h4>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/cau_truc_du_lieu.py</span>
+<code class="language-python">class NodeNganXep:
+    def __init__(self, data):
+        self.data  = data      # Dữ liệu chứa trong mắt xích
+        self.duoi  = None      # Trỏ tới mắt xích nằm ngay BÊN DƯỚI</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>class NodeNganXep:</code> — khai báo lớp Node cho Stack.</li>
+        <li><code>def __init__(self, data):</code> — hàm tạo, tự chạy khi tạo Node mới.</li>
+        <li><code>self.data = data</code> — lưu dữ liệu vào thuộc tính <code>data</code>.</li>
+        <li><code>self.duoi = None</code> — con trỏ trỏ tới Node bên dưới. Ban đầu None (chưa có).</li>
+        <li>Mỗi nút Stack chỉ cần <strong>1 con trỏ <code>duoi</code></strong> (trỏ xuống). Khác với DSLK đôi (cần 2 con trỏ truoc + sau).</li>
+    </ul>
+
+    <h4>1.4.2. Lớp NganXep</h4>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/cau_truc_du_lieu.py</span>
 <code class="language-python">class NganXep:
     def __init__(self):
-        self.dinh = None      # Phần tử trên cùng (None = rỗng)
-        self.so_luong = 0     # Số phần tử đang có</code>
-</pre>
-<p>Stack chỉ cần giữ con trỏ <code>dinh</code> (đỉnh). Từ đỉnh có thể đi xuống bằng <code>duoi</code>.</p>
+        self.dinh      = None     # Phần tử trên cùng (None = rỗng)
+        self.so_luong  = 0        # Số phần tử đang có</code>
+    </pre>
+    <p>Stack chỉ cần giữ con trỏ <code>dinh</code> (đỉnh). Từ đỉnh có thể đi xuống bằng <code>duoi</code>.</p>
 
-<h4>1.4.3. Hàm day_vao() — PUSH</h4>
-<pre class="code-block">
-<code class="language-python">def day_vao(self, du_lieu):
-    nut_moi = NutNganXep(du_lieu)    # 1. Tạo nút mới
-    nut_moi.duoi = self.dinh         # 2. Nút mới trỏ xuống nút đang ở đỉnh
-    self.dinh = nut_moi              # 3. Đỉnh mới = nút vừa tạo
+    <h4>1.4.3. Hàm day_vao() — PUSH</h4>
+    <pre class="code-block">
+<code class="language-python">def day_vao(self, data):
+    node_moi = NodeNganXep(data)    # 1. Tạo nút mới
+    node_moi.duoi = self.dinh       # 2. Nút mới trỏ xuống nút đang ở đỉnh
+    self.dinh = node_moi            # 3. Đỉnh mới = nút vừa tạo
     self.so_luong += 1</code>
-</pre>
+    </pre>
 
-<h4>1.4.4. Hàm lay_ra() — POP</h4>
-<pre class="code-block">
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>node_moi = NodeNganXep(data)</code> — tạo Node mới chứa dữ liệu.</li>
+        <li><code>node_moi.duoi = self.dinh</code> — Node mới trỏ xuống Node đang ở đỉnh. Như vậy Node mới nằm trên đỉnh cũ.</li>
+        <li><code>self.dinh = node_moi</code> — cập nhật đỉnh = Node mới. Bước này rất quan trọng — nếu quên, Stack sẽ mất Node mới.</li>
+        <li><code>self.so_luong += 1</code> — tăng bộ đếm.</li>
+    </ul>
+
+    <h4>1.4.4. Hàm lay_ra() — POP</h4>
+    <pre class="code-block">
 <code class="language-python">def lay_ra(self):
     if self.dinh is None:
         return None                # Stack rỗng → trả None
-    nut_lay = self.dinh              # Lưu nút đỉnh
-    self.dinh = self.dinh.duoi       # Đỉnh mới = nút bên dưới
+    data = self.dinh.data          # Lưu dữ liệu đỉnh
+    self.dinh = self.dinh.duoi     # Đỉnh mới = nút bên dưới
     self.so_luong -= 1
-    return nut_lay.du_lieu          # Trả về dữ liệu</code>
-</pre>
+    return data                    # Trả về dữ liệu</code>
+    </pre>
 
-<h4>1.4.5. Hàm xem_dinh() — PEEK</h4>
-<pre class="code-block">
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>if self.dinh is None:</code> — kiểm tra Stack rỗng. Tránh lỗi NoneType.</li>
+        <li><code>data = self.dinh.data</code> — lưu dữ liệu đỉnh vào biến tạm. Phải làm TRƯỚC khi đổi <code>self.dinh</code>.</li>
+        <li><code>self.dinh = self.dinh.duoi</code> — đỉnh mới = Node bên dưới. Node đỉnh cũ bị "bỏ rơi" (garbage collection sẽ dọn).</li>
+        <li><code>return data</code> — trả dữ liệu đã lưu.</li>
+    </ul>
+
+    <h4>1.4.5. Hàm xem_dinh() — PEEK</h4>
+    <pre class="code-block">
 <code class="language-python">def xem_dinh(self):
     if self.dinh is None:
         return None
-    return self.dinh.du_lieu     # Trả dữ liệu đỉnh, KHÔNG xóa</code>
-</pre>
+    return self.dinh.data     # Trả dữ liệu đỉnh, KHÔNG xóa</code>
+    </pre>
 
-<h3>1.5. Mô phỏng tương tác — Stack</h3>
+    <p>Khác <code>lay_ra()</code> ở chỗ <strong>không giảm <code>so_luong</code></strong> và <strong>không đổi <code>self.dinh</code></strong>. Chỉ đọc.</p>
 
-<div class="life-example">
-    <h4>🍔 Ví dụ đời thường 1: Chồng đĩa trong nhà ăn</h4>
-    <p>Hình dung bạn đang làm nhân viên rửa bát. Mỗi khi rửa xong 1 chiếc đĩa, bạn <strong>đặt nó lên trên cùng</strong> chồng đĩa cũ. Khi khách cần đĩa, bạn <strong>lấy từ trên cùng xuống</strong>. Đĩa rửa sau cùng sẽ được dùng đầu tiên → đó chính là LIFO.</p>
-    <div class="scene">
-        <div class="plate-stack" id="plate-demo">
-            <div class="plate">🍽 Đĩa 1</div>
-            <div class="plate">🍽 Đĩa 2</div>
-            <div class="plate">🍽 Đĩa 3</div>
-        </div>
-    </div>
-    <p style="text-align:center;margin-top:10px;">
-        <button onclick="platePush()" style="padding:6px 14px;background:#F59E0B;color:white;border:none;border-radius:4px;cursor:pointer;">➕ Thêm đĩa</button>
-        <button onclick="platePop()" style="padding:6px 14px;background:#DC2626;color:white;border:none;border-radius:4px;cursor:pointer;">🍽 Lấy đĩa trên</button>
-    </p>
-    <p style="text-align:center;font-size:13px;color:#92400E;margin-top:8px;">
-        <em>Đĩa vàng = đĩa thêm gần nhất (sẽ được lấy ra đầu tiên)</em>
-    </p>
-</div>
+    <h3>1.5. Mô phỏng tương tác — Stack</h3>
 
-<div class="life-example">
-    <h4>🌐 Ví dụ đời thường 2: Nút BACK trên trình duyệt</h4>
-    <p>Khi bạn lướt web, mỗi trang bạn mở sẽ được <strong>đẩy (PUSH) vào Stack lịch sử</strong>. Khi bấm nút <strong>← BACK</strong>, trang gần nhất sẽ được <strong>lấy ra (POP)</strong> để quay lại. Đó là lý do bấm BACK nhiều lần sẽ dần dần về trang đầu tiên.</p>
-    <div class="scene" style="flex-direction:column;align-items:stretch;gap:6px;">
-        <div style="display:flex;align-items:center;gap:8px;background:#1F2937;color:white;padding:8px 12px;border-radius:4px;">
-            <span style="font-size:18px;">←</span>
-            <span style="font-size:18px;">→</span>
-            <span style="font-size:18px;">🔄</span>
-            <span style="font-size:18px;">⭐</span>
-            <input type="text" value="google.com" style="flex:1;padding:4px 8px;font-size:13px;border-radius:3px;border:none;" readonly>
+    <div class="life-example">
+        <h4>🍔 Ví dụ đời thường 1: Chồng đĩa trong nhà ăn</h4>
+        <p>Hình dung bạn đang làm nhân viên rửa bát. Mỗi khi rửa xong 1 chiếc đĩa, bạn <strong>đặt nó lên trên cùng</strong> chồng đĩa cũ. Khi khách cần đĩa, bạn <strong>lấy từ trên cùng xuống</strong>. Đĩa rửa sau cùng sẽ được dùng đầu tiên → đó chính là LIFO.</p>
+        <div class="scene">
+            <div class="plate-stack" id="plate-demo">
+                <div class="plate">🍽 Đĩa 1</div>
+                <div class="plate">🍽 Đĩa 2</div>
+                <div class="plate">🍽 Đĩa 3</div>
+            </div>
         </div>
-        <div style="font-size:13px;color:#6B7280;text-align:center;">
-            <strong>Stack lịch sử (đỉnh ở trên):</strong>
-            <span style="display:inline-block;background:#F59E0B;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">google.com ← (đang xem)</span>
-            <span style="display:inline-block;background:#1D4E89;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">youtube.com</span>
-            <span style="display:inline-block;background:#1D4E89;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">facebook.com</span>
-        </div>
-        <p style="font-size:12px;color:#92400E;text-align:center;margin:4px 0;">
-            Bấm <strong>BACK</strong> → POP <code>google.com</code> ra → hiện lại <code>youtube.com</code>
+        <p style="text-align:center;margin-top:10px;">
+            <button onclick="platePush()" style="padding:6px 14px;background:#F59E0B;color:white;border:none;border-radius:4px;cursor:pointer;">➕ Thêm đĩa</button>
+            <button onclick="platePop()" style="padding:6px 14px;background:#DC2626;color:white;border:none;border-radius:4px;cursor:pointer;">🍽 Lấy đĩa trên</button>
+        </p>
+        <p style="text-align:center;font-size:13px;color:#92400E;margin-top:8px;">
+            <em>Đĩa vàng = đĩa thêm gần nhất (sẽ được lấy ra đầu tiên)</em>
         </p>
     </div>
-</div>
 
-<div class="demo-box">
-    <h4>🧪 Bấm nút để PUSH/POP và xem Stack thay đổi</h4>
-    <div class="stack-container" id="stack-visual">
-        <div style="color:#9CA3AF;font-size:12px;">(rỗng)</div>
+    <div class="life-example">
+        <h4>🌐 Ví dụ đời thường 2: Nút BACK trên trình duyệt</h4>
+        <p>Khi bạn lướt web, mỗi trang bạn mở sẽ được <strong>đẩy (PUSH) vào Stack lịch sử</strong>. Khi bấm nút <strong>← BACK</strong>, trang gần nhất sẽ được <strong>lấy ra (POP)</strong> để quay lại. Đó là lý do bấm BACK nhiều lần sẽ dần dần về trang đầu tiên.</p>
+        <div class="scene" style="flex-direction:column;align-items:stretch;gap:6px;">
+            <div style="display:flex;align-items:center;gap:8px;background:#1F2937;color:white;padding:8px 12px;border-radius:4px;">
+                <span style="font-size:18px;">←</span>
+                <span style="font-size:18px;">→</span>
+                <span style="font-size:18px;">🔄</span>
+                <span style="font-size:18px;">⭐</span>
+                <input type="text" value="google.com" style="flex:1;padding:4px 8px;font-size:13px;border-radius:3px;border:none;" readonly>
+            </div>
+            <div style="font-size:13px;color:#6B7280;text-align:center;">
+                <strong>Stack lịch sử (đỉnh ở trên):</strong>
+                <span style="display:inline-block;background:#F59E0B;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">google.com ← (đang xem)</span>
+                <span style="display:inline-block;background:#1D4E89;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">youtube.com</span>
+                <span style="display:inline-block;background:#1D4E89;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">facebook.com</span>
+            </div>
+            <p style="font-size:12px;color:#92400E;text-align:center;margin:4px 0;">
+                Bấm <strong>BACK</strong> → POP <code>google.com</code> ra → hiện lại <code>youtube.com</code>
+            </p>
+        </div>
     </div>
-    <div class="controls" style="margin-top:20px;">
-        <button onclick="stackPush()">⬆ PUSH</button>
-        <button onclick="stackPop()" class="danger">⬇ POP</button>
-        <button onclick="stackPeek()" class="secondary">👁 PEEK</button>
-        <button onclick="stackReset()" class="secondary">🔄 Reset</button>
-    </div>
-    <div class="log-output" id="stack-log">
-        <div class="log-line">Sẵn sàng.</div>
-    </div>
-</div>
 
-<h3>1.6. Ứng dụng trong đồ án: Undo/Redo</h3>
-<p>Đồ án dùng <strong>2 Stack</strong>:</p>
-<ul>
-    <li><code>ngan_xep_hoan_tac</code> (Stack Undo) — lưu lịch sử thao tác</li>
-    <li><code>ngan_xep_lam_lai</code> (Stack Redo) — lưu lịch sử Undo để làm lại</li>
-</ul>
-<p>Mỗi phần tử trong Stack là 1 dict: <code>{"thao_tac": "them|xoa|sua", ...}</code>.</p>
+    <div class="demo-box">
+        <h4>🧪 Bấm nút để PUSH/POP và xem Stack thay đổi</h4>
+        <div class="stack-container" id="stack-visual">
+            <div style="color:#9CA3AF;font-size:12px;">(rỗng)</div>
+        </div>
+        <div class="controls" style="margin-top:20px;">
+            <button onclick="stackPush()">⬆ PUSH</button>
+            <button onclick="stackPop()" class="danger">⬇ POP</button>
+            <button onclick="stackPeek()" class="secondary">👁 PEEK</button>
+            <button onclick="stackReset()" class="secondary">🔄 Reset</button>
+        </div>
+        <div class="log-output" id="stack-log">
+            <div class="log-line">Sẵn sàng.</div>
+        </div>
+    </div>
+
+    <h3>1.6. Ứng dụng trong đồ án: Undo/Redo</h3>
+    <p>Đồ án dùng <strong>2 Stack</strong> (trong <code>xu_ly_yeu_cau.py</code> của Huy):</p>
+    <ul>
+        <li><code>Bo_undoredo['undo']</code> (Stack Undo) — lưu lịch sử thao tác</li>
+        <li><code>Bo_undoredo['redo']</code> (Stack Redo) — lưu lịch sử Undo để làm lại</li>
+    </ul>
+    <p>Mỗi phần tử trong Stack là 1 dict: <code>{"loai": "them|xoa|sua", ...}</code>.</p>
 
 </section>
 
@@ -189,59 +341,79 @@
 <!-- ===================== BÀI 2: SQLITE ======================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai2">
-<h2>BÀI 2 — LƯU TRỮ DỮ LIỆU VỚI SQLITE</h2>
+    <h2>
+        BÀI 2 — LƯU TRỮ DỮ LIỆU VỚI SQLITE
+        <span class="phu-trach ngo">NGỌ</span>
+    </h2>
 
-<h3>2.1. SQLite LÀ GÌ?</h3>
-<p>
-    <strong>SQLite</strong> là hệ quản trị CSDL <strong>nhúng</strong> — không cần cài server
-    riêng, chỉ cần 1 file <code>.db</code> trên đĩa. Python có sẵn thư viện <code>sqlite3</code>
-    trong bộ chuẩn — không cần cài thêm gì.
-</p>
+    <h3>2.1. SQLite LÀ GÌ?</h3>
+    <p>
+        <strong>SQLite</strong> là hệ quản trị CSDL <strong>nhúng</strong> — không cần cài server
+        riêng, chỉ cần 1 file <code>.db</code> trên đĩa. Python có sẵn thư viện <code>sqlite3</code>
+        trong bộ chuẩn — không cần cài thêm gì.
+    </p>
 
-<div class="tip">
-    <strong>💡 So sánh:</strong> MySQL/PostgreSQL cần cài server riêng. SQLite chỉ là 1 file
-    (<code>quan_ly_nha_sach.db</code> trong đồ án), dễ mang đi, dễ backup.
-</div>
+    <div class="tip">
+        <strong>💡 So sánh:</strong> MySQL/PostgreSQL cần cài server riêng. SQLite chỉ là 1 file
+        (<code>db.sqlite3</code> trong đồ án), dễ mang đi, dễ backup.
+    </div>
 
-<h3>2.2. Các thao tác cơ bản (CRUD)</h3>
-<p>CRUD = <strong>C</strong>reate + <strong>R</strong>ead + <strong>U</strong>pdate + <strong>D</strong>elete</p>
-<table>
-<tr><th>Thao tác</th><th>Câu lệnh SQL</th><th>Trong đồ án</th></tr>
-<tr><td>Create (Tạo bảng)</td><td><code>CREATE TABLE IF NOT EXISTS ...</code></td><td>Khởi tạo bảng SanPham</td></tr>
-<tr><td>Create (Thêm dòng)</td><td><code>INSERT INTO ... VALUES (...)</code></td><td>Thêm sản phẩm mới</td></tr>
-<tr><td>Read (Đọc)</td><td><code>SELECT * FROM ...</code></td><td>Load sản phẩm khi mở app</td></tr>
-<tr><td>Delete (Xóa)</td><td><code>DELETE FROM ...</code></td><td>Xóa hết trước khi ghi lại</td></tr>
-</table>
+    <h3>2.2. Các thao tác cơ bản (CRUD)</h3>
+    <p>CRUD = <strong>C</strong>reate + <strong>R</strong>ead + <strong>U</strong>pdate + <strong>D</strong>elete</p>
+    <table>
+        <tr>
+            <th>Thao tác</th>
+            <th>Câu lệnh SQL</th>
+            <th>Trong đồ án</th>
+        </tr>
+        <tr><td>Create (Tạo bảng)</td><td><code>CREATE TABLE IF NOT EXISTS ...</code></td><td>Khởi tạo 2 bảng</td></tr>
+        <tr><td>Create (Thêm dòng)</td><td><code>INSERT INTO ... VALUES (...)</code></td><td>Thêm sản phẩm mới</td></tr>
+        <tr><td>Read (Đọc)</td><td><code>SELECT * FROM ...</code></td><td>Load sản phẩm khi mở app</td></tr>
+        <tr><td>Update (Sửa)</td><td><code>UPDATE ... SET ... WHERE ...</code></td><td>Sửa sản phẩm</td></tr>
+        <tr><td>Delete (Xóa)</td><td><code>DELETE FROM ... WHERE ...</code></td><td>Xóa sản phẩm theo mã</td></tr>
+    </table>
 
-<h3>2.3. Cấu trúc bảng SanPham trong đồ án</h3>
-<pre class="code-block">
-<span class="filename">data/sqlite_db.py</span>
-<code class="language-python">CREATE TABLE IF NOT EXISTS SanPham (
-    ma_so        TEXT PRIMARY KEY,    # Mã sản phẩm (khóa chính, không trùng)
-    loai         TEXT NOT NULL,       # Loại: Sach/TapChi/Bao/LuanVan/BanThao
-    ten          TEXT NOT NULL,       # Tên sản phẩm
-    gia_co_ban   REAL NOT NULL,       # Giá cơ bản (số thực)
-    so_luong     INTEGER NOT NULL,    # Số lượng tồn (số nguyên)
-    thong_tin_1  TEXT,                # Thuộc tính riêng 1 (vd: tác giả)
-    thong_tin_2  TEXT                 # Thuộc tính riêng 2 (vd: NXB)
+    <h3>2.3. Cấu trúc 2 bảng trong đồ án</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/ket_noi_sqlite.py</span>
+<code class="language-python">CREATE TABLE IF NOT EXISTS bang_mat_hang (
+    ma_so          TEXT PRIMARY KEY,    # Mã sản phẩm (khóa chính, không trùng)
+    loai_hang      TEXT NOT NULL,       # Loại: Sách/Tạp chí/Báo giấy/Luận văn/Bản thảo
+    ten_san_pham   TEXT NOT NULL,       # Tên sản phẩm
+    gia_co_ban     REAL NOT NULL,       # Giá cơ bản (số thực)
+    ton_kho        INTEGER NOT NULL,    # Số lượng tồn (số nguyên)
+    tac_gia        TEXT,                # Tác giả (Sách/Luận văn/Bản thảo)
+    nha_xuat_ban   TEXT,                # NXB (Sách)
+    so_phat_hanh   TEXT,                # Số phát hành (Tạp chí)
+    ngay_xuat_ban  TEXT,                # Ngày XB (Báo giấy)
+    truong_dai_hoc TEXT,                # Trường ĐH (Luận văn)
+    tinh_trang     TEXT                 # Trạng thái (Bản thảo)
+)
+
+CREATE TABLE IF NOT EXISTS bang_nguoi_dung (
+    ten_dang_nhap  TEXT PRIMARY KEY,    # Tên đăng nhập (khóa chính)
+    mat_khau_hash  TEXT NOT NULL,       # Mật khẩu (plaintext cho đơn giản)
+    ho_ten         TEXT NOT NULL,       # Họ tên hiển thị
+    vai_tro        TEXT NOT NULL DEFAULT 'nhan_vien'   # 'admin' hoặc 'nhan_vien'
 )</code>
-</pre>
-<p><strong>Ý tưởng:</strong> Dùng 2 cột <code>thong_tin_1</code> và <code>thong_tin_2</code> để
-lưu thuộc tính riêng của từng loại (Sách có tác giả + NXB; Tạp chí chỉ có số phát hành...).
-Tránh phải tạo 5 bảng riêng.</p>
+    </pre>
 
-<h3>2.4. Quy trình kết nối SQLite trong Python</h3>
-<pre class="code-block">
+    <p><strong>Ý tưởng thiết kế:</strong> Thay vì tạo 5 bảng riêng cho 5 loại mặt hàng,
+    ta gộp vào 1 bảng <code>bang_mat_hang</code> với các cột phụ <code>tac_gia</code>,
+    <code>so_phat_hanh</code>, <code>ngay_xuat_ban</code>... Loại nào không dùng thì để <code>NULL</code>.</p>
+
+    <h3>2.4. Quy trình kết nối SQLite trong Python</h3>
+    <pre class="code-block">
 <code class="language-python">import sqlite3
 
 # 1. KẾT NỐI tới file .db (nếu chưa có sẽ tự tạo mới)
-conn = sqlite3.connect("data/quan_ly_nha_sach.db")
+conn = sqlite3.connect("db.sqlite3")
 
 # 2. TẠO CURSOR — con trỏ để thực thi câu lệnh SQL
 cursor = conn.cursor()
 
 # 3. THỰC THI câu lệnh SQL
-cursor.execute("SELECT * FROM SanPham")
+cursor.execute("SELECT * FROM bang_mat_hang")
 rows = cursor.fetchall()      # Lấy tất cả dòng
 
 # 4. COMMIT (lưu thay đổi) — chỉ cần khi INSERT/UPDATE/DELETE
@@ -249,135 +421,184 @@ conn.commit()
 
 # 5. ĐÓNG KẾT NỐI
 conn.close()</code>
-</pre>
+    </pre>
 
-<div class="warning">
-    <strong>⚠️ Quan trọng:</strong> Phải <code>conn.commit()</code> sau khi INSERT/UPDATE/DELETE,
-    nếu không dữ liệu KHÔNG được lưu. Quên <code>commit()</code> là lỗi rất hay gặp!
-</div>
+    <div class="warning">
+        <strong>⚠️ Quan trọng:</strong> Phải <code>conn.commit()</code> sau khi INSERT/UPDATE/DELETE,
+        nếu không dữ liệu KHÔNG được lưu. Quên <code>commit()</code> là lỗi rất hay gặp!
+    </div>
 
-<h3>2.5. Hàm luu_du_lieu_sqlite() trong đồ án</h3>
-<pre class="code-block">
-<span class="filename">data/sqlite_db.py</span>
-<code class="language-python">def luu_du_lieu_sqlite(mang_san_pham):
+    <h3>2.5. Hàm tao_bang_neu_chua_co() — tạo bảng (try/except/finally)</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/ket_noi_sqlite.py</span>
+<code class="language-python">def tao_bang_neu_chua_co():
+    """Tạo bảng nếu chưa tồn tại. Áp dụng try-except-finally."""
+    ket_noi = None
     try:
-        khoi_tao_db()                              # Tạo bảng nếu chưa có
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
+        duong_dan = lay_duong_dan_db()
+        ket_noi = sqlite3.connect(duong_dan)        # Mở kết nối
+        con_tro = ket_noi.cursor()
+        con_tro.execute('''CREATE TABLE IF NOT EXISTS bang_mat_hang (
+            ma_so TEXT PRIMARY KEY,
+            loai_hang TEXT NOT NULL,
+            ...
+        )''')
+        ket_noi.commit()                             # Lưu thay đổi
+    except sqlite3.Error as loi:
+        print(f'[LOI DATABASE] Loi khi tao bang: {str(loi)}')
+        raise                                        # Ném lỗi lên để caller xử lý
+    finally:
+        if ket_noi:
+            ket_noi.close()                          # Đảm bảo đóng kết nối</code>
+    </pre>
 
-        # Xóa dữ liệu cũ để đồng bộ
-        cursor.execute("DELETE FROM SanPham")
+    <p><strong>Giải thích try/except/finally (theo barem):</strong></p>
+    <ul>
+        <li><code>try:</code> — khối thử. Code có thể gây lỗi nằm trong này.</li>
+        <li><code>except sqlite3.Error as loi:</code> — bắt lỗi SQLite riêng (ví dụ: bảng đã tồn tại với cấu trúc khác).</li>
+        <li><code>raise</code> — ném lỗi lên để caller (hàm gọi) biết và xử lý tiếp.</li>
+        <li><code>finally:</code> — khối này <strong>luôn chạy</strong> dù có lỗi hay không. Đảm bảo <code>ket_noi.close()</code> luôn được gọi → tránh rò rỉ tài nguyên.</li>
+        <li><code>if ket_noi:</code> — kiểm tra None trước khi <code>close()</code> (nếu <code>connect()</code> thất bại thì <code>ket_noi</code> vẫn là None).</li>
+    </ul>
 
-        for sp in mang_san_pham:
-            data = sp.to_dict()                    # Đa hình: chuyển sang dict
-            loai = data["loai"]
-            t1, t2 = "", ""
-
-            # Lấy thuộc tính riêng theo loại
-            if loai == "Sach":
-                t1 = data.get("tac_gia", "")
-                t2 = data.get("nha_xuat_ban", "")
-            elif loai == "TapChi":
-                t1 = data.get("so_phat_hanh", "")
-            # ... (các loại khác tương tự)
-
-            # INSERT dùng tham số ? để chống SQL Injection
-            cursor.execute('''
-                INSERT INTO SanPham (ma_so, loai, ten, gia_co_ban, so_luong, thong_tin_1, thong_tin_2)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            ''', (sp.ma_so, loai, sp.ten, sp.gia_co_ban, sp.so_luong, t1, t2))
-
-        conn.commit()
-        conn.close()
-        return True
-    except Exception as loi:
-        print(f"[LỖI] Không lưu được CSDL: {loi}")
-        return False</code>
-</pre>
-
-<p><strong>Các điểm quan trọng:</strong></p>
-<ul>
-    <li><strong><code>try/except</code></strong> — bọc toàn bộ để nếu CSDL bị khóa/lỗi thì không crash chương trình.</li>
-    <li><strong>Xóa hết rồi INSERT lại</strong> — cách đơn giản nhất để đồng bộ DSLK xuống DB. (Cách pro hơn là UPDATE, nhưng phức tạp hơn.)</li>
-    <li><strong>Dùng <code>?</code></strong> thay vì nối chuỗi — chống SQL Injection (lỗi bảo mật nghiêm trọng).</li>
-    <li><strong><code>data = sp.to_dict()</code></strong> — dùng đa hình để lấy đúng thuộc tính của từng loại sản phẩm.</li>
-</ul>
-
-<h3>2.6. Hàm doc_du_lieu_sqlite() — đọc + đa hình</h3>
-<pre class="code-block">
-<code class="language-python">def doc_du_lieu_sqlite():
+    <h3>2.6. Hàm tai_du_lieu() — đọc dữ liệu + đa hình OOP</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/ket_noi_sqlite.py</span>
+<code class="language-python">def tai_du_lieu(danh_sach_lien_ket):
+    """Nạp toàn bộ dữ liệu từ SQLite vào Danh sách liên kết đôi."""
+    from .lop_doi_tuong import Sach, TapChi, BaoGiay, LuanVan, BanThao
+    tao_bang_neu_chua_co()
+    ket_noi = None
     try:
-        danh_sach = []
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM SanPham")
-        rows = cursor.fetchall()
+        duong_dan = lay_duong_dan_db()
+        ket_noi = sqlite3.connect(duong_dan)
+        con_tro = ket_noi.cursor()
+        con_tro.execute('SELECT * FROM bang_mat_hang')
+        cac_hang = con_tro.fetchall()
+        ten_cot = [mo_ta[0] for mo_ta in con_tro.description]  # Lấy tên cột
 
-        for row in rows:
-            ma_so, loai, ten, gia_co_ban, so_luong, t1, t2 = row
-            # Dùng đa hình: tạo đúng lớp con theo `loai`
-            if loai == "Sach":
-                sp = Sach(ma_so, ten, gia_co_ban, so_luong, t1, t2)
-            elif loai == "TapChi":
-                sp = TapChi(ma_so, ten, gia_co_ban, so_luong, t1)
-            # ... (các loại khác)
-            danh_sach.append(sp)
+        for hang in cac_hang:
+            du_lieu = dict(zip(ten_cot, hang))     # Gộp (ten_cot, hang) thành dict
+            loai_hang = du_lieu['loai_hang']
 
-        conn.close()
-        return danh_sach
-    except Exception as loi:
-        print(f"[LỖI] {loi}")
-        return []</code>
-</pre>
+            # ĐA HÌNH: tạo đúng lớp con theo loại
+            if loai_hang == 'Sách':
+                san_pham = Sach(du_lieu['ma_so'], du_lieu['ten_san_pham'],
+                                du_lieu['gia_co_ban'], du_lieu['ton_kho'],
+                                du_lieu.get('tac_gia') or '',
+                                du_lieu.get('nha_xuat_ban') or '')
+            elif loai_hang == 'Tạp chí':
+                san_pham = TapChi(...)
+            # ... (BaoGiay, LuanVan, BanThao tương tự)
+            danh_sach_lien_ket.them_vao_cuoi(san_pham)   # Thêm vào DSLK
+    except sqlite3.Error as loi:
+        print(f'[LOI DATABASE] Loi khi tai du lieu: {str(loi)}')
+        raise
+    finally:
+        if ket_noi:
+            ket_noi.close()</code>
+    </pre>
 
-<div class="tip">
-    <strong>💡 Vì sao quan trọng?</strong> Khi đọc từ SQLite, ta tạo <strong>đúng lớp con</strong>
-    (Sach/TapChi/Bao/...) dựa vào cột <code>loai</code>. Nhờ vậy, đa hình <code>tinh_gia_ban()</code>
-    vẫn hoạt động sau khi đọc từ CSDL.
-</div>
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>from .lop_doi_tuong import Sach, TapChi, ...</code> — nhập 5 lớp con OOP (do Ngọ phụ trách).</li>
+        <li><code>con_tro.description</code> — metadata của cột kết quả. Dùng để lấy tên cột.</li>
+        <li><code>[mo_ta[0] for mo_ta in con_tro.description]</code> — list comprehension trích tên cột.</li>
+        <li><code>dict(zip(ten_cot, hang))</code> — ghép 2 list thành dict. Ví dụ: <code>{'ma_so': 'S01', 'ten_san_pham': '...', ...}</code>.</li>
+        <li><strong>Đa hình:</strong> Tùy vào <code>loai_hang</code> mà tạo <code>Sach(...)</code>, <code>TapChi(...)</code>, ... Đây chính là đa hình OOP — cùng giao diện <code>tinh_gia_ban()</code> nhưng tính theo công thức riêng của từng loại.</li>
+        <li><code>danh_sach_lien_ket.them_vao_cuoi(san_pham)</code> — thêm vào DSLK (do Huy phụ trách).</li>
+    </ul>
 
-<h3>2.7. Mô phỏng SQLite CRUD</h3>
+    <div class="tip">
+        <strong>💡 Vì sao quan trọng?</strong> Khi đọc từ SQLite, ta tạo <strong>đúng lớp con</strong>
+        (Sach/TapChi/...) dựa vào cột <code>loai_hang</code>. Nhờ vậy, đa hình <code>tinh_gia_ban()</code>
+        vẫn hoạt động sau khi đọc từ CSDL.
+    </div>
 
-<div class="life-example">
-    <h4>📒 Ví dụ đời thường: Sổ ghi chép trong nhà sách</h4>
-    <p>Hãy tưởng tượng thời xưa chưa có máy tính. Cửa hàng sách có 1 cuốn <strong>sổ bìa cứng</strong>. Mỗi lần nhập sách mới, chủ sổ <strong>thêm 1 dòng mới</strong> (INSERT). Khi khách hỏi "còn sách X không?", chủ sổ <strong>lật từng trang để tìm</strong> (SELECT). Khi hết hàng, chủ sổ <strong>gạch chéo dòng đó</strong> (DELETE). SQLite làm y hệt như vậy, chỉ là dùng file <code>.db</code> thay vì sổ giấy.</p>
-    <div class="scene" style="flex-direction:column;align-items:stretch;gap:8px;">
-        <div style="display:flex;align-items:center;gap:12px;background:#FEF3C7;padding:10px 14px;border-radius:6px;border-left:5px solid #92400E;">
-            <span style="font-size:30px;">📒</span>
-            <div>
-                <strong>Sổ bìa cứng (SQLite file .db)</strong><br>
-                <small style="color:#92400E;">Mỗi trang = 1 bảng, mỗi dòng trong trang = 1 record</small>
+    <h3>2.7. Hàm luu_mot_san_pham() — INSERT với chống SQL Injection</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/ket_noi_sqlite.py</span>
+<code class="language-python">def luu_mot_san_pham(san_pham):
+    """Lưu 1 sản phẩm mới vào SQLite. Chống SQL Injection bằng tham số ?."""
+    ket_noi = None
+    try:
+        duong_dan = lay_duong_dan_db()
+        ket_noi = sqlite3.connect(duong_dan)
+        con_tro = ket_noi.cursor()
+
+        # Dùng ? thay vì nối chuỗi — chống SQL Injection
+        con_tro.execute('''
+            INSERT INTO bang_mat_hang
+                (ma_so, loai_hang, ten_san_pham, gia_co_ban, ton_kho, tac_gia, nha_xuat_ban, ...)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ...)
+        ''', (
+            san_pham.ma_so,
+            san_pham.loai_hang,
+            san_pham.ten_san_pham,
+            san_pham.gia_co_ban,
+            san_pham.ton_kho,
+            getattr(san_pham, 'tac_gia', None),
+            getattr(san_pham, 'nha_xuat_ban', None),
+            ...
+        ))
+        ket_noi.commit()
+    except sqlite3.Error as loi:
+        print(f'[LOI] {str(loi)}')
+        raise
+    finally:
+        if ket_noi:
+            ket_noi.close()</code>
+    </pre>
+
+    <p><strong>Tại sao dùng <code>?</code> thay vì nối chuỗi?</strong></p>
+    <ul>
+        <li><strong>SAI (nguy hiểm):</strong> <code>f"INSERT INTO ... VALUES ('{san_pham.ma_so}', ...)"</code> — nếu user nhập mã <code>'); DROP TABLE bang_mat_hang;--</code> → bảng bị xóa!</li>
+        <li><strong>ĐÚNG (an toàn):</strong> <code>con_tro.execute('... VALUES (?, ...)', (san_pham.ma_so, ...))</code> — SQLite tự escape ký tự đặc biệt.</li>
+        <li><code>getattr(san_pham, 'tac_gia', None)</code> — lấy thuộc tính <code>tac_gia</code>, nếu không có trả <code>None</code>. Tránh lỗi <code>AttributeError</code> khi sản phẩm không có <code>tac_gia</code> (vd: Báo giấy).</li>
+    </ul>
+
+    <h3>2.8. Mô phỏng SQLite CRUD</h3>
+
+    <div class="life-example">
+        <h4>📒 Ví dụ đời thường: Sổ ghi chép trong nhà sách</h4>
+        <p>Hãy tưởng tượng thời xưa chưa có máy tính. Cửa hàng sách có 1 cuốn <strong>sổ bìa cứng</strong>. Mỗi lần nhập sách mới, chủ sổ <strong>thêm 1 dòng mới</strong> (INSERT). Khi khách hỏi "còn sách X không?", chủ sổ <strong>lật từng trang để tìm</strong> (SELECT). Khi hết hàng, chủ sổ <strong>gạch chéo dòng đó</strong> (DELETE). SQLite làm y hệt như vậy, chỉ là dùng file <code>.db</code> thay vì sổ giấy.</p>
+        <div class="scene" style="flex-direction:column;align-items:stretch;gap:8px;">
+            <div style="display:flex;align-items:center;gap:12px;background:#FEF3C7;padding:10px 14px;border-radius:6px;border-left:5px solid #92400E;">
+                <span style="font-size:30px;">📒</span>
+                <div>
+                    <strong>Sổ bìa cứng (SQLite file .db)</strong><br>
+                    <small style="color:#92400E;">Mỗi trang = 1 bảng, mỗi dòng trong trang = 1 record</small>
+                </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px;">
+                <span style="background:#D1FAE5;color:#065F46;padding:6px 12px;border-radius:4px;">➕ Thêm dòng = <code>INSERT INTO ...</code></span>
+                <span style="background:#DBEAFE;color:#1E3A8A;padding:6px 12px;border-radius:4px;">🔍 Lật sổ = <code>SELECT * FROM ...</code></span>
+                <span style="background:#FEE2E2;color:#991B1B;padding:6px 12px;border-radius:4px;">❌ Gạch chéo = <code>DELETE FROM ...</code></span>
             </div>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px;">
-            <span style="background:#D1FAE5;color:#065F46;padding:6px 12px;border-radius:4px;">➕ Thêm dòng = <code>INSERT INTO ...</code></span>
-            <span style="background:#DBEAFE;color:#1E3A8A;padding:6px 12px;border-radius:4px;">🔍 Lật sổ = <code>SELECT * FROM ...</code></span>
-            <span style="background:#FEE2E2;color:#991B1B;padding:6px 12px;border-radius:4px;">❌ Gạch chéo = <code>DELETE FROM ...</code></span>
+    </div>
+
+    <div class="demo-box">
+        <h4>🧪 Mô phỏng INSERT / SELECT / DELETE trên bảng bang_mat_hang</h4>
+        <p>Nhập thông tin rồi bấm Thêm để INSERT vào bảng ảo</p>
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
+            <label>Mã:</label>
+            <input type="text" id="sql-ma" placeholder="S01" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+            <label>Tên:</label>
+            <input type="text" id="sql-ten" placeholder="Lập trình C++" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+            <label>Giá:</label>
+            <input type="number" id="sql-gia" placeholder="100000" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+        </div>
+        <div class="controls">
+            <button onclick="sqlInsert()">➕ INSERT</button>
+            <button onclick="sqlSelect()" class="secondary">📥 SELECT</button>
+            <button onclick="sqlDelete()" class="danger">🗑 DELETE ALL</button>
+        </div>
+        <div id="sql-table" style="margin-top:14px;"></div>
+        <div class="log-output" id="sql-log">
+            <div class="log-line">Sẵn sàng. Bảng bang_mat_hang đang rỗng.</div>
         </div>
     </div>
-</div>
-
-<div class="demo-box">
-    <h4>🧪 Mô phỏng INSERT / SELECT / DELETE trên bảng SanPham</h4>
-    <p>Nhập thông tin rồi bấm Thêm để INSERT vào bảng ảo</p>
-    <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
-        <label>Mã:</label>
-        <input type="text" id="sql-ma" placeholder="S01" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-        <label>Tên:</label>
-        <input type="text" id="sql-ten" placeholder="Lập trình C++" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-        <label>Giá:</label>
-        <input type="number" id="sql-gia" placeholder="100000" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-    </div>
-    <div class="controls">
-        <button onclick="sqlInsert()">➕ INSERT</button>
-        <button onclick="sqlSelect()" class="secondary">📥 SELECT</button>
-        <button onclick="sqlDelete()" class="danger">🗑 DELETE ALL</button>
-    </div>
-    <div id="sql-table" style="margin-top:14px;"></div>
-    <div class="log-output" id="sql-log">
-        <div class="log-line">Sẵn sàng. Bảng SanPham đang rỗng.</div>
-    </div>
-</div>
 
 </section>
 
@@ -385,179 +606,376 @@ conn.close()</code>
 <!-- ===================== BÀI 3: PHÂN QUYỀN ===================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai3">
-<h2>BÀI 3 — ĐĂNG NHẬP PHÂN QUYỀN (Admin / Nhân viên)</h2>
+    <h2>
+        BÀI 3 — ĐĂNG NHẬP PHÂN QUYỀN (Admin / Nhân viên)
+        <span class="phu-trach ngo">NGỌ</span>
+    </h2>
 
-<div class="note">
-    Đây là 1 trong 3 tính năng "THÊM ĐIỂM" theo barem. Đã có trong code.
-</div>
+    <div class="note">
+        Đây là 1 trong 6 tính năng "THÊM ĐIỂM" theo barem. Đã có trong code.
+        Phân quyền dùng <strong>Session Django</strong> + bảng <code>bang_nguoi_dung</code> trong SQLite.
+    </div>
 
-<h3>3.1. Ý tưởng</h3>
-<p>Hệ thống có 2 vai trò:</p>
-<table>
-<tr><th>Vai trò</th><th>Quyền hạn</th><th>Tài khoản mẫu</th></tr>
-<tr><td><strong>Admin</strong></td><td>Toàn quyền: xem + thêm + sửa + xóa + giỏ hàng + thống kê</td><td><code>admin / 123</code></td></tr>
-<tr><td><strong>Nhân viên</strong></td><td>Không được XÓA (còn lại giống Admin)</td><td><code>nhanvien / 123</code></td></tr>
-</table>
+    <h3>3.1. Ý tưởng</h3>
+    <p>Hệ thống có 2 vai trò:</p>
+    <table>
+        <tr>
+            <th>Vai trò</th>
+            <th>Quyền hạn</th>
+            <th>Tài khoản mẫu</th>
+        </tr>
+        <tr>
+            <td><strong>Admin</strong></td>
+            <td>Toàn quyền: xem + thêm + sửa + xóa + giỏ hàng + thống kê</td>
+            <td><code>admin / 123</code></td>
+        </tr>
+        <tr>
+            <td><strong>Nhân viên</strong></td>
+            <td>Không được XÓA (còn lại giống Admin)</td>
+            <td><code>nhanvien / 123</code></td>
+        </tr>
+    </table>
 
-<h3>3.2. Cài đặt lớp NguoiDung</h3>
-<pre class="code-block">
-<span class="filename">models/nguoi_dung.py</span>
+    <h3>3.2. Lớp NguoiDung (file <code>nguoi_dung.py</code>)</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/nguoi_dung.py</span>
 <code class="language-python">class NguoiDung:
-    def __init__(self, ten_dang_nhap, mat_khau, quyen):
-        self.ten_dang_nhap = ten_dang_nhap
-        self.mat_khau = mat_khau
-        self.quyen = quyen     # "admin" hoặc "nhan_vien"
+    """Lớp đại diện cho 1 tài khoản đăng nhập hệ thống."""
+
+    def __init__(self, ten_dang_nhap, mat_khau, ho_ten, vai_tro='nhan_vien'):
+        self.ten_dang_nhap = ten_dang_nhap      # Tên đăng nhập (duy nhất)
+        self.mat_khau      = mat_khau           # Mật khẩu (plaintext cho đơn giản)
+        self.ho_ten        = ho_ten             # Họ tên để hiển thị
+        self.vai_tro       = vai_tro            # 'admin' hoặc 'nhan_vien'
 
     def la_admin(self):
-        return self.quyen == "admin"
+        """Kiểm tra người dùng có phải admin không."""
+        return self.vai_tro == 'admin'
 
-    def la_nhan_vien(self):
-        return self.quyen == "nhan_vien"</code>
-</pre>
+    def chuyen_thanh_dict(self):
+        """Chuyển thành dict để trả về JSON (KHÔNG trả mật khẩu)."""
+        return {
+            'ten_dang_nhap': self.ten_dang_nhap,
+            'ho_ten':        self.ho_ten,
+            'vai_tro':       self.vai_tro,
+            'la_admin':      self.la_admin()
+        }</code>
+    </pre>
 
-<h3>3.3. Hàm kiem_tra_dang_nhap()</h3>
-<pre class="code-block">
-<code class="language-python">DANH_SACH_TAI_KHOAN = [
-    NguoiDung("admin",    "123", "admin"),
-    NguoiDung("nhanvien", "123", "nhan_vien"),
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>def __init__(self, ten_dang_nhap, mat_khau, ho_ten, vai_tro='nhan_vien'):</code> — hàm tạo với 4 tham số. <code>vai_tro='nhan_vien'</code> là giá trị mặc định — nếu không truyền vào thì mặc định là nhân viên.</li>
+        <li><code>self.ten_dang_nhap = ten_dang_nhap</code> — gán tham số vào thuộc tính đối tượng.</li>
+        <li><code>def la_admin(self):</code> — phương thức kiểm tra quyền. Trả <code>True</code> nếu <code>vai_tro == 'admin'</code>, ngược lại <code>False</code>.</li>
+        <li><code>def chuyen_thanh_dict(self):</code> — chuyển đối tượng thành dict (cấu trúc dữ liệu JSON tương đương). <strong>Quan trọng:</strong> không trả <code>mat_khau</code> để bảo mật.</li>
+    </ul>
+
+    <h3>3.3. Tạo 2 tài khoản mẫu khi khởi động</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/nguoi_dung.py</span>
+<code class="language-python">DANH_SACH_NGUOI_DUNG_MAC_DINH = [
+    NguoiDung('admin',    '123', 'Quản trị viên hệ thống', 'admin'),
+    NguoiDung('nhanvien', '123', 'Nhân viên bán hàng',     'nhan_vien'),
 ]
 
-def kiem_tra_dang_nhap(ten_dang_nhap, mat_khau):
-    for nguoi in DANH_SACH_TAI_KHOAN:
-        if (nguoi.ten_dang_nhap == ten_dang_nhap
-                and nguoi.mat_khau == mat_khau):
-            return nguoi     # Đúng → trả về đối tượng NguoiDung
-    return None             # Sai → trả về None</code>
-</pre>
+def khoi_tao_nguoi_dung_mac_dinh():
+    """Tạo 2 tài khoản mẫu vào SQLite nếu bảng người dùng còn trống."""
+    try:
+        from .ket_noi_sqlite import co_nguoi_dung_nao_chua, tao_nguoi_dung
+        if not co_nguoi_dung_nao_chua():    # Kiểm tra bảng trống
+            for nguoi in DANH_SACH_NGUOI_DUNG_MAC_DINH:
+                tao_nguoi_dung(
+                    ten_dang_nhap=nguoi.ten_dang_nhap,
+                    mat_khau_hash=nguoi.mat_khau,
+                    ho_ten=nguoi.ho_ten,
+                    vai_tro=nguoi.vai_tro
+                )
+            print('[KHOI TAO] Da tao 2 tai khoan mac dinh')
+    except Exception as loi:
+        print(f'[LOI] Khong the khoi tao: {str(loi)}')</code>
+    </pre>
 
-<h3>3.4. Áp dụng phân quyền trong main_window.py</h3>
-<pre class="code-block">
-<code class="language-python">def thiet_lap_giao_dien(self):
-    # ...
-    nut_xoa = QPushButton("❌ Xóa")
-
-    # ẨN NÚT XÓA nếu là Nhân viên
-    if self.nguoi_dung is not None and not self.nguoi_dung.la_admin():
-        nut_xoa.setVisible(False)
-
-
-def xu_ly_xoa_san_pham(self):
-    # KIỂM TRA PHÂN QUYỀN (chặn thêm cho chắc)
-    if self.nguoi_dung is not None and not self.nguoi_dung.la_admin():
-        QMessageBox.warning(self, "Không Đủ Quyền",
-            "Bạn là 'Nhân viên' nên KHÔNG ĐƯỢC PHÉP XÓA.")
-        return
-    # ... tiếp tục xử lý xóa nếu là Admin</code>
-</pre>
-
-<div class="tip">
-    <strong>💡 Tại sao ẩn nút + kiểm tra lại?</strong> Ẩn nút chỉ là UI. User tinh tế vẫn có thể
-    gọi hàm <code>xu_ly_xoa_san_pham()</code> qua console → phải kiểm tra lại ở đầu hàm để chặn
-    chắc.
-</div>
-
-<h3>3.5. Mô phỏng đăng nhập phân quyền</h3>
-
-<div class="life-example">
-    <h4>🔑 Ví dụ đời thường: Thẻ từ khách sạn</h4>
-    <p>Trong khách sạn, có 3 loại thẻ từ:</p>
-    <ul style="margin:10px 0;padding-left:20px;">
-        <li><strong>Thẻ Quản lý (Admin)</strong> — mở được <em>tất cả</em> phòng: phòng khách, phòng ngủ, kho, kể cả phòng kế toán</li>
-        <li><strong>Thẻ Nhân viên dọn phòng (Nhân viên)</strong> — chỉ mở được phòng khách + phòng cần dọn. <strong>Không mở được kho</strong> và phòng kế toán</li>
-        <li><strong>Không có thẻ (Khách)</strong> — chỉ được đứng ở sảnh, không vào phòng nào</li>
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>DANH_SACH_NGUOI_DUNG_MAC_DINH = [...]</code> — list 2 đối tượng NguoiDung mẫu, định nghĩa ở cấp module (biến toàn cục).</li>
+        <li><code>co_nguoi_dung_nao_chua()</code> — hàm từ <code>ket_noi_sqlite.py</code>, kiểm tra bảng <code>bang_nguoi_dung</code> có dữ liệu chưa.</li>
+        <li><code>if not co_nguoi_dung_nao_chua():</code> — chỉ tạo khi bảng còn trống. Tránh tạo lại tài khoản mỗi lần khởi động.</li>
+        <li><code>for nguoi in DANH_SACH_NGUOI_DUNG_MAC_DINH:</code> — lặp qua list, gọi <code>tao_nguoi_dung()</code> để INSERT vào SQLite.</li>
+        <li><code>except Exception as loi:</code> — bắt mọi lỗi để server không sập.</li>
     </ul>
-    <p>Đồ án của chúng ta cũng y hệt: <strong>Admin</strong> được toàn quyền (kể cả XÓA), <strong>Nhân viên</strong> không được xóa, <strong>chưa đăng nhập</strong> thì không vào được app.</p>
-    <div class="scene" style="gap:14px;">
-        <div style="text-align:center;">
-            <div style="font-size:40px;">🏨</div>
-            <div style="background:#DC2626;color:white;padding:6px 14px;border-radius:20px;font-weight:bold;font-size:12px;">ADMIN</div>
-            <div style="font-size:11px;margin-top:4px;color:#92400E;">Mở tất cả phòng</div>
-        </div>
-        <div style="font-size:24px;color:#9CA3AF;">vs</div>
-        <div style="text-align:center;">
-            <div style="font-size:40px;">🧹</div>
-            <div style="background:#3B82F6;color:white;padding:6px 14px;border-radius:20px;font-weight:bold;font-size:12px;">NHÂN VIÊN</div>
-            <div style="font-size:11px;margin-top:4px;color:#92400E;">Không mở được kho</div>
-        </div>
-    </div>
-</div>
 
-<div class="life-example">
-    <h4>🔐 Bảng so sánh quyền hạn</h4>
-    <table class="perm-matrix">
-        <thead>
-            <tr>
-                <th>Thao tác</th>
-                <th>Chưa đăng nhập</th>
-                <th>Nhân viên</th>
-                <th>Admin</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>👁 Xem danh sách SP</td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-yes">✓</span></td>
-                <td><span class="perm-yes">✓</span></td>
-            </tr>
-            <tr>
-                <td>➕ Thêm sản phẩm</td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-yes">✓</span></td>
-                <td><span class="perm-yes">✓</span></td>
-            </tr>
-            <tr>
-                <td>✏️ Sửa sản phẩm</td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-yes">✓</span></td>
-                <td><span class="perm-yes">✓</span></td>
-            </tr>
-            <tr>
-                <td>❌ Xóa sản phẩm</td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-yes">✓</span></td>
-            </tr>
-            <tr>
-                <td>🛒 Giỏ hàng + Thanh toán</td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-yes">✓</span></td>
-                <td><span class="perm-yes">✓</span></td>
-            </tr>
-            <tr>
-                <td>📊 Thống kê doanh thu</td>
-                <td><span class="perm-no">✗</span></td>
-                <td><span class="perm-yes">✓</span></td>
-                <td><span class="perm-yes">✓</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
-        <em>Chỉ Admin mới có quyền XÓA — Nhân viên thì bị ẩn nút Xóa trong giao diện</em>
-    </p>
-</div>
-<div class="demo-box">
-    <h4>🧪 Thử đăng nhập với 2 tài khoản</h4>
-    <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
-        <label>Tên đăng nhập:</label>
-        <input type="text" id="dn-ten" placeholder="admin hoặc nhanvien" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-        <label>Mật khẩu:</label>
-        <input type="password" id="dn-mk" placeholder="123" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+    <h3>3.4. Hàm kiem_tra_dang_nhap() — kiểm tra tài khoản</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/nguoi_dung.py</span>
+<code class="language-python">def kiem_tra_dang_nhap(ten_dang_nhap, mat_khau):
+    """Kiểm tra thông tin đăng nhập. Trả về NguoiDung nếu đúng, None nếu sai."""
+    try:
+        from .ket_noi_sqlite import xac_thuc_nguoi_dung
+        thong_tin = xac_thuc_nguoi_dung(ten_dang_nhap)   # SELECT từ SQLite
+        if thong_tin is None:
+            return None                                  # Sai tên đăng nhập
+        if thong_tin['mat_khau_hash'] != mat_khau:
+            return None                                  # Sai mật khẩu
+        # Đúng cả 2 → tạo đối tượng NguoiDung trả về
+        return NguoiDung(
+            ten_dang_nhap=thong_tin['ten_dang_nhap'],
+            mat_khau=thong_tin['mat_khau_hash'],
+            ho_ten=thong_tin['ho_ten'],
+            vai_tro=thong_tin['vai_tro']
+        )
+    except Exception as loi:
+        print(f'[LOI] Loi khi kiem tra dang nhap: {str(loi)}')
+        return None</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>xac_thuc_nguoi_dung(ten_dang_nhap)</code> — SELECT từ SQLite theo tên đăng nhập. Trả dict nếu tìm thấy, <code>None</code> nếu không.</li>
+        <li><code>if thong_tin is None:</code> — tên đăng nhập không tồn tại.</li>
+        <li><code>if thong_tin['mat_khau_hash'] != mat_khau:</code> — mật khẩu không khớp. <strong>Lưu ý:</strong> so sánh chuỗi plaintext chỉ dành cho học, thực tế phải băm bằng bcrypt/hashlib.</li>
+        <li>Nếu qua 2 bước kiểm tra → tạo <code>NguoiDung</code> từ thông tin SQLite và trả về.</li>
+    </ul>
+
+    <h3>3.5. Trang đăng nhập HTML (file <code>dang_nhap.html</code>)</h3>
+    <pre class="code-block">
+<span class="filename">giao_dien/dang_nhap.html</span>
+<code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="vi"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Đăng nhập · Quản lý Cửa hàng Sách&lt;/title&gt;
+    &lt;link rel="stylesheet" href="{% static 'hinh_thuc/trang_tri.css' %}"&gt;
+&lt;/head&gt;
+&lt;body class="trang_dang_nhap"&gt;
+    &lt;div class="hop_dang_nhap"&gt;
+        &lt;h1&gt;📚 Hệ thống Quản lý Cửa hàng Sách&lt;/h1&gt;
+
+        &lt;!-- Thông báo lỗi --&gt;
+        &lt;div id="thong_bao_dang_nhap" class="thong_bao_dang_nhap an_di"&gt;&lt;/div&gt;
+
+        &lt;!-- Form đăng nhập --&gt;
+        &lt;form id="bieu_mau_dang_nhap" novalidate&gt;
+            &lt;div class="nhom_nhap"&gt;
+                &lt;label for="o_ten_dang_nhap"&gt;Tên đăng nhập&lt;/label&gt;
+                &lt;input type="text" id="o_ten_dang_nhap" required /&gt;
+            &lt;/div&gt;
+            &lt;div class="nhom_nhap"&gt;
+                &lt;label for="o_mat_khau"&gt;Mật khẩu&lt;/label&gt;
+                &lt;input type="password" id="o_mat_khau" required /&gt;
+            &lt;/div&gt;
+            &lt;button type="submit" class="nut nut_chinh"&gt;Đăng nhập&lt;/button&gt;
+        &lt;/form&gt;
+
+        &lt;!-- Bảng gợi ý tài khoản mẫu --&gt;
+        &lt;div class="goi_y_tai_khoan"&gt;
+            &lt;h3&gt;Tài khoản mẫu để test&lt;/h3&gt;
+            &lt;table class="bang_tai_khoan"&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Tài khoản&lt;/th&gt;&lt;th&gt;Mật khẩu&lt;/th&gt;&lt;th&gt;Quyền&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;code&gt;admin&lt;/code&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;code&gt;123&lt;/code&gt;&lt;/td&gt;
+                    &lt;td&gt;Admin — Toàn quyền&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;code&gt;nhanvien&lt;/code&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;code&gt;123&lt;/code&gt;&lt;/td&gt;
+                    &lt;td&gt;Nhân viên — Không được xóa&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Script xử lý đăng nhập bằng Fetch API --&gt;
+    &lt;script&gt;
+    document.getElementById('bieu_mau_dang_nhap').addEventListener('submit', async function (e) {
+        e.preventDefault();                              // Ngăn form reload trang
+        var ten_dang_nhap = document.getElementById('o_ten_dang_nhap').value.trim();
+        var mat_khau      = document.getElementById('o_mat_khau').value.trim();
+
+        var phan_hoi = await fetch('/api/dang-nhap', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ ten_dang_nhap: ten_dang_nhap, mat_khau: mat_khau })
+        });
+        var du_lieu = await phan_hoi.json();
+
+        if (du_lieu.trang_thai === 'thanh_cong') {
+            setTimeout(function () { window.location.href = '/'; }, 800);   // Về trang chủ
+        } else {
+            // Hiển thị thông báo lỗi
+            document.getElementById('thong_bao_dang_nhap').textContent = du_lieu.thong_bao;
+        }
+    });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng (cho người mới học HTML):</strong></p>
+    <ul>
+        <li><code>&lt;form&gt;</code> — thẻ form chứa các ô nhập. <code>novalidate</code> tắt validate HTML5 để ta tự validate bằng JS.</li>
+        <li><code>&lt;label for="o_ten_dang_nhap"&gt;</code> — nhãn cho ô nhập. <code>for</code> phải khớp với <code>id</code> của <code>&lt;input&gt;</code>. Click vào label → focus vào input.</li>
+        <li><code>&lt;input type="text"&gt;</code> — ô nhập chữ. <code>type="password"</code> — ô nhập mật khẩu (hiện dấu chấm).</li>
+        <li><code>required</code> — thuộc tính HTML5, bắt buộc nhập rồi mới submit.</li>
+        <li><code>&lt;button type="submit"&gt;</code> — nút bấm, <code>type="submit"</code> gửi form.</li>
+        <li><code>addEventListener('submit', async function (e) { ... })</code> — bắt sự kiện submit form. <code>e.preventDefault()</code> ngăn trình duyệt reload trang.</li>
+        <li><code>await fetch('/api/dang-nhap', {...})</code> — gọi API POST tới Django. <code>async/await</code> chờ response.</li>
+        <li><code>JSON.stringify({...})</code> — chuyển object JS thành JSON string để gửi đi.</li>
+        <li><code>if (du_lieu.trang_thai === 'thanh_cong')</code> — kiểm tra field <code>trang_thai</code> trong JSON response.</li>
+        <li><code>window.location.href = '/'</code> — chuyển hướng về trang chủ (URL <code>/</code>).</li>
+    </ul>
+
+    <h3>3.6. View Django xử lý đăng nhập (file <code>xu_ly_yeu_cau.py</code>)</h3>
+    <p>Phần này do <strong>Huy</strong> phụ trách — Ngọ chỉ cần hiểu sơ.</p>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/xu_ly_yeu_cau.py</span>
+<code class="language-python">@csrf_exempt
+@require_http_methods(['POST'])
+def xu_ly_dang_nhap(request):
+    try:
+        du_lieu = json.loads(request.body)               # Parse JSON body
+        ten_dang_nhap = du_lieu.get('ten_dang_nhap', '').strip()
+        mat_khau      = du_lieu.get('mat_khau', '').strip()
+
+        from .loi_thuat_toan.nguoi_dung import kiem_tra_dang_nhap
+        nguoi_dung = kiem_tra_dang_nhap(ten_dang_nhap, mat_khau)
+
+        if nguoi_dung is None:
+            return JsonResponse(
+                {'trang_thai': 'loi', 'thong_bao': 'Sai tên đăng nhập hoặc mật khẩu.'},
+                status=401
+            )
+
+        # Lưu thông tin vào session (chỉ admin mới được xóa)
+        request.session['ten_dang_nhap'] = nguoi_dung.ten_dang_nhap
+        request.session['ho_ten']        = nguoi_dung.ho_ten
+        request.session['vai_tro']       = nguoi_dung.vai_tro
+
+        return JsonResponse({
+            'trang_thai': 'thanh_cong',
+            'thong_bao':  f'Chào mừng {nguoi_dung.ho_ten}!'
+        })
+    except json.JSONDecodeError:
+        return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'JSON không hợp lệ.'}, status=400)
+    except Exception as loi:
+        return JsonResponse({'trang_thai': 'loi', 'thong_bao': f'Lỗi: {str(loi)}'}, status=500)</code>
+    </pre>
+
+    <p><strong>Giải thích Session Django:</strong></p>
+    <ul>
+        <li><code>request.session['ten_dang_nhap'] = ...</code> — lưu thông tin vào session. Session tồn tại xuyên suốt cho đến khi user đóng trình duyệt hoặc đăng xuất.</li>
+        <li>Khi user vào trang khác, Django tự nạp session → ta có thể kiểm tra <code>request.session.get('vai_tro')</code>.</li>
+        <li><strong>Phân quyền:</strong> Trong view <code>xoa_san_pham()</code> (của Huy), đầu hàm sẽ kiểm tra:
+            <pre><code>if request.session.get('vai_tro') != 'admin':
+    return JsonResponse({'trang_thai': 'loi', 'thong_bao': 'Bạn không có quyền xóa.'}, status=403)</code></pre>
+        </li>
+    </ul>
+
+    <h3>3.7. Mô phỏng đăng nhập phân quyền</h3>
+
+    <div class="life-example">
+        <h4>🔑 Ví dụ đời thường: Thẻ từ khách sạn</h4>
+        <p>Trong khách sạn, có 3 loại thẻ từ:</p>
+        <ul style="margin:10px 0;padding-left:20px;">
+            <li><strong>Thẻ Quản lý (Admin)</strong> — mở được <em>tất cả</em> phòng: phòng khách, phòng ngủ, kho, kể cả phòng kế toán</li>
+            <li><strong>Thẻ Nhân viên dọn phòng (Nhân viên)</strong> — chỉ mở được phòng khách + phòng cần dọn. <strong>Không mở được kho</strong> và phòng kế toán</li>
+            <li><strong>Không có thẻ (Khách)</strong> — chỉ được đứng ở sảnh, không vào phòng nào</li>
+        </ul>
+        <p>Đồ án của chúng ta cũng y hệt: <strong>Admin</strong> được toàn quyền (kể cả XÓA), <strong>Nhân viên</strong> không được xóa, <strong>chưa đăng nhập</strong> thì không vào được app.</p>
+        <div class="scene" style="gap:14px;">
+            <div style="text-align:center;">
+                <div style="font-size:40px;">🏨</div>
+                <div style="background:#DC2626;color:white;padding:6px 14px;border-radius:20px;font-weight:bold;font-size:12px;">ADMIN</div>
+                <div style="font-size:11px;margin-top:4px;color:#92400E;">Mở tất cả phòng</div>
+            </div>
+            <div style="font-size:24px;color:#9CA3AF;">vs</div>
+            <div style="text-align:center;">
+                <div style="font-size:40px;">🧹</div>
+                <div style="background:#3B82F6;color:white;padding:6px 14px;border-radius:20px;font-weight:bold;font-size:12px;">NHÂN VIÊN</div>
+                <div style="font-size:11px;margin-top:4px;color:#92400E;">Không mở được kho</div>
+            </div>
+        </div>
     </div>
-    <div class="controls">
-        <button onclick="dnDangNhap()">🚪 Đăng nhập</button>
-        <button onclick="dnAdmin()" class="secondary">⚡ Đăng nhập admin/123</button>
-        <button onclick="dnNV()" class="secondary">⚡ Đăng nhập nhanvien/123</button>
-        <button onclick="dnDangXuat()" class="danger">🚪 Đăng xuất</button>
+
+    <div class="life-example">
+        <h4>🔐 Bảng so sánh quyền hạn</h4>
+        <table class="perm-matrix">
+            <thead>
+                <tr>
+                    <th>Thao tác</th>
+                    <th>Chưa đăng nhập</th>
+                    <th>Nhân viên</th>
+                    <th>Admin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>👁 Xem danh sách SP</td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>➕ Thêm sản phẩm</td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>✏️ Sửa sản phẩm</td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>❌ Xóa sản phẩm</td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>🛒 Giỏ hàng + Thanh toán</td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>📊 Thống kê doanh thu</td>
+                    <td><span class="perm-no">✗</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                    <td><span class="perm-yes">✓</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+            <em>Chỉ Admin mới có quyền XÓA — Nhân viên bị từ chối ở cả UI (ẩn nút) lẫn API (trả 403)</em>
+        </p>
     </div>
-    <div id="dn-result" style="margin-top:14px;padding:14px;background:#fff;border-radius:6px;">
-        <em style="color:#9CA3AF">Chưa đăng nhập.</em>
+
+    <div class="demo-box">
+        <h4>🧪 Thử đăng nhập với 2 tài khoản</h4>
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
+            <label>Tên đăng nhập:</label>
+            <input type="text" id="dn-ten" placeholder="admin hoặc nhanvien" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+            <label>Mật khẩu:</label>
+            <input type="password" id="dn-mk" placeholder="123" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+        </div>
+        <div class="controls">
+            <button onclick="dnDangNhap()">🚪 Đăng nhập</button>
+            <button onclick="dnAdmin()" class="secondary">⚡ Đăng nhập admin/123</button>
+            <button onclick="dnNV()" class="secondary">⚡ Đăng nhập nhanvien/123</button>
+            <button onclick="dnDangXuat()" class="danger">🚪 Đăng xuất</button>
+        </div>
+        <div id="dn-result" style="margin-top:14px;padding:14px;background:#fff;border-radius:6px;">
+            <em style="color:#9CA3AF">Chưa đăng nhập.</em>
+        </div>
+        <div id="dn-buttons" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;"></div>
+        <div class="log-output" id="dn-log">
+            <div class="log-line">Sẵn sàng.</div>
+        </div>
     </div>
-    <div id="dn-buttons" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;"></div>
-    <div class="log-output" id="dn-log">
-        <div class="log-line">Sẵn sàng.</div>
-    </div>
-</div>
 
 </section>
 
@@ -565,120 +983,199 @@ def xu_ly_xoa_san_pham(self):
 <!-- ===================== BÀI 4: TEST ========================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai4">
-<h2>BÀI 4 — KIỂM THỬ (TEST) — <code>test_app.py</code></h2>
+    <h2>
+        BÀI 4 — KIỂM THỬ (TEST) — <code>kiem_thu.py</code>
+        <span class="phu-trach ngo">NGỌ</span>
+    </h2>
 
-<h3>4.1. Vì sao phải test?</h3>
-<p>
-    Test là chạy thử chương trình với dữ liệu mẫu để <strong>chứng minh code chạy đúng</strong>.
-    Khi đi thi, thầy cô sẽ hỏi "em test chưa?" → mở file <code>test_app.py</code> ra là có câu trả lời.
-</p>
+    <h3>4.1. Vì sao phải test?</h3>
+    <p>
+        Test là chạy thử chương trình với dữ liệu mẫu để <strong>chứng minh code chạy đúng</strong>.
+        Khi đi thi, thầy cô sẽ hỏi "em test chưa?" → mở file <code>kiem_thu.py</code> ra là có câu trả lời.
+    </p>
 
-<div class="life-example">
-    <h4>🚗 Ví dụ đời thường: Kiểm tra xe trước khi giao cho khách</h4>
-    <p>Hãy tưởng tượng bạn làm tại xưởng sản xuất ô tô. Trước khi giao 1 chiếc xe cho khách, bạn <strong>không thể nhìn bề ngoài rồi bảo "ok ngon rồi"</strong>. Bạn phải:</p>
-    <ul style="margin:10px 0;padding-left:20px;">
-        <li>🛞 <strong>Test lốp</strong> — bơm hơi, đạp thử xem có xẹp không</li>
-        <li>🛢 <strong>Test động cơ</strong> — nổ máy, nghe tiếng, đo áp suất dầu</li>
-        <li>💡 <strong>Test đèn</strong> — bật/tắt từng đèn, kiểm tra cháy bóng</li>
-        <li>🛑 <strong>Test phanh</strong> — chạy thử 30km/h rồi đạp phanh gấp</li>
-    </ul>
-    <p>Lập trình cũng vậy! Khi viết xong 1 hàm, bạn <strong>không thể bảo "nó chạy được rồi"</strong> mà phải chạy thử với dữ liệu cụ thể, kiểm tra kết quả có đúng kỳ vọng không. Đó chính là <strong>test case</strong>.</p>
-    <div class="scene" style="gap:16px;flex-wrap:wrap;">
-        <div style="text-align:center;">
-            <div style="font-size:32px;">🛞</div>
-            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 1<br>Lốp</div>
-        </div>
-        <div style="font-size:18px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:32px;">🛢</div>
-            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 2<br>Động cơ</div>
-        </div>
-        <div style="font-size:18px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:32px;">💡</div>
-            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 3<br>Đèn</div>
-        </div>
-        <div style="font-size:18px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:32px;">🛑</div>
-            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 4<br>Phanh</div>
-        </div>
-        <div style="font-size:18px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;background:#D1FAE5;padding:6px 12px;border-radius:6px;">
-            <div style="font-size:32px;">✅</div>
-            <div style="font-size:11px;color:#065F46;font-weight:bold;">Giao xe!</div>
+    <div class="life-example">
+        <h4>🚗 Ví dụ đời thường: Kiểm tra xe trước khi giao cho khách</h4>
+        <p>Hãy tưởng tượng bạn làm tại xưởng sản xuất ô tô. Trước khi giao 1 chiếc xe cho khách, bạn <strong>không thể nhìn bề ngoài rồi bảo "ok ngon rồi"</strong>. Bạn phải:</p>
+        <ul style="margin:10px 0;padding-left:20px;">
+            <li>🛞 <strong>Test lốp</strong> — bơm hơi, đạp thử xem có xẹp không</li>
+            <li>🛢 <strong>Test động cơ</strong> — nổ máy, nghe tiếng, đo áp suất dầu</li>
+            <li>💡 <strong>Test đèn</strong> — bật/tắt từng đèn, kiểm tra cháy bóng</li>
+            <li>🛑 <strong>Test phanh</strong> — chạy thử 30km/h rồi đạp phanh gấp</li>
+        </ul>
+        <p>Lập trình cũng vậy! Khi viết xong 1 hàm, bạn <strong>không thể bảo "nó chạy được rồi"</strong> mà phải chạy thử với dữ liệu cụ thể, kiểm tra kết quả có đúng kỳ vọng không. Đó chính là <strong>test case</strong>.</p>
+        <div class="scene" style="gap:16px;flex-wrap:wrap;">
+            <div style="text-align:center;">
+                <div style="font-size:32px;">🛞</div>
+                <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 1<br>Lốp</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+                <div style="font-size:32px;">🛢</div>
+                <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 2<br>Động cơ</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+                <div style="font-size:32px;">💡</div>
+                <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 3<br>Đèn</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+                <div style="font-size:32px;">🛑</div>
+                <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 4<br>Phanh</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;background:#D1FAE5;padding:6px 12px;border-radius:6px;">
+                <div style="font-size:32px;">✅</div>
+                <div style="font-size:11px;color:#065F46;font-weight:bold;">Giao xe!</div>
+            </div>
         </div>
     </div>
-</div>
 
-<h3>4.2. Cấu trúc 1 test case</h3>
-<pre class="code-block">
+    <h3>4.2. Cấu trúc 1 test case</h3>
+    <pre class="code-block">
 <code class="language-python"># 1. Chuẩn bị dữ liệu mẫu
-sp1 = Sach("S01", "Lập trình C++", 100000, 10, "Bjarne", "NXB Trẻ")
+ds = DoublyLinkedList()
+ds.them_vao_cuoi(MatHangGia('MH001', 'Sách Lập trình Python', 120000))
 
 # 2. Gọi hàm cần test
-gia = sp1.tinh_gia_ban()
+danh_sach = ds.chuyen_thanh_danh_sach()
+ket_qua   = danh_sach[0]['gia_ban']
 
 # 3. In ra để xem kết quả
-print(f"Giá bán Sách: {gia}")
+print(f'Giá bán: {ket_qua}')
 
 # 4. Kiểm tra kết quả đúng không (assert)
-assert gia == 120000, "Giá bán Sách phải = 100000 × 1.20 = 120000"</code>
-</pre>
+assert ket_qua == 120000, 'Giá bán phải bằng 120000'</code>
+    </pre>
 
-<p><strong><code>assert</code> LÀ GÌ?</strong> Là câu lệnh Python: nếu điều kiện SAI thì ném lỗi
-và dừng chương trình. Dùng để kiểm tra kết quả test có đúng kỳ vọng không.</p>
+    <p><strong><code>assert</code> LÀ GÌ?</strong> Là câu lệnh Python: nếu điều kiện SAI thì ném lỗi
+    và dừng chương trình. Dùng để kiểm tra kết quả test có đúng kỳ vọng không.</p>
 
-<h3>4.3. 10 test case trong <code>test_app.py</code></h3>
-<table>
-<tr><th>#</th><th>Test gì</th><th>Cách test</th></tr>
-<tr><td>1</td><td>Đa hình — <code>tinh_gia_ban()</code> của 5 loại</td><td>Tạo 5 sp, in giá bán, kiểm tra công thức</td></tr>
-<tr><td>2</td><td>DSLK — thêm cuối</td><td>Thêm 5 sp, kiểm tra <code>so_luong == 5</code></td></tr>
-<tr><td>3</td><td>DSLK — duyệt</td><td>Gọi <code>duyet_danh_sach()</code>, in ra</td></tr>
-<tr><td>4</td><td>Merge Sort</td><td>Sắp xếp theo giá, in ra sau sắp xếp</td></tr>
-<tr><td>5</td><td>DSLK — tìm kiếm</td><td><code>tim_kiem_theo_ma("T01")</code> trả về đúng sp</td></tr>
-<tr><td>6</td><td>DSLK — xóa</td><td>Xóa "B01", kiểm tra <code>so_luong</code> giảm 1</td></tr>
-<tr><td>7</td><td>Stack LIFO</td><td>Đẩy 3 phần tử, lấy ra theo LIFO (vào sau, ra trước)</td></tr>
-<tr><td>8</td><td>Queue FIFO</td><td>Thêm 3 món giỏ hàng, thanh toán theo FIFO</td></tr>
-<tr><td>9</td><td>SQLite lưu + đọc</td><td>Lưu DSLK xuống SQLite, đọc lại, kiểm tra đa hình còn</td></tr>
-<tr><td>10</td><td>Phân quyền</td><td>Đăng nhập sai mk, sai tên, đúng admin, đúng NV</td></tr>
-</table>
+    <h3>4.3. File <code>kiem_thu.py</code> trong đồ án</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/kiem_thu.py</span>
+<code class="language-python">from .danh_sach_lien_ket import Node, DoublyLinkedList
 
-<h3>4.4. Cách chạy test</h3>
-<pre class="code-block">
-<span class="filename">terminal — vào thư mục do_an_pyqt6</span>
-<code class="language-python">cd do_an_pyqt6
-python test_app.py</code>
-</pre>
-<p>Nếu thấy in ra <strong>"MỌI THỨ HOẠT ĐỘNG HOÀN HẢO!"</strong> ở cuối → test pass 100%.</p>
+class MatHangGia:
+    """Lớp giả lập mặt hàng để test DSLK."""
+    def __init__(self, ma_so, ten_san_pham, gia_co_ban):
+        self.ma_so = ma_so
+        self.ten_san_pham = ten_san_pham
+        self.gia_co_ban = gia_co_ban
 
-<h3>4.5. Mô phỏng chạy test</h3>
-<div class="demo-box">
-    <h4>🧪 Bấm để chạy test ảo — xem 10 test case chạy lần lượt</h4>
-    <div class="test-progress">
-        <div style="color:#9CA3AF;font-size:12px;margin-bottom:8px;font-family:monospace;">Tiến độ 10 test case:</div>
-        <div class="test-bar" id="test-bar">
-            <div class="test-cell">1</div>
-            <div class="test-cell">2</div>
-            <div class="test-cell">3</div>
-            <div class="test-cell">4</div>
-            <div class="test-cell">5</div>
-            <div class="test-cell">6</div>
-            <div class="test-cell">7</div>
-            <div class="test-cell">8</div>
-            <div class="test-cell">9</div>
-            <div class="test-cell">10</div>
+    def tinh_gia_ban(self):
+        return self.gia_co_ban
+
+    def chuyen_thanh_dict(self):
+        return {'ma_so': self.ma_so,
+                'ten_san_pham': self.ten_san_pham,
+                'gia_co_ban': self.gia_co_ban,
+                'gia_ban': self.tinh_gia_ban()}
+
+def tao_du_lieu_gia():
+    """Tạo 5 sản phẩm mẫu để test."""
+    ds = DoublyLinkedList()
+    ds.them_vao_cuoi(MatHangGia('MH001', 'Sách Lập trình Python',   120000))
+    ds.them_vao_cuoi(MatHangGia('MH002', 'Tạp chí Khoa học',         45000))
+    ds.them_vao_cuoi(MatHangGia('MH003', 'Báo Nhân dân',              8000))
+    ds.them_vao_cuoi(MatHangGia('MH004', 'Sách Cấu trúc dữ liệu',    95000))
+    ds.them_vao_cuoi(MatHangGia('MH005', 'Tạp chí Công nghệ',        55000))
+    return ds
+
+def kiem_thu_co_ban():
+    """Chạy 6 test case: thêm, duyệt, xóa, tìm, sắp xếp."""
+    print('=' * 60)
+    print('KIỂM THỬ DANH SÁCH LIÊN KẾT ĐÔI')
+    print('=' * 60)
+
+    # [1] Test THÊM
+    ds = tao_du_lieu_gia()
+    print(f'\n[1] Thêm phần tử: Số lượng = {ds.so_luong}')
+    assert ds.so_luong == 5, 'Phải có 5 phần tử'
+
+    # [2] Test CHUYỂN THÀNH DANH SÁCH
+    danh_sach = ds.chuyen_thanh_danh_sach()
+    print(f'\n[2] Chuyển thành danh sách dict: {danh_sach}')
+    assert len(danh_sach) == 5
+
+    # [3] Test XÓA
+    ket_qua_xoa = ds.xoa_node('MH003')
+    print(f"\n[3] Xóa MH003: {('Thành công' if ket_qua_xoa else 'Thất bại')}")
+    assert ket_qua_xoa == True
+    assert ds.so_luong == 4
+
+    # [4] Test XÓA mã không tồn tại
+    ket_qua_xoa_2 = ds.xoa_node('MH999')
+    print(f"\n[4] Xóa MH999 (không tồn tại): {ket_qua_xoa_2}")
+    assert ket_qua_xoa_2 == False
+    assert ds.so_luong == 4   # Không đổi
+
+    # [5] Test TÌM KIẾM
+    ds2 = tao_du_lieu_gia()
+    ket_qua_tim = ds2.tim_kiem('sách')
+    print(f"\n[5] Tìm kiếm 'sách': Tìm thấy {len(ket_qua_tim)} kết quả")
+    assert len(ket_qua_tim) == 2   # 'Sách Lập trình' + 'Sách Cấu trúc'
+
+    # [6] Test SẮP XẾP
+    ds3 = tao_du_lieu_gia()
+    print(f'\n[6] Sắp xếp theo giá bán:')
+    print(f'    Trước: {ds3}')
+    ds3.sap_xep_tron('gia_ban')
+    print(f'    Sau:   {ds3}')
+
+    print('\n' + '=' * 60)
+    print('HOÀN THÀNH KIỂM THỬ!')
+    print('=' * 60)
+
+if __name__ == '__main__':
+    kiem_thu_co_ban()</code>
+    </pre>
+
+    <p><strong>Giải thích từng phần:</strong></p>
+    <ul>
+        <li><code>class MatHangGia:</code> — lớp giả lập (mock) mặt hàng, chỉ có <code>ma_so</code>, <code>ten_san_pham</code>, <code>gia_co_ban</code>. Đơn giản hơn lớp thật để test dễ.</li>
+        <li><code>def tao_du_lieu_gia():</code> — hàm tiện ích, tạo 5 sản phẩm mẫu. Dùng nhiều lần trong các test case → tránh lặp code.</li>
+        <li><code>assert ds.so_luong == 5, 'Phải có 5 phần tử'</code> — kiểm tra số lượng. Nếu sai → dừng và in thông báo.</li>
+        <li><code>if __name__ == '__main__':</code> — chỉ chạy <code>kiem_thu_co_ban()</code> khi file này được chạy trực tiếp (<code>python kiem_thu.py</code>), không chạy khi import.</li>
+    </ul>
+
+    <h3>4.4. Cách chạy test</h3>
+    <pre class="code-block">
+<span class="filename">terminal — vào thư mục du_an_cua_hang_sach</span>
+<code class="language-bash">cd du_an_cua_hang_sach
+
+# Chạy test file kiem_thu.py
+python -m ung_dung_giao_tiep.loi_thuat_toan.kiem_thu
+
+# Hoặc chạy file test Django đầy đủ
+python test_django_full.py</code>
+    </pre>
+    <p>Nếu thấy in ra <strong>"HOÀN THÀNH KIỂM THỬ!"</strong> ở cuối → test pass 100%.</p>
+
+    <h3>4.5. Mô phỏng chạy test</h3>
+    <div class="demo-box">
+        <h4>🧪 Bấm để chạy test ảo — xem 6 test case chạy lần lượt</h4>
+        <div class="test-progress">
+            <div style="color:#9CA3AF;font-size:12px;margin-bottom:8px;font-family:monospace;">Tiến độ 6 test case:</div>
+            <div class="test-bar" id="test-bar">
+                <div class="test-cell">1</div>
+                <div class="test-cell">2</div>
+                <div class="test-cell">3</div>
+                <div class="test-cell">4</div>
+                <div class="test-cell">5</div>
+                <div class="test-cell">6</div>
+            </div>
+            <div class="test-summary" id="test-summary">Sẵn sàng. Bấm "Chạy test" để bắt đầu.</div>
         </div>
-        <div class="test-summary" id="test-summary">Sẵn sàng. Bấm "Chạy test" để bắt đầu.</div>
+        <div class="controls">
+            <button onclick="testChay()">▶ Chạy kiem_thu.py</button>
+            <button onclick="testReset()" class="secondary">🔄 Reset</button>
+        </div>
+        <div class="log-output" id="test-log" style="min-height:200px;max-height:400px;">
+            <div class="log-line">Sẵn sàng.</div>
+        </div>
     </div>
-    <div class="controls">
-        <button onclick="testChay()">▶ Chạy test_app.py</button>
-        <button onclick="testReset()" class="secondary">🔄 Reset</button>
-    </div>
-    <div class="log-output" id="test-log" style="min-height:200px;max-height:400px;">
-        <div class="log-line">Sẵn sàng.</div>
-    </div>
-</div>
 
 </section>
 
@@ -686,119 +1183,140 @@ python test_app.py</code>
 <!-- ===================== BÀI 5: QUIZ ========================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai5">
-<h2>BÀI 5 — QUIZ KIỂM TRA HIỂU</h2>
+    <h2>
+        BÀI 5 — QUIZ KIỂM TRA HIỂU
+        <span class="phu-trach ngo">NGỌ</span>
+    </h2>
 
-<div class="quiz" id="quiz1">
-    <div class="question">Câu 1: Stack theo nguyên tắc nào?</div>
-    <div class="options">
-        <label><input type="radio" name="q1" value="A"> A. FIFO (vào trước, ra trước)</label>
-        <label><input type="radio" name="q1" value="B"> B. LIFO (vào sau, ra trước)</label>
-        <label><input type="radio" name="q1" value="C"> C. Cả A và B</label>
-        <label><input type="radio" name="q1" value="D"> D. Không theo nguyên tắc nào</label>
+    <div class="quiz" id="quiz1">
+        <div class="question">Câu 1: Stack theo nguyên tắc nào?</div>
+        <div class="options">
+            <label><input type="radio" name="q1" value="A"> A. FIFO (vào trước, ra trước)</label>
+            <label><input type="radio" name="q1" value="B"> B. LIFO (vào sau, ra trước)</label>
+            <label><input type="radio" name="q1" value="C"> C. Cả A và B</label>
+            <label><input type="radio" name="q1" value="D"> D. Không theo nguyên tắc nào</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz1', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz1', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz2">
-    <div class="question">Câu 2: Stack dùng hình ảnh ví dụ nào dễ hiểu nhất?</div>
-    <div class="options">
-        <label><input type="radio" name="q2" value="A"> A. Xếp hàng mua vé</label>
-        <label><input type="radio" name="q2" value="B"> B. Chồng đĩa</label>
-        <label><input type="radio" name="q2" value="C"> C. Dây chuyền sản xuất</label>
-        <label><input type="radio" name="q2" value="D"> D. Bàn ăn</label>
+    <div class="quiz" id="quiz2">
+        <div class="question">Câu 2: Thao tác POP trong Stack là gì?</div>
+        <div class="options">
+            <label><input type="radio" name="q2" value="A"> A. Đẩy 1 phần tử lên đỉnh</label>
+            <label><input type="radio" name="q2" value="B"> B. Lấy phần tử đỉnh ra khỏi Stack</label>
+            <label><input type="radio" name="q2" value="C"> C. Xem phần tử đỉnh không lấy ra</label>
+            <label><input type="radio" name="q2" value="D"> D. Đếm số phần tử</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz2', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz2', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz3">
-    <div class="question">Câu 3: Thao tác POP trong Stack là gì?</div>
-    <div class="options">
-        <label><input type="radio" name="q3" value="A"> A. Đẩy 1 phần tử lên đỉnh</label>
-        <label><input type="radio" name="q3" value="B"> B. Lấy phần tử đỉnh ra khỏi Stack</label>
-        <label><input type="radio" name="q3" value="C"> C. Xem phần tử đỉnh không lấy ra</label>
-        <label><input type="radio" name="q3" value="D"> D. Đếm số phần tử</label>
+    <div class="quiz" id="quiz3">
+        <div class="question">Câu 3: Trong SQLite, lệnh nào để thêm 1 dòng dữ liệu?</div>
+        <div class="options">
+            <label><input type="radio" name="q3" value="A"> A. ADD INTO ...</label>
+            <label><input type="radio" name="q3" value="B"> B. INSERT INTO ... VALUES (...)</label>
+            <label><input type="radio" name="q3" value="C"> C. APPEND TO ...</label>
+            <label><input type="radio" name="q3" value="D"> D. CREATE ROW ...</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz3', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz3', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz4">
-    <div class="question">Câu 4: Trong SQLite, lệnh nào để thêm 1 dòng dữ liệu?</div>
-    <div class="options">
-        <label><input type="radio" name="q4" value="A"> A. ADD INTO ...</label>
-        <label><input type="radio" name="q4" value="B"> B. INSERT INTO ... VALUES (...)</label>
-        <label><input type="radio" name="q4" value="C"> C. APPEND TO ...</label>
-        <label><input type="radio" name="q4" value="D"> D. CREATE ROW ...</label>
+    <div class="quiz" id="quiz4">
+        <div class="question">Câu 4: Sau khi INSERT/UPDATE/DELETE trong SQLite, phải làm gì để dữ liệu được lưu?</div>
+        <div class="options">
+            <label><input type="radio" name="q4" value="A"> A. <code>conn.save()</code></label>
+            <label><input type="radio" name="q4" value="B"> B. <code>conn.commit()</code></label>
+            <label><input type="radio" name="q4" value="C"> C. <code>conn.flush()</code></label>
+            <label><input type="radio" name="q4" value="D"> D. Không cần làm gì, tự lưu</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz4', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz4', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz5">
-    <div class="question">Câu 5: Sau khi INSERT/UPDATE/DELETE trong SQLite, phải làm gì để dữ liệu được lưu?</div>
-    <div class="options">
-        <label><input type="radio" name="q5" value="A"> A. <code>conn.save()</code></label>
-        <label><input type="radio" name="q5" value="B"> B. <code>conn.commit()</code></label>
-        <label><input type="radio" name="q5" value="C"> C. <code>conn.flush()</code></label>
-        <label><input type="radio" name="q5" value="D"> D. Không cần làm gì, tự lưu</label>
+    <div class="quiz" id="quiz5">
+        <div class="question">Câu 5: Trong code <code>cursor.execute("INSERT ... VALUES (?, ?, ?)", (a, b, c))</code>, tại sao dùng <code>?</code>?</div>
+        <div class="options">
+            <label><input type="radio" name="q5" value="A"> A. Để code ngắn hơn</label>
+            <label><input type="radio" name="q5" value="B"> B. Chống SQL Injection (bảo mật)</label>
+            <label><input type="radio" name="q5" value="C"> C. Để chạy nhanh hơn</label>
+            <label><input type="radio" name="q5" value="D"> D. Không có lý do đặc biệt</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz5', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz5', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz6">
-    <div class="question">Câu 6: Trong code <code>cursor.execute("INSERT ... VALUES (?, ?, ?)", (a, b, c))</code>, tại sao dùng <code>?</code>?</div>
-    <div class="options">
-        <label><input type="radio" name="q6" value="A"> A. Để code ngắn hơn</label>
-        <label><input type="radio" name="q6" value="B"> B. Chống SQL Injection (bảo mật)</label>
-        <label><input type="radio" name="q6" value="C"> C. Để chạy nhanh hơn</label>
-        <label><input type="radio" name="q6" value="D"> D. Không có lý do đặc biệt</label>
+    <div class="quiz" id="quiz6">
+        <div class="question">Câu 6: Khối <code>finally:</code> trong try/except/finally khi nào chạy?</div>
+        <div class="options">
+            <label><input type="radio" name="q6" value="A"> A. Chỉ khi có lỗi</label>
+            <label><input type="radio" name="q6" value="B"> B. Chỉ khi không có lỗi</label>
+            <label><input type="radio" name="q6" value="C"> C. Luôn chạy (dù có lỗi hay không)</label>
+            <label><input type="radio" name="q6" value="D"> D. Chỉ khi được gọi tường minh</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz6', 'C')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz6', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz7">
-    <div class="question">Câu 7: Nhân viên trong đồ án KHÔNG được phép làm gì?</div>
-    <div class="options">
-        <label><input type="radio" name="q7" value="A"> A. Xem sản phẩm</label>
-        <label><input type="radio" name="q7" value="B"> B. Thêm sản phẩm mới</label>
-        <label><input type="radio" name="q7" value="C"> C. Xóa sản phẩm</label>
-        <label><input type="radio" name="q7" value="D"> D. Sửa sản phẩm</label>
+    <div class="quiz" id="quiz7">
+        <div class="question">Câu 7: Nhân viên trong đồ án KHÔNG được phép làm gì?</div>
+        <div class="options">
+            <label><input type="radio" name="q7" value="A"> A. Xem sản phẩm</label>
+            <label><input type="radio" name="q7" value="B"> B. Thêm sản phẩm mới</label>
+            <label><input type="radio" name="q7" value="C"> C. Xóa sản phẩm</label>
+            <label><input type="radio" name="q7" value="D"> D. Sửa sản phẩm</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz7', 'C')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz7', 'C')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz8">
-    <div class="question">Câu 8: Lệnh <code>assert dieu_kien, "thông báo"</code> làm gì?</div>
-    <div class="options">
-        <label><input type="radio" name="q8" value="A"> A. In ra điều kiện</label>
-        <label><input type="radio" name="q8" value="B"> B. Nếu điều kiện SAI → ném lỗi + thông báo</label>
-        <label><input type="radio" name="q8" value="C"> C. Nếu điều kiện ĐÚNG → ném lỗi</label>
-        <label><input type="radio" name="q8" value="D"> D. Dừng chương trình ngay lập tức</label>
+    <div class="quiz" id="quiz8">
+        <div class="question">Câu 8: Lệnh <code>assert dieu_kien, "thông báo"</code> làm gì?</div>
+        <div class="options">
+            <label><input type="radio" name="q8" value="A"> A. In ra điều kiện</label>
+            <label><input type="radio" name="q8" value="B"> B. Nếu điều kiện SAI → ném lỗi + thông báo</label>
+            <label><input type="radio" name="q8" value="C"> C. Nếu điều kiện ĐÚNG → ném lỗi</label>
+            <label><input type="radio" name="q8" value="D"> D. Dừng chương trình ngay lập tức</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz8', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz8', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="note" style="margin-top:30px;">
-    <strong>🎓 Lời khuyên:</strong> Nếu đúng ≥ 7/8 câu thì bạn đã hiểu phần của mình. Mở file
-    <code>test_app.py</code> chạy thử <code>python test_app.py</code> trên máy để xem test pass.
-</div>
+    <div class="note" style="margin-top:30px;">
+        <strong>🎓 Lời khuyên:</strong> Nếu đúng ≥ 7/8 câu thì bạn đã hiểu phần của mình. Mở file
+        <code>kiem_thu.py</code> chạy thử <code>python -m ung_dung_giao_tiep.loi_thuat_toan.kiem_thu</code>
+        trên máy để xem test pass.
+    </div>
 
 </section>
 
 </div>
 
+<!-- ===================== CHÂN TRANG ===================== -->
 <div class="footer">
-    <p>📚 Tài liệu học thi — Bùi Gia Ngọ | Đồ án Quản lý Cửa hàng Sách — PyQt6</p>
-    <p>Xem mã nguồn thực tế trong thư mục <code>do_an_pyqt6/</code> của repo</p>
+    <p>📚 Tài liệu học thi — Bùi Gia Ngọ | Đồ án Quản lý Cửa hàng Sách — Django + HTML/CSS/JS</p>
+    <p>Xem mã nguồn thực tế trong thư mục <code>du_an_cua_hang_sach/</code> của repo</p>
 </div>
 
 <script src="app.js"></script>
-    <script src="highlight.js"></script>
+<script src="highlight.js"></script>
 </body>
 </html>

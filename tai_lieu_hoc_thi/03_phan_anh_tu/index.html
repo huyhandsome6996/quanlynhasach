@@ -1,80 +1,197 @@
 <!DOCTYPE html>
+<!--
+    ============================================================
+    TÀI LIỆU HỌC THI — PHAN ANH TÚ
+    ============================================================
+    Phần phụ trách:
+      - Stack + Queue (cau_truc_du_lieu.py)
+      - Undo/Redo + Giỏ hàng (undo_redo_gio_hang.py)
+      - HTML partials (thanh_phan/*.html)
+      - JavaScript (ma_lenh/*.js)
+    ============================================================
+-->
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tài liệu học thi — Phan Anh Tú</title>
-<link rel="stylesheet" href="style.css">
+    <!-- Khai báo bảng mã UTF-8 để hiển thị tiếng Việt -->
+    <meta charset="UTF-8">
+
+    <!-- Responsive: hiển thị đúng trên mọi kích thước màn hình -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tiêu đề hiện trên tab trình duyệt -->
+    <title>Tài liệu học thi — Phan Anh Tú</title>
+
+    <!-- Liên kết tới file CSS trang trí -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ===================== MENU ĐỈNH ===================== -->
 <div class="menu-top">
     <div class="logo">📚 HỌC THI — PHAN ANH TÚ</div>
     <nav>
+        <a href="#phan-cong-viec">0. Phân việc</a>
         <a href="#bai1">1. OOP Class</a>
         <a href="#bai2">2. Đa hình</a>
         <a href="#bai3">3. Queue</a>
-        <a href="#bai4">4. PyQt Dialogs</a>
+        <a href="#bai4">4. HTML/JS</a>
         <a href="#bai5">5. Quiz</a>
     </nav>
 </div>
 
+<!-- ===================== BÌA ===================== -->
 <div class="hero">
     <h1>📚 TÀI LIỆU ÔN THI</h1>
-    <div class="subtitle">Đồ án Quản lý Cửa hàng Sách — PyQt6 + Cấu trúc dữ liệu</div>
-    <div class="nguoi">👤 Phụ trách: PHAN ANH TÚ (OOP + Đa hình + Queue + Form phụ)</div>
+    <div class="subtitle">Đồ án Quản lý Cửa hàng Sách — Django + HTML/CSS/JS + Cấu trúc dữ liệu</div>
+    <div class="nguoi">👤 Phụ trách: PHAN ANH TÚ (Stack/Queue + Undo/Redo + HTML/JS)</div>
 </div>
 
 <div class="container">
 
 <!-- ============================================================ -->
+<!-- =========== BẢNG PHÂN CHIA CÔNG VIỆC CẢ ĐỒ ÁN ============== -->
+<!-- ============================================================ -->
+<section class="chuong" id="phan-cong-viec">
+    <h2>
+        BẢNG PHÂN CHIA CÔNG VIỆC — 3 THÀNH VIÊN
+        <span class="phu-trach chung">Cả nhóm</span>
+    </h2>
+
+    <p>
+        Đồ án chia cho 3 người. Mỗi người phụ trách những file riêng —
+        ôn phần mình phụ trách trước, sau đó đọc lướt phần người khác để hiểu toàn cảnh.
+        Mỗi bài học bên dưới đều có <strong>nhãn màu</strong> cho biết ai chịu trách nhiệm:
+    </p>
+
+    <table class="bang-cong-viec">
+        <thead>
+            <tr>
+                <th>Thành viên</th>
+                <th>Vai trò</th>
+                <th>File phụ trách</th>
+                <th>Nội dung ôn</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="nhan">
+                    <span class="phu-trach huy">HUY</span>
+                    Hồ Quang Huy
+                </td>
+                <td>Trưởng nhóm — phần khó</td>
+                <td>
+                    <code>danh_sach_lien_ket.py</code><br>
+                    <code>xu_ly_yeu_cau.py</code><br>
+                    <code>duong_dan.py</code><br>
+                    <code>trang_chu.html</code>
+                </td>
+                <td>DSLK đôi, Merge Sort, Django Views, URL routes, Undo/Redo</td>
+            </tr>
+            <tr>
+                <td class="nhan">
+                    <span class="phu-trach ngo">NGỌ</span>
+                    Bùi Gia Ngọ
+                </td>
+                <td>Phần dễ — OOP + CSDL</td>
+                <td>
+                    <code>lop_doi_tuong.py</code><br>
+                    <code>ket_noi_sqlite.py</code><br>
+                    <code>nguoi_dung.py</code><br>
+                    <code>dang_nhap.html</code>
+                </td>
+                <td>Lớp OOP, Kế thừa, Đa hình, SQLite CRUD, Phân quyền, Test</td>
+            </tr>
+            <tr>
+                <td class="nhan">
+                    <span class="phu-trach tu">TÚ</span>
+                    Phan Anh Tú
+                </td>
+                <td>Phần dễ — Cấu trúc + Giao diện</td>
+                <td>
+                    <code>cau_truc_du_lieu.py</code><br>
+                    <code>undo_redo_gio_hang.py</code><br>
+                    <code>thanh_phan/*.html</code><br>
+                    <code>ma_lenh/*.js</code>
+                </td>
+                <td>Stack LIFO, Queue FIFO, Giỏ hàng, HTML partials, JavaScript</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="html-note">
+        <strong>💡 Cách học file này:</strong> Mỗi bài đều có nhãn
+        <span class="phu-trach huy">HUY</span>
+        <span class="phu-trach ngo">NGỌ</span>
+        <span class="phu-trach tu">TÚ</span>
+        cho biết ai phụ trách. Tú là file này — đọc kỹ từng dòng. Khi gặp nhãn HUY hoặc NGỌ,
+        đó là file người khác phụ trách — chỉ cần hiểu sơ.
+    </div>
+
+    <div class="note">
+        <strong>📌 Lưu ý cho Tú:</strong> File này của Tú học về <strong>OOP</strong> (Bài 1-2)
+        và <strong>Queue</strong> (Bài 3). OOP thực tế do <strong>Ngọ</strong> phụ trách, nhưng
+        Tú vẫn cần hiểu vì thi có thể hỏi chéo. Phần chính của Tú là
+        <strong>Queue/Stack</strong> + <strong>HTML/JS</strong> (Bài 3-4). Khi thi, đề sẽ hỏi
+        Queue/Stack và frontend — file này hướng dẫn kỹ phần đó.
+    </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- ===================== BÀI 1: OOP CLASS ===================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai1">
-<h2>BÀI 1 — LỚP (CLASS) & KẾ THỪA TRONG PYTHON</h2>
+    <h2>
+        BÀI 1 — LỚP (CLASS) &amp; KẾ THỪA TRONG PYTHON
+        <span class="phu-trach ngo">NGỌ phụ trách</span>
+    </h2>
 
-<h3>1.1. LỚP (CLASS) LÀ GÌ?</h3>
-<p>
-    <strong>Lớp (Class)</strong> là "bản thiết kế" để tạo ra các <strong>đối tượng (object)</strong>.
-    Lớp quy định: đối tượng sẽ có <strong>thuộc tính</strong> gì (dữ liệu) và <strong>phương thức</strong>
-    gì (hành động).
-</p>
-
-<div class="note">
-    <strong>💡 Ví dụ đời thường:</strong> Lớp = "Bản vẽ kỹ thuật chiếc xe". Đối tượng = "Chiếc
-    xe Toyota mang biển 51A-12345" được dựng theo bản vẽ đó. Thuộc tính = màu, biển số.
-    Phương thức = chạy, phanh, bóp còi.
-</div>
-
-<div class="life-example">
-    <h4>🚗 Ví dụ đời thường 1: Bản vẽ xe & chiếc xe cụ thể</h4>
-    <p>Hãy tưởng tượng bạn làm kỹ sư tại nhà máy Toyota. Bạn có <strong>1 bản vẽ kỹ thuật</strong> (Class) của dòng xe Camry. Bản vẽ quy định: xe có màu, biển số, động cơ; có thể chạy, phanh, bóp còi. Khi khách đặt xe, nhà máy <strong>dựng từng chiếc xe cụ thể</strong> (Object) theo bản vẽ đó — mỗi chiếc có màu và biển số riêng, nhưng đều có cùng cấu trúc.</p>
-    <div class="scene" style="gap:18px;">
-        <div style="text-align:center;">
-            <div style="font-size:50px;">📐</div>
-            <div style="background:#92400E;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">BẢN VẼ (Class)</div>
-            <div style="font-size:11px;color:#6B7280;margin-top:4px;">Quy định cấu trúc<br>chưa phải xe</div>
-        </div>
-        <div style="font-size:24px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:50px;">🚗</div>
-            <div style="background:#047857;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">XE THỰC (Object)</div>
-            <div style="font-size:11px;color:#6B7280;margin-top:4px;">Màu đỏ, biển 51A-12345<br>chạy được thật</div>
-        </div>
-        <div style="font-size:24px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:50px;">🚙</div>
-            <div style="background:#047857;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">XE THỰC (Object)</div>
-            <div style="font-size:11px;color:#6B7280;margin-top:4px;">Màu xanh, biển 51A-67890<br>chạy được thật</div>
-        </div>
+    <div class="note">
+        <strong>📌 Lưu ý:</strong> OOP do <strong>Ngọ</strong> phụ trách trong code.
+        Nhưng Tú vẫn cần hiểu vì thi có thể hỏi chéo — đọc lướt cho hiểu sơ.
     </div>
-    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
-        <em>Code: <code>class MatHang</code> là bản vẽ. <code>Sach("S01", "Tài sản", ...)</code> là chiếc xe được dựng theo bản vẽ đó.</em>
-    </p>
-</div>
 
-<h3>1.2. Cú pháp khai báo lớp trong Python</h3>
-<pre class="code-block">
+    <h3>1.1. LỚP (CLASS) LÀ GÌ?</h3>
+    <p>
+        <strong>Lớp (Class)</strong> là "bản thiết kế" để tạo ra các <strong>đối tượng (object)</strong>.
+        Lớp quy định: đối tượng sẽ có <strong>thuộc tính</strong> gì (dữ liệu) và <strong>phương thức</strong>
+        gì (hành động).
+    </p>
+
+    <div class="note">
+        <strong>💡 Ví dụ đời thường:</strong> Lớp = "Bản vẽ kỹ thuật chiếc xe". Đối tượng = "Chiếc
+        xe Toyota mang biển 51A-12345" được dựng theo bản vẽ đó. Thuộc tính = màu, biển số.
+        Phương thức = chạy, phanh, bóp còi.
+    </div>
+
+    <div class="life-example">
+        <h4>🚗 Ví dụ đời thường 1: Bản vẽ xe &amp; chiếc xe cụ thể</h4>
+        <p>Hãy tưởng tượng bạn làm kỹ sư tại nhà máy Toyota. Bạn có <strong>1 bản vẽ kỹ thuật</strong> (Class) của dòng xe Camry. Bản vẽ quy định: xe có màu, biển số, động cơ; có thể chạy, phanh, bóp còi. Khi khách đặt xe, nhà máy <strong>dựng từng chiếc xe cụ thể</strong> (Object) theo bản vẽ đó — mỗi chiếc có màu và biển số riêng, nhưng đều có cùng cấu trúc.</p>
+        <div class="scene" style="gap:18px;">
+            <div style="text-align:center;">
+                <div style="font-size:50px;">📐</div>
+                <div style="background:#92400E;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">BẢN VẼ (Class)</div>
+                <div style="font-size:11px;color:#6B7280;margin-top:4px;">Quy định cấu trúc<br>chưa phải xe</div>
+            </div>
+            <div style="font-size:24px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+                <div style="font-size:50px;">🚗</div>
+                <div style="background:#047857;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">XE THỰC (Object)</div>
+                <div style="font-size:11px;color:#6B7280;margin-top:4px;">Màu đỏ, biển 51A-12345<br>chạy được thật</div>
+            </div>
+            <div style="font-size:24px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+                <div style="font-size:50px;">🚙</div>
+                <div style="background:#047857;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">XE THỰC (Object)</div>
+                <div style="font-size:11px;color:#6B7280;margin-top:4px;">Màu xanh, biển 51A-67890<br>chạy được thật</div>
+            </div>
+        </div>
+        <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+            <em>Code: <code>class MatHang</code> là bản vẽ. <code>Sach("S01", "Tài sản", ...)</code> là chiếc xe được dựng theo bản vẽ đó.</em>
+        </p>
+    </div>
+
+    <h3>1.2. Cú pháp khai báo lớp trong Python</h3>
+    <pre class="code-block">
 <code class="language-python">class TenLop:
     def __init__(self, tham_so_1, tham_so_2):   # Hàm tạo
         self.thuoc_tinh_1 = tham_so_1       # Gán thuộc tính
@@ -86,124 +203,135 @@
 # Sử dụng:
 obj = TenLop("giá trị 1", 123)     # Tạo đối tượng
 obj.phuong_thuc()                  # Gọi phương thức</code>
-</pre>
+    </pre>
 
-<h3>1.3. Giải thích từng từ khóa</h3>
-<table>
-<tr><th>Từ khóa</th><th>Ý nghĩa</th></tr>
-<tr><td><code>class</code></td><td>Khai báo 1 lớp mới</td></tr>
-<tr><td><code>__init__</code></td><td>Hàm tạo (constructor) — tự động chạy khi tạo đối tượng</td></tr>
-<tr><td><code>self</code></td><td>Đại diện cho chính đối tượng đang được tạo/xử lý. Bắt buộc ở tham số đầu của mọi phương thức.</td></tr>
-<tr><td><code>self.xxx</code></td><td>Truy cập / gán thuộc tính <code>xxx</code> của đối tượng</td></tr>
-</table>
+    <h3>1.3. Giải thích từng từ khóa</h3>
+    <table>
+        <tr><th>Từ khóa</th><th>Ý nghĩa</th></tr>
+        <tr><td><code>class</code></td><td>Khai báo 1 lớp mới</td></tr>
+        <tr><td><code>__init__</code></td><td>Hàm tạo (constructor) — tự động chạy khi tạo đối tượng</td></tr>
+        <tr><td><code>self</code></td><td>Đại diện cho chính đối tượng đang được tạo/xử lý. Bắt buộc ở tham số đầu của mọi phương thức.</td></tr>
+        <tr><td><code>self.xxx</code></td><td>Truy cập / gán thuộc tính <code>xxx</code> của đối tượng</td></tr>
+    </table>
 
-<h3>1.4. Lớp MatHang trong đồ án</h3>
-<pre class="code-block">
-<span class="filename">models/item.py</span>
-<code class="language-python">class MatHang:
-    def __init__(self, ma_so, ten, gia_co_ban, so_luong):
-        # Ép kiểu an toàn để tránh lỗi nhập liệu
-        self.ma_so = str(ma_so).strip()
-        self.ten = str(ten).strip()
-        self.gia_co_ban = float(gia_co_ban)
-        self.so_luong = int(so_luong)
+    <h3>1.4. Lớp MatHang trong đồ án (file <code>lop_doi_tuong.py</code>)</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/lop_doi_tuong.py</span>
+<code class="language-python">from abc import ABC, abstractmethod
 
+class MatHang(ABC):
+    """Lớp cha trừu tượng đại diện cho 1 mặt hàng."""
+
+    def __init__(self, ma_so, ten_san_pham, gia_co_ban, ton_kho):
+        self.ma_so        = ma_so
+        self.loai_hang    = ''
+        self.ten_san_pham = ten_san_pham
+        if gia_co_ban &lt; 0:
+            raise ValueError('Giá cơ bản không được âm.')
+        self.gia_co_ban = gia_co_ban
+        if ton_kho &lt; 0:
+            raise ValueError('Tồn kho không được âm.')
+        self.ton_kho = ton_kho
+
+    @abstractmethod
     def tinh_gia_ban(self):
-        # Mặc định: giá bán = giá cơ bản (lớp con sẽ GHI ĐÈ)
-        return self.gia_co_ban
+        """Phương thức trừu tượng — lớp con PHẢI ghi đè."""
+        pass
 
-    def to_dict(self):
+    def chuyen_thanh_dict(self):
+        """Chuyển thành dict để trả về JSON."""
         return {
-            "loai": "MatHang",
-            "ma_so": self.ma_so,
-            "ten": self.ten,
-            "gia_co_ban": self.gia_co_ban,
-            "so_luong": self.so_luong
+            'ma_so':        self.ma_so,
+            'loai_hang':    self.loai_hang,
+            'ten_san_pham': self.ten_san_pham,
+            'gia_co_ban':   self.gia_co_ban,
+            'ton_kho':      self.ton_kho,
+            'gia_ban':      self.tinh_gia_ban()   # Đa hình!
         }</code>
-</pre>
+    </pre>
 
-<p><strong>Giải thích từng dòng:</strong></p>
-<ul>
-    <li><code>class MatHang:</code> — khai báo lớp <code>MatHang</code>.</li>
-    <li><code>def __init__(self, ma_so, ten, gia_co_ban, so_luong):</code> — hàm tạo có 4 tham số.</li>
-    <li><code>self.ma_so = str(ma_so).strip()</code> — ép <code>ma_so</code> thành chuỗi, rồi <code>.strip()</code> cắt khoảng trắng đầu/cuối. <strong>Ép kiểu an toàn</strong> để tránh lỗi nếu user nhập số.</li>
-    <li><code>self.gia_co_ban = float(gia_co_ban)</code> — ép thành số thực (vì giá có thể có lẻ).</li>
-    <li><code>self.so_luong = int(so_luong)</code> — ép thành số nguyên.</li>
-    <li><code>def tinh_gia_ban(self):</code> — phương thức tính giá bán. Mặc định trả về <code>gia_co_ban</code>. <strong>Lớp con sẽ ghi đè</strong>.</li>
-    <li><code>def to_dict(self):</code> — chuyển đối tượng thành dictionary (dict) để dễ lưu vào SQLite.</li>
-</ul>
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>from abc import ABC, abstractmethod</code> — nhập 2 công cụ OOP trừu tượng. <code>ABC</code> = Abstract Base Class.</li>
+        <li><code>class MatHang(ABC):</code> — kế thừa từ <code>ABC</code> → MatHang là lớp trừu tượng, không thể tạo đối tượng trực tiếp.</li>
+        <li><code>if gia_co_ban &lt; 0: raise ValueError(...)</code> — kiểm tra đầu vào. Nếu giá âm → ném lỗi. Đây là <strong>đóng gói</strong> (encapsulation) — bảo vệ dữ liệu hợp lệ.</li>
+        <li><code>@abstractmethod</code> — decorator đánh dấu phương thức trừu tượng. Lớp con <strong>bắt buộc</strong> phải ghi đè, nếu không sẽ lỗi khi tạo đối tượng.</li>
+        <li><code>def tinh_gia_ban(self): pass</code> — body rỗng. Lớp con sẽ định nghĩa lại.</li>
+        <li><code>def chuyen_thanh_dict(self):</code> — chuyển đối tượng thành dict (cho JSON). Gọi <code>self.tinh_gia_ban()</code> — đây là <strong>đa hình</strong>: Python tự gọi đúng hàm của lớp con.</li>
+    </ul>
 
-<h3>1.5. KẾ THỪA (Inheritance) LÀ GÌ?</h3>
-<p>
-    <strong>Kế thừa</strong> là việc 1 lớp con (subclass) <strong>thừa hưởng</strong> toàn bộ
-    thuộc tính và phương thức của lớp cha (superclass). Lớp con có thể <strong>bổ sung</strong>
-    thuộc tính/phương thức mới, hoặc <strong>ghi đè</strong> (override) phương thức cũ.
-</p>
+    <h3>1.5. KẾ THỪA (Inheritance) LÀ GÌ?</h3>
+    <p>
+        <strong>Kế thừa</strong> là việc 1 lớp con (subclass) <strong>thừa hưởng</strong> toàn bộ
+        thuộc tính và phương thức của lớp cha (superclass). Lớp con có thể <strong>bổ sung</strong>
+        thuộc tính/phương thức mới, hoặc <strong>ghi đè</strong> (override) phương thức cũ.
+    </p>
 
-<pre class="code-block">
+    <pre class="code-block">
 <code class="language-python"># Cú pháp: class LopCon(LopCha):
 class Sach(MatHang):              # Sach kế thừa MatHang
-    def __init__(self, ma_so, ten, gia_co_ban, so_luong, tac_gia, nha_xuat_ban):
-        super().__init__(ma_so, ten, gia_co_ban, so_luong)  # Gọi __init__ lớp cha
-        self.tac_gia = tac_gia                # Thuộc tính riêng của Sach
+    def __init__(self, ma_so, ten_san_pham, gia_co_ban, ton_kho, tac_gia, nha_xuat_ban):
+        super().__init__(ma_so, ten_san_pham, gia_co_ban, ton_kho)  # Gọi __init__ lớp cha
+        self.loai_hang    = 'Sách'
+        self.tac_gia      = tac_gia                # Thuộc tính riêng của Sach
         self.nha_xuat_ban = nha_xuat_ban</code>
-</pre>
+    </pre>
 
-<p><strong>Giải thích:</strong></p>
-<ul>
-    <li><code>class Sach(MatHang):</code> — khai báo <code>Sach</code> kế thừa từ <code>MatHang</code>.</li>
-    <li><code>super().__init__(...)</code> — gọi hàm tạo của lớp cha (<code>MatHang</code>). <strong>Bắt buộc</strong> để khởi tạo các thuộc tính chung (ma_so, ten, gia_co_ban, so_luong).</li>
-    <li>Sau đó thêm 2 thuộc tính riêng: <code>tac_gia</code>, <code>nha_xuat_ban</code> — chỉ Sách mới có.</li>
-</ul>
+    <p><strong>Giải thích:</strong></p>
+    <ul>
+        <li><code>class Sach(MatHang):</code> — khai báo <code>Sach</code> kế thừa từ <code>MatHang</code>.</li>
+        <li><code>super().__init__(...)</code> — gọi hàm tạo của lớp cha (<code>MatHang</code>). <strong>Bắt buộc</strong> để khởi tạo các thuộc tính chung.</li>
+        <li>Sau đó thêm 2 thuộc tính riêng: <code>tac_gia</code>, <code>nha_xuat_ban</code> — chỉ Sách mới có.</li>
+    </ul>
 
-<h3>1.6. 5 lớp con trong đồ án</h3>
-<table>
-<tr><th>Lớp con</th><th>Thuộc tính riêng</th></tr>
-<tr><td><code>Sach</code></td><td>tac_gia, nha_xuat_ban</td></tr>
-<tr><td><code>TapChi</code></td><td>so_phat_hanh</td></tr>
-<tr><td><code>Bao</code></td><td>ngay_phat_hanh</td></tr>
-<tr><td><code>LuanVan</code></td><td>truong_dai_hoc</td></tr>
-<tr><td><code>BanThao</code></td><td>tinh_trang (mới/cũ)</td></tr>
-</table>
+    <h3>1.6. 5 lớp con trong đồ án</h3>
+    <table>
+        <tr><th>Lớp con</th><th>Thuộc tính riêng</th><th>Công thức giá bán</th></tr>
+        <tr><td><code>Sach</code></td><td>tac_gia, nha_xuat_ban</td><td>× 1.10 (+10%)</td></tr>
+        <tr><td><code>TapChi</code></td><td>so_phat_hanh</td><td>× 1.05 (+5%)</td></tr>
+        <tr><td><code>BaoGiay</code></td><td>ngay_xuat_ban</td><td>× 1.00 (nguyên giá)</td></tr>
+        <tr><td><code>LuanVan</code></td><td>tac_gia, truong_dai_hoc, nam_bao_ve</td><td>× 1.20 (+20%)</td></tr>
+        <tr><td><code>BanThao</code></td><td>tac_gia, tinh_trang</td><td>× 1.15 (+15%)</td></tr>
+    </table>
 
-<h3>1.7. Sơ đồ class hierarchy trong đồ án</h3>
-<div class="life-example">
-    <h4>🌳 Sơ đồ cây thừa kế (cũng giống cây gia phả!)</h4>
-    <p>Hãy tưởng tượng sơ đồ này như <strong>cây gia phả</strong>: ông bà là <code>MatHang</code> ở trên, các con cháu (5 lớp con) ở dưới. Mỗi lớp con thừa hưởng mọi thứ từ ông bà, nhưng mỗi đứa có đặc điểm riêng.</p>
-    <div class="scene" style="flex-direction:column;gap:0;">
-        <div class="class-tree" style="padding:8px;">
-            <div class="class-node parent">
-                👤 MatHang
-                <span class="method" style="background:rgba(255,255,255,0.2);color:white;">tinh_gia_ban() → return gia_co_ban</span>
-            </div>
-            <div class="connector"></div>
-            <div class="class-children">
-                <div class="class-node child">📚 Sach<span class="method">× 1.20 (+20%)</span></div>
-                <div class="class-node child">📰 TapChi<span class="method">× 0.90 (-10%)</span></div>
-                <div class="class-node child">📄 Bao<span class="method">× 1.00 (nguyên giá)</span></div>
-                <div class="class-node child">🎓 LuanVan<span class="method">× 1.30 (+30%)</span></div>
-                <div class="class-node child">📝 BanThao<span class="method">× 1.50 hoặc 1.20</span></div>
+    <h3>1.7. Sơ đồ class hierarchy trong đồ án</h3>
+    <div class="life-example">
+        <h4>🌳 Sơ đồ cây thừa kế (cũng giống cây gia phả!)</h4>
+        <p>Hãy tưởng tượng sơ đồ này như <strong>cây gia phả</strong>: ông bà là <code>MatHang</code> ở trên, các con cháu (5 lớp con) ở dưới. Mỗi lớp con thừa hưởng mọi thứ từ ông bà, nhưng mỗi đứa có đặc điểm riêng.</p>
+        <div class="scene" style="flex-direction:column;gap:0;">
+            <div class="class-tree" style="padding:8px;">
+                <div class="class-node parent">
+                    👤 MatHang (ABC)
+                    <span class="method" style="background:rgba(255,255,255,0.2);color:white;">tinh_gia_ban() — trừu tượng</span>
+                </div>
+                <div class="connector"></div>
+                <div class="class-children">
+                    <div class="class-node child">📚 Sach<span class="method">× 1.10</span></div>
+                    <div class="class-node child">📰 TapChi<span class="method">× 1.05</span></div>
+                    <div class="class-node child">📄 BaoGiay<span class="method">× 1.00</span></div>
+                    <div class="class-node child">🎓 LuanVan<span class="method">× 1.20</span></div>
+                    <div class="class-node child">📝 BanThao<span class="method">× 1.15</span></div>
+                </div>
             </div>
         </div>
+        <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+            <em>Mỗi lớp con đều <strong>thừa hưởng</strong> lớp cha (MatHang) nhưng <strong>ghi đè</strong> phương thức <code>tinh_gia_ban()</code> theo công thức riêng → đó chính là ĐA HÌNH (bài 2)</em>
+        </p>
     </div>
-    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
-        <em>Mỗi lớp con đều <strong>thừa hưởng</strong> lớp cha (MatHang) nhưng <strong>ghi đè</strong> phương thức <code>tinh_gia_ban()</code> theo công thức riêng → đó chính là ĐA HÌNH (bài 2)</em>
-    </p>
-</div>
 
-<h3>1.8. Mô phỏng tạo đối tượng</h3>
-<div class="demo-box">
-    <h4>🧪 Tạo đối tượng Sach và xem thuộc tính</h4>
-    <div class="controls">
-        <button onclick="oopTaoSach()">📚 Tạo Sach</button>
-        <button onclick="oopTaoTapChi()">📰 Tạo TapChi</button>
-        <button onclick="oopTaoBao()">📄 Tạo Bao</button>
-        <button onclick="oopReset()" class="secondary">🔄 Reset</button>
+    <h3>1.8. Mô phỏng tạo đối tượng</h3>
+    <div class="demo-box">
+        <h4>🧪 Tạo đối tượng Sach và xem thuộc tính</h4>
+        <div class="controls">
+            <button onclick="oopTaoSach()">📚 Tạo Sach</button>
+            <button onclick="oopTaoTapChi()">📰 Tạo TapChi</button>
+            <button onclick="oopTaoBao()">📄 Tạo Bao</button>
+            <button onclick="oopReset()" class="secondary">🔄 Reset</button>
+        </div>
+        <div id="oop-result" style="margin-top:14px;padding:14px;background:#fff;border-radius:6px;">
+            <em style="color:#9CA3AF">Chưa tạo đối tượng nào.</em>
+        </div>
     </div>
-    <div id="oop-result" style="margin-top:14px;padding:14px;background:#fff;border-radius:6px;">
-        <em style="color:#9CA3AF">Chưa tạo đối tượng nào.</em>
-    </div>
-</div>
 
 </section>
 
@@ -211,141 +339,145 @@ class Sach(MatHang):              # Sach kế thừa MatHang
 <!-- ===================== BÀI 2: ĐA HÌNH ======================= -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai2">
-<h2>BÀI 2 — TÍNH ĐA HÌNH (POLYMORPHISM)</h2>
+    <h2>
+        BÀI 2 — TÍNH ĐA HÌNH (POLYMORPHISM)
+        <span class="phu-trach ngo">NGỌ phụ trách</span>
+    </h2>
 
-<div class="warning">
-    <strong>⚠️ PHẦN NÀY HAY BỊ HỎI THI NHẤT!</strong> Đọc kỹ, học thuộc 5 công thức tính giá.
-</div>
+    <div class="warning">
+        <strong>⚠️ PHẦN NÀY HAY BỊ HỎI THI NHẤT!</strong> Đọc kỹ, học thuộc 5 công thức tính giá.
+    </div>
 
-<h3>2.1. Đa hình LÀ GÌ?</h3>
-<p>
-    <strong>Đa hình (Polymorphism)</strong> — cùng 1 lời gọi phương thức nhưng mỗi đối tượng
-    trả về kết quả khác nhau tùy loại. Đa hình đạt được bằng cách <strong>các lớp con ghi đè
-    (override)</strong> phương thức của lớp cha.
-</p>
+    <h3>2.1. Đa hình LÀ GÌ?</h3>
+    <p>
+        <strong>Đa hình (Polymorphism)</strong> — cùng 1 lời gọi phương thức nhưng mỗi đối tượng
+        trả về kết quả khác nhau tùy loại. Đa hình đạt được bằng cách <strong>các lớp con ghi đè
+        (override)</strong> phương thức của lớp cha.
+    </p>
 
-<div class="note">
-    <strong>💡 Ví dụ đời thường:</strong> Cùng câu lệnh "Hãy kêu!" nhưng:
-    Chó kêu "Gâu gâu", Mèo kêu "Meo meo", Vịt kêu "Quạc quạc".
-    Cùng 1 lời gọi <code>kêu()</code> nhưng mỗi loài trả về âm thanh khác nhau → ĐA HÌNH.
-</div>
+    <div class="note">
+        <strong>💡 Ví dụ đời thường:</strong> Cùng câu lệnh "Hãy kêu!" nhưng:
+        Chó kêu "Gâu gâu", Mèo kêu "Meo meo", Vịt kêu "Quạc quạc".
+        Cùng 1 lời gọi <code>kêu()</code> nhưng mỗi loài trả về âm thanh khác nhau → ĐA HÌNH.
+    </div>
 
-<h3>2.2. GHI ĐÈ (Override) LÀ GÌ?</h3>
-<p>
-    <strong>Ghi đè</strong> = lớp con định nghĩa lại phương thức đã có ở lớp cha, với logic
-    riêng của lớp con. Khi gọi, Python sẽ dùng phiên bản của lớp con (không phải lớp cha).
-</p>
+    <h3>2.2. GHI ĐÈ (Override) LÀ GÌ?</h3>
+    <p>
+        <strong>Ghi đè</strong> = lớp con định nghĩa lại phương thức đã có ở lớp cha, với logic
+        riêng của lớp con. Khi gọi, Python sẽ dùng phiên bản của lớp con (không phải lớp cha).
+    </p>
 
-<h3>2.3. 5 công thức tinh_gia_ban() trong đồ án</h3>
-<table>
-<tr><th>Lớp con</th><th>Công thức</th><th>Vd: gia_co_ban=100000</th></tr>
-<tr><td><code>Sach</code></td><td>gia_co_ban × 1.20</td><td>120,000 đ</td></tr>
-<tr><td><code>TapChi</code></td><td>gia_co_ban × 0.90</td><td>90,000 đ</td></tr>
-<tr><td><code>Bao</code></td><td>gia_co_ban × 1.00</td><td>100,000 đ</td></tr>
-<tr><td><code>LuanVan</code></td><td>gia_co_ban × 1.30</td><td>130,000 đ</td></tr>
-<tr><td><code>BanThao</code> (mới)</td><td>gia_co_ban × 1.50</td><td>150,000 đ</td></tr>
-<tr><td><code>BanThao</code> (cũ)</td><td>gia_co_ban × 1.20</td><td>120,000 đ</td></tr>
-</table>
+    <h3>2.3. 5 công thức tinh_gia_ban() trong đồ án</h3>
+    <table>
+        <tr><th>Lớp con</th><th>Công thức</th><th>Vd: gia_co_ban=100000</th></tr>
+        <tr><td><code>Sach</code></td><td>gia_co_ban × 1.10</td><td>110,000 đ</td></tr>
+        <tr><td><code>TapChi</code></td><td>gia_co_ban × 1.05</td><td>105,000 đ</td></tr>
+        <tr><td><code>BaoGiay</code></td><td>gia_co_ban × 1.00</td><td>100,000 đ</td></tr>
+        <tr><td><code>LuanVan</code></td><td>gia_co_ban × 1.20</td><td>120,000 đ</td></tr>
+        <tr><td><code>BanThao</code></td><td>gia_co_ban × 1.15</td><td>115,000 đ</td></tr>
+    </table>
 
-<h3>2.4. Code thực tế</h3>
-<pre class="code-block">
-<span class="filename">models/subclasses.py</span>
+    <h3>2.4. Code thực tế (file <code>lop_doi_tuong.py</code>)</h3>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/lop_doi_tuong.py</span>
 <code class="language-python">class Sach(MatHang):
     def tinh_gia_ban(self):
-        return self.gia_co_ban * 1.20     # +20%
+        """Đa hình: Sách có phụ thu 10% bản quyền."""
+        return self.gia_co_ban * 1.10
 
 class TapChi(MatHang):
     def tinh_gia_ban(self):
-        return self.gia_co_ban * 0.90     # -10%
+        """Đa hình: Tạp chí phụ thu 5%."""
+        return self.gia_co_ban * 1.05
 
-class Bao(MatHang):
+class BaoGiay(MatHang):
     def tinh_gia_ban(self):
-        return self.gia_co_ban * 1.00     # giữ nguyên
+        """Đa hình: Báo giấy không phụ thu."""
+        return self.gia_co_ban
 
 class LuanVan(MatHang):
     def tinh_gia_ban(self):
-        return self.gia_co_ban * 1.30     # +30%
+        """Đa hình: Luận văn phụ thu 20% giá trị học thuật."""
+        return self.gia_co_ban * 1.20
 
 class BanThao(MatHang):
     def tinh_gia_ban(self):
-        if self.tinh_trang.lower() == "mới":
-            return self.gia_co_ban * 1.50 # +50% (mới)
-        else:
-            return self.gia_co_ban * 1.20 # +20% (cũ)</code>
-</pre>
+        """Đa hình: Bản thảo phụ thu 15% cho tài liệu gốc."""
+        return self.gia_co_ban * 1.15</code>
+    </pre>
 
-<h3>2.5. Cách đa hình hoạt động</h3>
-<pre class="code-block">
-<code class="language-python"># Tạo 5 đối tượng khác loại
+    <h3>2.5. Cách đa hình hoạt động</h3>
+    <pre class="code-block">
+<code class="language-python"># Tạo 5 đối tượng khác loại — đều kế thừa từ MatHang
 ds = [
-    Sach("S01", "Sách A", 100000, 10, "TG", "NXB"),
-    TapChi("T01", "Tạp chí B", 100000, 5, "Số 1"),
-    Bao("B01", "Báo C", 100000, 20, "01/01/2025"),
-    LuanVan("LV01", "Luận văn D", 100000, 2, "ĐH Bách Khoa"),
-    BanThao("BT01", "Bản thảo E", 100000, 1, "mới"),
+    Sach   ("S01", "Sách A",   100000, 10, "TG",   "NXB"),
+    TapChi ("T01", "Tạp chí B", 100000, 5,  "Số 1"),
+    BaoGiay("B01", "Báo C",    100000, 20, "01/01/2025"),
+    LuanVan("L01", "Luận văn D", 100000, 2, "TG", "ĐH Bách Khoa", "2024"),
+    BanThao("BT01","Bản thảo E",100000, 1, "TG", "Chưa duyệt"),
 ]
 
 # CÙNG 1 lời gọi tinh_gia_ban() — 5 kết quả khác nhau!
 for sp in ds:
     print(sp.tinh_gia_ban())
-# In ra: 120000, 90000, 100000, 130000, 150000</code>
-</pre>
+# In ra: 110000, 105000, 100000, 120000, 115000</code>
+    </pre>
 
-<div class="tip">
-    <strong>💡 Đây chính là ĐA HÌNH!</strong> Cùng <code>sp.tinh_gia_ban()</code> nhưng mỗi sp
-    trả về giá khác nhau tùy loại. Python tự biết gọi đúng phương thức của lớp con tương ứng.
-</div>
-
-<h3>2.6. Mô phỏng đa hình</h3>
-
-<div class="life-example">
-    <h4>🐶 Ví dụ đời thường: Động vật kêu</h4>
-    <p>Cùng 1 câu lệnh <code>kêu()</code> nhưng mỗi con vật trả về âm thanh khác nhau. Đó chính là ĐA HÌNH. Bấm vào từng con để nghe thử:</p>
-    <div class="poly-demo">
-        <div class="poly-card" onclick="animalKeu(this, 'Chó', 'Gâu gâu! 🐕')">
-            <div class="icon">🐕</div>
-            <div class="title">Chó</div>
-            <div class="price">.keu() → "Gâu gâu"</div>
-        </div>
-        <div class="poly-card" onclick="animalKeu(this, 'Mèo', 'Meo meo! 🐈')">
-            <div class="icon">🐈</div>
-            <div class="title">Mèo</div>
-            <div class="price">.keu() → "Meo meo"</div>
-        </div>
-        <div class="poly-card" onclick="animalKeu(this, 'Vịt', 'Quạc quạc! 🦆')">
-            <div class="icon">🦆</div>
-            <div class="title">Vịt</div>
-            <div class="price">.keu() → "Quạc quạc"</div>
-        </div>
-        <div class="poly-card" onclick="animalKeu(this, 'Bò', 'Êmmmm! 🐄')">
-            <div class="icon">🐄</div>
-            <div class="title">Bò</div>
-            <div class="price">.keu() → "Êmmmm"</div>
-        </div>
-        <div class="poly-card" onclick="animalKeu(this, 'Lợn', 'Hét hét! 🐖')">
-            <div class="icon">🐖</div>
-            <div class="title">Lợn</div>
-            <div class="price">.keu() → "Hét hét"</div>
-        </div>
+    <div class="tip">
+        <strong>💡 Đây chính là ĐA HÌNH!</strong> Cùng <code>sp.tinh_gia_ban()</code> nhưng mỗi sp
+        trả về giá khác nhau tùy loại. Python tự biết gọi đúng phương thức của lớp con tương ứng.
     </div>
-    <div id="animal-result" style="text-align:center;padding:14px;background:#FEF3C7;border-radius:6px;margin-top:10px;font-size:15px;color:#92400E;">
-        <em>Bấm vào 1 con vật để xem đa hình hoạt động!</em>
-    </div>
-    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
-        <em>Trong đồ án: cùng <code>sp.tinh_gia_ban()</code> nhưng Sách ra 120k, Tạp chí ra 90k, Báo ra 100k... cũng y hệt!</em>
-    </p>
-</div>
 
-<div class="demo-box">
-    <h4>🧪 Nhập giá cơ bản → xem giá bán của từng loại (ĐA HÌNH)</h4>
-    <label>Giá cơ bản (VNĐ):</label>
-    <input type="number" id="dh-gia" value="100000" style="padding:8px;border:1px solid #cbd5e1;border-radius:4px;width:200px;margin:8px 0;">
-    <div class="controls">
-        <button onclick="daHinhTinh()">⚡ Tính giá bán tất cả</button>
-        <button onclick="daHinhReset()" class="secondary">🔄 Reset</button>
+    <h3>2.6. Mô phỏng đa hình</h3>
+
+    <div class="life-example">
+        <h4>🐶 Ví dụ đời thường: Động vật kêu</h4>
+        <p>Cùng 1 câu lệnh <code>kêu()</code> nhưng mỗi con vật trả về âm thanh khác nhau. Đó chính là ĐA HÌNH. Bấm vào từng con để nghe thử:</p>
+        <div class="poly-demo">
+            <div class="poly-card" onclick="animalKeu(this, 'Chó', 'Gâu gâu! 🐕')">
+                <div class="icon">🐕</div>
+                <div class="title">Chó</div>
+                <div class="price">.keu() → "Gâu gâu"</div>
+            </div>
+            <div class="poly-card" onclick="animalKeu(this, 'Mèo', 'Meo meo! 🐈')">
+                <div class="icon">🐈</div>
+                <div class="title">Mèo</div>
+                <div class="price">.keu() → "Meo meo"</div>
+            </div>
+            <div class="poly-card" onclick="animalKeu(this, 'Vịt', 'Quạc quạc! 🦆')">
+                <div class="icon">🦆</div>
+                <div class="title">Vịt</div>
+                <div class="price">.keu() → "Quạc quạc"</div>
+            </div>
+            <div class="poly-card" onclick="animalKeu(this, 'Bò', 'Êmmmm! 🐄')">
+                <div class="icon">🐄</div>
+                <div class="title">Bò</div>
+                <div class="price">.keu() → "Êmmmm"</div>
+            </div>
+            <div class="poly-card" onclick="animalKeu(this, 'Lợn', 'Hét hét! 🐖')">
+                <div class="icon">🐖</div>
+                <div class="title">Lợn</div>
+                <div class="price">.keu() → "Hét hét"</div>
+            </div>
+        </div>
+        <div id="animal-result" style="text-align:center;padding:14px;background:#FEF3C7;border-radius:6px;margin-top:10px;font-size:15px;color:#92400E;">
+            <em>Bấm vào 1 con vật để xem đa hình hoạt động!</em>
+        </div>
+        <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+            <em>Trong đồ án: cùng <code>sp.tinh_gia_ban()</code> nhưng Sách ra 110k, Tạp chí ra 105k, Báo giấy ra 100k... cũng y hệt!</em>
+        </p>
     </div>
-    <div id="dh-result" style="margin-top:14px;"></div>
-</div>
+
+    <div class="demo-box">
+        <h4>🧪 Nhập giá cơ bản → xem giá bán của từng loại (ĐA HÌNH)</h4>
+        <label>Giá cơ bản (VNĐ):</label>
+        <input type="number" id="dh-gia" value="100000" style="padding:8px;border:1px solid #cbd5e1;border-radius:4px;width:200px;margin:8px 0;">
+        <div class="controls">
+            <button onclick="daHinhTinh()">⚡ Tính giá bán tất cả</button>
+            <button onclick="daHinhReset()" class="secondary">🔄 Reset</button>
+        </div>
+        <div id="dh-result" style="margin-top:14px;"></div>
+    </div>
 
 </section>
 
@@ -353,294 +485,487 @@ for sp in ds:
 <!-- ===================== BÀI 3: QUEUE (FIFO) ================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai3">
-<h2>BÀI 3 — HÀNG ĐỢI (QUEUE) — FIFO</h2>
+    <h2>
+        BÀI 3 — HÀNG ĐỢI (QUEUE) — FIFO
+        <span class="phu-trach tu">TÚ</span>
+    </h2>
 
-<h3>3.1. Queue LÀ GÌ?</h3>
-<p>
-    <strong>Hàng đợi (Queue)</strong> là cấu trúc dữ liệu theo nguyên tắc <strong>FIFO</strong>
-    — <em>First In, First Out</em> (Vào trước, ra trước).
-</p>
+    <h3>3.1. Queue LÀ GÌ?</h3>
+    <p>
+        <strong>Hàng đợi (Queue)</strong> là cấu trúc dữ liệu theo nguyên tắc <strong>FIFO</strong>
+        — <em>First In, First Out</em> (Vào trước, ra trước).
+    </p>
 
-<div class="note">
-    <strong>💡 Tưởng tượng đời thường:</strong> Hãy nghĩ về <strong>xếp hàng mua vé</strong>.
-    Người đến trước được phục vụ trước. Người đến sau phải xếp cuối hàng, đợi đến lượt.
-</div>
+    <div class="note">
+        <strong>💡 Tưởng tượng đời thường:</strong> Hãy nghĩ về <strong>xếp hàng mua vé</strong>.
+        Người đến trước được phục vụ trước. Người đến sau phải xếp cuối hàng, đợi đến lượt.
+    </div>
 
-<h3>3.2. So sánh Stack và Queue</h3>
-<table>
-<tr><th>Đặc điểm</th><th>Stack (LIFO)</th><th>Queue (FIFO)</th></tr>
-<tr><td>Nguyên tắc</td><td>Vào sau, ra trước</td><td>Vào trước, ra trước</td></tr>
-<tr><td>Ví dụ</td><td>Chồng đĩa</td><td>Xếp hàng mua vé</td></tr>
-<tr><td>Số đầu</td><td>1 (đỉnh)</td><td>2 (đầu + cuối)</td></tr>
-<tr><td>Ứng dụng</td><td>Undo/Redo</td><td>Giỏ hàng + thanh toán</td></tr>
-</table>
+    <h3>3.2. So sánh Stack và Queue</h3>
+    <table>
+        <tr><th>Đặc điểm</th><th>Stack (LIFO)</th><th>Queue (FIFO)</th></tr>
+        <tr><td>Nguyên tắc</td><td>Vào sau, ra trước</td><td>Vào trước, ra trước</td></tr>
+        <tr><td>Ví dụ</td><td>Chồng đĩa</td><td>Xếp hàng mua vé</td></tr>
+        <tr><td>Số đầu</td><td>1 (đỉnh)</td><td>2 (đầu + cuối)</td></tr>
+        <tr><td>Ứng dụng</td><td>Undo/Redo</td><td>Giỏ hàng + thanh toán</td></tr>
+    </table>
 
-<h3>3.3. 3 thao tác chính</h3>
-<table>
-<tr><th>Tên tiếng Anh</th><th>Tên code</th><th>Tác dụng</th></tr>
-<tr><td><strong>ENQUEUE</strong></td><td><code>them_vao(du_lieu)</code></td><td>Thêm phần tử vào CUỐI hàng</td></tr>
-<tr><td><strong>DEQUEUE</strong></td><td><code>lay_ra()</code></td><td>Lấy phần tử ở ĐẦU hàng ra</td></tr>
-<tr><td><strong>PEEK</strong></td><td>(không có riêng)</td><td>Xem phần tử đầu không lấy</td></tr>
-</table>
+    <h3>3.3. 3 thao tác chính</h3>
+    <table>
+        <tr><th>Tên tiếng Anh</th><th>Tên code</th><th>Tác dụng</th></tr>
+        <tr><td><strong>ENQUEUE</strong></td><td><code>them_vao(du_lieu)</code></td><td>Thêm phần tử vào CUỐI hàng</td></tr>
+        <tr><td><strong>DEQUEUE</strong></td><td><code>lay_ra()</code></td><td>Lấy phần tử ở ĐẦU hàng ra</td></tr>
+        <tr><td><strong>PEEK</strong></td><td><code>xem_danh_sach()</code></td><td>Xem toàn bộ hàng không lấy</td></tr>
+    </table>
 
-<h3>3.4. Cài đặt trong đồ án (file <code>models/hang_doi.py</code>)</h3>
+    <h3>3.4. Cài đặt trong đồ án (file <code>cau_truc_du_lieu.py</code>)</h3>
 
-<h4>3.4.1. Lớp NutHangDoi</h4>
-<pre class="code-block">
-<code class="language-python">class NutHangDoi:
-    def __init__(self, du_lieu):
-        self.du_lieu = du_lieu
-        self.sau = None      # Trỏ tới mắt xích đứng SAU mình</code>
-</pre>
+    <h4>3.4.1. Lớp NodeHangDoi</h4>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/cau_truc_du_lieu.py</span>
+<code class="language-python">class NodeHangDoi:
+    def __init__(self, data):
+        self.data = data       # Dữ liệu (mặt hàng trong giỏ)
+        self.sau = None        # Trỏ tới mắt xích đứng SAU mình</code>
+    </pre>
 
-<h4>3.4.2. Lớp HangDoi</h4>
-<pre class="code-block">
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>class NodeHangDoi:</code> — khai báo lớp Node cho Queue.</li>
+        <li><code>self.data = data</code> — lưu dữ liệu vào Node.</li>
+        <li><code>self.sau = None</code> — con trỏ trỏ tới Node tiếp theo. Ban đầu None.</li>
+    </ul>
+
+    <h4>3.4.2. Lớp HangDoi</h4>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/cau_truc_du_lieu.py</span>
 <code class="language-python">class HangDoi:
     def __init__(self):
-        self.dau = None      # Phần tử ĐẦU (lấy ra ở đây)
-        self.cuoi = None     # Phần tử CUỐI (thêm vào ở đây)
-        self.so_luong = 0</code>
-</pre>
-<p><strong>Khác Stack:</strong> Queue cần <strong>2 con trỏ</strong> <code>dau</code> và <code>cuoi</code>
-vì thao tác ở 2 đầu khác nhau.</p>
+        self.dau       = None     # Phần tử ĐẦU (lấy ra ở đây)
+        self.cuoi_hang = None     # Phần tử CUỐI (thêm vào ở đây)
+        self.so_luong  = 0</code>
+    </pre>
+    <p><strong>Khác Stack:</strong> Queue cần <strong>2 con trỏ</strong> <code>dau</code> và <code>cuoi_hang</code>
+    vì thao tác ở 2 đầu khác nhau (thêm cuối, lấy đầu).</p>
 
-<h4>3.4.3. Hàm them_vao() — ENQUEUE</h4>
-<pre class="code-block">
-<code class="language-python">def them_vao(self, du_lieu):
-    nut_moi = NutHangDoi(du_lieu)
-    if self.cuoi is None:
-        # Hàng rỗng → phần tử mới là vừa đầu vừa cuối
-        self.dau = nut_moi
-        self.cuoi = nut_moi
+    <h4>3.4.3. Hàm them_vao() — ENQUEUE</h4>
+    <pre class="code-block">
+<code class="language-python">def them_vao(self, data):
+    node_moi = NodeHangDoi(data)
+
+    # Trường hợp 1: Hàng đợi rỗng
+    if self.dau is None:
+        self.dau       = node_moi
+        self.cuoi_hang = node_moi
     else:
-        self.cuoi.sau = nut_moi     # Phần tử cuối hiện tại trỏ tới phần tử mới
-        self.cuoi = nut_moi          # Cập nhật lại con trỏ `cuoi`
-    self.so_luong += 1</code>
-</pre>
+        # Trường hợp 2: Hàng đợi đã có phần tử
+        self.cuoi_hang.sau = node_moi     # Node cuối hiện tại trỏ tới Node mới
+        self.cuoi_hang    = node_moi      # Cập nhật lại con trỏ `cuoi_hang`
 
-<h4>3.4.4. Hàm lay_ra() — DEQUEUE</h4>
-<pre class="code-block">
+    self.so_luong += 1</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>node_moi = NodeHangDoi(data)</code> — tạo Node mới chứa dữ liệu.</li>
+        <li><code>if self.dau is None:</code> — kiểm tra hàng rỗng.</li>
+        <li>Nếu rỗng: <code>self.dau = node_moi</code> và <code>self.cuoi_hang = node_moi</code> — Node mới là vừa đầu vừa cuối.</li>
+        <li>Nếu không rỗng: <code>self.cuoi_hang.sau = node_moi</code> — Node cuối hiện tại trỏ <code>sau</code> tới Node mới.</li>
+        <li><code>self.cuoi_hang = node_moi</code> — cập nhật <code>cuoi_hang</code> = Node mới.</li>
+        <li><code>self.so_luong += 1</code> — tăng bộ đếm.</li>
+    </ul>
+
+    <h4>3.4.4. Hàm lay_ra() — DEQUEUE</h4>
+    <pre class="code-block">
 <code class="language-python">def lay_ra(self):
     if self.dau is None:
         return None                # Hàng rỗng
-    nut_lay = self.dau              # Lưu phần tử đầu
-    self.dau = self.dau.sau         # Đầu mới = phần tử đứng sau
+
+    data = self.dau.data           # Lưu dữ liệu đầu
+    self.dau = self.dau.sau        # Đầu mới = phần tử đứng sau
+
+    # Nếu hàng đợi chỉ còn 1 phần tử, cập nhật lại cuối
     if self.dau is None:
-        self.cuoi = None            # Nếu lấy hết → cuoi cũng None
+        self.cuoi_hang = None
+
     self.so_luong -= 1
-    return nut_lay.du_lieu</code>
-</pre>
+    return data</code>
+    </pre>
 
-<h3>3.5. Ứng dụng: GIỎ HÀNG + THANH TOÁN theo FIFO</h3>
-<p>
-    Trong đồ án, giỏ hàng là 1 Queue. Khi user bấm <strong>"Thêm vào giỏ"</strong> → gọi
-    <code>them_vao(sp)</code>. Khi bấm <strong>"Thanh Toán"</strong> → vòng lặp <code>while not rong():</code>
-    lấy từng món ra theo FIFO, món nào thêm trước sẽ thanh toán trước.
-</p>
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>if self.dau is None:</code> — kiểm tra hàng rỗng.</li>
+        <li><code>data = self.dau.data</code> — lưu dữ liệu của Node đầu vào biến tạm. <strong>Phải làm trước khi đổi <code>self.dau</code></strong>.</li>
+        <li><code>self.dau = self.dau.sau</code> — dịch <code>dau</code> sang Node tiếp theo. Node đầu cũ bị "bỏ rơi".</li>
+        <li><code>if self.dau is None: self.cuoi_hang = None</code> — nếu sau khi lấy ra hàng rỗng, phải reset <code>cuoi_hang = None</code> để tránh tham chiếu treo.</li>
+        <li><code>return data</code> — trả dữ liệu đã lưu.</li>
+    </ul>
 
-<pre class="code-block">
-<code class="language-python"># Hàm thanh toán (trong hop_thoai_gio_hang.py)
-while not self.cua_so_cha.gio_hang.rong():
-    sp = self.cua_so_cha.gio_hang.lay_ra()      # Lấy món ĐẦU tiên
-    sp_trong_kho = self.cua_so_cha.danh_sach.tim_kiem_theo_ma(sp.ma_so)
-    if sp_trong_kho is not None and sp_trong_kho.so_luong &gt; 0:
-        sp_trong_kho.so_luong -= 1            # Giảm tồn kho
-        tong_tien += sp.tinh_gia_ban()         # Đa hình!</code>
-</pre>
-
-<h3>3.6. Mô phỏng Queue — giỏ hàng + thanh toán FIFO</h3>
-
-<div class="life-example">
-    <h4>🎟️ Ví dụ đời thường: Xếp hàng mua vé xem phim</h4>
-    <p>Hãy tưởng tượng bạn đứng trước rạp chiếu phim. Có 1 hàng người xếp hàng mua vé (Queue). Cô nhân viên thu ngân sẽ phục vụ <strong>người đứng ĐẦU hàng</strong> trước (DEQUEUE). Người mới đến phải xếp <strong>CUỐI hàng</strong> (ENQUEUE). Ai đến trước được mua vé trước → đó chính là FIFO.</p>
-    <div class="scene" style="flex-direction:column;gap:0;">
-        <div class="ticket-line">
-            <div class="gate">🚪<br>QUẦY<br>VÉ</div>
-            <div class="customer">1<br>🧑</div>
-            <div class="customer">2<br>👩</div>
-            <div class="customer">3<br>🧓</div>
-            <div class="customer">4<br>👨</div>
-            <div style="font-size:20px;color:#9CA3AF;">...</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7280;margin-top:8px;padding:0 12px;">
-            <span>← Người này sẽ được phục vụ tiếp theo (DEQUEUE)</span>
-            <span>Người mới đến sẽ xếp sau (ENQUEUE) →</span>
-        </div>
-    </div>
-    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
-        <em>Trong đồ án: giỏ hàng là Queue. Khách bấm <strong>"Thêm vào giỏ"</strong> = ENQUEUE (thêm cuối). Bấm <strong>"Thanh Toán"</strong> = DEQUEUE từng món theo FIFO.</em>
+    <h3>3.5. Ứng dụng: GIỎ HÀNG + THANH TOÁN theo FIFO</h3>
+    <p>
+        Trong đồ án, giỏ hàng là 1 Queue. Khi user bấm <strong>"Thêm vào giỏ"</strong> → gọi
+        <code>them_vao(sp)</code>. Khi bấm <strong>"Thanh Toán"</strong> → vòng lặp
+        <code>while not rong():</code> lấy từng món ra theo FIFO, món nào thêm trước sẽ thanh toán trước.
     </p>
-</div>
 
-<div class="demo-box">
-    <h4>🧪 Mô phỏng giỏ hàng Queue</h4>
-    <div class="queue-container" id="queue-visual">
-        <em style="color:#9CA3AF">(giỏ hàng rỗng)</em>
+    <pre class="code-block">
+<span class="filename">ung_dung_giao_tiep/loi_thuat_toan/undo_redo_gio_hang.py</span>
+<code class="language-python">class GioHang:
+    """Lớp Giỏ hàng sử dụng Queue (FIFO)."""
+
+    def thanh_toan(self):
+        """Dequeue tất cả - Xử lý thanh toán và trả về hóa đơn."""
+        if self.la_rong():
+            return None
+        hoa_don = {'cac_mon': [], 'tong_tien': 0, 'so_mon': self._so_luong}
+        while not self.la_rong():
+            mon = self._dau.du_lieu                # Lấy dữ liệu Node đầu
+            hoa_don['cac_mon'].append(mon)         # Thêm vào hóa đơn
+            hoa_don['tong_tien'] += mon['thanh_tien']
+            self._dau = self._dau.tiep_theo        # Dịch đầu sang Node sau
+            self._so_luong -= 1
+        self._cuoi = None                          # Reset cuối
+        return hoa_don</code>
+    </pre>
+
+    <h3>3.6. Mô phỏng Queue — giỏ hàng + thanh toán FIFO</h3>
+
+    <div class="life-example">
+        <h4>🎟️ Ví dụ đời thường: Xếp hàng mua vé xem phim</h4>
+        <p>Hãy tưởng tượng bạn đứng trước rạp chiếu phim. Có 1 hàng người xếp hàng mua vé (Queue). Cô nhân viên thu ngân sẽ phục vụ <strong>người đứng ĐẦU hàng</strong> trước (DEQUEUE). Người mới đến phải xếp <strong>CUỐI hàng</strong> (ENQUEUE). Ai đến trước được mua vé trước → đó chính là FIFO.</p>
+        <div class="scene" style="flex-direction:column;gap:0;">
+            <div class="ticket-line">
+                <div class="gate">🚪<br>QUẦY<br>VÉ</div>
+                <div class="customer">1<br>🧑</div>
+                <div class="customer">2<br>👩</div>
+                <div class="customer">3<br>🧓</div>
+                <div class="customer">4<br>👨</div>
+                <div style="font-size:20px;color:#9CA3AF;">...</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7280;margin-top:8px;padding:0 12px;">
+                <span>← Người này sẽ được phục vụ tiếp theo (DEQUEUE)</span>
+                <span>Người mới đến sẽ xếp sau (ENQUEUE) →</span>
+            </div>
+        </div>
+        <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+            <em>Trong đồ án: giỏ hàng là Queue. Khách bấm <strong>"Thêm vào giỏ"</strong> = ENQUEUE (thêm cuối). Bấm <strong>"Thanh Toán"</strong> = DEQUEUE từng món theo FIFO.</em>
+        </p>
     </div>
-    <div class="controls" style="margin-top:30px;">
-        <button onclick="qEnqueue()">➕ ENQUEUE (Thêm vào giỏ)</button>
-        <button onclick="qDequeue()" class="danger">💳 DEQUEUE (Thanh toán 1 món)</button>
-        <button onclick="qReset()" class="secondary">🔄 Reset</button>
+
+    <div class="demo-box">
+        <h4>🧪 Mô phỏng giỏ hàng Queue</h4>
+        <div class="queue-container" id="queue-visual">
+            <em style="color:#9CA3AF">(giỏ hàng rỗng)</em>
+        </div>
+        <div class="controls" style="margin-top:30px;">
+            <button onclick="qEnqueue()">➕ ENQUEUE (Thêm vào giỏ)</button>
+            <button onclick="qDequeue()" class="danger">💳 DEQUEUE (Thanh toán 1 món)</button>
+            <button onclick="qReset()" class="secondary">🔄 Reset</button>
+        </div>
+        <div class="log-output" id="queue-log">
+            <div class="log-line">Sẵn sàng.</div>
+        </div>
     </div>
-    <div class="log-output" id="queue-log">
-        <div class="log-line">Sẵn sàng.</div>
-    </div>
-</div>
 
 </section>
 
 <!-- ============================================================ -->
-<!-- ===================== BÀI 4: PYQT DIALOGS ================== -->
+<!-- ===== BÀI 4: HTML PARTIALS + JAVASCRIPT (MỚI — thay PyQt6) == -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai4">
-<h2>BÀI 4 — PYQT6 DIALOGS (Form Thêm/Sửa, Giỏ hàng, Đăng nhập)</h2>
+    <h2>
+        BÀI 4 — HTML PARTIALS &amp; JAVASCRIPT (FRONTEND)
+        <span class="phu-trach tu">TÚ</span>
+    </h2>
 
-<h3>4.1. QDialog LÀ GÌ?</h3>
-<p>
-    <strong>QDialog</strong> là cửa sổ pop-up phụ, thường dùng để <strong>thu thập thông tin</strong>
-    từ người dùng. Khác với <code>QMainWindow</code> (cửa sổ chính), dialog có <strong>2 kết quả</strong>
-    khi đóng: <code>Accepted</code> (bấm Lưu) hoặc <code>Rejected</code> (bấm Hủy).
-</p>
-
-<h3>4.2. Cấu trúc cơ bản 1 QDialog</h3>
-<pre class="code-block">
-<code class="language-python">from PyQt6.QtWidgets import QDialog, QVBoxLayout, QPushButton
-
-class HopThoaiCuaToi(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("Hộp thoại của tôi")
-        self.resize(400, 300)
-        self.thiet_lap_giao_dien()
-
-    def thiet_lap_giao_dien(self):
-        layout = QVBoxLayout()
-        layout.addWidget(QLabel("Nhập gì đó:"))
-        self.nhap = QLineEdit()
-
-        nut_luu = QPushButton("Lưu")
-        nut_luu.clicked.connect(self.chap_nhan)    # → Accepted
-
-        nut_huy = QPushButton("Hủy")
-        nut_huy.clicked.connect(self.reject)        # → Rejected
-
-        layout.addWidget(self.nhap)
-        layout.addWidget(nut_luu)
-        layout.addWidget(nut_huy)
-        self.setLayout(layout)
-
-    def chap_nhan(self):
-        # Kiểm tra dữ liệu rồi mới accept
-        if not self.nhap.text().strip():
-            QMessageBox.warning(self, "Lỗi", "Không được bỏ trống!")
-            return
-        self.accept()       # Đóng dialog với kết quả Accepted
-
-
-# Cách gọi từ cửa sổ chính:
-hop_thoai = HopThoaiCuaToi(self)
-if hop_thoai.exec() == QDialog.DialogCode.Accepted:
-    # User bấm Lưu
-    text = hop_thoai.nhap.text()
-    print(f"Đã nhập: {text}")</code>
-</pre>
-
-<h3>4.3. HopThoaiThemMoi — form Thêm/Sửa sản phẩm</h3>
-<p>Đặc điểm:</p>
-<ul>
-    <li>Combo chọn loại (5 loại: Sách/Tạp chí/Báo/Luận văn/Bản thảo)</li>
-    <li>4 ô chung: mã, tên, giá, số lượng</li>
-    <li>2 ô riêng (ẩn/hiện theo loại — vd: Sách có Tác giả + NXB, Tạp chí chỉ có Số phát hành)</li>
-    <li>Kiểm tra dữ liệu: bắt lỗi bỏ trống, sai định dạng, sai tình trạng</li>
-    <li>Hàm <code>thay_doi_loai()</code> — tự ẩn/hiện ô nhập riêng khi user đổi loại</li>
-</ul>
-
-<h3>4.4. HopThoaiGioHang — form Giỏ hàng</h3>
-<p>Đặc điểm:</p>
-<ul>
-    <li>Bảng <code>QTableWidget</code> hiển thị giỏ (theo thứ tự FIFO)</li>
-    <li>Nút <strong>"Bỏ Khỏi Giỏ"</strong> — gọi <code>gio_hang.xoa_theo_ma(ma_so)</code></li>
-    <li>Nút <strong>"Thanh Toán (FIFO)"</strong> — vòng lặp <code>while not rong()</code> lấy từng món ra, trừ tồn kho</li>
-    <li>Truy cập đối tượng cha qua <code>self.cua_so_cha</code> (vì giỏ hàng + DSLK nằm ở cửa sổ chính)</li>
-</ul>
-
-<h3>4.5. HopThoaiDangNhap — form Đăng nhập phân quyền</h3>
-<p>Đặc điểm:</p>
-<ul>
-    <li>2 ô nhập: tên đăng nhập + mật khẩu</li>
-    <li><code>QLineEdit.EchoMode.Password</code> — ẩn mật khẩu thành dấu chấm</li>
-    <li>Bắt sự kiện nhấn Enter: <code>.returnPressed.connect(self.dang_nhap)</code></li>
-    <li>Gọi <code>kiem_tra_dang_nhap(ten, mk)</code> từ <code>models.nguoi_dung</code></li>
-    <li>Nếu đúng → <code>self.accept()</code>, nếu sai → <code>QMessageBox.critical</code> + xóa mk</li>
-</ul>
-
-<h3>4.6. Mô phỏng QDialog</h3>
-
-<div class="life-example">
-    <h4>📋 Ví dụ đời thường: Điền form xin việc</h4>
-    <p>Hãy tưởng tượng bạn đi phỏng vấn. Nhân viên HR đưa cho bạn 1 <strong>tờ form xin việc</strong> (Dialog) gồm các ô: Họ tên, Ngày sinh, SĐT, Vị trí ứng tuyển. Bạn có 2 lựa chọn khi trả lại form:</p>
-    <ul style="margin:10px 0;padding-left:20px;">
-        <li><strong>Bấm "Nộp" (Accept)</strong> — nhân viên kiểm tra form, nếu đầy đủ → nhận vào, đưa bạn vào vòng sau</li>
-        <li><strong>Bấm "Không nộp" (Reject)</strong> — bạn đổi ý, không ứng tuyển nữa, form bị vứt đi</li>
-    </ul>
-    <p>PyQt Dialog cũng y hệt! <strong>QDialog</strong> là tờ form pop-up. Khi đóng, nó trả về <strong>Accepted</strong> (bấm Lưu) hoặc <strong>Rejected</strong> (bấm Hủy).</p>
-    <div class="scene" style="gap:14px;flex-wrap:wrap;">
-        <div style="text-align:center;">
-            <div style="font-size:36px;">📋</div>
-            <div style="background:#3B82F6;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">FORM POP-UP</div>
-        </div>
-        <div style="font-size:20px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:36px;">🤔</div>
-            <div style="background:#9CA3AF;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">USER ĐIỀN</div>
-        </div>
-        <div style="font-size:20px;color:#9CA3AF;">→</div>
-        <div style="text-align:center;">
-            <div style="font-size:36px;">✅</div>
-            <div style="background:#047857;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">ACCEPTED (Lưu)</div>
-        </div>
-        <div style="text-align:center;">
-            <div style="font-size:36px;">❌</div>
-            <div style="background:#DC2626;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">REJECTED (Hủy)</div>
-        </div>
+    <div class="warning">
+        <strong>⚠️ PHẦN NÀY RẤT QUAN TRỌNG!</strong> Đây là phần giao diện mà Tú phụ trách —
+        gồm 5 file HTML partials + 2 file JavaScript. Đọc kỹ!
     </div>
-    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
-        <em>Trong code: <code>if hop_thoai.exec() == QDialog.DialogCode.Accepted:</code> — nếu user bấm Lưu, lấy dữ liệu ra xử lý. Nếu bấm Hủy thì bỏ qua.</em>
+
+    <h3>4.1. HTML Partial LÀ GÌ?</h3>
+    <p>
+        <strong>HTML partial</strong> là 1 file HTML nhỏ chứa 1 phần giao diện (vd: thanh tiêu đề,
+        bảng dữ liệu, form...). Django dùng <code>{% include %}</code> để nhúng partial vào trang chính.
     </p>
-</div>
 
-<div class="demo-box">
-    <h4>🧪 Mô phỏng form Thêm sản phẩm (đơn giản hóa)</h4>
-    <div style="background:#fff;padding:14px;border-radius:6px;margin:8px 0;">
-        <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
-            <label>Loại:</label>
-            <select id="dlg-loai" onchange="dlgDoiLoai()" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-                <option value="Sách">Sách</option>
-                <option value="Tạp Chí">Tạp Chí</option>
-                <option value="Báo">Báo</option>
-                <option value="Luận Văn">Luận Văn</option>
-                <option value="Bản Thảo">Bản Thảo</option>
-            </select>
-            <label>Mã số:</label>
-            <input type="text" id="dlg-ma" placeholder="S01" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-            <label>Tên:</label>
-            <input type="text" id="dlg-ten" placeholder="Tên sản phẩm" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-            <label>Giá cơ bản:</label>
-            <input type="number" id="dlg-gia" value="100000" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-            <label id="dlg-rieng1-label">Tác giả:</label>
-            <input type="text" id="dlg-rieng1" placeholder="Tác giả" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
-            <label id="dlg-rieng2-label">Nhà xuất bản:</label>
-            <input type="text" id="dlg-rieng2" placeholder="NXB" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+    <div class="note">
+        <strong>💡 So sánh với PyQt6:</strong>
+        Trong PyQt6, ta chia giao diện thành các widget riêng (QLabel, QTableWidget, QPushButton).
+        Trong Django, ta chia giao diện thành các partial HTML riêng (dau_trang.html, bang_du_lieu.html...).
+        Mỗi partial là 1 file nhỏ — dễ quản lý, dễ sửa.
+    </div>
+
+    <h3>4.2. 5 file partials trong đồ án</h3>
+    <table>
+        <tr><th>File</th><th>Tác dụng</th><th>PyQt6 tương đương</th></tr>
+        <tr><td><code>dau_trang.html</code></td><td>Thanh tiêu đề + nút Đăng xuất</td><td>Header widget</td></tr>
+        <tr><td><code>thanh_cong_cu.html</code></td><td>Thanh công cụ (Tìm, Sắp xếp, Thêm)</td><td>Toolbar</td></tr>
+        <tr><td><code>bang_du_lieu.html</code></td><td>Bảng hiển thị sản phẩm</td><td>QTableWidget</td></tr>
+        <tr><td><code>bieu_mau_them.html</code></td><td>Form thêm/sửa sản phẩm (modal)</td><td>QDialog</td></tr>
+        <tr><td><code>cuoi_trang.html</code></td><td>Giỏ hàng (modal) + chân trang</td><td>QDialog Giỏ hàng</td></tr>
+    </table>
+
+    <h3>4.3. File dau_trang.html — thanh tiêu đề</h3>
+    <pre class="code-block">
+<span class="filename">giao_dien/thanh_phan/dau_trang.html</span>
+<code class="language-html">&lt;!-- Thanh tiêu đề chính --&gt;
+&lt;header class="tieu_de_chinh"&gt;
+    &lt;div class="noi_dung_tieu_de"&gt;
+        &lt;h1&gt;Hệ thống Quản lý Cửa hàng Sách&lt;/h1&gt;
+        &lt;p class="mo_ta"&gt;Ứng dụng Web · Môn Lập trình Nâng cao&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Khung thông tin người dùng + nút đăng xuất --&gt;
+    &lt;div class="khung_nguoi_dung" id="khung_nguoi_dung"&gt;
+        &lt;span class="ten_nguoi_dung" id="ten_nguoi_dung"&gt;Đang tải...&lt;/span&gt;
+        &lt;span class="nhan_vai_tro" id="nhan_vai_tro"&gt;...&lt;/span&gt;
+        &lt;a href="/dang-xuat" class="nut nut_dang_xuat"&gt;Đăng xuất&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/header&gt;</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng (cho người mới học HTML):</strong></p>
+    <ul>
+        <li><code>&lt;!-- ... --&gt;</code> — comment HTML, không hiển thị trên trang.</li>
+        <li><code>&lt;header&gt;</code> — thẻ ngữ nghĩa, đánh dấu đây là phần đầu trang. Tốt cho SEO và screen reader.</li>
+        <li><code>class="tieu_de_chinh"</code> — thuộc tính <code>class</code> dùng để CSS chọn và trang trí. Nhiều element có thể dùng chung 1 class.</li>
+        <li><code>&lt;h1&gt;</code> — thẻ heading cấp 1 (lớn nhất). Mỗi trang chỉ nên có 1 thẻ <code>&lt;h1&gt;</code>.</li>
+        <li><code>&lt;span&gt;</code> — thẻ inline (không xuống dòng), dùng để bọc 1 đoạn text cần style riêng.</li>
+        <li><code>id="ten_nguoi_dung"</code> — thuộc tính <code>id</code> là duy nhất trong trang. JavaScript dùng <code>getElementById('ten_nguoi_dung')</code> để truy cập.</li>
+        <li><code>&lt;a href="/dang-xuat"&gt;</code> — thẻ link (anchor). <code>href</code> là URL đích. Click → trình duyệt mở URL.</li>
+    </ul>
+
+    <h3>4.4. File thanh_cong_cu.html — thanh công cụ</h3>
+    <pre class="code-block">
+<span class="filename">giao_dien/thanh_phan/thanh_cong_cu.html</span>
+<code class="language-html">&lt;!-- Thanh công cụ --&gt;
+&lt;nav class="thanh_cong_cu" aria-label="Thanh công cụ"&gt;
+    &lt;div class="noi_dung_cong_cu"&gt;
+
+        &lt;!-- Ô tìm kiếm nâng cao --&gt;
+        &lt;div class="nhom_tim_kiem" role="search"&gt;
+            &lt;select id="chon_tieu_chi_tim" class="tim_tieu_chi"&gt;
+                &lt;option value="ten"&gt;Theo tên&lt;/option&gt;
+                &lt;option value="ma"&gt;Theo mã số&lt;/option&gt;
+                &lt;option value="loai"&gt;Theo loại hàng&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;input type="text" id="o_tim_kiem" placeholder="Tìm kiếm sản phẩm…" /&gt;
+            &lt;button id="nut_tim_kiem" class="nut nut_chinh" type="button"&gt;Tìm kiếm&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Nút chức năng --&gt;
+        &lt;div class="nhom_chuc_nang"&gt;
+            &lt;button id="nut_them" class="nut nut_them" type="button"&gt;+ Thêm sản phẩm&lt;/button&gt;
+            &lt;button id="nut_gio_hang" class="nut nut_gio_hang" type="button"&gt;
+                Giỏ hàng &lt;span id="so_gio_hang" class="dem_gio"&gt;0&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button id="nut_hoan_tac" class="nut nut_hoan_tac" type="button"&gt;↩ Undo&lt;/button&gt;
+            &lt;button id="nut_lam_lai" class="nut nut_lam_lai" type="button"&gt;↪ Redo&lt;/button&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/nav&gt;</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>&lt;nav&gt;</code> — thẻ ngữ nghĩa cho thanh điều hướng/chứa các nút chức năng.</li>
+        <li><code>aria-label="Thanh công cụ"</code> — thuộc tính accessibility, screen reader đọc cho người khiếm thị.</li>
+        <li><code>&lt;select&gt;</code> + <code>&lt;option&gt;</code> — danh sách thả xuống. User chọn 1 option.</li>
+        <li><code>&lt;input type="text"&gt;</code> — ô nhập chữ. <code>placeholder</code> là chữ mờ gợi ý.</li>
+        <li><code>&lt;button type="button"&gt;</code> — nút bấm. <code>type="button"</code> quan trọng — nếu quên, button trong form sẽ tự submit.</li>
+        <li><code>id="nut_them"</code> — JS sẽ truy cập bằng <code>document.getElementById('nut_them')</code> để gắn sự kiện click.</li>
+    </ul>
+
+    <h3>4.5. File bang_du_lieu.html — bảng sản phẩm</h3>
+    <pre class="code-block">
+<span class="filename">giao_dien/thanh_phan/bang_du_lieu.html</span>
+<code class="language-html">&lt;main class="noi_dung_chinh" id="noi_dung_chinh"&gt;
+    &lt;!-- Thông báo --&gt;
+    &lt;div id="thong_bao" class="thong_bao an_di" role="status" aria-live="polite"&gt;&lt;/div&gt;
+
+    &lt;!-- Bảng hiển thị dữ liệu --&gt;
+    &lt;div class="bang_du_lieu"&gt;
+        &lt;table id="bang_san_pham"&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th scope="col"&gt;Mã số&lt;/th&gt;
+                    &lt;th scope="col"&gt;Loại hàng&lt;/th&gt;
+                    &lt;th scope="col"&gt;Tên sản phẩm&lt;/th&gt;
+                    &lt;th scope="col"&gt;Giá bán&lt;/th&gt;
+                    &lt;th scope="col"&gt;Tồn kho&lt;/th&gt;
+                    &lt;th scope="col"&gt;Thao tác&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody id="than_bang"&gt;
+                &lt;tr&gt;
+                    &lt;td colspan="6" class="dang_tai"&gt;Đang tải dữ liệu…&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+&lt;/main&gt;</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>&lt;main&gt;</code> — thẻ ngữ nghĩa, đánh dấu nội dung chính của trang.</li>
+        <li><code>role="status" aria-live="polite"</code> — khi JS cập nhật thông báo, screen reader tự đọc cho người khiếm thị.</li>
+        <li><code>&lt;table&gt;</code> — tạo bảng. <code>&lt;thead&gt;</code> chứa header, <code>&lt;tbody&gt;</code> chứa dữ liệu.</li>
+        <li><code>&lt;tr&gt;</code> — table row (1 dòng). <code>&lt;th&gt;</code> — table header (ô tiêu đề). <code>&lt;td&gt;</code> — table data (ô dữ liệu).</li>
+        <li><code>scope="col"</code> — báo cho screen reader đây là header của cột.</li>
+        <li><code>colspan="6"</code> — ô này chiếm 6 cột (dùng khi hiển thị "Đang tải..." trong khi chưa có dữ liệu).</li>
+        <li><code>id="than_bang"</code> — JS sẽ truy cập và đổ dữ liệu vào đây bằng <code>innerHTML</code>.</li>
+    </ul>
+
+    <h3>4.6. File goi_du_lieu.js — gọi API bằng Fetch</h3>
+    <pre class="code-block">
+<span class="filename">tep_tinh/ma_lenh/goi_du_lieu.js</span>
+<code class="language-javascript">/**
+ * Gọi API GET /danh-sach để lấy toàn bộ danh sách mặt hàng.
+ */
+async function lay_danh_sach() {
+    try {
+        const phan_hoi = await fetch('/danh-sach');         // Gửi GET request
+        const du_lieu  = await phan_hoi.json();             // Parse JSON
+        return du_lieu;
+    } catch (loi) {
+        console.error('Lỗi khi lấy danh sách:', loi);
+        hien_thong_bao('Không thể kết nối đến máy chủ.', 'loi');
+        return null;
+    }
+}
+
+
+/**
+ * Gọi API POST /them-san-pham để thêm 1 sản phẩm mới.
+ */
+async function them_san_pham(du_lieu) {
+    try {
+        const phan_hoi = await fetch('/them-san-pham', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(du_lieu)                // Chuyển object → JSON string
+        });
+        const ket_qua = await phan_hoi.json();
+        return { trang_thai: phan_hoi.status, du_lieu: ket_qua };
+    } catch (loi) {
+        console.error('Lỗi khi thêm sản phẩm:', loi);
+        return null;
+    }
+}</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng (cho người mới học JavaScript):</strong></p>
+    <ul>
+        <li><code>async function</code> — khai báo hàm bất đồng bộ. Cho phép dùng <code>await</code>.</li>
+        <li><code>await fetch('/danh-sach')</code> — gửi HTTP GET request tới URL <code>/danh-sach</code>. <code>await</code> chờ response về.</li>
+        <li><code>await phan_hoi.json()</code> — parse body response từ JSON string thành object JS.</li>
+        <li><code>try { ... } catch (loi) { ... }</code> — bắt lỗi. Nếu fetch thất bại (mất mạng, server sập), code trong <code>catch</code> sẽ chạy.</li>
+        <li><code>console.error(...)</code> — in lỗi ra console (F12 → tab Console).</li>
+        <li><code>fetch('/them-san-pham', { method: 'POST', ... })</code> — gửi POST request. <code>headers</code> khai báo loại nội dung, <code>body</code> chứa dữ liệu gửi đi.</li>
+        <li><code>JSON.stringify(du_lieu)</code> — chuyển object JS thành JSON string để gửi đi.</li>
+    </ul>
+
+    <h3>4.7. File tuong_tac.js — xử lý tương tác người dùng</h3>
+    <p>File này dài 611 dòng — chứa toàn bộ logic xử lý click nút, validate form, render bảng, hiển thị modal. Tú cần đọc file này trong repo để hiểu chi tiết.</p>
+
+    <p>Một số hàm quan trọng:</p>
+    <table>
+        <tr><th>Hàm</th><th>Tác dụng</th></tr>
+        <tr><td><code>hien_thong_bao(text, loai)</code></td><td>Hiển thị thông báo (thành công/lỗi) trên đầu trang</td></tr>
+        <tr><td><code>ve_bang(danh_sach)</code></td><td>Vẽ lại bảng sản phẩm từ dữ liệu JSON</td></tr>
+        <tr><td><code>mo_form()</code> / <code>dong_form()</code></td><td>Mở/đóng modal form thêm sản phẩm</td></tr>
+        <tr><td><code>xu_ly_them_san_pham(e)</code></td><td>Xử lý submit form — validate + gọi API + vẽ lại bảng</td></tr>
+        <tr><td><code>xu_ly_xoa(ma_so)</code></td><td>Xử lý nút Xóa — hỏi xác nhận + gọi API + vẽ lại bảng</td></tr>
+        <tr><td><code>mo_gio_hang()</code></td><td>Mở modal giỏ hàng + gọi API xem giỏ</td></tr>
+        <tr><td><code>xu_ly_thanh_toan()</code></td><td>Xử lý nút Thanh toán — gọi API + hiển thị hóa đơn</td></tr>
+        <tr><td><code>cap_nhat_dem_gio()</code></td><td>Cập nhật số trên badge giỏ hàng</td></tr>
+    </table>
+
+    <h3>4.8. Cách gắn sự kiện cho nút bấm (JavaScript)</h3>
+    <pre class="code-block">
+<span class="filename">tep_tinh/ma_lenh/tuong_tac.js (trích đoạn)</span>
+<code class="language-javascript">// Đợi DOM tải xong rồi mới chạy
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Bắt sự kiện click nút "Thêm sản phẩm"
+    document.getElementById('nut_them').addEventListener('click', mo_form);
+
+    // Bắt sự kiện click nút "Làm mới"
+    document.getElementById('nut_lam_moi').addEventListener('click', tai_lai_du_lieu);
+
+    // Bắt sự kiện click nút "Thanh toán"
+    document.getElementById('nut_thanh_toan').addEventListener('click', xu_ly_thanh_toan);
+
+    // Bắt sự kiện submit form thêm sản phẩm
+    document.getElementById('bieu_mau_them').addEventListener('submit', xu_ly_them_san_pham);
+
+    // Tải dữ liệu ban đầu
+    tai_lai_du_lieu();
+});</code>
+    </pre>
+
+    <p><strong>Giải thích từng dòng:</strong></p>
+    <ul>
+        <li><code>document.addEventListener('DOMContentLoaded', function () { ... })</code> — đợi HTML tải xong rồi mới chạy code. Nếu chạy ngay, các phần tử HTML chưa tồn tại → lỗi.</li>
+        <li><code>document.getElementById('nut_them')</code> — tìm phần tử có <code>id="nut_them"</code>.</li>
+        <li><code>.addEventListener('click', mo_form)</code> — gắn sự kiện click. Khi user click → gọi hàm <code>mo_form</code>. <strong>Chú ý: truyền tên hàm KHÔNG có ngoặc</strong>.</li>
+        <li><code>tai_lai_du_lieu()</code> — gọi hàm tải dữ liệu ban đầu từ API.</li>
+    </ul>
+
+    <div class="tip">
+        <strong>💡 So sánh với PyQt6:</strong>
+        Trong PyQt6: <code>nut.clicked.connect(ham_xu_ly)</code>
+        Trong JavaScript: <code>nut.addEventListener('click', ham_xu_ly)</code>
+        Cùng ý nghĩa — gắn hàm xử lý cho sự kiện click. <strong>Chú ý: đều truyền tên hàm không có ngoặc</strong>.
+    </div>
+
+    <h3>4.9. Mô phỏng form Thêm sản phẩm (HTML/JS)</h3>
+
+    <div class="life-example">
+        <h4>📋 Ví dụ đời thường: Điền form xin việc</h4>
+        <p>Hãy tưởng tượng bạn đi phỏng vấn. Nhân viên HR đưa cho bạn 1 <strong>tờ form xin việc</strong> (Modal HTML) gồm các ô: Họ tên, Ngày sinh, SĐT, Vị trí ứng tuyển. Bạn có 2 lựa chọn khi trả lại form:</p>
+        <ul style="margin:10px 0;padding-left:20px;">
+            <li><strong>Bấm "Nộp" (Submit)</strong> — JS validate form, nếu đầy đủ → gọi API POST → thêm vào DB → đóng modal</li>
+            <li><strong>Bấm "Hủy" (Close)</strong> — đóng modal, không làm gì cả</li>
+        </ul>
+        <p>HTML Modal cũng y hệt! Khi bấm Submit, JavaScript kiểm tra dữ liệu, gửi fetch() tới Django, Django xử lý và trả JSON kết quả.</p>
+    </div>
+
+    <div class="demo-box">
+        <h4>🧪 Mô phỏng form Thêm sản phẩm (đơn giản hóa)</h4>
+        <div style="background:#fff;padding:14px;border-radius:6px;margin:8px 0;">
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
+                <label>Loại:</label>
+                <select id="dlg-loai" onchange="dlgDoiLoai()" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+                    <option value="Sách">Sách</option>
+                    <option value="Tạp Chí">Tạp Chí</option>
+                    <option value="Báo">Báo</option>
+                    <option value="Luận Văn">Luận Văn</option>
+                    <option value="Bản Thảo">Bản Thảo</option>
+                </select>
+                <label>Mã số:</label>
+                <input type="text" id="dlg-ma" placeholder="S01" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+                <label>Tên:</label>
+                <input type="text" id="dlg-ten" placeholder="Tên sản phẩm" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+                <label>Giá cơ bản:</label>
+                <input type="number" id="dlg-gia" value="100000" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+                <label id="dlg-rieng1-label">Tác giả:</label>
+                <input type="text" id="dlg-rieng1" placeholder="Tác giả" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+                <label id="dlg-rieng2-label">Nhà xuất bản:</label>
+                <input type="text" id="dlg-rieng2" placeholder="NXB" style="padding:6px;border:1px solid #cbd5e1;border-radius:4px;">
+            </div>
+        </div>
+        <div class="controls">
+            <button onclick="dlgLuu()">💾 Lưu (Submit)</button>
+            <button onclick="dlgHuy()" class="secondary">❌ Hủy (Close)</button>
+        </div>
+        <div class="log-output" id="dlg-log">
+            <div class="log-line">Sẵn sàng. Đổi loại để xem form thay đổi.</div>
         </div>
     </div>
-    <div class="controls">
-        <button onclick="dlgLuu()">💾 Lưu (Accept)</button>
-        <button onclick="dlgHuy()" class="secondary">❌ Hủy (Reject)</button>
-    </div>
-    <div class="log-output" id="dlg-log">
-        <div class="log-line">Sẵn sàng. Đổi loại để xem form thay đổi.</div>
-    </div>
-</div>
 
 </section>
 
@@ -648,119 +973,140 @@ if hop_thoai.exec() == QDialog.DialogCode.Accepted:
 <!-- ===================== BÀI 5: QUIZ ========================== -->
 <!-- ============================================================ -->
 <section class="chuong" id="bai5">
-<h2>BÀI 5 — QUIZ KIỂM TRA HIỂU</h2>
+    <h2>
+        BÀI 5 — QUIZ KIỂM TRA HIỂU
+        <span class="phu-trach tu">TÚ</span>
+    </h2>
 
-<div class="quiz" id="quiz1">
-    <div class="question">Câu 1: <code>self</code> trong Python có ý nghĩa gì?</div>
-    <div class="options">
-        <label><input type="radio" name="q1" value="A"> A. Biến toàn cục</label>
-        <label><input type="radio" name="q1" value="B"> B. Đại diện cho chính đối tượng đang được tạo/xử lý</label>
-        <label><input type="radio" name="q1" value="C"> C. Từ khóa để kế thừa</label>
-        <label><input type="radio" name="q1" value="D"> D. Không có ý nghĩa gì</label>
+    <div class="quiz" id="quiz1">
+        <div class="question">Câu 1: <code>self</code> trong Python có ý nghĩa gì?</div>
+        <div class="options">
+            <label><input type="radio" name="q1" value="A"> A. Biến toàn cục</label>
+            <label><input type="radio" name="q1" value="B"> B. Đại diện cho chính đối tượng đang được tạo/xử lý</label>
+            <label><input type="radio" name="q1" value="C"> C. Từ khóa để kế thừa</label>
+            <label><input type="radio" name="q1" value="D"> D. Không có ý nghĩa gì</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz1', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz1', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz2">
-    <div class="question">Câu 2: Hàm <code>__init__</code> được gọi khi nào?</div>
-    <div class="options">
-        <label><input type="radio" name="q2" value="A"> A. Khi xóa đối tượng</label>
-        <label><input type="radio" name="q2" value="B"> B. Khi tạo đối tượng mới (constructor)</label>
-        <label><input type="radio" name="q2" value="C"> C. Khi gọi phương thức</label>
-        <label><input type="radio" name="q2" value="D"> D. Khi đóng chương trình</label>
+    <div class="quiz" id="quiz2">
+        <div class="question">Câu 2: <code>super().__init__(...)</code> dùng để làm gì?</div>
+        <div class="options">
+            <label><input type="radio" name="q2" value="A"> A. Gọi hàm tạo của lớp cha</label>
+            <label><input type="radio" name="q2" value="B"> B. Tạo đối tượng mới</label>
+            <label><input type="radio" name="q2" value="C"> C. Xóa đối tượng</label>
+            <label><input type="radio" name="q2" value="D"> D. Ghi đè phương thức</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz2', 'A')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz2', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz3">
-    <div class="question">Câu 3: <code>super().__init__(...)</code> dùng để làm gì?</div>
-    <div class="options">
-        <label><input type="radio" name="q3" value="A"> A. Gọi hàm tạo của lớp cha</label>
-        <label><input type="radio" name="q3" value="B"> B. Tạo đối tượng mới</label>
-        <label><input type="radio" name="q3" value="C"> C. Xóa đối tượng</label>
-        <label><input type="radio" name="q3" value="D"> D. Ghi đè phương thức</label>
+    <div class="quiz" id="quiz3">
+        <div class="question">Câu 3: Queue theo nguyên tắc nào?</div>
+        <div class="options">
+            <label><input type="radio" name="q3" value="A"> A. LIFO (vào sau, ra trước)</label>
+            <label><input type="radio" name="q3" value="B"> B. FIFO (vào trước, ra trước)</label>
+            <label><input type="radio" name="q3" value="C"> C. Không nguyên tắc</label>
+            <label><input type="radio" name="q3" value="D"> D. Ngẫu nhiên</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz3', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz3', 'A')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz4">
-    <div class="question">Câu 4: Tính đa hình (polymorphism) đạt được bằng cách nào?</div>
-    <div class="options">
-        <label><input type="radio" name="q4" value="A"> A. Tạo nhiều đối tượng</label>
-        <label><input type="radio" name="q4" value="B"> B. Lớp con ghi đè phương thức của lớp cha</label>
-        <label><input type="radio" name="q4" value="C"> C. Dùng nhiều biến</label>
-        <label><input type="radio" name="q4" value="D"> D. Kế thừa nhiều lớp</label>
+    <div class="quiz" id="quiz4">
+        <div class="question">Câu 4: Queue cần mấy con trỏ quản lý?</div>
+        <div class="options">
+            <label><input type="radio" name="q4" value="A"> A. 1 (chỉ đầu)</label>
+            <label><input type="radio" name="q4" value="B"> B. 2 (đầu + cuối)</label>
+            <label><input type="radio" name="q4" value="C"> C. 3</label>
+            <label><input type="radio" name="q4" value="D"> D. 0</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz4', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz4', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz5">
-    <div class="question">Câu 5: Sách có giá bán = ? (gia_co_ban = 100000)</div>
-    <div class="options">
-        <label><input type="radio" name="q5" value="A"> A. 90,000 đ</label>
-        <label><input type="radio" name="q5" value="B"> B. 100,000 đ</label>
-        <label><input type="radio" name="q5" value="C"> C. 120,000 đ</label>
-        <label><input type="radio" name="q5" value="D"> D. 150,000 đ</label>
+    <div class="quiz" id="quiz5">
+        <div class="question">Câu 5: Trong HTML, thẻ nào dùng để tạo bảng?</div>
+        <div class="options">
+            <label><input type="radio" name="q5" value="A"> A. <code>&lt;table&gt;</code></label>
+            <label><input type="radio" name="q5" value="B"> B. <code>&lt;grid&gt;</code></label>
+            <label><input type="radio" name="q5" value="C"> C. <code>&lt;list&gt;</code></label>
+            <label><input type="radio" name="q5" value="D"> D. <code>&lt;sheet&gt;</code></label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz5', 'A')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz5', 'C')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz6">
-    <div class="question">Câu 6: Queue theo nguyên tắc nào?</div>
-    <div class="options">
-        <label><input type="radio" name="q6" value="A"> A. LIFO (vào sau, ra trước)</label>
-        <label><input type="radio" name="q6" value="B"> B. FIFO (vào trước, ra trước)</label>
-        <label><input type="radio" name="q6" value="C"> C. Không nguyên tắc</label>
-        <label><input type="radio" name="q6" value="D"> D. Ngẫu nhiên</label>
+    <div class="quiz" id="quiz6">
+        <div class="question">Câu 6: Trong JavaScript, hàm nào dùng để gọi API từ server?</div>
+        <div class="options">
+            <label><input type="radio" name="q6" value="A"> A. <code>request()</code></label>
+            <label><input type="radio" name="q6" value="B"> B. <code>fetch()</code></label>
+            <label><input type="radio" name="q6" value="C"> C. <code>call()</code></label>
+            <label><input type="radio" name="q6" value="D"> D. <code>ajax()</code></label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz6', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz6', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz7">
-    <div class="question">Câu 7: Queue cần mấy con trỏ quản lý?</div>
-    <div class="options">
-        <label><input type="radio" name="q7" value="A"> A. 1 (chỉ đầu)</label>
-        <label><input type="radio" name="q7" value="B"> B. 2 (đầu + cuối)</label>
-        <label><input type="radio" name="q7" value="C"> C. 3</label>
-        <label><input type="radio" name="q7" value="D"> D. 0</label>
+    <div class="quiz" id="quiz7">
+        <div class="question">Câu 7: Lệnh nào bắt sự kiện click nút trong JavaScript?</div>
+        <div class="options">
+            <label><input type="radio" name="q7" value="A"> A. <code>nut.onClick = ham</code></label>
+            <label><input type="radio" name="q7" value="B"> B. <code>nut.addEventListener('click', ham)</code></label>
+            <label><input type="radio" name="q7" value="C"> C. <code>nut.clicked.connect(ham)</code></label>
+            <label><input type="radio" name="q7" value="D"> D. <code>nut.bind('click', ham)</code></label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz7', 'B')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz7', 'B')">Kiểm tra</button></div>
-</div>
 
-<div class="quiz" id="quiz8">
-    <div class="question">Câu 8: Hàm <code>self.accept()</code> trong QDialog có tác dụng gì?</div>
-    <div class="options">
-        <label><input type="radio" name="q8" value="A"> A. Đóng dialog với kết quả Accepted (bấm Lưu)</label>
-        <label><input type="radio" name="q8" value="B"> B. Đóng dialog với kết quả Rejected (bấm Hủy)</label>
-        <label><input type="radio" name="q8" value="C"> C. Mở dialog</label>
-        <label><input type="radio" name="q8" value="D"> D. Ẩn dialog</label>
+    <div class="quiz" id="quiz8">
+        <div class="question">Câu 8: Trong Django, lệnh nào nhúng file HTML con vào trang chính?</div>
+        <div class="options">
+            <label><input type="radio" name="q8" value="A"> A. <code>{% include '...' %}</code></label>
+            <label><input type="radio" name="q8" value="B"> B. <code>{% import '...' %}</code></label>
+            <label><input type="radio" name="q8" value="C"> C. <code>{% embed '...' %}</code></label>
+            <label><input type="radio" name="q8" value="D"> D. <code>{% require '...' %}</code></label>
+        </div>
+        <div class="feedback"></div>
+        <div class="controls" style="margin-top:10px;">
+            <button onclick="kiemTra('quiz8', 'A')">Kiểm tra</button>
+        </div>
     </div>
-    <div class="feedback"></div>
-    <div class="controls" style="margin-top:10px;"><button onclick="kiemTra('quiz8', 'A')">Kiểm tra</button></div>
-</div>
 
-<div class="note" style="margin-top:30px;">
-    <strong>🎓 Lời khuyên:</strong> Nếu đúng ≥ 7/8 câu thì bạn đã hiểu phần của mình. Học thuộc
-    5 công thức tính giá bán để đi thi không bị quên!
-</div>
+    <div class="note" style="margin-top:30px;">
+        <strong>🎓 Lời khuyên:</strong> Nếu đúng ≥ 7/8 câu thì bạn đã hiểu phần của mình. Học thuộc
+        5 công thức tính giá bán để đi thi không bị quên, và mở file <code>tuong_tac.js</code>
+        đọc thử các hàm xử lý sự kiện để quen với JavaScript!
+    </div>
 
 </section>
 
 </div>
 
+<!-- ===================== CHÂN TRANG ===================== -->
 <div class="footer">
-    <p>📚 Tài liệu học thi — Phan Anh Tú | Đồ án Quản lý Cửa hàng Sách — PyQt6</p>
-    <p>Xem mã nguồn thực tế trong thư mục <code>do_an_pyqt6/</code> của repo</p>
+    <p>📚 Tài liệu học thi — Phan Anh Tú | Đồ án Quản lý Cửa hàng Sách — Django + HTML/CSS/JS</p>
+    <p>Xem mã nguồn thực tế trong thư mục <code>du_an_cua_hang_sach/</code> của repo</p>
 </div>
 
 <script src="app.js"></script>
-    <script src="highlight.js"></script>
+<script src="highlight.js"></script>
 </body>
 </html>
