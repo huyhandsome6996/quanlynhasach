@@ -85,13 +85,16 @@ let sqlData = [];
 
 function sqlRender() {
     const div = document.getElementById("sql-table");
+    if (!div) return;
     if (sqlData.length === 0) {
         div.innerHTML = '<em style="color:#9CA3AF">Bảng SanPham đang rỗng.</em>';
         return;
     }
-    let html = '<table><thead><tr><th>ma_so</th><th>ten</th><th>gia_co_ban</th></tr></thead><tbody>';
+    let html = '<table class="sql-table-view"><thead><tr><th>ma_so</th><th>ten</th><th>gia_co_ban</th><th>loai</th></tr></thead><tbody>';
     sqlData.forEach(r => {
-        html += `<tr><td>${r.ma}</td><td>${r.ten}</td><td>${r.gia.toLocaleString()} đ</td></tr>`;
+        const cls = r._new ? 'inserted' : '';
+        html += `<tr class="${cls}"><td>${r.ma}</td><td>${r.ten}</td><td>${r.gia.toLocaleString()} đ</td><td>${r.loai||'Sach'}</td></tr>`;
+        r._new = false;
     });
     html += '</tbody></table>';
     div.innerHTML = html;
@@ -112,7 +115,7 @@ function sqlInsert() {
         return;
     }
 
-    sqlData.push({ ma, ten, gia });
+    sqlData.push({ ma, ten, gia, loai: 'Sach', _new: true });
     sqlRender();
     themLog("sql-log", `➕ INSERT INTO SanPham VALUES ('${ma}', '${ten}', ${gia}) — commit()`, "success");
 
@@ -163,20 +166,24 @@ function dnRender() {
     }
 
     const laAdmin = dnNguoiDung.quyen === "admin";
+    const badge = laAdmin
+        ? '<span class="role-badge admin">👑 ADMIN</span>'
+        : '<span class="role-badge nv">🧹 NHÂN VIÊN</span>';
     result.innerHTML = `
+        <div style="margin-bottom:8px;">${badge}</div>
         <div style="color:#047857;"><strong>✅ Đăng nhập thành công!</strong></div>
-        <div>Tên: <code>${dnNguoiDung.ten}</code> — Vai trò: <strong>${laAdmin ? "Admin" : "Nhân viên"}</strong></div>
+        <div>Tên: <code>${dnNguoiDung.ten}</code></div>
     `;
 
     // Hiện các nút chức năng theo quyền
     buttons.innerHTML = "";
     const dsNut = [
-        { ten: "📋 Xem SP", admin: false },
-        { ten: "➕ Thêm SP", admin: false },
-        { ten: "✏ Sửa SP", admin: false },
-        { ten: "❌ Xóa SP", admin: true },   // Chỉ Admin
-        { ten: "🛒 Giỏ hàng", admin: false },
-        { ten: "📊 Thống kê", admin: false }
+        { ten: "📋 Xem SP", admin: false, icon: "📋" },
+        { ten: "➕ Thêm SP", admin: false, icon: "➕" },
+        { ten: "✏️ Sửa SP", admin: false, icon: "✏️" },
+        { ten: "❌ Xóa SP", admin: true, icon: "❌" },
+        { ten: "🛒 Giỏ hàng", admin: false, icon: "🛒" },
+        { ten: "📊 Thống kê", admin: false, icon: "📊" }
     ];
     dsNut.forEach(n => {
         const b = document.createElement("button");
@@ -186,6 +193,7 @@ function dnRender() {
             b.disabled = true;
             b.style.opacity = "0.4";
             b.style.cursor = "not-allowed";
+            b.style.textDecoration = "line-through";
             b.title = "Nhân viên không được phép!";
         } else {
             b.onclick = () => themLog("dn-log", `▶ Thực hiện: ${n.ten}`, "success");
@@ -240,42 +248,110 @@ function dnDangXuat() {
 
 
 // ===== PHẦN 4: MÔ PHỎNG CHẠY TEST =====
+let testRunning = false;
+
 function testChay() {
+    if (testRunning) return;
+    testRunning = true;
     xoaLog("test-log");
+
+    // Reset progress bar
+    const cells = document.querySelectorAll('#test-bar .test-cell');
+    cells.forEach(c => c.className = 'test-cell');
+    const summary = document.getElementById('test-summary');
+    if (summary) {
+        summary.textContent = 'Đang chạy test...';
+        summary.style.color = '#FDE68A';
+    }
+
     const steps = [
-        { msg: "BẮT ĐẦU KIỂM THỬ ĐỒ ÁN PYQT6", type: "info" },
-        { msg: "────────────────────────────────", type: "info" },
-        { msg: "1. KIỂM TRA TÍNH ĐA HÌNH (tinh_gia_ban):", type: "info" },
-        { msg: "   - Sách 'Lập trình C++': 100000 × 1.20 = 120000 ✓", type: "success" },
-        { msg: "   - Tạp chí 'Công Nghệ PC': 50000 × 0.90 = 45000 ✓", type: "success" },
-        { msg: "   - Báo 'Tuổi Trẻ': 5000 × 1.00 = 5000 ✓", type: "success" },
-        { msg: "   - Luận văn: 200000 × 1.30 = 260000 ✓", type: "success" },
-        { msg: "   - Bản thảo mới: 100000 × 1.50 = 150000 ✓", type: "success" },
-        { msg: "2. DSLK ĐÔI — thêm 5 sp → so_luong = 5 ✓", type: "success" },
-        { msg: "3. MERGE SORT — sắp xếp theo gia_co_ban tăng dần ✓", type: "success" },
-        { msg: "4. TÌM KIẾM — tim_kiem_theo_ma('T01') → trả về TapChi ✓", type: "success" },
-        { msg: "5. XÓA — xóa 'B01' → so_luong = 4 ✓", type: "success" },
-        { msg: "6. STACK LIFO — đẩy 3, lấy ra theo LIFO (3→2→1) ✓", type: "success" },
-        { msg: "7. QUEUE FIFO — giỏ hàng: thêm 3, thanh toán theo FIFO ✓", type: "success" },
-        { msg: "8. SQLITE — lưu 4 sp, đọc lại, đa hình còn ✓", type: "success" },
-        { msg: "9. PHÂN QUYỀN — sai mk = None ✓, admin = True ✓, NV = True ✓", type: "success" },
-        { msg: "────────────────────────────────", type: "info" },
-        { msg: "MỌI THỨ HOẠT ĐỘNG HOÀN HẢO! Test pass 100%.", type: "success" }
+        { msg: "BẮT ĐẦU KIỂM THỬ ĐỒ ÁN PYQT6", type: "info", cell: null },
+        { msg: "────────────────────────────────", type: "info", cell: null },
+        { msg: "1. KIỂM TRA TÍNH ĐA HÌNH (tinh_gia_ban):", type: "info", cell: 0 },
+        { msg: "   - Sách 'Lập trình C++': 100000 × 1.20 = 120000 ✓", type: "success", cell: 0 },
+        { msg: "   - Tạp chí 'Công Nghệ PC': 50000 × 0.90 = 45000 ✓", type: "success", cell: 0 },
+        { msg: "   - Báo 'Tuổi Trẻ': 5000 × 1.00 = 5000 ✓", type: "success", cell: 0 },
+        { msg: "   - Luận văn: 200000 × 1.30 = 260000 ✓", type: "success", cell: 0 },
+        { msg: "   - Bản thảo mới: 100000 × 1.50 = 150000 ✓", type: "success", cell: 0 },
+        { msg: "2. DSLK ĐÔI — thêm 5 sp → so_luong = 5 ✓", type: "success", cell: 1 },
+        { msg: "3. DSLK — duyệt danh sách ✓", type: "success", cell: 2 },
+        { msg: "4. MERGE SORT — sắp xếp theo gia_co_ban tăng dần ✓", type: "success", cell: 3 },
+        { msg: "5. TÌM KIẾM — tim_kiem_theo_ma('T01') → trả về TapChi ✓", type: "success", cell: 4 },
+        { msg: "6. XÓA — xóa 'B01' → so_luong = 4 ✓", type: "success", cell: 5 },
+        { msg: "7. STACK LIFO — đẩy 3, lấy ra theo LIFO (3→2→1) ✓", type: "success", cell: 6 },
+        { msg: "8. QUEUE FIFO — giỏ hàng: thêm 3, thanh toán theo FIFO ✓", type: "success", cell: 7 },
+        { msg: "9. SQLITE — lưu 4 sp, đọc lại, đa hình còn ✓", type: "success", cell: 8 },
+        { msg: "10. PHÂN QUYỀN — sai mk = None ✓, admin = True ✓, NV = True ✓", type: "success", cell: 9 },
+        { msg: "────────────────────────────────", type: "info", cell: null },
+        { msg: "MỌI THỨ HOẠT ĐỘNG HOÀN HẢO! Test pass 100%.", type: "success", cell: null }
     ];
 
     let i = 0;
     const interval = setInterval(() => {
         if (i >= steps.length) {
             clearInterval(interval);
+            testRunning = false;
+            if (summary) {
+                summary.innerHTML = '✅ <strong>10/10 test PASS</strong> — Mọi thứ hoạt động hoàn hảo!';
+                summary.style.color = '#6EE7B7';
+            }
             return;
         }
         themLog("test-log", steps[i].msg, steps[i].type);
+        if (steps[i].cell !== null && steps[i].cell !== undefined) {
+            const cell = cells[steps[i].cell];
+            if (cell) cell.className = 'test-cell pass';
+            if (summary) summary.innerHTML = `Đang chạy test <strong>${steps[i].cell + 1}/10</strong>...`;
+        }
         i++;
     }, 250);
 }
 
 function testReset() {
     xoaLog("test-log");
+    const cells = document.querySelectorAll('#test-bar .test-cell');
+    cells.forEach(c => c.className = 'test-cell');
+    const summary = document.getElementById('test-summary');
+    if (summary) {
+        summary.textContent = 'Sẵn sàng. Bấm "Chạy test" để bắt đầu.';
+        summary.style.color = '#6EE7B7';
+    }
+    testRunning = false;
+}
+
+// ===== VÍ DỤ ĐỜI THƯỜNG: CHỒNG ĐĨA =====
+let plateCount = 3;
+
+function plateRender() {
+    const stack = document.getElementById('plate-demo');
+    if (!stack) return;
+    stack.innerHTML = '';
+    for (let i = 1; i <= plateCount; i++) {
+        const plate = document.createElement('div');
+        plate.className = 'plate' + (i === plateCount ? ' new' : '');
+        plate.textContent = '🍽 Đĩa ' + i;
+        stack.appendChild(plate);
+    }
+}
+
+function platePush() {
+    plateCount++;
+    plateRender();
+}
+
+function platePop() {
+    if (plateCount === 0) return;
+    const stack = document.getElementById('plate-demo');
+    if (stack && stack.lastChild) {
+        stack.lastChild.style.animation = 'fadeOut 0.4s ease forwards';
+        setTimeout(() => {
+            plateCount--;
+            plateRender();
+        }, 350);
+    } else {
+        plateCount--;
+        plateRender();
+    }
 }
 
 
@@ -313,4 +389,5 @@ window.addEventListener("DOMContentLoaded", () => {
     stackRender();
     sqlRender();
     dnRender();
+    plateRender();
 });
