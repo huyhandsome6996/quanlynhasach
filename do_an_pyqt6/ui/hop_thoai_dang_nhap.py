@@ -32,7 +32,7 @@ class HopThoaiDangNhap(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("🔒 Đăng Nhập Hệ Thống")
-        self.setFixedSize(400, 320)
+        self.setFixedSize(400, 500)
         self.nguoi_dung_hien_tai = None  # Sẽ chứa thông tin người dùng sau khi đăng nhập thành công
         self.thiet_lap_giao_dien()
 
