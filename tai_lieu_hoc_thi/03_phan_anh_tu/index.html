@@ -46,6 +46,33 @@
     Phương thức = chạy, phanh, bóp còi.
 </div>
 
+<div class="life-example">
+    <h4>🚗 Ví dụ đời thường 1: Bản vẽ xe & chiếc xe cụ thể</h4>
+    <p>Hãy tưởng tượng bạn làm kỹ sư tại nhà máy Toyota. Bạn có <strong>1 bản vẽ kỹ thuật</strong> (Class) của dòng xe Camry. Bản vẽ quy định: xe có màu, biển số, động cơ; có thể chạy, phanh, bóp còi. Khi khách đặt xe, nhà máy <strong>dựng từng chiếc xe cụ thể</strong> (Object) theo bản vẽ đó — mỗi chiếc có màu và biển số riêng, nhưng đều có cùng cấu trúc.</p>
+    <div class="scene" style="gap:18px;">
+        <div style="text-align:center;">
+            <div style="font-size:50px;">📐</div>
+            <div style="background:#92400E;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">BẢN VẼ (Class)</div>
+            <div style="font-size:11px;color:#6B7280;margin-top:4px;">Quy định cấu trúc<br>chưa phải xe</div>
+        </div>
+        <div style="font-size:24px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:50px;">🚗</div>
+            <div style="background:#047857;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">XE THỰC (Object)</div>
+            <div style="font-size:11px;color:#6B7280;margin-top:4px;">Màu đỏ, biển 51A-12345<br>chạy được thật</div>
+        </div>
+        <div style="font-size:24px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:50px;">🚙</div>
+            <div style="background:#047857;color:white;padding:6px 12px;border-radius:4px;font-weight:bold;font-size:12px;">XE THỰC (Object)</div>
+            <div style="font-size:11px;color:#6B7280;margin-top:4px;">Màu xanh, biển 51A-67890<br>chạy được thật</div>
+        </div>
+    </div>
+    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+        <em>Code: <code>class MatHang</code> là bản vẽ. <code>Sach("S01", "Tài sản", ...)</code> là chiếc xe được dựng theo bản vẽ đó.</em>
+    </p>
+</div>
+
 <h3>1.2. Cú pháp khai báo lớp trong Python</h3>
 <pre class="code-block">
 <code class="language-python">class TenLop:
@@ -139,7 +166,32 @@ class Sach(MatHang):              # Sach kế thừa MatHang
 <tr><td><code>BanThao</code></td><td>tinh_trang (mới/cũ)</td></tr>
 </table>
 
-<h3>1.7. Mô phỏng tạo đối tượng</h3>
+<h3>1.7. Sơ đồ class hierarchy trong đồ án</h3>
+<div class="life-example">
+    <h4>🌳 Sơ đồ cây thừa kế (cũng giống cây gia phả!)</h4>
+    <p>Hãy tưởng tượng sơ đồ này như <strong>cây gia phả</strong>: ông bà là <code>MatHang</code> ở trên, các con cháu (5 lớp con) ở dưới. Mỗi lớp con thừa hưởng mọi thứ từ ông bà, nhưng mỗi đứa có đặc điểm riêng.</p>
+    <div class="scene" style="flex-direction:column;gap:0;">
+        <div class="class-tree" style="padding:8px;">
+            <div class="class-node parent">
+                👤 MatHang
+                <span class="method" style="background:rgba(255,255,255,0.2);color:white;">tinh_gia_ban() → return gia_co_ban</span>
+            </div>
+            <div class="connector"></div>
+            <div class="class-children">
+                <div class="class-node child">📚 Sach<span class="method">× 1.20 (+20%)</span></div>
+                <div class="class-node child">📰 TapChi<span class="method">× 0.90 (-10%)</span></div>
+                <div class="class-node child">📄 Bao<span class="method">× 1.00 (nguyên giá)</span></div>
+                <div class="class-node child">🎓 LuanVan<span class="method">× 1.30 (+30%)</span></div>
+                <div class="class-node child">📝 BanThao<span class="method">× 1.50 hoặc 1.20</span></div>
+            </div>
+        </div>
+    </div>
+    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+        <em>Mỗi lớp con đều <strong>thừa hưởng</strong> lớp cha (MatHang) nhưng <strong>ghi đè</strong> phương thức <code>tinh_gia_ban()</code> theo công thức riêng → đó chính là ĐA HÌNH (bài 2)</em>
+    </p>
+</div>
+
+<h3>1.8. Mô phỏng tạo đối tượng</h3>
 <div class="demo-box">
     <h4>🧪 Tạo đối tượng Sach và xem thuộc tính</h4>
     <div class="controls">
@@ -245,8 +297,47 @@ for sp in ds:
 </div>
 
 <h3>2.6. Mô phỏng đa hình</h3>
+
+<div class="life-example">
+    <h4>🐶 Ví dụ đời thường: Động vật kêu</h4>
+    <p>Cùng 1 câu lệnh <code>kêu()</code> nhưng mỗi con vật trả về âm thanh khác nhau. Đó chính là ĐA HÌNH. Bấm vào từng con để nghe thử:</p>
+    <div class="poly-demo">
+        <div class="poly-card" onclick="animalKeu(this, 'Chó', 'Gâu gâu! 🐕')">
+            <div class="icon">🐕</div>
+            <div class="title">Chó</div>
+            <div class="price">.keu() → "Gâu gâu"</div>
+        </div>
+        <div class="poly-card" onclick="animalKeu(this, 'Mèo', 'Meo meo! 🐈')">
+            <div class="icon">🐈</div>
+            <div class="title">Mèo</div>
+            <div class="price">.keu() → "Meo meo"</div>
+        </div>
+        <div class="poly-card" onclick="animalKeu(this, 'Vịt', 'Quạc quạc! 🦆')">
+            <div class="icon">🦆</div>
+            <div class="title">Vịt</div>
+            <div class="price">.keu() → "Quạc quạc"</div>
+        </div>
+        <div class="poly-card" onclick="animalKeu(this, 'Bò', 'Êmmmm! 🐄')">
+            <div class="icon">🐄</div>
+            <div class="title">Bò</div>
+            <div class="price">.keu() → "Êmmmm"</div>
+        </div>
+        <div class="poly-card" onclick="animalKeu(this, 'Lợn', 'Hét hét! 🐖')">
+            <div class="icon">🐖</div>
+            <div class="title">Lợn</div>
+            <div class="price">.keu() → "Hét hét"</div>
+        </div>
+    </div>
+    <div id="animal-result" style="text-align:center;padding:14px;background:#FEF3C7;border-radius:6px;margin-top:10px;font-size:15px;color:#92400E;">
+        <em>Bấm vào 1 con vật để xem đa hình hoạt động!</em>
+    </div>
+    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+        <em>Trong đồ án: cùng <code>sp.tinh_gia_ban()</code> nhưng Sách ra 120k, Tạp chí ra 90k, Báo ra 100k... cũng y hệt!</em>
+    </p>
+</div>
+
 <div class="demo-box">
-    <h4>🧪 Nhập giá cơ bản → xem giá bán của từng loại</h4>
+    <h4>🧪 Nhập giá cơ bản → xem giá bán của từng loại (ĐA HÌNH)</h4>
     <label>Giá cơ bản (VNĐ):</label>
     <input type="number" id="dh-gia" value="100000" style="padding:8px;border:1px solid #cbd5e1;border-radius:4px;width:200px;margin:8px 0;">
     <div class="controls">
@@ -358,6 +449,29 @@ while not self.cua_so_cha.gio_hang.rong():
 </pre>
 
 <h3>3.6. Mô phỏng Queue — giỏ hàng + thanh toán FIFO</h3>
+
+<div class="life-example">
+    <h4>🎟️ Ví dụ đời thường: Xếp hàng mua vé xem phim</h4>
+    <p>Hãy tưởng tượng bạn đứng trước rạp chiếu phim. Có 1 hàng người xếp hàng mua vé (Queue). Cô nhân viên thu ngân sẽ phục vụ <strong>người đứng ĐẦU hàng</strong> trước (DEQUEUE). Người mới đến phải xếp <strong>CUỐI hàng</strong> (ENQUEUE). Ai đến trước được mua vé trước → đó chính là FIFO.</p>
+    <div class="scene" style="flex-direction:column;gap:0;">
+        <div class="ticket-line">
+            <div class="gate">🚪<br>QUẦY<br>VÉ</div>
+            <div class="customer">1<br>🧑</div>
+            <div class="customer">2<br>👩</div>
+            <div class="customer">3<br>🧓</div>
+            <div class="customer">4<br>👨</div>
+            <div style="font-size:20px;color:#9CA3AF;">...</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7280;margin-top:8px;padding:0 12px;">
+            <span>← Người này sẽ được phục vụ tiếp theo (DEQUEUE)</span>
+            <span>Người mới đến sẽ xếp sau (ENQUEUE) →</span>
+        </div>
+    </div>
+    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+        <em>Trong đồ án: giỏ hàng là Queue. Khách bấm <strong>"Thêm vào giỏ"</strong> = ENQUEUE (thêm cuối). Bấm <strong>"Thanh Toán"</strong> = DEQUEUE từng món theo FIFO.</em>
+    </p>
+</div>
+
 <div class="demo-box">
     <h4>🧪 Mô phỏng giỏ hàng Queue</h4>
     <div class="queue-container" id="queue-visual">
@@ -461,6 +575,40 @@ if hop_thoai.exec() == QDialog.DialogCode.Accepted:
 </ul>
 
 <h3>4.6. Mô phỏng QDialog</h3>
+
+<div class="life-example">
+    <h4>📋 Ví dụ đời thường: Điền form xin việc</h4>
+    <p>Hãy tưởng tượng bạn đi phỏng vấn. Nhân viên HR đưa cho bạn 1 <strong>tờ form xin việc</strong> (Dialog) gồm các ô: Họ tên, Ngày sinh, SĐT, Vị trí ứng tuyển. Bạn có 2 lựa chọn khi trả lại form:</p>
+    <ul style="margin:10px 0;padding-left:20px;">
+        <li><strong>Bấm "Nộp" (Accept)</strong> — nhân viên kiểm tra form, nếu đầy đủ → nhận vào, đưa bạn vào vòng sau</li>
+        <li><strong>Bấm "Không nộp" (Reject)</strong> — bạn đổi ý, không ứng tuyển nữa, form bị vứt đi</li>
+    </ul>
+    <p>PyQt Dialog cũng y hệt! <strong>QDialog</strong> là tờ form pop-up. Khi đóng, nó trả về <strong>Accepted</strong> (bấm Lưu) hoặc <strong>Rejected</strong> (bấm Hủy).</p>
+    <div class="scene" style="gap:14px;flex-wrap:wrap;">
+        <div style="text-align:center;">
+            <div style="font-size:36px;">📋</div>
+            <div style="background:#3B82F6;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">FORM POP-UP</div>
+        </div>
+        <div style="font-size:20px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:36px;">🤔</div>
+            <div style="background:#9CA3AF;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">USER ĐIỀN</div>
+        </div>
+        <div style="font-size:20px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:36px;">✅</div>
+            <div style="background:#047857;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">ACCEPTED (Lưu)</div>
+        </div>
+        <div style="text-align:center;">
+            <div style="font-size:36px;">❌</div>
+            <div style="background:#DC2626;color:white;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:bold;">REJECTED (Hủy)</div>
+        </div>
+    </div>
+    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+        <em>Trong code: <code>if hop_thoai.exec() == QDialog.DialogCode.Accepted:</code> — nếu user bấm Lưu, lấy dữ liệu ra xử lý. Nếu bấm Hủy thì bỏ qua.</em>
+    </p>
+</div>
+
 <div class="demo-box">
     <h4>🧪 Mô phỏng form Thêm sản phẩm (đơn giản hóa)</h4>
     <div style="background:#fff;padding:14px;border-radius:6px;margin:8px 0;">

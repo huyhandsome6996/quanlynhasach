@@ -116,6 +116,49 @@
 </pre>
 
 <h3>1.5. Mô phỏng tương tác — Stack</h3>
+
+<div class="life-example">
+    <h4>🍔 Ví dụ đời thường 1: Chồng đĩa trong nhà ăn</h4>
+    <p>Hình dung bạn đang làm nhân viên rửa bát. Mỗi khi rửa xong 1 chiếc đĩa, bạn <strong>đặt nó lên trên cùng</strong> chồng đĩa cũ. Khi khách cần đĩa, bạn <strong>lấy từ trên cùng xuống</strong>. Đĩa rửa sau cùng sẽ được dùng đầu tiên → đó chính là LIFO.</p>
+    <div class="scene">
+        <div class="plate-stack" id="plate-demo">
+            <div class="plate">🍽 Đĩa 1</div>
+            <div class="plate">🍽 Đĩa 2</div>
+            <div class="plate">🍽 Đĩa 3</div>
+        </div>
+    </div>
+    <p style="text-align:center;margin-top:10px;">
+        <button onclick="platePush()" style="padding:6px 14px;background:#F59E0B;color:white;border:none;border-radius:4px;cursor:pointer;">➕ Thêm đĩa</button>
+        <button onclick="platePop()" style="padding:6px 14px;background:#DC2626;color:white;border:none;border-radius:4px;cursor:pointer;">🍽 Lấy đĩa trên</button>
+    </p>
+    <p style="text-align:center;font-size:13px;color:#92400E;margin-top:8px;">
+        <em>Đĩa vàng = đĩa thêm gần nhất (sẽ được lấy ra đầu tiên)</em>
+    </p>
+</div>
+
+<div class="life-example">
+    <h4>🌐 Ví dụ đời thường 2: Nút BACK trên trình duyệt</h4>
+    <p>Khi bạn lướt web, mỗi trang bạn mở sẽ được <strong>đẩy (PUSH) vào Stack lịch sử</strong>. Khi bấm nút <strong>← BACK</strong>, trang gần nhất sẽ được <strong>lấy ra (POP)</strong> để quay lại. Đó là lý do bấm BACK nhiều lần sẽ dần dần về trang đầu tiên.</p>
+    <div class="scene" style="flex-direction:column;align-items:stretch;gap:6px;">
+        <div style="display:flex;align-items:center;gap:8px;background:#1F2937;color:white;padding:8px 12px;border-radius:4px;">
+            <span style="font-size:18px;">←</span>
+            <span style="font-size:18px;">→</span>
+            <span style="font-size:18px;">🔄</span>
+            <span style="font-size:18px;">⭐</span>
+            <input type="text" value="google.com" style="flex:1;padding:4px 8px;font-size:13px;border-radius:3px;border:none;" readonly>
+        </div>
+        <div style="font-size:13px;color:#6B7280;text-align:center;">
+            <strong>Stack lịch sử (đỉnh ở trên):</strong>
+            <span style="display:inline-block;background:#F59E0B;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">google.com ← (đang xem)</span>
+            <span style="display:inline-block;background:#1D4E89;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">youtube.com</span>
+            <span style="display:inline-block;background:#1D4E89;color:white;padding:3px 10px;border-radius:3px;margin:0 4px;font-family:monospace;">facebook.com</span>
+        </div>
+        <p style="font-size:12px;color:#92400E;text-align:center;margin:4px 0;">
+            Bấm <strong>BACK</strong> → POP <code>google.com</code> ra → hiện lại <code>youtube.com</code>
+        </p>
+    </div>
+</div>
+
 <div class="demo-box">
     <h4>🧪 Bấm nút để PUSH/POP và xem Stack thay đổi</h4>
     <div class="stack-container" id="stack-visual">
@@ -294,6 +337,26 @@ conn.close()</code>
 </div>
 
 <h3>2.7. Mô phỏng SQLite CRUD</h3>
+
+<div class="life-example">
+    <h4>📒 Ví dụ đời thường: Sổ ghi chép trong nhà sách</h4>
+    <p>Hãy tưởng tượng thời xưa chưa có máy tính. Cửa hàng sách có 1 cuốn <strong>sổ bìa cứng</strong>. Mỗi lần nhập sách mới, chủ sổ <strong>thêm 1 dòng mới</strong> (INSERT). Khi khách hỏi "còn sách X không?", chủ sổ <strong>lật từng trang để tìm</strong> (SELECT). Khi hết hàng, chủ sổ <strong>gạch chéo dòng đó</strong> (DELETE). SQLite làm y hệt như vậy, chỉ là dùng file <code>.db</code> thay vì sổ giấy.</p>
+    <div class="scene" style="flex-direction:column;align-items:stretch;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;background:#FEF3C7;padding:10px 14px;border-radius:6px;border-left:5px solid #92400E;">
+            <span style="font-size:30px;">📒</span>
+            <div>
+                <strong>Sổ bìa cứng (SQLite file .db)</strong><br>
+                <small style="color:#92400E;">Mỗi trang = 1 bảng, mỗi dòng trong trang = 1 record</small>
+            </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px;">
+            <span style="background:#D1FAE5;color:#065F46;padding:6px 12px;border-radius:4px;">➕ Thêm dòng = <code>INSERT INTO ...</code></span>
+            <span style="background:#DBEAFE;color:#1E3A8A;padding:6px 12px;border-radius:4px;">🔍 Lật sổ = <code>SELECT * FROM ...</code></span>
+            <span style="background:#FEE2E2;color:#991B1B;padding:6px 12px;border-radius:4px;">❌ Gạch chéo = <code>DELETE FROM ...</code></span>
+        </div>
+    </div>
+</div>
+
 <div class="demo-box">
     <h4>🧪 Mô phỏng INSERT / SELECT / DELETE trên bảng SanPham</h4>
     <p>Nhập thông tin rồi bấm Thêm để INSERT vào bảng ảo</p>
@@ -394,6 +457,85 @@ def xu_ly_xoa_san_pham(self):
 </div>
 
 <h3>3.5. Mô phỏng đăng nhập phân quyền</h3>
+
+<div class="life-example">
+    <h4>🔑 Ví dụ đời thường: Thẻ từ khách sạn</h4>
+    <p>Trong khách sạn, có 3 loại thẻ từ:</p>
+    <ul style="margin:10px 0;padding-left:20px;">
+        <li><strong>Thẻ Quản lý (Admin)</strong> — mở được <em>tất cả</em> phòng: phòng khách, phòng ngủ, kho, kể cả phòng kế toán</li>
+        <li><strong>Thẻ Nhân viên dọn phòng (Nhân viên)</strong> — chỉ mở được phòng khách + phòng cần dọn. <strong>Không mở được kho</strong> và phòng kế toán</li>
+        <li><strong>Không có thẻ (Khách)</strong> — chỉ được đứng ở sảnh, không vào phòng nào</li>
+    </ul>
+    <p>Đồ án của chúng ta cũng y hệt: <strong>Admin</strong> được toàn quyền (kể cả XÓA), <strong>Nhân viên</strong> không được xóa, <strong>chưa đăng nhập</strong> thì không vào được app.</p>
+    <div class="scene" style="gap:14px;">
+        <div style="text-align:center;">
+            <div style="font-size:40px;">🏨</div>
+            <div style="background:#DC2626;color:white;padding:6px 14px;border-radius:20px;font-weight:bold;font-size:12px;">ADMIN</div>
+            <div style="font-size:11px;margin-top:4px;color:#92400E;">Mở tất cả phòng</div>
+        </div>
+        <div style="font-size:24px;color:#9CA3AF;">vs</div>
+        <div style="text-align:center;">
+            <div style="font-size:40px;">🧹</div>
+            <div style="background:#3B82F6;color:white;padding:6px 14px;border-radius:20px;font-weight:bold;font-size:12px;">NHÂN VIÊN</div>
+            <div style="font-size:11px;margin-top:4px;color:#92400E;">Không mở được kho</div>
+        </div>
+    </div>
+</div>
+
+<div class="life-example">
+    <h4>🔐 Bảng so sánh quyền hạn</h4>
+    <table class="perm-matrix">
+        <thead>
+            <tr>
+                <th>Thao tác</th>
+                <th>Chưa đăng nhập</th>
+                <th>Nhân viên</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>👁 Xem danh sách SP</td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-yes">✓</span></td>
+                <td><span class="perm-yes">✓</span></td>
+            </tr>
+            <tr>
+                <td>➕ Thêm sản phẩm</td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-yes">✓</span></td>
+                <td><span class="perm-yes">✓</span></td>
+            </tr>
+            <tr>
+                <td>✏️ Sửa sản phẩm</td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-yes">✓</span></td>
+                <td><span class="perm-yes">✓</span></td>
+            </tr>
+            <tr>
+                <td>❌ Xóa sản phẩm</td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-yes">✓</span></td>
+            </tr>
+            <tr>
+                <td>🛒 Giỏ hàng + Thanh toán</td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-yes">✓</span></td>
+                <td><span class="perm-yes">✓</span></td>
+            </tr>
+            <tr>
+                <td>📊 Thống kê doanh thu</td>
+                <td><span class="perm-no">✗</span></td>
+                <td><span class="perm-yes">✓</span></td>
+                <td><span class="perm-yes">✓</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size:13px;color:#92400E;margin-top:10px;text-align:center;">
+        <em>Chỉ Admin mới có quyền XÓA — Nhân viên thì bị ẩn nút Xóa trong giao diện</em>
+    </p>
+</div>
 <div class="demo-box">
     <h4>🧪 Thử đăng nhập với 2 tài khoản</h4>
     <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;margin:8px 0;">
@@ -430,6 +572,44 @@ def xu_ly_xoa_san_pham(self):
     Test là chạy thử chương trình với dữ liệu mẫu để <strong>chứng minh code chạy đúng</strong>.
     Khi đi thi, thầy cô sẽ hỏi "em test chưa?" → mở file <code>test_app.py</code> ra là có câu trả lời.
 </p>
+
+<div class="life-example">
+    <h4>🚗 Ví dụ đời thường: Kiểm tra xe trước khi giao cho khách</h4>
+    <p>Hãy tưởng tượng bạn làm tại xưởng sản xuất ô tô. Trước khi giao 1 chiếc xe cho khách, bạn <strong>không thể nhìn bề ngoài rồi bảo "ok ngon rồi"</strong>. Bạn phải:</p>
+    <ul style="margin:10px 0;padding-left:20px;">
+        <li>🛞 <strong>Test lốp</strong> — bơm hơi, đạp thử xem có xẹp không</li>
+        <li>🛢 <strong>Test động cơ</strong> — nổ máy, nghe tiếng, đo áp suất dầu</li>
+        <li>💡 <strong>Test đèn</strong> — bật/tắt từng đèn, kiểm tra cháy bóng</li>
+        <li>🛑 <strong>Test phanh</strong> — chạy thử 30km/h rồi đạp phanh gấp</li>
+    </ul>
+    <p>Lập trình cũng vậy! Khi viết xong 1 hàm, bạn <strong>không thể bảo "nó chạy được rồi"</strong> mà phải chạy thử với dữ liệu cụ thể, kiểm tra kết quả có đúng kỳ vọng không. Đó chính là <strong>test case</strong>.</p>
+    <div class="scene" style="gap:16px;flex-wrap:wrap;">
+        <div style="text-align:center;">
+            <div style="font-size:32px;">🛞</div>
+            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 1<br>Lốp</div>
+        </div>
+        <div style="font-size:18px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:32px;">🛢</div>
+            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 2<br>Động cơ</div>
+        </div>
+        <div style="font-size:18px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:32px;">💡</div>
+            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 3<br>Đèn</div>
+        </div>
+        <div style="font-size:18px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;">
+            <div style="font-size:32px;">🛑</div>
+            <div style="font-size:11px;color:#92400E;font-weight:bold;">Test 4<br>Phanh</div>
+        </div>
+        <div style="font-size:18px;color:#9CA3AF;">→</div>
+        <div style="text-align:center;background:#D1FAE5;padding:6px 12px;border-radius:6px;">
+            <div style="font-size:32px;">✅</div>
+            <div style="font-size:11px;color:#065F46;font-weight:bold;">Giao xe!</div>
+        </div>
+    </div>
+</div>
 
 <h3>4.2. Cấu trúc 1 test case</h3>
 <pre class="code-block">
@@ -474,7 +654,23 @@ python test_app.py</code>
 
 <h3>4.5. Mô phỏng chạy test</h3>
 <div class="demo-box">
-    <h4>🧪 Bấm để chạy test ảo</h4>
+    <h4>🧪 Bấm để chạy test ảo — xem 10 test case chạy lần lượt</h4>
+    <div class="test-progress">
+        <div style="color:#9CA3AF;font-size:12px;margin-bottom:8px;font-family:monospace;">Tiến độ 10 test case:</div>
+        <div class="test-bar" id="test-bar">
+            <div class="test-cell">1</div>
+            <div class="test-cell">2</div>
+            <div class="test-cell">3</div>
+            <div class="test-cell">4</div>
+            <div class="test-cell">5</div>
+            <div class="test-cell">6</div>
+            <div class="test-cell">7</div>
+            <div class="test-cell">8</div>
+            <div class="test-cell">9</div>
+            <div class="test-cell">10</div>
+        </div>
+        <div class="test-summary" id="test-summary">Sẵn sàng. Bấm "Chạy test" để bắt đầu.</div>
+    </div>
     <div class="controls">
         <button onclick="testChay()">▶ Chạy test_app.py</button>
         <button onclick="testReset()" class="secondary">🔄 Reset</button>

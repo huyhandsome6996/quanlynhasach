@@ -73,6 +73,26 @@ function oopReset() {
 
 
 // ===== PHẦN 2: ĐA HÌNH =====
+
+// Ví dụ đời thường: Động vật kêu — cùng lệnh keu() nhưng mỗi con trả về âm thanh khác nhau
+function animalKeu(cardEl, ten, amThanh) {
+    // Reset tất cả card
+    document.querySelectorAll('.poly-card').forEach(c => c.classList.remove('called'));
+    // Highlight card được bấm
+    cardEl.classList.add('called');
+    // Hiển thị kết quả
+    const result = document.getElementById('animal-result');
+    result.innerHTML = `
+        <div style="font-size:14px;color:#6B7280;margin-bottom:6px;">
+            <code>con_vat.keu()</code> — cùng 1 lệnh gọi, nhưng...
+        </div>
+        <div style="font-size:24px;font-weight:bold;color:#047857;">
+            ${ten} kêu: "${amThanh}"
+        </div>
+    `;
+    setTimeout(() => cardEl.classList.remove('called'), 800);
+}
+
 function daHinhTinh() {
     const gia = parseFloat(document.getElementById("dh-gia").value);
     if (isNaN(gia) || gia < 0) {
@@ -81,25 +101,26 @@ function daHinhTinh() {
     }
 
     const ds = [
-        { loai: "Sach",     cong_thuc: "× 1.20", gia: gia * 1.20 },
-        { loai: "TapChi",   cong_thuc: "× 0.90", gia: gia * 0.90 },
-        { loai: "Bao",      cong_thuc: "× 1.00", gia: gia * 1.00 },
-        { loai: "LuanVan",  cong_thuc: "× 1.30", gia: gia * 1.30 },
-        { loai: "BanThao mới", cong_thuc: "× 1.50", gia: gia * 1.50 },
-        { loai: "BanThao cũ",  cong_thuc: "× 1.20", gia: gia * 1.20 }
+        { loai: "Sach",         icon: "📚", cong_thuc: "× 1.20", gia: gia * 1.20, mo_ta: "+20%" },
+        { loai: "TapChi",       icon: "📰", cong_thuc: "× 0.90", gia: gia * 0.90, mo_ta: "-10%" },
+        { loai: "Bao",          icon: "📄", cong_thuc: "× 1.00", gia: gia * 1.00, mo_ta: "nguyên giá" },
+        { loai: "LuanVan",      icon: "🎓", cong_thuc: "× 1.30", gia: gia * 1.30, mo_ta: "+30%" },
+        { loai: "BanThao mới",  icon: "📝", cong_thuc: "× 1.50", gia: gia * 1.50, mo_ta: "+50% (mới)" },
+        { loai: "BanThao cũ",   icon: "📝", cong_thuc: "× 1.20", gia: gia * 1.20, mo_ta: "+20% (cũ)" }
     ];
 
-    let html = `<div style="margin-bottom:10px;color:#047857;font-weight:bold;">📊 Giá cơ bản = ${gia.toLocaleString()} đ</div>`;
-    html += '<table><thead><tr><th>Loại</th><th>Công thức</th><th>Giá bán</th></tr></thead><tbody>';
-    ds.forEach(sp => {
-        html += `<tr>
-            <td><strong>${sp.loai}</strong></td>
-            <td><code>gia_co_ban ${sp.cong_thuc}</code></td>
-            <td style="color:#047857;font-weight:bold;">${sp.gia.toLocaleString()} đ</td>
-        </tr>`;
+    let html = `<div style="margin-bottom:14px;color:#047857;font-weight:bold;font-size:15px;">📊 Giá cơ bản = ${gia.toLocaleString()} đ — cùng gọi <code>tinh_gia_ban()</code>:</div>`;
+    html += '<div class="poly-demo">';
+    ds.forEach((sp, idx) => {
+        html += `<div class="poly-card" style="animation: cellPop 0.4s ease ${idx * 0.08}s both;">
+            <div class="icon">${sp.icon}</div>
+            <div class="title">${sp.loai}</div>
+            <div style="font-size:11px;color:#6B7280;margin:2px 0;">${sp.cong_thuc} (${sp.mo_ta})</div>
+            <div class="price">${sp.gia.toLocaleString()} đ</div>
+        </div>`;
     });
-    html += '</tbody></table>';
-    html += '<div class="tip" style="margin-top:14px;"><strong>💡 Đây chính là ĐA HÌNH!</strong> Cùng <code>tinh_gia_ban()</code> nhưng mỗi loại trả về giá khác nhau.</div>';
+    html += '</div>';
+    html += '<div class="tip" style="margin-top:14px;"><strong>💡 Đây chính là ĐA HÌNH!</strong> Cùng <code>tinh_gia_ban()</code> nhưng mỗi loại trả về giá khác nhau. Python tự biết gọi đúng phương thức của lớp con tương ứng.</div>';
 
     document.getElementById("dh-result").innerHTML = html;
 }

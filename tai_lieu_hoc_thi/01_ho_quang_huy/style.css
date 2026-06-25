@@ -645,3 +645,655 @@ tr:nth-child(even) td {
     .chuong { padding: 20px; }
     .chuong h2 { font-size: 22px; }
 }
+
+/* ================================================================== */
+/* ===== BỔ SUNG CSS CHO ANIMATION PHONG PHÚ + VÍ DỤ ĐỜI THƯỜNG ===== */
+/* ================================================================== */
+
+/* ===== VÍ DỤ ĐỜI THƯỜNG — BOX MINH HOẠ TRỰC QUAN ===== */
+.life-example {
+    background: linear-gradient(135deg, #FEF3C7 0%, #FED7AA 100%);
+    border-left: 6px solid #F59E0B;
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin: 18px 0;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.life-example h4 {
+    color: #92400E;
+    margin-bottom: 12px;
+    font-size: 17px;
+}
+
+.life-example .scene {
+    background-color: white;
+    padding: 18px;
+    border-radius: 8px;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 80px;
+}
+
+/* ===== CHỒNG ĐĨA (STACK - LIFE EXAMPLE) ===== */
+.plate-stack {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+    align-items: center;
+    padding: 10px;
+}
+
+.plate {
+    background: radial-gradient(ellipse at center, #FBBF24 0%, #D97706 100%);
+    color: #78350F;
+    width: 130px;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 13px;
+    border: 2px solid #92400E;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: dropIn 0.4s ease;
+}
+
+.plate.new {
+    background: radial-gradient(ellipse at center, #FCA5A5 0%, #DC2626 100%);
+    color: white;
+    border-color: #7F1D1D;
+    transform: scale(1.05);
+}
+
+@keyframes dropIn {
+    0% { transform: translateY(-50px) rotate(-10deg); opacity: 0; }
+    60% { transform: translateY(5px) rotate(2deg); }
+    100% { transform: translateY(0) rotate(0); opacity: 1; }
+}
+
+/* ===== HÀNG KHÁCH XẾP HÀNG (QUEUE - LIFE EXAMPLE) ===== */
+.ticket-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px;
+    background: linear-gradient(90deg, #F3F4F6, #E5E7EB);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.ticket-line .gate {
+    background: #DC2626;
+    color: white;
+    padding: 14px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    min-width: 60px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.customer {
+    background: linear-gradient(135deg, #3B82F6, #1D4E89);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    animation: walkIn 0.4s ease;
+}
+
+@keyframes walkIn {
+    from { transform: translateX(30px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.customer.leaving {
+    animation: walkOut 0.4s ease forwards;
+}
+
+@keyframes walkOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-30px) scale(0.8); opacity: 0; }
+}
+
+/* ===== ĐA HÌNH — SƠ ĐỒ CLASS HIERARCHY ===== */
+.class-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 12px;
+}
+
+.class-node {
+    background: white;
+    border: 3px solid #047857;
+    border-radius: 8px;
+    padding: 12px 18px;
+    text-align: center;
+    min-width: 140px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.class-node.parent {
+    background: linear-gradient(135deg, #047857, #065F46);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.class-node.child {
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    color: #065F46;
+}
+
+.class-node:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(4, 120, 87, 0.3);
+}
+
+.class-node .method {
+    display: block;
+    font-size: 11px;
+    margin-top: 4px;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.class-children {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.connector {
+    width: 2px;
+    height: 24px;
+    background: #047857;
+}
+
+.connector-h {
+    height: 2px;
+    background: #047857;
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+/* ===== ĐA HÌNH — POLYMORPHISM DEMO ===== */
+.poly-demo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.poly-card {
+    background: white;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.poly-card:hover {
+    border-color: #047857;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.poly-card .icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.poly-card .title {
+    font-weight: bold;
+    color: #1F2937;
+    margin-bottom: 6px;
+}
+
+.poly-card .price {
+    background: #047857;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.poly-card.called {
+    border-color: #F59E0B;
+    background: #FEF3C7;
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+/* ===== SQLITE TABLE VIEW ===== */
+.sql-table-view {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.sql-table-view thead {
+    background: linear-gradient(135deg, #1E3A8A, #1D4E89);
+    color: white;
+}
+
+.sql-table-view th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sql-table-view td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 13px;
+    font-family: monospace;
+}
+
+.sql-table-view tr.inserted td {
+    background: #D1FAE5;
+    animation: highlight 1.5s ease;
+}
+
+.sql-table-view tr.deleted td {
+    background: #FEE2E2;
+    animation: fadeOut 0.6s ease forwards;
+}
+
+@keyframes highlight {
+    0% { background: #FDE68A; }
+    100% { background: #D1FAE5; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* ===== PHÂN QUYỀN — ROLE BADGE + PERMISSION MATRIX ===== */
+.role-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.role-badge.admin {
+    background: linear-gradient(135deg, #DC2626, #991B1B);
+}
+
+.role-badge.nv {
+    background: linear-gradient(135deg, #3B82F6, #1D4E89);
+}
+
+.role-badge.guest {
+    background: linear-gradient(135deg, #9CA3AF, #4B5563);
+}
+
+.perm-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.perm-matrix th, .perm-matrix td {
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.perm-matrix th {
+    background: #1F2937;
+    color: white;
+    font-size: 12px;
+}
+
+.perm-matrix td:first-child {
+    text-align: left;
+    font-weight: bold;
+    background: #F9FAFB;
+}
+
+.perm-yes {
+    color: #047857;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.perm-no {
+    color: #DC2626;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* ===== UNDO/REDO ANIMATION ===== */
+.undo-redo-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: #F3F4F6;
+    border-radius: 8px;
+}
+
+.undo-redo-demo .stack-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 100px;
+}
+
+.undo-redo-demo .stack-side h5 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #374151;
+}
+
+.undo-redo-demo .action-item {
+    background: #1D4E89;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: monospace;
+    animation: dropIn 0.3s ease;
+    width: 90px;
+    text-align: center;
+}
+
+.undo-redo-demo .action-item.undo {
+    background: #F59E0B;
+}
+
+.undo-redo-demo .arrow-middle {
+    font-size: 32px;
+    color: #6B7280;
+}
+
+/* ===== TEST RESULT BAR ===== */
+.test-progress {
+    background: #1F2937;
+    border-radius: 6px;
+    padding: 14px;
+    margin: 12px 0;
+}
+
+.test-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.test-cell {
+    flex: 1;
+    height: 24px;
+    background: #374151;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.test-cell.pass {
+    background: linear-gradient(135deg, #10B981, #047857);
+    animation: cellPop 0.4s ease;
+}
+
+.test-cell.fail {
+    background: linear-gradient(135deg, #EF4444, #DC2626);
+    animation: cellShake 0.5s ease;
+}
+
+@keyframes cellPop {
+    0% { transform: scale(0.5); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+@keyframes cellShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.test-summary {
+    color: #6EE7B7;
+    font-family: monospace;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* ===== DIALOG FORM MÔ PHỎNG ===== */
+.dialog-mockup {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-width: 420px;
+    margin: 16px auto;
+    border: 1px solid #E5E7EB;
+}
+
+.dialog-mockup .title-bar {
+    background: linear-gradient(135deg, #047857, #065F46);
+    color: white;
+    padding: 10px 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog-mockup .title-bar .x {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.dialog-mockup .form-body {
+    padding: 20px;
+}
+
+.dialog-mockup .form-group {
+    margin-bottom: 12px;
+}
+
+.dialog-mockup .form-group label {
+    display: block;
+    font-size: 12px;
+    color: #6B7280;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.dialog-mockup .form-group input,
+.dialog-mockup .form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.dialog-mockup .form-group input:focus,
+.dialog-mockup .form-group select:focus {
+    border-color: #047857;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15);
+}
+
+.dialog-mockup .button-row {
+    background: #F9FAFB;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.dialog-mockup .btn {
+    padding: 7px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.dialog-mockup .btn-primary {
+    background: #047857;
+    color: white;
+}
+
+.dialog-mockup .btn-secondary {
+    background: #E5E7EB;
+    color: #374151;
+}
+
+.dialog-mockup.shake {
+    animation: shake 0.5s ease;
+}
+
+/* ===== MERGE SORT ANIMATION ===== */
+.merge-sort-vis {
+    padding: 16px;
+    background: #F3F4F6;
+    border-radius: 8px;
+    margin: 12px 0;
+}
+
+.merge-step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin: 6px 0;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.merge-step.divide {
+    background: #FEF3C7;
+}
+
+.merge-step.merge {
+    background: #D1FAE5;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.merge-cell {
+    background: #1D4E89;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 12px;
+    min-width: 36px;
+    text-align: center;
+}
+
+.merge-cell.compare {
+    background: #F59E0B;
+    animation: pulse 0.6s ease;
+}
+
+.merge-arrow {
+    color: #6B7280;
+    font-size: 14px;
+    margin: 0 4px;
+}
+
+/* ===== STEP-BY-STEP EXPLAINER ===== */
+.step-list {
+    counter-reset: step;
+    padding-left: 0;
+    list-style: none;
+}
+
+.step-list li {
+    counter-increment: step;
+    position: relative;
+    padding: 12px 16px 12px 50px;
+    margin: 8px 0;
+    background: white;
+    border-left: 4px solid #047857;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: #047857;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+}
