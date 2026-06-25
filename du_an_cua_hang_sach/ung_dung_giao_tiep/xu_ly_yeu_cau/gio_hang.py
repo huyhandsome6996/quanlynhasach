@@ -16,7 +16,11 @@ from . import khoi_tao as _kho
 @csrf_exempt
 @require_http_methods(['POST'])
 def them_vao_gio_hang(request):
-    """API POST /them-gio-hang - thêm sản phẩm vào giỏ (Enqueue)."""
+    """
+    API POST /them-gio-hang - thêm sản phẩm vào giỏ (Enqueue).
+    
+    [Tương tác JS]: Được gọi bởi hàm `them_vao_gio_hang()` trong file `goi_du_lieu.js`.
+    """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
@@ -46,7 +50,11 @@ def them_vao_gio_hang(request):
 
 
 def xem_gio_hang(request):
-    """API GET /xem-gio-hang - xem toàn bộ giỏ hàng (peek all, không xóa)."""
+    """
+    API GET /xem-gio-hang - xem toàn bộ giỏ hàng (peek all, không xóa).
+    
+    [Tương tác JS]: Được gọi bởi hàm `xem_gio_hang()` trong file `goi_du_lieu.js`.
+    """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
@@ -65,7 +73,11 @@ def xem_gio_hang(request):
 @csrf_exempt
 @require_http_methods(['POST'])
 def xoa_khoi_gio_hang(request):
-    """API POST /xoa-gio-hang - xóa 1 mặt hàng khỏi giỏ (theo mã số)."""
+    """
+    API POST /xoa-gio-hang - xóa 1 mặt hàng khỏi giỏ (theo mã số).
+    
+    [Tương tác JS]: Được gọi bởi hàm `xoa_khoi_gio_hang()` trong file `goi_du_lieu.js`.
+    """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
@@ -87,7 +99,11 @@ def xoa_khoi_gio_hang(request):
 @csrf_exempt
 @require_http_methods(['POST'])
 def thanh_toan(request):
-    """API POST /thanh-toan - thanh toán toàn bộ giỏ hàng (Dequeue all)."""
+    """
+    API POST /thanh-toan - thanh toán toàn bộ giỏ hàng (Dequeue all).
+    
+    [Tương tác JS]: Được gọi bởi hàm `thanh_toan_gio_hang()` trong file `goi_du_lieu.js`.
+    """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:

@@ -14,7 +14,11 @@ from . import khoi_tao as _kho
 @csrf_exempt
 @require_http_methods(['POST'])
 def hoan_tac(request):
-    """API POST /hoan-tac - hoàn tác thao tác gần nhất (Undo)."""
+    """
+    API POST /hoan-tac - hoàn tác thao tác gần nhất (Undo).
+    
+    [Tương tác JS]: Được gọi bởi hàm `hoan_tac()` trong file `goi_du_lieu.js`.
+    """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:
@@ -66,7 +70,11 @@ def hoan_tac(request):
 @csrf_exempt
 @require_http_methods(['POST'])
 def lam_lai(request):
-    """API POST /lam-lai - làm lại thao tác đã hoàn tác (Redo)."""
+    """
+    API POST /lam-lai - làm lại thao tác đã hoàn tác (Redo).
+    
+    [Tương tác JS]: Được gọi bởi hàm `lam_lai()` trong file `goi_du_lieu.js`.
+    """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
     try:

@@ -19,6 +19,8 @@ def tim_kiem_san_pham(request):
 
     Query params:
         ?tu_khoa=python&tieu_chi=ten   (hoặc 'ma', 'loai')
+        
+    [Tương tác JS]: Được gọi bởi hàm `tim_kiem(tu_khoa, tieu_chi)` trong file `goi_du_lieu.js`.
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
@@ -59,6 +61,8 @@ def sap_xep_danh_sach(request):
 
     Query params:
         ?tieu_chi=gia_ban   (hoặc 'ten_san_pham', 'ton_kho', ...)
+        
+    [Tương tác JS]: Được gọi bởi hàm `sap_xep(tieu_chi)` trong file `goi_du_lieu.js`.
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
@@ -88,6 +92,8 @@ def lay_thong_ke(request):
 
     Bao gồm: tổng số lượng, số mặt hàng sắp hết, tổng giá trị kho,
     mặt hàng đắt nhất, rẻ nhất, thống kê theo từng loại.
+    
+    [Tương tác JS]: Được gọi bởi hàm `lay_thong_ke()` trong file `goi_du_lieu.js`.
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()

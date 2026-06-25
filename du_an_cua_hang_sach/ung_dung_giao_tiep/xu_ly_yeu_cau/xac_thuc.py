@@ -24,6 +24,8 @@ def trang_chu(request):
     Trang chủ - nếu chưa đăng nhập thì chuyển sang trang đăng nhập.
 
     URL: GET /
+    
+    [Tương tác JS]: File này sẽ load file `tuong_tac.js` và `goi_du_lieu.js` lên trình duyệt.
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
@@ -59,6 +61,9 @@ def xu_ly_dang_nhap(request):
 
     Frontend gửi JSON: {"ten_dang_nhap": "...", "mat_khau": "..."}
     Trả về JSON: {"trang_thai": "thanh_cong", "nguoi_dung": {...}}
+    
+    [Tương tác JS]: Được gọi bởi đoạn mã JS nội tuyến (inline JS) chứa `fetch('/api/dang-nhap')` 
+    nằm trực tiếp trong file `dang_nhap.html`.
     """
     try:
         du_lieu = json.loads(request.body)
@@ -106,6 +111,8 @@ def xu_ly_dang_nhap(request):
 def xu_ly_dang_xuat(request):
     """
     API /dang-xuat - xóa session và quay về trang đăng nhập.
+    
+    [Tương tác JS]: Được gọi khi người dùng bấm nút Đăng xuất trên `dau_trang.html`.
     """
     try:
         request.session.flush()
@@ -126,6 +133,8 @@ def thong_tin_nguoi_dung(request):
     """
     API GET /nguoi-dung - trả về thông tin người dùng đang đăng nhập.
     Frontend dùng để hiển thị tên + vai trò trên thanh đầu trang.
+    
+    [Tương tác JS]: Được gọi bởi hàm `tai_thong_tin_nguoi_dung()` trong file `tuong_tac.js`.
     """
     try:
         if 'ten_dang_nhap' not in request.session:

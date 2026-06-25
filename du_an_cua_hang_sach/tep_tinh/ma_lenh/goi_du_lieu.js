@@ -25,6 +25,8 @@
  * Trả về: object JSON từ server, VD:
  *   { trang_thai: 'thanh_cong', so_luong: 5, danh_sach: [...] }
  * Nếu lỗi → trả null và hiện thông báo.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `lay_danh_sach()` trong file `san_pham.py`.
  */
 async function lay_danh_sach() {
     try {
@@ -48,6 +50,8 @@ async function lay_danh_sach() {
  * Tham số:
  *   tu_khoa  (string): Từ khóa cần tìm (VD: "Kiều").
  *   tieu_chi (string): 'ten' | 'ma' | 'loai'.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `tim_kiem_san_pham()` trong file `tim_kiem_thong_ke.py`.
  */
 async function tim_kiem(tu_khoa, tieu_chi) {
     try {
@@ -69,6 +73,8 @@ async function tim_kiem(tu_khoa, tieu_chi) {
  *
  * Tham số:
  *   tieu_chi (string): 'gia_ban' | 'ten_san_pham' | 'ton_kho'.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `sap_xep_danh_sach()` trong file `tim_kiem_thong_ke.py`.
  */
 async function sap_xep(tieu_chi) {
     try {
@@ -92,6 +98,8 @@ async function sap_xep(tieu_chi) {
  * Trả về: { trang_thai: number, du_lieu: object }
  *   - trang_thai: HTTP status code (200, 400, 500...).
  *   - du_lieu: object JSON phản hồi từ server.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `them_san_pham()` trong file `san_pham.py`.
  */
 async function them_san_pham(du_lieu) {
     try {
@@ -116,6 +124,8 @@ async function them_san_pham(du_lieu) {
  *
  * Tham số:
  *   du_lieu (object): Đối tượng chứa mã số sản phẩm cần sửa + các trường mới.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `sua_san_pham()` trong file `san_pham.py`.
  */
 async function sua_san_pham(du_lieu) {
     try {
@@ -139,6 +149,8 @@ async function sua_san_pham(du_lieu) {
  *
  * Tham số:
  *   ma_so (string): Mã số sản phẩm cần xóa.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `xoa_san_pham()` trong file `san_pham.py`.
  */
 async function xoa_san_pham(ma_so) {
     try {
@@ -159,6 +171,8 @@ async function xoa_san_pham(ma_so) {
 
 /**
  * Gọi API GET /thong-ke để lấy thống kê tổng quan.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `lay_thong_ke()` trong file `tim_kiem_thong_ke.py`.
  */
 async function lay_thong_ke() {
     try {
@@ -175,6 +189,8 @@ async function lay_thong_ke() {
 
 /**
  * Gọi API POST /them-gio-hang để thêm sản phẩm vào giỏ hàng.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `them_vao_gio_hang()` trong file `gio_hang.py`.
  */
 async function them_vao_gio_hang(ma_so) {
     try {
@@ -195,6 +211,8 @@ async function them_vao_gio_hang(ma_so) {
 
 /**
  * Gọi API GET /xem-gio-hang để xem toàn bộ giỏ hàng.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `xem_gio_hang()` trong file `gio_hang.py`.
  */
 async function xem_gio_hang() {
     try {
@@ -210,6 +228,8 @@ async function xem_gio_hang() {
 
 /**
  * Gọi API POST /xoa-gio-hang để xóa sản phẩm khỏi giỏ hàng.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `xoa_khoi_gio_hang()` trong file `gio_hang.py`.
  */
 async function xoa_khoi_gio_hang(ma_so) {
     try {
@@ -229,6 +249,8 @@ async function xoa_khoi_gio_hang(ma_so) {
 
 /**
  * Gọi API POST /thanh-toan để thanh toán toàn bộ giỏ hàng.
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `thanh_toan()` trong file `gio_hang.py`.
  */
 async function thanh_toan_gio_hang() {
     try {
@@ -249,6 +271,8 @@ async function thanh_toan_gio_hang() {
 
 /**
  * Gọi API POST /hoan-tac để hoàn tác (Undo).
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `hoan_tac()` trong file `hoan_tac.py`.
  */
 async function hoan_tac() {
     try {
@@ -268,6 +292,8 @@ async function hoan_tac() {
 
 /**
  * Gọi API POST /lam-lai để làm lại (Redo).
+ * 
+ * [Tương tác Python]: Gửi yêu cầu đến hàm `lam_lai()` trong file `hoan_tac.py`.
  */
 async function lam_lai() {
     try {

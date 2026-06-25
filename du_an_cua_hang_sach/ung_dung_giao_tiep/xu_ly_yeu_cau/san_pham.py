@@ -22,6 +22,8 @@ def lay_danh_sach(request):
     """
     API GET /danh-sach - trả về toàn bộ mặt hàng dưới dạng JSON.
     Frontend gọi khi load trang để fill vào bảng dữ liệu.
+    
+    [Tương tác JS]: Được gọi bởi hàm `lay_danh_sach()` trong file `goi_du_lieu.js`.
     """
     try:
         if _kho.Danh_sach_cua_hang is None:
@@ -51,6 +53,9 @@ def them_san_pham(request):
 
     5 loại: Sách, Tạp chí, Báo giấy, Luận văn, Bản thảo.
     Mỗi loại có các trường dữ liệu riêng (tac_gia, so_phat_hanh, ...).
+    
+    [Tương tác JS]: Được gọi bởi hàm `them_san_pham()` trong file `goi_du_lieu.js` 
+    (khi bấm submit trên form thêm).
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
@@ -182,6 +187,9 @@ def sua_san_pham(request):
 
     Frontend gửi mã sản phẩm cần sửa + các trường mới → view cập nhật
     trong DSLK + SQLite, đồng thời ghi stack Undo để có thể hoàn tác.
+    
+    [Tương tác JS]: Được gọi bởi hàm `sua_san_pham()` trong file `goi_du_lieu.js` 
+    (khi bấm submit trên form sửa).
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()
@@ -272,6 +280,9 @@ def xoa_san_pham(request):
     API POST /xoa-san-pham - xóa sản phẩm. CHỈ ADMIN mới được xóa.
 
     Phân quyền: nhân viên gọi endpoint này sẽ bị từ chối với lỗi 403.
+    
+    [Tương tác JS]: Được gọi bởi hàm `xoa_san_pham()` trong file `goi_du_lieu.js` 
+    (khi admin bấm nút "Xóa" trên bảng).
     """
     if _kho.Danh_sach_cua_hang is None:
         _kho.khoi_tao_danh_sach()

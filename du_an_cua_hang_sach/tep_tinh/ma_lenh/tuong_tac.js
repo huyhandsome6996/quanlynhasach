@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 // ========== TẢI THÔNG TIN NGƯỜI DÙNG HIỆN TẠI ==========
 // (tương tác với dau_trang.html)
+// [Tương tác Python]: Gửi yêu cầu đến hàm `thong_tin_nguoi_dung()` trong file `xac_thuc.py`.
 async function tai_thong_tin_nguoi_dung() {
     try {
         var phan_hoi = await fetch('/api/nguoi-dung');
