@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tài liệu học thi — Hồ Quang Huy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== MENU ĐỈNH ===================== -->
+<div class="menu-top">
+    <div class="logo">📚 HỌC THI — HỒ QUANG HUY</div>
+    <nav>
+        <a href="#bai1">1. DSLK đôi</a>
+        <a href="#bai2">2. Merge Sort</a>
+        <a href="#bai3">3. PyQt6 cơ bản</a>
+        <a href="#bai4">4. main_window.py</a>
+        <a href="#bai5">5. Undo/Redo</a>
+        <a href="#bai6">6. Quiz</a>
+    </nav>
+</div>
+
+<!-- ===================== BÌA ===================== -->
+<div class="hero">
+    <h1>📚 TÀI LIỆU ÔN THI</h1>
+    <div class="subtitle">Đồ án Quản lý Cửa hàng Sách — PyQt6 + Cấu trúc dữ liệu</div>
+    <div class="nguoi">👤 Phụ trách: HỒ QUANG HUY (Trưởng nhóm)</div>
+</div>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- ===================== BÀI 1: DSLK ĐÔI ===================== -->
+<!-- ============================================================ -->
+<section class="chuong" id="bai1">
+<h2>BÀI 1 — DANH SÁCH LIÊN KẾT ĐÔI (Doubly Linked List)</h2>
+
+<h3>1.1. Danh sách liên kết đôi LÀ GÌ?</h3>
+<p>
+    <strong>Danh sách liên kết đôi (Doubly Linked List)</strong> là một cấu trúc dữ liệu
+    gồm nhiều <em>nút (node)</em> nối với nhau bằng con trỏ. Mỗi nút chứa:
+</p>
+<ul>
+    <li><strong>du_lieu</strong> — dữ liệu thực tế (vd: 1 sản phẩm)</li>
+    <li><strong>truoc</strong> — con trỏ trỏ tới nút đứng trước nó</li>
+    <li><strong>sau</strong> — con trỏ trỏ tới nút đứng sau nó</li>
+</ul>
+
+<div class="note">
+    <strong>💡 Tưởng tượng đời thường:</strong> Hãy tưởng tượng một đoàn người xếp hàng.
+    Mỗi người <strong>biết người đứng trước mình là ai</strong> và <strong>người đứng sau mình là ai</strong>.
+    Người đầu tiên không có ai trước, người cuối không có ai sau.
+</div>
+
+<h3>1.2. So sánh với mảng (list) Python thường</h3>
+<table>
+<tr><th>Đặc điểm</th><th>Mảng Python (list)</th><th>Danh sách liên kết đôi</th></tr>
+<tr><td>Cấp phát bộ nhớ</td><td>Liên tục</td><td>Rải rác (mỗi node 1 chỗ)</td></tr>
+<tr><td>Truy cập theo chỉ số [i]</td><td>O(1) — nhanh</td><td>O(n) — phải duyệt từ đầu</td></tr>
+<tr><td>Thêm/xóa ở đầu/cuối</td><td>O(n) — phải dời cả mảng</td><td>O(1) — chỉ đổi con trỏ</td></tr>
+<tr><td>Dung lượng</td><td>Cố định (hoặc copy khi full)</td><td>Động (cần thêm thì cấp thêm)</td></tr>
+</table>
+
+<div class="tip">
+    <strong> Vì sao đồ án dùng DSLK đôi?</strong> Vì cửa hàng sách thường xuyên
+    <strong>THÊM / XÓA / SỬA</strong> sản phẩm. Dùng DSLK đôi thì các thao tác này rất nhanh,
+    không phải dời dữ liệu như mảng.
+</div>
+
+<h3>1.3. Cài đặt trong đồ án (file <code>models/linked_list.py</code>)</h3>
+
+<h4>1.3.1. Lớp Nut (Node) — một mắt xích</h4>
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="comment"># Cài đặt cấu trúc Node cho Danh sách liên kết đôi</span>
+<span class="keyword">class</span> <span class="function">Nut</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, du_lieu):
+        self.du_lieu = du_lieu      <span class="comment"># Dữ liệu mà nút này chứa</span>
+        self.truoc = <span class="keyword">None</span>       <span class="comment"># Con trỏ trỏ về nút trước (chưa có gì)</span>
+        self.sau   = <span class="keyword">None</span>       <span class="comment"># Con trỏ trỏ tới nút sau (chưa có gì)</span>
+</div>
+
+<p><strong>Giải thích từng dòng:</strong></p>
+<ul>
+    <li><code>class Nut:</code> — khai báo 1 lớp (class) tên là <code>Nut</code>. Trong Python dùng từ khóa <code>class</code>.</li>
+    <li><code>def __init__(self, du_lieu):</code> — đây là <strong>hàm tạo</strong> (constructor). Tự động chạy khi tạo <code>Nut(...)</code>. <code>self</code> là từ khóa bắt buộc ở tham số đầu — nó đại diện cho chính đối tượng đang được tạo.</li>
+    <li><code>self.du_lieu = du_lieu</code> — gán giá trị tham số <code>du_lieu</code> vào thuộc tính <code>du_lieu</code> của đối tượng.</li>
+    <li><code>self.truoc = None</code> — khởi tạo con trỏ <code>truoc</code> bằng <code>None</code> (rỗng). Khi mới tạo, nút chưa liên kết với nút nào.</li>
+    <li><code>self.sau = None</code> — tương tự, con trỏ <code>sau</code> ban đầu cũng rỗng.</li>
+</ul>
+
+<h4>1.3.2. Lớp DanhSachLienKetDoi</h4>
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="keyword">class</span> <span class="function">DanhSachLienKetDoi</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.dau = <span class="keyword">None</span>       <span class="comment"># Head — con trỏ tới nút ĐẦU TIÊN</span>
+        self.cuoi = <span class="keyword">None</span>      <span class="comment"># Tail — con trỏ tới nút CUỐI CÙNG</span>
+        self.so_luong = <span class="number">0</span>     <span class="comment"># Đếm số nút đang có</span>
+</div>
+
+<p>
+    Lớp này chỉ cần giữ 3 thông tin: <strong>đầu</strong>, <strong>cuối</strong>, <strong>số lượng</strong>.
+    Từ <code>dau</code> ta có thể đi đến bất kỳ nút nào bằng cách nhảy theo <code>sau</code>.
+    Từ <code>cuoi</code> ta có thể đi ngược lại bằng <code>truoc</code>.
+</p>
+
+<h4>1.3.3. Phương thức them_vao_cuoi() — thêm 1 nút vào cuối danh sách</h4>
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="keyword">def</span> <span class="function">them_vao_cuoi</span>(self, du_lieu):
+    nut_moi = Nut(du_lieu)              <span class="comment"># 1. Tạo nút mới chứa dữ liệu</span>
+    <span class="keyword">if</span> self.dau <span class="keyword">is</span> <span class="keyword">None</span>:             <span class="comment"># 2. Nếu danh sách đang rỗng</span>
+        self.dau = nut_moi                  <span class="comment">#    → nút mới là vừa đầu vừa cuối</span>
+        self.cuoi = nut_moi
+    <span class="keyword">else</span>:                              <span class="comment"># 3. Nếu đã có nút khác</span>
+        self.cuoi.sau = nut_moi             <span class="comment">#    → nút cuối hiện tại trỏ tới nút mới</span>
+        nut_moi.truoc = self.cuoi           <span class="comment">#    → nút mới trỏ ngược về nút cuối</span>
+        self.cuoi = nut_moi                 <span class="comment">#    → cập nhật lại con trỏ `cuoi`</span>
+    self.so_luong += <span class="number">1</span>                  <span class="comment"># 4. Tăng bộ đếm</span>
+</div>
+
+<p><strong>Diagram minh họa — thêm nút "S02" vào danh sách đã có "S01":</strong></p>
+<div class="demo-box">
+    <h4>Before: <code>[S01]</code></h4>
+    <div class="visual">
+        <div class="node-box">S01<br><small>(dau=cuoi)</small></div>
+    </div>
+    <h4>Sau khi gọi <code>them_vao_cuoi(S02)</code>:</h4>
+    <div class="visual">
+        <div class="node-box">S01<br><small>(dau)</small></div>
+        <span class="arrow">⇄</span>
+        <div class="node-box">S02<br><small>(cuoi)</small></div>
+    </div>
+    <p><strong>Giải thích:</strong></p>
+    <ul>
+        <li>Tạo <code>nut_moi</code> chứa S02 (ban đầu <code>truoc=None, sau=None</code>)</li>
+        <li><code>self.cuoi.sau = nut_moi</code> — nút S01 (đang là <code>cuoi</code>) trỏ <code>sau</code> tới S02</li>
+        <li><code>nut_moi.truoc = self.cuoi</code> — S02 trỏ <code>truoc</code> về S01</li>
+        <li><code>self.cuoi = nut_moi</code> — cập nhật <code>cuoi</code> giờ là S02</li>
+    </ul>
+</div>
+
+<h4>1.3.4. Phương thức xoa_nut_theo_ma() — xóa 1 nút</h4>
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="keyword">def</span> <span class="function">xoa_nut_theo_ma</span>(self, ma_so):
+    hien_tai = self.dau                   <span class="comment"># Bắt đầu từ nút đầu tiên</span>
+    <span class="keyword">while</span> hien_tai <span class="keyword">is not</span> <span class="keyword">None</span>:         <span class="comment"># Duyệt qua từng nút</span>
+        <span class="keyword">if</span> hien_tai.du_lieu.ma_so == ma_so:  <span class="comment"># Tìm thấy nút cần xóa</span>
+            <span class="comment"># CẬP NHẬT CON TRỎ CỦA NÚT TRƯỚC & SAU ĐỂ "BỎ QUA" NÚT HIỆN TẠI</span>
+            <span class="keyword">if</span> hien_tai.truoc <span class="keyword">is not</span> <span class="keyword">None</span>:
+                hien_tai.truoc.sau = hien_tai.sau    <span class="comment"># Nút trước trỏ sang nút sau</span>
+            <span class="keyword">else</span>:
+                self.dau = hien_tai.sau                <span class="comment"># Nếu là nút đầu → cập nhật dau</span>
+
+            <span class="keyword">if</span> hien_tai.sau <span class="keyword">is not</span> <span class="keyword">None</span>:
+                hien_tai.sau.truoc = hien_tai.truoc    <span class="comment"># Nút sau trỏ ngược về nút trước</span>
+            <span class="keyword">else</span>:
+                self.cuoi = hien_tai.truoc              <span class="comment"># Nếu là nút cuối → cập nhật cuoi</span>
+
+            self.so_luong -= <span class="number">1</span>
+            <span class="keyword">return</span> <span class="keyword">True</span>                       <span class="comment"># Xóa xong, thoát hàm</span>
+        hien_tai = hien_tai.sau            <span class="comment"># Chưa thấy → đi tới nút tiếp theo</span>
+    <span class="keyword">return</span> <span class="keyword">False</span>                            <span class="comment"># Không tìm thấy → trả False</span>
+</div>
+
+<div class="note">
+    <strong>💡 Ý tưởng cốt lõi:</strong> Để xóa 1 nút trong DSLK đôi, ta KHÔNG xóa vật lý
+    nút đó, mà <strong>cho nút trước và nút sau của nó "bỏ qua" nó</strong> (trỏ thẳng tới nhau).
+    Nút bị bỏ qua sẽ tự động mất khỏi danh sách.
+</div>
+
+<h4>1.3.5. Các phương thức còn lại</h4>
+<table>
+<tr><th>Phương thức</th><th>Tác dụng</th><th>Độ phức tạp</th></tr>
+<tr><td><code>tim_kiem_theo_ma(ma_so)</code></td><td>Tìm sản phẩm theo mã. Duyệt từ <code>dau</code>, so sánh <code>ma_so</code></td><td>O(n)</td></tr>
+<tr><td><code>duyet_danh_sach()</code></td><td>Trả về list Python chứa tất cả sản phẩm (để hiển thị lên bảng GUI)</td><td>O(n)</td></tr>
+<tr><td><code>xoa_tat_ca()</code></td><td>Đặt <code>dau=cuoi=None, so_luong=0</code></td><td>O(1)</td></tr>
+<tr><td><code>sap_xep(tieu_chi, tang_dan)</code></td><td>Merge Sort — xem Bài 2</td><td>O(n log n)</td></tr>
+</table>
+
+<h3>1.4. Mô phỏng tương tác — DSLK đôi</h3>
+<div class="demo-box">
+    <h4>🧪 Bấm nút để thêm/xóa/tìm và xem DSLK thay đổi</h4>
+    <div class="visual" id="dslk-visual">
+        <em style="color:#9CA3AF">(Danh sách rỗng)</em>
+    </div>
+    <div class="controls">
+        <button onclick="dslkThem()">➕ Thêm sản phẩm</button>
+        <button onclick="dslkXoaDau()" class="danger">❌ Xóa đầu</button>
+        <button onclick="dslkXoaCuoi()" class="danger">❌ Xóa cuối</button>
+        <button onclick="dslkReset()" class="secondary">🔄 Reset</button>
+    </div>
+    <div class="log-output" id="dslk-log">
+        <div class="log-line">Sẵn sàng. Bấm nút để thử.</div>
+    </div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- ===================== BÀI 2: MERGE SORT ==================== -->
+<!-- ============================================================ -->
+<section class="chuong" id="bai2">
+<h2>BÀI 2 — THUẬT TOÁN MERGE SORT TRÊN DSLK</h2>
+
+<h3>2.1. Merge Sort LÀ GÌ?</h3>
+<p>
+    <strong>Merge Sort (sắp xếp trộn)</strong> là thuật toán sắp xếp dùng phương pháp
+    <strong>chia để trị (divide and conquer)</strong>. Ý tưởng gồm 3 bước:
+</p>
+<ol>
+    <li><strong>CHIA</strong> — Cắt danh sách làm 2 nửa</li>
+    <li><strong>TRỘN</strong> — Sắp xếp từng nửa (gọi đệ quy)</li>
+    <li><strong>GỘP</strong> — Trộn 2 nửa đã sắp xếp lại thành 1 danh sách đã sắp xếp</li>
+</ol>
+
+<div class="note">
+    <strong>💡 Ví dụ đời thường:</strong> Bạn có 1 chồng bài kiểm tra lộn xộn. Thay vì sắp
+    xếp cả chồng, bạn cắt làm 2 chồng nhỏ, nhờ 2 người bạn sắp xếp từng chồng, rồi bạn
+    <strong>trộn 2 chồng đã sắp xếp</strong> lại với nhau. Nhanh hơn nhiều!
+</div>
+
+<h3>2.2. Độ phức tạp</h3>
+<table>
+<tr><th>Trường hợp</th><th>Độ phức tạp</th><th>Ghi chú</th></tr>
+<tr><td>Tốt nhất</td><td>O(n log n)</td><td>Luôn như nhau</td></tr>
+<tr><td>Trung bình</td><td>O(n log n)</td><td>Ổn định, không phụ thuộc dữ liệu</td></tr>
+<tr><td>Xấu nhất</td><td>O(n log n)</td><td>Khác Bubble Sort (O(n²))</td></tr>
+</table>
+
+<h3>2.3. Kỹ thuật 2 con trỏ (nhanh / chậm) để tìm điểm giữa</h3>
+<p>
+    Để cắt danh sách làm 2, ta cần tìm <strong>điểm giữa</strong>. Cách dễ nhất là đếm số
+    nút rồi đi nửa đường. Nhưng có cách khéo hơn: dùng <strong>2 con trỏ</strong>:
+</p>
+<ul>
+    <li><code>nhanh</code> — đi 2 bước mỗi lần</li>
+    <li><code>cham</code> — đi 1 bước mỗi lần</li>
+</ul>
+<p>
+    Khi <code>nhanh</code> đi hết danh sách thì <code>cham</code> đang ở giữa!
+</p>
+
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="keyword">def</span> <span class="function">_chia_doi</span>(self, dau):
+    nhanh = dau                            <span class="comment"># Con trỏ nhanh đi 2 bước/lần</span>
+    cham  = dau                            <span class="comment"># Con trỏ chậm đi 1 bước/lần</span>
+    <span class="keyword">while</span> nhanh.sau <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and</span> nhanh.sau.sau <span class="keyword">is not</span> <span class="keyword">None</span>:
+        nhanh = nhanh.sau.sau              <span class="comment"># Nhanh đi 2 bước</span>
+        cham  = cham.sau                   <span class="comment"># Chậm đi 1 bước</span>
+
+    giua = cham.sau                        <span class="comment"># Điểm giữa = nút ngay sau `cham`</span>
+    cham.sau = <span class="keyword">None</span>                      <span class="comment"># Cắt đôi: chấm dứt nửa đầu</span>
+    <span class="keyword">return</span> giua                            <span class="comment"># Trả về đầu của nửa sau</span>
+</div>
+
+<h3>2.4. Hàm đệ quy _merge_sort()</h3>
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="keyword">def</span> <span class="function">_merge_sort</span>(self, dau, tieu_chi, tang_dan):
+    <span class="comment"># Điều kiện dừng đệ quy: 0 hoặc 1 nút thì đã sắp xếp rồi</span>
+    <span class="keyword">if</span> dau <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> dau.sau <span class="keyword">is</span> <span class="keyword">None</span>:
+        <span class="keyword">return</span> dau
+
+    <span class="comment"># 1. CHIA — Cắt đôi danh sách</span>
+    giua = self._chia_doi(dau)
+
+    <span class="comment"># 2. GỌI ĐỆ QUY — Sắp xếp từng nửa</span>
+    trai = self._merge_sort(dau,  tieu_chi, tang_dan)
+    phai = self._merge_sort(giua, tieu_chi, tang_dan)
+
+    <span class="comment"># 3. TRỘN — Gộp 2 nửa đã sắp xếp</span>
+    <span class="keyword">return</span> self._tron(trai, phai, tieu_chi, tang_dan)
+</div>
+
+<div class="warning">
+    <strong>⚠️ Hiểu về đệ quy (recursion):</strong> Hàm <code>_merge_sort</code> gọi chính
+    nó với input nhỏ hơn. Quá trình cứ vậy cho đến khi <strong>điều kiện dừng</strong>
+    (<code>dau is None</code> hoặc chỉ còn 1 nút). Khi đó hàm trả về danh sách đã sắp xếp
+    (1 nút thì coi như đã sắp xếp). Các lời gọi đệ quy sẽ dần dần <strong>trộn</strong> các
+    phần nhỏ lại thành kết quả cuối.
+</div>
+
+<h3>2.5. Hàm trộn _tron()</h3>
+<div class="code-block">
+<span class="filename">models/linked_list.py</span>
+<span class="keyword">def</span> <span class="function">_tron</span>(self, trai, phai, tieu_chi, tang_dan):
+    <span class="keyword">if</span> trai <span class="keyword">is</span> <span class="keyword">None</span>: <span class="keyword">return</span> phai
+    <span class="keyword">if</span> phai <span class="keyword">is</span> <span class="keyword">None</span>: <span class="keyword">return</span> trai
+
+    <span class="comment"># Lấy giá trị để so sánh bằng hàm getattr (lấy thuộc tính động)</span>
+    gt_trai = <span class="function">getattr</span>(trai.du_lieu, tieu_chi)
+    gt_phai = <span class="function">getattr</span>(phai.du_lieu, tieu_chi)
+
+    <span class="comment"># Tránh lỗi phân biệt chữ hoa/thường khi sắp xếp theo tên</span>
+    <span class="keyword">if</span> <span class="function">isinstance</span>(gt_trai, <span class="keyword">str</span>): gt_trai = gt_trai.lower()
+    <span class="keyword">if</span> <span class="function">isinstance</span>(gt_phai, <span class="keyword">str</span>): gt_phai = gt_phai.lower()
+
+    <span class="comment"># Quyết định nút nào nhỏ hơn → đặt trước</span>
+    <span class="keyword">if</span> tang_dan:
+        dk = gt_trai &lt;= gt_phai
+    <span class="keyword">else</span>:
+        dk = gt_trai &gt;= gt_phai
+
+    <span class="keyword">if</span> dk:
+        ket_qua = trai
+        ket_qua.sau = self._tron(trai.sau, phai, tieu_chi, tang_dan)
+        <span class="keyword">if</span> ket_qua.sau: ket_qua.sau.truoc = ket_qua
+        ket_qua.truoc = <span class="keyword">None</span>
+        <span class="keyword">return</span> ket_qua
+    <span class="keyword">else</span>:
+        ket_qua = phai
+        ket_qua.sau = self._tron(trai, phai.sau, tieu_chi, tang_dan)
+        <span class="keyword">if</span> ket_qua.sau: ket_qua.sau.truoc = ket_qua
+        ket_qua.truoc = <span class="keyword">None</span>
+        <span class="keyword">return</span> ket_qua
+</div>
+
+<p><strong>Giải thích chi tiết:</strong></p>
+<ul>
+    <li><code>getattr(trai.du_lieu, tieu_chi)</code> — lấy thuộc tính <code>tieu_chi</code> từ đối tượng <code>trai.du_lieu</code>. Nếu <code>tieu_chi="gia_co_ban"</code> thì相当于 <code>trai.du_lieu.gia_co_ban</code>.</li>
+    <li><code>isinstance(gt_trai, str)</code> — kiểm tra xem <code>gt_trai</code> có phải chuỗi không. Nếu chuỗi thì <code>.lower()</code> để "ABC" và "abc" bằng nhau khi sắp xếp.</li>
+    <li>Phần <code>if dk: ... else: ...</code> — chọn nút nhỏ hơn (hoặc lớn hơn nếu giảm dần) để đặt làm <code>ket_qua</code>, rồi đệ quy trộn phần còn lại.</li>
+    <li><code>ket_qua.sau.truoc = ket_qua</code> — cập nhật ngược con trỏ <code>truoc</code> để giữ tính chất "đôi" của DSLK.</li>
+</ul>
+
+<h3>2.6. Mô phỏng Merge Sort — xem animation từng bước</h3>
+<div class="demo-box">
+    <h4>🧪 Nhập mảng số (cách nhau bởi dấu phẩy) rồi bấm Sắp xếp</h4>
+    <input type="text" id="ms-input" value="5, 3, 8, 1, 9, 2, 7, 4" style="width:100%;padding:8px;font-size:14px;border:1px solid #cbd5e1;border-radius:4px;margin:8px 0;">
+    <div class="controls">
+        <button onclick="mergeSortDemo()">⚡ Sắp xếp (tăng dần)</button>
+        <button onclick="mergeSortReset()" class="secondary">🔄 Reset</button>
+    </div>
+    <div class="visual" id="ms-visual" style="min-height:120px;flex-direction:column;gap:14px;padding:20px;">
+        <em style="color:#9CA3AF">Bấm Sắp xếp để xem</em>
+    </div>
+    <div class="log-output" id="ms-log">
+        <div class="log-line">Sẵn sàng.</div>
+    </div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- ===================== BÀI 3: PYQT6 CƠ BẢN ================== -->
+<!-- ============================================================ -->
+<section class="chuong" id="bai3">
+<h2>BÀI 3 — PYQT6 CƠ BẢN (từ con số 0)</h2>
+
+<div class="warning">
+    <strong>⚠️ PHẦN NÀY RẤT QUAN TRỌNG!</strong> Vì Huy là người lo toàn bộ giao diện
+    nên phần này sẽ giải thích <strong>cực kỳ chi tiết</strong>: mỗi widget là gì, thuộc tính
+    gì, hàm gì, tại sao phải viết vậy, hoạt động ra sao. Đọc kỹ!
+</div>
+
+<h3>3.1. PyQt6 LÀ GÌ?</h3>
+<p>
+    <strong>PyQt6</strong> là thư viện Python giúp tạo ra <strong>ứng dụng desktop có giao
+    diện đồ họa (GUI)</strong> — tức là có cửa sổ, nút bấm, ô nhập, bảng... giống Word,
+    Excel, Chrome. PyQt6 là phiên bản Python của framework Qt (C++).
+</p>
+
+<div class="tip">
+    <strong>💡 So sánh:</strong> Code Python thường chạy trong terminal (chỉ có chữ).
+    Dùng PyQt6 thì có <strong>cửa sổ đồ họa</strong> với nút bấm, ô nhập — giống phần mềm
+    thật. Người dùng không cần biết code vẫn dùng được.
+</div>
+
+<h3>3.2. Cài đặt PyQt6</h3>
+<div class="code-block">
+<span class="filename">terminal</span>
+pip install PyQt6
+</div>
+
+<h3>3.3. Cấu trúc 1 chương trình PyQt6 tối giản</h3>
+<div class="code-block">
+<span class="filename">main.py (tối giản)</span>
+<span class="keyword">import</span> sys
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QApplication, QMainWindow
+
+app = QApplication(sys.argv)             <span class="comment"># 1. TẠO APP (bắt buộc)</span>
+
+cua_so = QMainWindow()                   <span class="comment"># 2. TẠO CỬA SỔ CHÍNH</span>
+cua_so.setWindowTitle(<span class="string">"Chương trình đầu tiên"</span>)
+cua_so.resize(<span class="number">800</span>, <span class="number">600</span>)
+
+cua_so.show()                            <span class="comment"># 3. HIỆN CỬA SỔ LÊN MÀN HÌNH</span>
+sys.exit(app.exec())                     <span class="comment"># 4. CHẠY VÒNG LẶP SỰ KIỆN</span>
+</div>
+
+<p><strong>Giải thích từng dòng:</strong></p>
+<ul>
+    <li><code>import sys</code> — nhập thư viện hệ thống (cần để lấy tham số command-line và thoát chương trình).</li>
+    <li><code>from PyQt6.QtWidgets import QApplication, QMainWindow</code> — nhập 2 lớp cần thiết: <code>QApplication</code> (quản lý toàn app) và <code>QMainWindow</code> (cửa sổ chính).</li>
+    <li><code>app = QApplication(sys.argv)</code> — <strong>bắt buộc</strong> phải có 1 instance <code>QApplication</code>. Nó quản lý vòng lặp sự kiện, style, font... Tham số <code>sys.argv</code> cho phép nhận tham số command-line.</li>
+    <li><code>cua_so = QMainWindow()</code> — tạo 1 cửa sổ chính. <code>QMainWindow</code> có sẵn thanh menu, thanh trạng thái, vùng widget trung tâm.</li>
+    <li><code>cua_so.setWindowTitle(...)</code> — đặt tiêu đề cửa sổ (hiện trên thanh tiêu đề).</li>
+    <li><code>cua_so.resize(800, 600)</code> — đặt kích thước cửa sổ (rộng 800px, cao 600px).</li>
+    <li><code>cua_so.show()</code> — <strong>bắt buộc</strong>. Mặc định cửa sổ ẩn, phải gọi <code>.show()</code> mới hiện.</li>
+    <li><code>sys.exit(app.exec())</code> — khởi động vòng lặp sự kiện. Hàm <code>app.exec()</code> sẽ <strong>chặn</strong> chương trình kết thúc, lắng nghe sự kiện (click, gõ phím...) cho đến khi user đóng cửa sổ. <code>sys.exit()</code> đảm bảo dọn dẹp bộ nhớ khi thoát.</li>
+</ul>
+
+<h3>3.4. Các WIDGET cơ bản (thành phần GUI)</h3>
+
+<h4>3.4.1. QLabel — nhãn chữ</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QLabel
+
+nhan = QLabel(<span class="string">"Nhập tên:"</span>)      <span class="comment"># Tạo nhãn có chữ "Nhập tên:"</span>
+nhan.setStyleSheet(<span class="string">"font-size: 14px; color: blue;"</span>)  <span class="comment"># Đổi kiểu</span>
+</div>
+<p><code>QLabel</code> dùng để hiển thị chữ tĩnh — không cho người dùng chỉnh sửa.</p>
+
+<h4>3.4.2. QLineEdit — ô nhập 1 dòng</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QLineEdit
+
+nhap_ten = QLineEdit()                <span class="comment"># Tạo ô nhập</span>
+nhap_ten.setPlaceholderText(<span class="string">"vd: Nguyễn Văn A"</span>)  <span class="comment"># Chữ mờ gợi ý</span>
+text = nhap_ten.text()                <span class="comment"># Lấy chữ người dùng đã nhập (trả về str)</span>
+nhap_ten.clear()                      <span class="comment"># Xóa trắng ô nhập</span>
+</div>
+
+<h4>3.4.3. QPushButton — nút bấm</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QPushButton
+
+nut = QPushButton(<span class="string">"Lưu"</span>)               <span class="comment"># Tạo nút có chữ "Lưu"</span>
+nut.setStyleSheet(<span class="string">"background-color: green; color: white;"</span>)
+nut.clicked.connect(ham_xu_ly)            <span class="comment"># Khi bấm → gọi hàm `ham_xu_ly`</span>
+</div>
+<p><strong>Quan trọng:</strong> <code>.clicked.connect(ten_ham)</code> là cách <strong>bắt sự kiện</strong> —
+nghĩa là khi user click nút, hàm <code>ten_ham</code> sẽ tự chạy. <strong>Chú ý: truyền tên hàm (không có ngoặc)</strong>.</p>
+
+<h4>3.4.4. QComboBox — danh sách thả xuống</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QComboBox
+
+combo = QComboBox()
+combo.addItems([<span class="string">"Sách"</span>, <span class="string">"Tạp chí"</span>, <span class="string">"Báo"</span>])  <span class="comment"># Thêm các lựa chọn</span>
+gia_tri = combo.currentText()           <span class="comment"># Lấy giá trị đang chọn (vd: "Sách")</span>
+combo.currentTextChanged.connect(ham_xu_ly)  <span class="comment"># Khi đổi lựa chọn → gọi hàm</span>
+</div>
+
+<h4>3.4.5. QSpinBox / QDoubleSpinBox — nhập số</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QSpinBox, QDoubleSpinBox
+
+nhap_sl = QSpinBox()                    <span class="comment"># Nhập số nguyên</span>
+nhap_sl.setMinimum(<span class="number">0</span>)                  <span class="comment"># Số nhỏ nhất = 0</span>
+nhap_sl.setMaximum(<span class="number">99999</span>)              <span class="comment"># Số lớn nhất</span>
+sl = nhap_sl.value()                    <span class="comment"># Lấy giá trị (trả về int)</span>
+
+nhap_gia = QDoubleSpinBox()             <span class="comment"># Nhập số thập phân</span>
+nhap_gia.setSuffix(<span class="string">" VNĐ"</span>)             <span class="comment"># Thêm hậu tố hiển thị</span>
+gia = nhap_gia.value()                  <span class="comment"># Trả về float</span>
+</div>
+
+<h4>3.4.6. QTableWidget — bảng dữ liệu</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QTableWidget, QTableWidgetItem, QHeaderView
+
+bang = QTableWidget()
+bang.setColumnCount(<span class="number">5</span>)                          <span class="comment"># 5 cột</span>
+bang.setHorizontalHeaderLabels([<span class="string">"Mã"</span>, <span class="string">"Tên"</span>, <span class="string">"Giá"</span>, <span class="string">"SL"</span>, <span class="string">"Loại"</span>])
+bang.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)  <span class="comment"># Cột tự giãn</span>
+bang.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)  <span class="comment"># Không cho sửa trực tiếp</span>
+
+<span class="comment"># Thêm 1 dòng</span>
+dong = bang.rowCount()
+bang.insertRow(dong)
+bang.setItem(dong, <span class="number">0</span>, QTableWidgetItem(<span class="string">"S01"</span>))      <span class="comment"># Cột 0 = "S01"</span>
+bang.setItem(dong, <span class="number">1</span>, QTableWidgetItem(<span class="string">"Lập trình C++"</span>))
+
+<span class="comment"># Lấy giá trị ô đang chọn</span>
+dong_chon = bang.currentRow()           <span class="comment"># Trả về số (index dòng đang chọn, -1 nếu chưa chọn)</span>
+gia_tri = bang.item(dong_chon, <span class="number">0</span>).text()    <span class="comment"># Lấy text ô ở dòng chon, cột 0</span>
+
+<span class="comment"># Xóa toàn bộ dòng</span>
+bang.setRowCount(<span class="number">0</span>)
+</div>
+
+<h4>3.4.7. QMessageBox — hộp thoại thông báo</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QMessageBox
+
+QMessageBox.information(parent, <span class="string">"Tiêu đề"</span>, <span class="string">"Thành công!"</span>)   <span class="comment"># Xanh</span>
+QMessageBox.warning(parent,     <span class="string">"Tiêu đề"</span>, <span class="string">"Cảnh báo!"</span>)    <span class="comment"># Vàng</span>
+QMessageBox.critical(parent,    <span class="string">"Tiêu đề"</span>, <span class="string">"Lỗi!"</span>)          <span class="comment"># Đỏ</span>
+
+<span class="comment"># Hộp thoại Yes/No</span>
+ket_qua = QMessageBox.question(parent, <span class="string">"Xác nhận"</span>, <span class="string">"Bạn chắc?"</span>,
+                              QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+<span class="keyword">if</span> ket_qua == QMessageBox.StandardButton.Yes:
+    <span class="function">print</span>(<span class="string">"Đồng ý"</span>)
+</div>
+
+<h3>3.5. Layout — cách xếp widget trong cửa sổ</h3>
+<p>
+    Nếu không dùng Layout, các widget sẽ xếp chồng lên nhau. Layout giúp tự động xếp
+    widget theo hàng/cột và tự giãn khi thay đổi kích thước cửa sổ.
+</p>
+
+<h4>3.5.1. QVBoxLayout — xếp dọc</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QVBoxLayout, QLabel, QLineEdit, QPushButton
+
+layout_doc = QVBoxLayout()              <span class="comment"># Layout xếp dọc</span>
+layout_doc.addWidget(QLabel(<span class="string">"Tên:"</span>))      <span class="comment"># Widget 1 ở trên</span>
+layout_doc.addWidget(QLineEdit())       <span class="comment"># Widget 2 ở giữa</span>
+layout_doc.addWidget(QPushButton(<span class="string">"Lưu"</span>))    <span class="comment"># Widget 3 ở dưới</span>
+
+widget_trung_tam = QWidget()
+widget_trung_tam.setLayout(layout_doc)
+cua_so.setCentralWidget(widget_trung_tam)
+</div>
+
+<h4>3.5.2. QHBoxLayout — xếp ngang</h4>
+<div class="code-block">
+<span class="keyword">from</span> PyQt6.QtWidgets <span class="keyword">import</span> QHBoxLayout
+
+layout_ngang = QHBoxLayout()            <span class="comment"># Layout xếp ngang</span>
+layout_ngang.addWidget(QPushButton(<span class="string">"Left"</span>))
+layout_ngang.addWidget(QPushButton(<span class="string">"Center"</span>))
+layout_ngang.addWidget(QPushButton(<span class="string">"Right"</span>))
+</div>
+
+<h4>3.5.3. Kết hợp Layout lồng nhau</h4>
+<p>
+    Thực tế ta hay <strong>lồng</strong> các layout: layout ngang chứa 3 nút, rồi nhét vào
+    layout dọc. Đây là cách tạo giao diện phức tạp.
+</p>
+<div class="code-block">
+layout_chinh = QVBoxLayout()                <span class="comment"># Layout dọc chính</span>
+
+layout_chinh.addWidget(QLabel(<span class="string">"Tiêu đề"</span>))
+
+layout_nut = QHBoxLayout()                  <span class="comment"># Layout ngang chứa 3 nút</span>
+layout_nut.addWidget(QPushButton(<span class="string">"Thêm"</span>))
+layout_nut.addWidget(QPushButton(<span class="string">"Sửa"</span>))
+layout_nut.addWidget(QPushButton(<span class="string">"Xóa"</span>))
+
+layout_chinh.addLayout(layout_nut)          <span class="comment"># NHÉT layout ngang vào layout dọc</span>
+</div>
+
+<div class="note">
+    <strong>💡 Quy tắc:</strong> <code>addWidget()</code> để thêm widget, <code>addLayout()</code>
+    để thêm layout con vào layout cha.
+</div>
+
+<h3>3.6. Style Sheet (QSS) — làm đẹp giống CSS</h3>
+<p>
+    PyQt6 hỗ trợ <strong>QSS</strong> — cú pháp gần giống CSS của web. Ta có thể style
+    toàn app hoặc từng widget.
+</p>
+<div class="code-block">
+<span class="comment"># Style toàn app</span>
+app.setStyleSheet(<span class="string">"""
+    QMainWindow {
+        background-color: #f5f7fa;
+    }
+    QPushButton {
+        background-color: #047857;
+        color: white;
+        border-radius: 5px;
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    QPushButton:hover {
+        background-color: #065F46;
+    }
+    QLineEdit, QComboBox {
+        padding: 8px;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+    }
+"""</span>)
+
+<span class="comment"># Style 1 widget</span>
+nut.setStyleSheet(<span class="string">"background-color: red; color: white; font-weight: bold;"</span>)
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- ===================== BÀI 4: main_window.py ================ -->
+<!-- ============================================================ -->
+<section class="chuong" id="bai4">
+<h2>BÀI 4 — PHÂN TÍCH CHI TIẾT <code>ui/main_window.py</code></h2>
+
+<p>Đây là file LỚN NHẤT và KHÓ NHẤT của đồ án. Phân tích từng phần.</p>
+
+<h3>4.1. Khai báo lớp và hàm tạo</h3>
+<div class="code-block">
+<span class="filename">ui/main_window.py</span>
+<span class="keyword">class</span> <span class="function">CuaSoChinh</span>(QMainWindow):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, nguoi_dung_hien_tai=<span class="keyword">None</span>):
+        <span class="keyword">super</span>().__init__()                          <span class="comment"># Gọi __init__ của QMainWindow</span>
+        self.setWindowTitle(<span class="string">"Hệ Thống Quản Lý Cửa Hàng Sách"</span>)
+        self.resize(<span class="number">1100</span>, <span class="number">700</span>)
+
+        <span class="comment"># Thông tin người dùng đăng nhập</span>
+        self.nguoi_dung = nguoi_dung_hien_tai
+
+        <span class="comment"># 4 cấu trúc dữ liệu chính</span>
+        self.danh_sach = DanhSachLienKetDoi()       <span class="comment"># 1. DSLK đôi - chứa sản phẩm</span>
+        self.ngan_xep_hoan_tac = NganXep()          <span class="comment"># 2. Stack Undo</span>
+        self.ngan_xep_lam_lai = NganXep()           <span class="comment"># 3. Stack Redo</span>
+        self.gio_hang = HangDoi()                   <span class="comment"># 4. Queue giỏ hàng</span>
+
+        self.thiet_lap_giao_dien()
+        self.doc_du_lieu_tu_file()
+</div>
+
+<p><strong>Giải thích từng dòng:</strong></p>
+<ul>
+    <li><code>class CuaSoChinh(QMainWindow):</code> — khai báo lớp <code>CuaSoChinh</code> <strong>kế thừa</strong> từ <code>QMainWindow</code>. Nghĩa là <code>CuaSoChinh</code> sẽ có sẵn mọi tính năng của <code>QMainWindow</code> (tiêu đề, menu, status bar...) cộng thêm những gì ta viết.</li>
+    <li><code>def __init__(self, nguoi_dung_hien_tai=None):</code> — hàm tạo. Tham số <code>nguoi_dung_hien_tai</code> mặc định <code>None</code> (nếu không truyền thì là None).</li>
+    <li><code>super().__init__()</code> — gọi hàm tạo của lớp cha (<code>QMainWindow</code>). Bắt buộc để <code>QMainWindow</code> khởi tạo các thành phần nội bộ của nó.</li>
+    <li><code>self.nguoi_dung = nguoi_dung_hien_tai</code> — lưu thông tin người dùng vào thuộc tính <code>nguoi_dung</code> để dùng trong cả lớp.</li>
+    <li>4 dòng cấu trúc dữ liệu: khởi tạo 4 cấu trúc chính. Đây là <strong>xương sống</strong> của chương trình.</li>
+    <li><code>self.thiet_lap_giao_dien()</code> — gọi hàm tạo giao diện (4.2).</li>
+    <li><code>self.doc_du_lieu_tu_file()</code> — đọc dữ liệu từ SQLite nạp vào DSLK (4.5).</li>
+</ul>
+
+<h3>4.2. Hàm thiet_lap_giao_dien() — xây dựng UI</h3>
+<div class="code-block">
+<span class="keyword">def</span> <span class="function">thiet_lap_giao_dien</span>(self):
+    widget_chinh = QWidget()
+    self.setCentralWidget(widget_chinh)
+    layout_chinh = QVBoxLayout(widget_chinh)
+
+    <span class="comment"># 1. HÀNG TRÊN: thanh tìm kiếm + combo tiêu chí</span>
+    self.nhap_tim_kiem = QLineEdit()
+    self.cb_tieu_chi_tim = QComboBox()
+    self.cb_tieu_chi_tim.addItems([<span class="string">"Tất cả"</span>, <span class="string">"Theo Tên"</span>, <span class="string">"Theo Mã"</span>, <span class="string">"Theo Loại"</span>])
+    self.nhap_tim_kiem.textChanged.connect(self.xu_ly_tim_kiem)
+
+    <span class="comment"># 2. BẢNG CHÍNH: QTableWidget hiển thị sản phẩm</span>
+    self.bang_du_lieu = QTableWidget()
+    self.bang_du_lieu.setColumnCount(<span class="number">7</span>)
+
+    <span class="comment"># 3. CÁC NÚT</span>
+    nut_them = QPushButton(<span class="string">"➕ Thêm"</span>)
+    nut_them.clicked.connect(self.hien_thi_form_them)
+    nut_xoa = QPushButton(<span class="string">"❌ Xóa"</span>)
+    nut_xoa.clicked.connect(self.xu_ly_xoa_san_pham)
+
+    <span class="comment"># 4. PHÂN QUYỀN: ẩn nút Xóa nếu là Nhân viên</span>
+    <span class="keyword">if</span> self.nguoi_dung <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and not</span> self.nguoi_dung.la_admin():
+        nut_xoa.setVisible(<span class="keyword">False</span>)
+</div>
+
+<p><strong>Các điểm quan trọng:</strong></p>
+<ul>
+    <li><code>self.setCentralWidget(widget_chinh)</code> — <code>QMainWindow</code> cần 1 widget trung tâm.</li>
+    <li>Mọi widget cần <strong>lưu tham chiếu</strong> vào <code>self.xxx</code> nếu muốn truy cập từ hàm khác (vd: <code>self.bang_du_lieu</code>).</li>
+    <li><code>.textChanged.connect(...)</code> — mỗi lần người dùng gõ chữ, hàm tự chạy → tìm kiếm real-time.</li>
+    <li><code>.clicked.connect(...)</code> — bắt sự kiện click nút. <strong>Chú ý: truyền tên hàm KHÔNG có ngoặc</strong>.</li>
+    <li>Phân quyền: <code>nut_xoa.setVisible(False)</code> để ẩn nút Xóa với Nhân viên.</li>
+</ul>
+
+<h3>4.3. Hàm hien_thi_form_them() — xử lý nút Thêm</h3>
+<div class="code-block">
+<span class="keyword">def</span> <span class="function">hien_thi_form_them</span>(self):
+    hop_thoai = HopThoaiThemMoi(self)                      <span class="comment"># 1. Mở dialog</span>
+    <span class="keyword">if</span> hop_thoai.exec() == QDialog.DialogCode.Accepted:  <span class="comment"># 2. Nếu user bấm Lưu</span>
+        <span class="keyword">try</span>:
+            sp_moi = hop_thoai.san_pham_moi                <span class="comment"># 3. Lấy đối tượng</span>
+            <span class="comment"># 4. Kiểm tra trùng mã</span>
+            <span class="keyword">if</span> self.danh_sach.tim_kiem_theo_ma(sp_moi.ma_so):
+                QMessageBox.warning(self, <span class="string">"Lỗi"</span>, <span class="string">"Mã đã tồn tại!"</span>)
+                <span class="keyword">return</span>
+            <span class="comment"># 5. Thêm vào DSLK + lưu SQLite + vẽ lại bảng</span>
+            self.danh_sach.them_vao_cuoi(sp_moi)
+            self.luu_du_lieu_ra_file()
+            self.cap_nhat_bang_hien_thi()
+            <span class="comment"># 6. Ghi vào Stack Undo</span>
+            self.ngan_xep_hoan_tac.day_vao({<span class="string">"thao_tac"</span>: <span class="string">"them"</span>, <span class="string">"sp"</span>: sp_moi})
+            self.ngan_xep_lam_lai.xoa_tat_ca()             <span class="comment"># Xóa Redo stack</span>
+        <span class="keyword">except</span> <span class="keyword">Exception</span> <span class="keyword">as</span> e:
+            QMessageBox.critical(self, <span class="string">"Lỗi"</span>, <span class="string">f"Lỗi: {e}"</span>)
+</div>
+
+<h3>4.4. Hàm xu_ly_thong_ke() — thống kê tổng giá trị kho</h3>
+<div class="code-block">
+<span class="keyword">def</span> <span class="function">xu_ly_thong_ke</span>(self):
+    tong_gia_tri = <span class="number">0.0</span>
+    tong_so_luong = <span class="number">0</span>
+    <span class="keyword">for</span> sp <span class="keyword">in</span> self.danh_sach.duyet_danh_sach():
+        tong_gia_tri += sp.tinh_gia_ban() * sp.so_luong   <span class="comment"># ĐA HÌNH!</span>
+        tong_so_luong += sp.so_luong
+</div>
+
+<div class="tip">
+    <strong>💡 Tại sao dùng <code>sp.tinh_gia_ban()</code>?</strong> Vì <strong>tính đa hình</strong>:
+    cùng 1 lời gọi <code>tinh_gia_ban()</code> nhưng trả về kết quả khác nhau tùy loại đối tượng.
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- ===================== BÀI 5: UNDO/REDO ===================== -->
+<!-- ============================================================ -->
+<section class="chuong" id="bai5">
+<h2>BÀI 5 — UNDO/REDO BẰNG 2 STACK (LIFO)</h2>
+
+<h3>5.1. Ý tưởng</h3>
+<p>
+    <strong>Undo/Redo</strong> dùng <strong>2 Stack</strong>:
+</p>
+<ul>
+    <li><strong>Stack Undo</strong> — lưu các thao tác đã làm. Bấm Undo → lấy 1 phần tử ra.</li>
+    <li><strong>Stack Redo</strong> — lưu các thao tác đã Undo. Bấm Redo → lấy 1 phần tử ra.</li>
+</ul>
+
+<div class="note">
+    <strong>💡 Quy tắc vàng:</strong> Mỗi lần user làm thao tác mới → <strong>xóa sạch Stack Redo</strong>.
+</div>
+
+<h3>5.2. Cấu trúc 1 "thao tác" trong Stack</h3>
+<div class="code-block">
+<span class="comment"># Thao tác THÊM</span>
+{<span class="string">"thao_tac"</span>: <span class="string">"them"</span>, <span class="string">"sp"</span>: sp_moi}
+
+<span class="comment"># Thao tác XÓA</span>
+{<span class="string">"thao_tac"</span>: <span class="string">"xoa"</span>, <span class="string">"sp"</span>: sp_bi_xoa}
+
+<span class="comment"># Thao tác SỬA</span>
+{<span class="string">"thao_tac"</span>: <span class="string">"sua"</span>, <span class="string">"sp_cu"</span>: sp_cu, <span class="string">"sp_moi"</span>: sp_moi}
+</div>
+
+<h3>5.3. Hàm xu_ly_hoan_tac() — Undo</h3>
+<div class="code-block">
+<span class="keyword">def</span> <span class="function">xu_ly_hoan_tac</span>(self):
+    thao_tac = self.ngan_xep_hoan_tac.lay_ra()      <span class="comment"># Lấy từ đỉnh Stack Undo</span>
+    kieu = thao_tac[<span class="string">"thao_tac"</span>]
+
+    <span class="keyword">if</span> kieu == <span class="string">"them"</span>:
+        <span class="comment"># Đã THÊM → Undo = XÓA</span>
+        self.danh_sach.xoa_nut_theo_ma(thao_tac[<span class="string">"sp"</span>].ma_so)
+    <span class="keyword">elif</span> kieu == <span class="string">"xoa"</span>:
+        <span class="comment"># Đã XÓA → Undo = THÊM lại</span>
+        self.danh_sach.them_vao_cuoi(thao_tac[<span class="string">"sp"</span>])
+    <span class="keyword">elif</span> kieu == <span class="string">"sua"</span>:
+        <span class="comment"># Đã SỬA → Undo = khôi phục sp_cu</span>
+        self.danh_sach.xoa_nut_theo_ma(thao_tac[<span class="string">"sp_moi"</span>].ma_so)
+        self.danh_sach.them_vao_cuoi(thao_tac[<span class="string">"sp_cu"</span>])
+
+    self.ngan_xep_lam_lai.day_vao(thao_tac)         <span class="comment"># Đẩy sang Redo</span>
+    self.luu_du_lieu_ra_file()
+    self.cap_nhat_bang_hien_thi()
+</div>
+
+<h3>5.4. Mô phỏng Undo/Redo tương tác</h3>
+<div class="demo-box">
+    <h4>🧪 Mô phỏng Undo/Redo</h4>
+    <p><strong>Danh sách hiện tại:</strong> <span id="ur-list" style="font-family:monospace;background:#fff;padding:4px 10px;border-radius:4px;">[]</span></p>
+    <div class="controls">
+        <button onclick="urThem()">➕ Thêm (Tạo undo)</button>
+        <button onclick="urUndo()" class="secondary">↩ Undo</button>
+        <button onclick="urRedo()" class="secondary">↪ Redo</button>
+        <button onclick="urReset()" class="danger">🔄 Reset</button>
+    </div>
+    <div style="display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:160px;">
+            <strong style="color:#047857">Stack Undo (LIFO):</strong>
+            <div class="stack-container" id="ur-undo-stack" style="margin-top:8px;"></div>
+        </div>
+        <div style="flex:1;min-width:160px;">
+            <strong style="color:#1D4E89">Stack Redo (LIFO):</strong>
+            <div class="stack-container" id="ur-redo-stack" style="margin-top:8px;"></div>
+        </div>
+    </div>
+    <div class="log-output" id="ur-log">
+        <div class="log-line">Sẵn sàng.</div>
+    </div>
+</div>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- ===================== BÀI 6: QUIZ ========================== -->
+<!-- ============================================================ -->
+<section class="chuong" id="bai6">
+<h2>BÀI 6 — QUIZ KIỂM TRA HIỂU</h2>
+
+<div class="quiz" id="quiz1">
+    <div class="question">Câu 1: Trong DSLK đôi, mỗi nút (Node) có mấy con trỏ?</div>
+    <div class="options">
+        <label><input type="radio" name="q1" value="A"> A. 1 con trỏ (sau)</label>
+        <label><input type="radio" name="q1" value="B"> B. 2 con trỏ (truoc và sau)</label>
+        <label><input type="radio" name="q1" value="C"> C. 3 con trỏ (truoc, sau, giua)</label>
+        <label><input type="radio" name="q1" value="D"> D. 0 con trỏ</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz1', 'B')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz2">
+    <div class="question">Câu 2: Độ phức tạp của Merge Sort?</div>
+    <div class="options">
+        <label><input type="radio" name="q2" value="A"> A. O(n)</label>
+        <label><input type="radio" name="q2" value="B"> B. O(n²)</label>
+        <label><input type="radio" name="q2" value="C"> C. O(n log n)</label>
+        <label><input type="radio" name="q2" value="D"> D. O(log n)</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz2', 'C')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz3">
+    <div class="question">Câu 3: Kỹ thuật "2 con trỏ nhanh/chậm" dùng để làm gì?</div>
+    <div class="options">
+        <label><input type="radio" name="q3" value="A"> A. Tìm phần tử lớn nhất</label>
+        <label><input type="radio" name="q3" value="B"> B. Tìm điểm giữa của DSLK</label>
+        <label><input type="radio" name="q3" value="C"> C. Đếm số phần tử</label>
+        <label><input type="radio" name="q3" value="D"> D. Đảo ngược danh sách</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz3', 'B')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz4">
+    <div class="question">Câu 4: Trong PyQt6, để bắt sự kiện click nút?</div>
+    <div class="options">
+        <label><input type="radio" name="q4" value="A"> A. nut.onClick = ham_xu_ly</label>
+        <label><input type="radio" name="q4" value="B"> B. nut.clicked.connect(ham_xu_ly)</label>
+        <label><input type="radio" name="q4" value="C"> C. nut.addEventListener("click", ham_xu_ly)</label>
+        <label><input type="radio" name="q4" value="D"> D. nut.bind("click", ham_xu_ly)</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz4', 'B')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz5">
+    <div class="question">Câu 5: Khi truyền callback cho <code>.clicked.connect()</code>?</div>
+    <div class="options">
+        <label><input type="radio" name="q5" value="A"> A. Phải có ngoặc: <code>ham_xu_ly()</code></label>
+        <label><input type="radio" name="q5" value="B"> B. Không có ngoặc: <code>ham_xu_ly</code></label>
+        <label><input type="radio" name="q5" value="C"> C. Phải là lambda</label>
+        <label><input type="radio" name="q5" value="D"> D. Phải là chuỗi</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz5', 'B')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz6">
+    <div class="question">Câu 6: Khi có thao tác mới, cần làm gì với Stack Redo?</div>
+    <div class="options">
+        <label><input type="radio" name="q6" value="A"> A. Không làm gì</label>
+        <label><input type="radio" name="q6" value="B"> B. Xóa sạch Stack Redo</label>
+        <label><input type="radio" name="q6" value="C"> C. Đẩy thêm vào Stack Redo</label>
+        <label><input type="radio" name="q6" value="D"> D. Hoán đổi Stack Undo và Redo</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz6', 'B')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz7">
+    <div class="question">Câu 7: Undo của thao tác "THÊM" là gì?</div>
+    <div class="options">
+        <label><input type="radio" name="q7" value="A"> A. Thêm lại sản phẩm đó</label>
+        <label><input type="radio" name="q7" value="B"> B. Xóa sản phẩm đó đi</label>
+        <label><input type="radio" name="q7" value="C"> C. Sửa sản phẩm đó</label>
+        <label><input type="radio" name="q7" value="D"> D. Không làm gì</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz7', 'B')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="quiz" id="quiz8">
+    <div class="question">Câu 8: Lệnh nào để ẩn 1 widget trong PyQt6?</div>
+    <div class="options">
+        <label><input type="radio" name="q8" value="A"> A. widget.hide()</label>
+        <label><input type="radio" name="q8" value="B"> B. widget.setVisible(False)</label>
+        <label><input type="radio" name="q8" value="C"> C. Cả A và B đều đúng</label>
+        <label><input type="radio" name="q8" value="D"> D. widget.remove()</label>
+    </div>
+    <div class="feedback"></div>
+    <div class="controls" style="margin-top:10px;">
+        <button onclick="kiemTra('quiz8', 'C')">Kiểm tra</button>
+    </div>
+</div>
+
+<div class="note" style="margin-top:30px;">
+    <strong>🎓 Lời khuyên cuối:</strong> Nếu làm đúng 7/8 câu trở lên thì bạn đã hiểu rõ phần
+    của mình. Nếu sai nhiều, hãy đọc lại các bài 1-5 và mở file Python tương ứng để xem
+    code thực tế.
+</div>
+
+</section>
+
+</div>
+
+<div class="footer">
+    <p>📚 Tài liệu học thi — Hồ Quang Huy | Đồ án Quản lý Cửa hàng Sách — PyQt6</p>
+    <p>Xem mã nguồn thực tế trong thư mục <code>do_an_pyqt6/</code> của repo</p>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
