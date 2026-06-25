@@ -214,6 +214,9 @@ class DoublyLinkedList:
     # ============================================================
 
     def cap_nhat_node(self, ma_so, du_lieu_moi):
+        #du_lieu_moi la {ten_truong: gia_tri_moi}
+        #Ví dụ: ma_so="S002", du_lieu_moi={"gia_tien": "55000", "ton_kho": 12} 
+        # du_lieu_moi là đưa danh sách cái cần sửa dưới dạng dict
         """
         Cập nhật các trường của Node có ma_so tương ứng.
         du_lieu_moi là dict {ten_truong: gia_tri_moi}.
@@ -223,10 +226,12 @@ class DoublyLinkedList:
         while node_hien_tai is not None: #Kiểm tra cho đến khi gặp None thì dừng
             if hasattr(node_hien_tai.data, 'ma_so') and node_hien_tai.data.ma_so == ma_so:
                 doi_tuong = node_hien_tai.data
+
                 # Lặp từng cặp (tên_trường, giá_trị) trong dict và gán vào đối tượng.
+                # VD: Giatien:50k; Nếu thiếu items thì máy tính chỉ thấy Giatien và bỏ quên 50k
                 for thuoc_tinh, gia_tri in du_lieu_moi.items():
-                    if hasattr(doi_tuong, thuoc_tinh):
-                        setattr(doi_tuong, thuoc_tinh, gia_tri)
+                    if hasattr(doi_tuong, thuoc_tinh): # Kiểm tra xem có thuộc tính đó không
+                        setattr(doi_tuong, thuoc_tinh, gia_tri) # gán giá trị vào thuộc tính, giá:10k
                 return doi_tuong
             node_hien_tai = node_hien_tai.next
         return None
@@ -259,8 +264,8 @@ class DoublyLinkedList:
         # Khởi tạo các biến tích lũy.
         dat_nhat = None
         re_nhat = None
-        gia_cao_nhat = -1                                # Khởi tạo âm để mọi giá đều lớn hơn.
-        gia_thap_nhat = float('inf')                     # Vô cực để mọi giá đều nhỏ hơn.
+        gia_cao_nhat = -1 # Khởi tạo âm để mọi giá đều lớn hơn.
+        gia_thap_nhat = float('inf') # Vô cực để mọi giá đều nhỏ hơn.
         sap_het_hang = []
         theo_loai = {}
         tong_gia_tri_kho = 0
