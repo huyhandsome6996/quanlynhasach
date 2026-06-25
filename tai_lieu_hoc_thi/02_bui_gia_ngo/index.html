@@ -67,53 +67,53 @@
 <h3>1.4. Cài đặt trong đồ án (file <code>models/ngan_xep.py</code>)</h3>
 
 <h4>1.4.1. Lớp NutNganXep (Node của Stack)</h4>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/ngan_xep.py</span>
-<span class="keyword">class</span> <span class="function">NutNganXep</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, du_lieu):
-        self.du_lieu = du_lieu   <span class="comment"># Dữ liệu chứa trong mắt xích</span>
-        self.duoi = <span class="keyword">None</span>         <span class="comment"># Trỏ tới mắt xích nằm ngay BÊN DƯỚI</span>
-</div>
+<code class="language-python">class NutNganXep:
+    def __init__(self, du_lieu):
+        self.du_lieu = du_lieu   # Dữ liệu chứa trong mắt xích
+        self.duoi = None         # Trỏ tới mắt xích nằm ngay BÊN DƯỚI</code>
+</pre>
 <p><strong>Giải thích:</strong> Mỗi nút trong Stack chỉ cần <strong>1 con trỏ <code>duoi</code></strong>
 (trỏ xuống nút bên dưới). Khác với DSLK đôi (cần 2 con trỏ truoc + sau).</p>
 
 <h4>1.4.2. Lớp NganXep</h4>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/ngan_xep.py</span>
-<span class="keyword">class</span> <span class="function">NganXep</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self):
-        self.dinh = <span class="keyword">None</span>      <span class="comment"># Phần tử trên cùng (None = rỗng)</span>
-        self.so_luong = <span class="number">0</span>     <span class="comment"># Số phần tử đang có</span>
-</div>
+<code class="language-python">class NganXep:
+    def __init__(self):
+        self.dinh = None      # Phần tử trên cùng (None = rỗng)
+        self.so_luong = 0     # Số phần tử đang có</code>
+</pre>
 <p>Stack chỉ cần giữ con trỏ <code>dinh</code> (đỉnh). Từ đỉnh có thể đi xuống bằng <code>duoi</code>.</p>
 
 <h4>1.4.3. Hàm day_vao() — PUSH</h4>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">day_vao</span>(self, du_lieu):
-    nut_moi = NutNganXep(du_lieu)    <span class="comment"># 1. Tạo nút mới</span>
-    nut_moi.duoi = self.dinh         <span class="comment"># 2. Nút mới trỏ xuống nút đang ở đỉnh</span>
-    self.dinh = nut_moi              <span class="comment"># 3. Đỉnh mới = nút vừa tạo</span>
-    self.so_luong += <span class="number">1</span>
-</div>
+<pre class="code-block">
+<code class="language-python">def day_vao(self, du_lieu):
+    nut_moi = NutNganXep(du_lieu)    # 1. Tạo nút mới
+    nut_moi.duoi = self.dinh         # 2. Nút mới trỏ xuống nút đang ở đỉnh
+    self.dinh = nut_moi              # 3. Đỉnh mới = nút vừa tạo
+    self.so_luong += 1</code>
+</pre>
 
 <h4>1.4.4. Hàm lay_ra() — POP</h4>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">lay_ra</span>(self):
-    <span class="keyword">if</span> self.dinh <span class="keyword">is</span> <span class="keyword">None</span>:
-        <span class="keyword">return</span> <span class="keyword">None</span>                <span class="comment"># Stack rỗng → trả None</span>
-    nut_lay = self.dinh              <span class="comment"># Lưu nút đỉnh</span>
-    self.dinh = self.dinh.duoi       <span class="comment"># Đỉnh mới = nút bên dưới</span>
-    self.so_luong -= <span class="number">1</span>
-    <span class="keyword">return</span> nut_lay.du_lieu          <span class="comment"># Trả về dữ liệu</span>
-</div>
+<pre class="code-block">
+<code class="language-python">def lay_ra(self):
+    if self.dinh is None:
+        return None                # Stack rỗng → trả None
+    nut_lay = self.dinh              # Lưu nút đỉnh
+    self.dinh = self.dinh.duoi       # Đỉnh mới = nút bên dưới
+    self.so_luong -= 1
+    return nut_lay.du_lieu          # Trả về dữ liệu</code>
+</pre>
 
 <h4>1.4.5. Hàm xem_dinh() — PEEK</h4>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">xem_dinh</span>(self):
-    <span class="keyword">if</span> self.dinh <span class="keyword">is</span> <span class="keyword">None</span>:
-        <span class="keyword">return</span> <span class="keyword">None</span>
-    <span class="keyword">return</span> self.dinh.du_lieu     <span class="comment"># Trả dữ liệu đỉnh, KHÔNG xóa</span>
-</div>
+<pre class="code-block">
+<code class="language-python">def xem_dinh(self):
+    if self.dinh is None:
+        return None
+    return self.dinh.du_lieu     # Trả dữ liệu đỉnh, KHÔNG xóa</code>
+</pre>
 
 <h3>1.5. Mô phỏng tương tác — Stack</h3>
 <div class="demo-box">
@@ -171,42 +171,42 @@
 </table>
 
 <h3>2.3. Cấu trúc bảng SanPham trong đồ án</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">data/sqlite_db.py</span>
-<span class="keyword">CREATE TABLE IF NOT EXISTS</span> SanPham (
-    ma_so        TEXT PRIMARY KEY,    <span class="comment"># Mã sản phẩm (khóa chính, không trùng)</span>
-    loai         TEXT NOT NULL,       <span class="comment"># Loại: Sach/TapChi/Bao/LuanVan/BanThao</span>
-    ten          TEXT NOT NULL,       <span class="comment"># Tên sản phẩm</span>
-    gia_co_ban   REAL NOT NULL,       <span class="comment"># Giá cơ bản (số thực)</span>
-    so_luong     INTEGER NOT NULL,    <span class="comment"># Số lượng tồn (số nguyên)</span>
-    thong_tin_1  TEXT,                <span class="comment"># Thuộc tính riêng 1 (vd: tác giả)</span>
-    thong_tin_2  TEXT                 <span class="comment"># Thuộc tính riêng 2 (vd: NXB)</span>
-)
-</div>
+<code class="language-python">CREATE TABLE IF NOT EXISTS SanPham (
+    ma_so        TEXT PRIMARY KEY,    # Mã sản phẩm (khóa chính, không trùng)
+    loai         TEXT NOT NULL,       # Loại: Sach/TapChi/Bao/LuanVan/BanThao
+    ten          TEXT NOT NULL,       # Tên sản phẩm
+    gia_co_ban   REAL NOT NULL,       # Giá cơ bản (số thực)
+    so_luong     INTEGER NOT NULL,    # Số lượng tồn (số nguyên)
+    thong_tin_1  TEXT,                # Thuộc tính riêng 1 (vd: tác giả)
+    thong_tin_2  TEXT                 # Thuộc tính riêng 2 (vd: NXB)
+)</code>
+</pre>
 <p><strong>Ý tưởng:</strong> Dùng 2 cột <code>thong_tin_1</code> và <code>thong_tin_2</code> để
 lưu thuộc tính riêng của từng loại (Sách có tác giả + NXB; Tạp chí chỉ có số phát hành...).
 Tránh phải tạo 5 bảng riêng.</p>
 
 <h3>2.4. Quy trình kết nối SQLite trong Python</h3>
-<div class="code-block">
-<span class="keyword">import</span> sqlite3
+<pre class="code-block">
+<code class="language-python">import sqlite3
 
-<span class="comment"># 1. KẾT NỐI tới file .db (nếu chưa có sẽ tự tạo mới)</span>
-conn = sqlite3.connect(<span class="string">"data/quan_ly_nha_sach.db"</span>)
+# 1. KẾT NỐI tới file .db (nếu chưa có sẽ tự tạo mới)
+conn = sqlite3.connect("data/quan_ly_nha_sach.db")
 
-<span class="comment"># 2. TẠO CURSOR — con trỏ để thực thi câu lệnh SQL</span>
+# 2. TẠO CURSOR — con trỏ để thực thi câu lệnh SQL
 cursor = conn.cursor()
 
-<span class="comment"># 3. THỰC THI câu lệnh SQL</span>
-cursor.execute(<span class="string">"SELECT * FROM SanPham"</span>)
-rows = cursor.fetchall()      <span class="comment"># Lấy tất cả dòng</span>
+# 3. THỰC THI câu lệnh SQL
+cursor.execute("SELECT * FROM SanPham")
+rows = cursor.fetchall()      # Lấy tất cả dòng
 
-<span class="comment"># 4. COMMIT (lưu thay đổi) — chỉ cần khi INSERT/UPDATE/DELETE</span>
+# 4. COMMIT (lưu thay đổi) — chỉ cần khi INSERT/UPDATE/DELETE
 conn.commit()
 
-<span class="comment"># 5. ĐÓNG KẾT NỐI</span>
-conn.close()
-</div>
+# 5. ĐÓNG KẾT NỐI
+conn.close()</code>
+</pre>
 
 <div class="warning">
     <strong>⚠️ Quan trọng:</strong> Phải <code>conn.commit()</code> sau khi INSERT/UPDATE/DELETE,
@@ -214,43 +214,43 @@ conn.close()
 </div>
 
 <h3>2.5. Hàm luu_du_lieu_sqlite() trong đồ án</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">data/sqlite_db.py</span>
-<span class="keyword">def</span> <span class="function">luu_du_lieu_sqlite</span>(mang_san_pham):
-    <span class="keyword">try</span>:
-        khoi_tao_db()                              <span class="comment"># Tạo bảng nếu chưa có</span>
+<code class="language-python">def luu_du_lieu_sqlite(mang_san_pham):
+    try:
+        khoi_tao_db()                              # Tạo bảng nếu chưa có
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
 
-        <span class="comment"># Xóa dữ liệu cũ để đồng bộ</span>
-        cursor.execute(<span class="string">"DELETE FROM SanPham"</span>)
+        # Xóa dữ liệu cũ để đồng bộ
+        cursor.execute("DELETE FROM SanPham")
 
-        <span class="keyword">for</span> sp <span class="keyword">in</span> mang_san_pham:
-            data = sp.to_dict()                    <span class="comment"># Đa hình: chuyển sang dict</span>
-            loai = data[<span class="string">"loai"</span>]
-            t1, t2 = <span class="string">""</span>, <span class="string">""</span>
+        for sp in mang_san_pham:
+            data = sp.to_dict()                    # Đa hình: chuyển sang dict
+            loai = data["loai"]
+            t1, t2 = "", ""
 
-            <span class="comment"># Lấy thuộc tính riêng theo loại</span>
-            <span class="keyword">if</span> loai == <span class="string">"Sach"</span>:
-                t1 = data.get(<span class="string">"tac_gia"</span>, <span class="string">""</span>)
-                t2 = data.get(<span class="string">"nha_xuat_ban"</span>, <span class="string">""</span>)
-            <span class="keyword">elif</span> loai == <span class="string">"TapChi"</span>:
-                t1 = data.get(<span class="string">"so_phat_hanh"</span>, <span class="string">""</span>)
-            <span class="comment"># ... (các loại khác tương tự)</span>
+            # Lấy thuộc tính riêng theo loại
+            if loai == "Sach":
+                t1 = data.get("tac_gia", "")
+                t2 = data.get("nha_xuat_ban", "")
+            elif loai == "TapChi":
+                t1 = data.get("so_phat_hanh", "")
+            # ... (các loại khác tương tự)
 
-            <span class="comment"># INSERT dùng tham số ? để chống SQL Injection</span>
-            cursor.execute(<span class="string">'''
+            # INSERT dùng tham số ? để chống SQL Injection
+            cursor.execute('''
                 INSERT INTO SanPham (ma_so, loai, ten, gia_co_ban, so_luong, thong_tin_1, thong_tin_2)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
-            '''</span>, (sp.ma_so, loai, sp.ten, sp.gia_co_ban, sp.so_luong, t1, t2))
+            ''', (sp.ma_so, loai, sp.ten, sp.gia_co_ban, sp.so_luong, t1, t2))
 
         conn.commit()
         conn.close()
-        <span class="keyword">return</span> <span class="keyword">True</span>
-    <span class="keyword">except</span> <span class="keyword">Exception</span> <span class="keyword">as</span> loi:
-        <span class="function">print</span>(<span class="string">f"[LỖI] Không lưu được CSDL: {loi}"</span>)
-        <span class="keyword">return</span> <span class="keyword">False</span>
-</div>
+        return True
+    except Exception as loi:
+        print(f"[LỖI] Không lưu được CSDL: {loi}")
+        return False</code>
+</pre>
 
 <p><strong>Các điểm quan trọng:</strong></p>
 <ul>
@@ -261,31 +261,31 @@ conn.close()
 </ul>
 
 <h3>2.6. Hàm doc_du_lieu_sqlite() — đọc + đa hình</h3>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">doc_du_lieu_sqlite</span>():
-    <span class="keyword">try</span>:
+<pre class="code-block">
+<code class="language-python">def doc_du_lieu_sqlite():
+    try:
         danh_sach = []
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
-        cursor.execute(<span class="string">"SELECT * FROM SanPham"</span>)
+        cursor.execute("SELECT * FROM SanPham")
         rows = cursor.fetchall()
 
-        <span class="keyword">for</span> row <span class="keyword">in</span> rows:
+        for row in rows:
             ma_so, loai, ten, gia_co_ban, so_luong, t1, t2 = row
-            <span class="comment"># Dùng đa hình: tạo đúng lớp con theo `loai`</span>
-            <span class="keyword">if</span> loai == <span class="string">"Sach"</span>:
+            # Dùng đa hình: tạo đúng lớp con theo `loai`
+            if loai == "Sach":
                 sp = Sach(ma_so, ten, gia_co_ban, so_luong, t1, t2)
-            <span class="keyword">elif</span> loai == <span class="string">"TapChi"</span>:
+            elif loai == "TapChi":
                 sp = TapChi(ma_so, ten, gia_co_ban, so_luong, t1)
-            <span class="comment"># ... (các loại khác)</span>
+            # ... (các loại khác)
             danh_sach.append(sp)
 
         conn.close()
-        <span class="keyword">return</span> danh_sach
-    <span class="keyword">except</span> <span class="keyword">Exception</span> <span class="keyword">as</span> loi:
-        <span class="function">print</span>(<span class="string">f"[LỖI] {loi}"</span>)
-        <span class="keyword">return</span> []
-</div>
+        return danh_sach
+    except Exception as loi:
+        print(f"[LỖI] {loi}")
+        return []</code>
+</pre>
 
 <div class="tip">
     <strong>💡 Vì sao quan trọng?</strong> Khi đọc từ SQLite, ta tạo <strong>đúng lớp con</strong>
@@ -337,55 +337,55 @@ conn.close()
 </table>
 
 <h3>3.2. Cài đặt lớp NguoiDung</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">models/nguoi_dung.py</span>
-<span class="keyword">class</span> <span class="function">NguoiDung</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, ten_dang_nhap, mat_khau, quyen):
+<code class="language-python">class NguoiDung:
+    def __init__(self, ten_dang_nhap, mat_khau, quyen):
         self.ten_dang_nhap = ten_dang_nhap
         self.mat_khau = mat_khau
-        self.quyen = quyen     <span class="comment"># "admin" hoặc "nhan_vien"</span>
+        self.quyen = quyen     # "admin" hoặc "nhan_vien"
 
-    <span class="keyword">def</span> <span class="function">la_admin</span>(self):
-        <span class="keyword">return</span> self.quyen == <span class="string">"admin"</span>
+    def la_admin(self):
+        return self.quyen == "admin"
 
-    <span class="keyword">def</span> <span class="function">la_nhan_vien</span>(self):
-        <span class="keyword">return</span> self.quyen == <span class="string">"nhan_vien"</span>
-</div>
+    def la_nhan_vien(self):
+        return self.quyen == "nhan_vien"</code>
+</pre>
 
 <h3>3.3. Hàm kiem_tra_dang_nhap()</h3>
-<div class="code-block">
-DANH_SACH_TAI_KHOAN = [
-    NguoiDung(<span class="string">"admin"</span>,    <span class="string">"123"</span>, <span class="string">"admin"</span>),
-    NguoiDung(<span class="string">"nhanvien"</span>, <span class="string">"123"</span>, <span class="string">"nhan_vien"</span>),
+<pre class="code-block">
+<code class="language-python">DANH_SACH_TAI_KHOAN = [
+    NguoiDung("admin",    "123", "admin"),
+    NguoiDung("nhanvien", "123", "nhan_vien"),
 ]
 
-<span class="keyword">def</span> <span class="function">kiem_tra_dang_nhap</span>(ten_dang_nhap, mat_khau):
-    <span class="keyword">for</span> nguoi <span class="keyword">in</span> DANH_SACH_TAI_KHOAN:
-        <span class="keyword">if</span> (nguoi.ten_dang_nhap == ten_dang_nhap
-                <span class="keyword">and</span> nguoi.mat_khau == mat_khau):
-            <span class="keyword">return</span> nguoi     <span class="comment"># Đúng → trả về đối tượng NguoiDung</span>
-    <span class="keyword">return</span> <span class="keyword">None</span>             <span class="comment"># Sai → trả về None</span>
-</div>
+def kiem_tra_dang_nhap(ten_dang_nhap, mat_khau):
+    for nguoi in DANH_SACH_TAI_KHOAN:
+        if (nguoi.ten_dang_nhap == ten_dang_nhap
+                and nguoi.mat_khau == mat_khau):
+            return nguoi     # Đúng → trả về đối tượng NguoiDung
+    return None             # Sai → trả về None</code>
+</pre>
 
 <h3>3.4. Áp dụng phân quyền trong main_window.py</h3>
-<div class="code-block">
-<span class="keyword">def</span> <span class="function">thiet_lap_giao_dien</span>(self):
-    <span class="comment"># ...</span>
-    nut_xoa = QPushButton(<span class="string">"❌ Xóa"</span>)
+<pre class="code-block">
+<code class="language-python">def thiet_lap_giao_dien(self):
+    # ...
+    nut_xoa = QPushButton("❌ Xóa")
 
-    <span class="comment"># ẨN NÚT XÓA nếu là Nhân viên</span>
-    <span class="keyword">if</span> self.nguoi_dung <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and not</span> self.nguoi_dung.la_admin():
-        nut_xoa.setVisible(<span class="keyword">False</span>)
+    # ẨN NÚT XÓA nếu là Nhân viên
+    if self.nguoi_dung is not None and not self.nguoi_dung.la_admin():
+        nut_xoa.setVisible(False)
 
 
-<span class="keyword">def</span> <span class="function">xu_ly_xoa_san_pham</span>(self):
-    <span class="comment"># KIỂM TRA PHÂN QUYỀN (chặn thêm cho chắc)</span>
-    <span class="keyword">if</span> self.nguoi_dung <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and not</span> self.nguoi_dung.la_admin():
-        QMessageBox.warning(self, <span class="string">"Không Đủ Quyền"</span>,
-            <span class="string">"Bạn là 'Nhân viên' nên KHÔNG ĐƯỢC PHÉP XÓA."</span>)
-        <span class="keyword">return</span>
-    <span class="comment"># ... tiếp tục xử lý xóa nếu là Admin</span>
-</div>
+def xu_ly_xoa_san_pham(self):
+    # KIỂM TRA PHÂN QUYỀN (chặn thêm cho chắc)
+    if self.nguoi_dung is not None and not self.nguoi_dung.la_admin():
+        QMessageBox.warning(self, "Không Đủ Quyền",
+            "Bạn là 'Nhân viên' nên KHÔNG ĐƯỢC PHÉP XÓA.")
+        return
+    # ... tiếp tục xử lý xóa nếu là Admin</code>
+</pre>
 
 <div class="tip">
     <strong>💡 Tại sao ẩn nút + kiểm tra lại?</strong> Ẩn nút chỉ là UI. User tinh tế vẫn có thể
@@ -432,19 +432,19 @@ DANH_SACH_TAI_KHOAN = [
 </p>
 
 <h3>4.2. Cấu trúc 1 test case</h3>
-<div class="code-block">
-<span class="comment"># 1. Chuẩn bị dữ liệu mẫu</span>
-sp1 = Sach(<span class="string">"S01"</span>, <span class="string">"Lập trình C++"</span>, <span class="number">100000</span>, <span class="number">10</span>, <span class="string">"Bjarne"</span>, <span class="string">"NXB Trẻ"</span>)
+<pre class="code-block">
+<code class="language-python"># 1. Chuẩn bị dữ liệu mẫu
+sp1 = Sach("S01", "Lập trình C++", 100000, 10, "Bjarne", "NXB Trẻ")
 
-<span class="comment"># 2. Gọi hàm cần test</span>
+# 2. Gọi hàm cần test
 gia = sp1.tinh_gia_ban()
 
-<span class="comment"># 3. In ra để xem kết quả</span>
-<span class="function">print</span>(<span class="string">f"Giá bán Sách: {gia}"</span>)
+# 3. In ra để xem kết quả
+print(f"Giá bán Sách: {gia}")
 
-<span class="comment"># 4. Kiểm tra kết quả đúng không (assert)</span>
-<span class="function">assert</span> gia == <span class="number">120000</span>, <span class="string">"Giá bán Sách phải = 100000 × 1.20 = 120000"</span>
-</div>
+# 4. Kiểm tra kết quả đúng không (assert)
+assert gia == 120000, "Giá bán Sách phải = 100000 × 1.20 = 120000"</code>
+</pre>
 
 <p><strong><code>assert</code> LÀ GÌ?</strong> Là câu lệnh Python: nếu điều kiện SAI thì ném lỗi
 và dừng chương trình. Dùng để kiểm tra kết quả test có đúng kỳ vọng không.</p>
@@ -465,11 +465,11 @@ và dừng chương trình. Dùng để kiểm tra kết quả test có đúng k
 </table>
 
 <h3>4.4. Cách chạy test</h3>
-<div class="code-block">
+<pre class="code-block">
 <span class="filename">terminal — vào thư mục do_an_pyqt6</span>
-cd do_an_pyqt6
-python test_app.py
-</div>
+<code class="language-python">cd do_an_pyqt6
+python test_app.py</code>
+</pre>
 <p>Nếu thấy in ra <strong>"MỌI THỨ HOẠT ĐỘNG HOÀN HẢO!"</strong> ở cuối → test pass 100%.</p>
 
 <h3>4.5. Mô phỏng chạy test</h3>
@@ -603,5 +603,6 @@ python test_app.py
 </div>
 
 <script src="app.js"></script>
+    <script src="highlight.js"></script>
 </body>
 </html>
