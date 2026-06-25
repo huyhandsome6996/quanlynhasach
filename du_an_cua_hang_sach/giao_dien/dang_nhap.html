@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Đăng nhập hệ thống Quản lý Cửa hàng Sách">
+    <meta name="theme-color" content="#047857">
+    <title>Đăng nhập · Quản lý Cửa hàng Sách</title>
+
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{% static 'hinh_thuc/trang_tri.css' %}">
+</head>
+<body class="trang_dang_nhap">
+    <!-- Thẻ bọc ngoài căn giữa -->
+    <div class="hop_dang_nhap">
+        <!-- Tiêu đề -->
+        <div class="tieu_de_dang_nhap">
+            <h1>📚 Hệ thống Quản lý Cửa hàng Sách</h1>
+            <p class="mo_ta">Đăng nhập để tiếp tục · Môn Lập trình Nâng cao</p>
+        </div>
+
+        <!-- Thông báo lỗi -->
+        <div id="thong_bao_dang_nhap" class="thong_bao_dang_nhap an_di" role="status" aria-live="polite"></div>
+
+        <!-- Form đăng nhập -->
+        <form id="bieu_mau_dang_nhap" novalidate>
+            <div class="nhom_nhap">
+                <label for="o_ten_dang_nhap">Tên đăng nhập</label>
+                <input type="text" id="o_ten_dang_nhap" name="ten_dang_nhap"
+                       placeholder="Nhập tên đăng nhập"
+                       autocomplete="username" required />
+            </div>
+
+            <div class="nhom_nhap">
+                <label for="o_mat_khau">Mật khẩu</label>
+                <input type="password" id="o_mat_khau" name="mat_khau"
+                       placeholder="Nhập mật khẩu"
+                       autocomplete="current-password" required />
+            </div>
+
+            <button type="submit" id="nut_dang_nhap" class="nut nut_chinh nut_dang_nhap">
+                Đăng nhập
+            </button>
+        </form>
+
+        <!-- Bảng gợi ý tài khoản mẫu -->
+        <div class="goi_y_tai_khoan">
+            <h3>Tài khoản mẫu để test</h3>
+            <table class="bang_tai_khoan">
+                <thead>
+                    <tr>
+                        <th scope="col">Tài khoản</th>
+                        <th scope="col">Mật khẩu</th>
+                        <th scope="col">Quyền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>admin</code></td>
+                        <td><code>123</code></td>
+                        <td><span class="nhan_vai_tro admin">Admin</span> Toàn quyền (xem + thêm + sửa + xóa)</td>
+                    </tr>
+                    <tr>
+                        <td><code>nhanvien</code></td>
+                        <td><code>123</code></td>
+                        <td><span class="nhan_vai_tro nhan_vien">Nhân viên</span> Hạn chế (không được xóa)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Chú thích -->
+        <p class="chu_thich">
+            Hệ thống dùng <strong>DoublyLinkedList</strong> + <strong>Merge Sort</strong> +
+            <strong>Stack (Undo/Redo)</strong> + <strong>Queue (Giỏ hàng)</strong> + <strong>SQLite</strong>.
+        </p>
+    </div>
+
+    <!-- Script xử lý đăng nhập -->
+    <script>
+    /**
+     * Xử lý submit form đăng nhập.
+     * Gọi API POST /api/dang-nhap, nếu thành công → chuyển về trang chủ.
+     */
+    document.getElementById('bieu_mau_dang_nhap').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        var ten_dang_nhap = document.getElementById('o_ten_dang_nhap').value.trim();
+        var mat_khau      = document.getElementById('o_mat_khau').value.trim();
+        var thong_bao     = document.getElementById('thong_bao_dang_nhap');
+        var nut           = document.getElementById('nut_dang_nhap');
+
+        // --- Validate phía client ---
+        if (!ten_dang_nhap || !mat_khau) {
+            thong_bao.textContent = 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.';
+            thong_bao.className = 'thong_bao_dang_nhap loi';
+            return;
+        }
+
+        // Vô hiệu hoá nút + đổi chữ
+        nut.disabled = true;
+        nut.textContent = 'Đang đăng nhập...';
+
+        try {
+            var phan_hoi = await fetch('/api/dang-nhap', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({
+                    ten_dang_nhap: ten_dang_nhap,
+                    mat_khau:      mat_khau
+                })
+            });
+            var du_lieu = await phan_hoi.json();
+
+            if (du_lieu.trang_thai === 'thanh_cong') {
+                thong_bao.textContent = du_lieu.thong_bao + ' Đang chuyển về trang chủ...';
+                thong_bao.className = 'thong_bao_dang_nhap thanh_cong';
+                // Chuyển về trang chủ sau 800ms
+                setTimeout(function () { window.location.href = '/'; }, 800);
+            } else {
+                thong_bao.textContent = du_lieu.thong_bao;
+                thong_bao.className = 'thong_bao_dang_nhap loi';
+                nut.disabled = false;
+                nut.textContent = 'Đăng nhập';
+            }
+        } catch (loi) {
+            thong_bao.textContent = 'Không thể kết nối đến máy chủ. Vui lòng thử lại.';
+            thong_bao.className = 'thong_bao_dang_nhap loi';
+            nut.disabled = false;
+            nut.textContent = 'Đăng nhập';
+        }
+    });
+    </script>
+</body>
+</html>

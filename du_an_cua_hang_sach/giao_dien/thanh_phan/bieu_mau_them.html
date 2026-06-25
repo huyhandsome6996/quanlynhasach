@@ -1,0 +1,112 @@
+<!-- Biểu mẫu thêm sản phẩm (Modal) -->
+<div id="form_them" class="hop_thoai an_di" role="dialog" aria-modal="true" aria-labelledby="tieu_de_form">
+    <div class="noi_dung_hop_thoai">
+        <div class="tieu_de_hop_thoai">
+            <h2 id="tieu_de_form">Thêm sản phẩm mới</h2>
+            <button id="nut_dong_form" class="nut_dong" type="button" aria-label="Đóng biểu mẫu">&times;</button>
+        </div>
+        <form id="bieu_mau_them" novalidate>
+            <!-- Trường ẩn chứa mã số khi sửa -->
+            <input type="hidden" id="che_do_form" value="them" />
+            <input type="hidden" id="ma_so_dang_sua" value="" />
+
+            <!-- Loại hàng -->
+            <div class="nhom_nhap">
+                <label for="chon_loai_hang">Loại hàng <span class="bat_buoc" aria-hidden="true">*</span></label>
+                <select id="chon_loai_hang" name="loai_hang" required>
+                    <option value="">-- Chọn loại hàng --</option>
+                    <option value="Sách">Sách</option>
+                    <option value="Tạp chí">Tạp chí</option>
+                    <option value="Báo giấy">Báo giấy</option>
+                    <option value="Luận văn">Luận văn</option>
+                    <option value="Bản thảo">Bản thảo</option>
+                </select>
+            </div>
+
+            <!-- Mã số -->
+            <div class="nhom_nhap" id="nhom_ma_so">
+                <label for="nhap_ma_so">Mã số <span class="bat_buoc" aria-hidden="true">*</span></label>
+                <input type="text" id="nhap_ma_so" name="ma_so" placeholder="Ví dụ: MH006" required />
+            </div>
+
+            <!-- Tên sản phẩm -->
+            <div class="nhom_nhap">
+                <label for="nhap_ten">Tên sản phẩm <span class="bat_buoc" aria-hidden="true">*</span></label>
+                <input type="text" id="nhap_ten" name="ten_san_pham" placeholder="Ví dụ: Sách Lập trình C" required />
+            </div>
+
+            <!-- Giá cơ bản -->
+            <div class="nhom_nhap">
+                <label for="nhap_gia">Giá cơ bản (VNĐ) <span class="bat_buoc" aria-hidden="true">*</span></label>
+                <input type="number" id="nhap_gia" name="gia_co_ban" placeholder="Ví dụ: 100000" min="0" required />
+            </div>
+
+            <!-- Tồn kho -->
+            <div class="nhom_nhap">
+                <label for="nhap_ton_kho">Số lượng tồn kho <span class="bat_buoc" aria-hidden="true">*</span></label>
+                <input type="number" id="nhap_ton_kho" name="ton_kho" placeholder="Ví dụ: 50" min="0" required />
+            </div>
+
+            <!-- Các trường riêng cho Sách -->
+            <div id="nhom_sach" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_tac_gia">Tác giả <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="text" id="nhap_tac_gia" name="tac_gia" placeholder="Ví dụ: Nguyễn Văn A" />
+                </div>
+                <div class="nhom_nhap">
+                    <label for="nhap_nha_xuat_ban">Nhà xuất bản <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="text" id="nhap_nha_xuat_ban" name="nha_xuat_ban" placeholder="Ví dụ: NXB Giáo dục" />
+                </div>
+            </div>
+
+            <!-- Các trường riêng cho Tạp chí -->
+            <div id="nhom_tap_chi" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_so_phat_hanh">Số phát hành <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="text" id="nhap_so_phat_hanh" name="so_phat_hanh" placeholder="Ví dụ: Số 123" />
+                </div>
+            </div>
+
+            <!-- Các trường riêng cho Báo giấy -->
+            <div id="nhom_bao_giay" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_ngay_xuat_ban">Ngày xuất bản <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="date" id="nhap_ngay_xuat_ban" name="ngay_xuat_ban" />
+                </div>
+            </div>
+
+            <!-- Các trường riêng cho Luận văn -->
+            <div id="nhom_luan_van" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_tac_gia_lv">Tác giả <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="text" id="nhap_tac_gia_lv" name="tac_gia_lv" placeholder="Ví dụ: Trần Thị B" />
+                </div>
+                <div class="nhom_nhap">
+                    <label for="nhap_truong_dai_hoc">Trường đại học <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="text" id="nhap_truong_dai_hoc" name="truong_dai_hoc" placeholder="Ví dụ: ĐH Bách Khoa" />
+                </div>
+            </div>
+
+            <!-- Các trường riêng cho Bản thảo -->
+            <div id="nhom_ban_thao" class="nhom_rieng an_di">
+                <div class="nhom_nhap">
+                    <label for="nhap_tac_gia_bt">Tác giả <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <input type="text" id="nhap_tac_gia_bt" name="tac_gia_bt" placeholder="Ví dụ: Lê Văn C" />
+                </div>
+                <div class="nhom_nhap">
+                    <label for="nhap_trang_thai">Trạng thái <span class="bat_buoc" aria-hidden="true">*</span></label>
+                    <select id="nhap_trang_thai" name="trang_thai">
+                        <option value="Chưa duyệt">Chưa duyệt</option>
+                        <option value="Đã duyệt">Đã duyệt</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Nút submit -->
+            <div class="nhom_nut">
+                <button type="submit" id="nut_xac_nhan_form" class="nut nut_chinh nut_xac_nhan">Thêm sản phẩm</button>
+                <button type="button" id="nut_huy" class="nut nut_phu">Hủy bỏ</button>
+            </div>
+        </form>
+    </div>
+</div>
