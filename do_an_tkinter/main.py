@@ -33,7 +33,9 @@ def main():
 
     # Tạo root Tk (cửa sổ chính của Tkinter).
     root = tk.Tk()
-    root.withdraw()  # Ẩn root ban đầu — chỉ hiện khi đăng nhập OK.
+    # Tạm thời KHÔNG ẩn root (bỏ root.withdraw()) để Windows chịu hiện icon dưới Taskbar!
+    root.title("Quản lý nhà sách")
+    root.geometry("100x100")
 
     # Hiện form đăng nhập.
     hop_dn = CuaSoDangNhap(root, qly)

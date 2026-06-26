@@ -31,6 +31,13 @@ class CuaSoDangNhap:
         # Làm cửa sổ modal: bắt sự kiện đóng → không cho tương tác parent.
         self.top.transient(parent)
         self.top.grab_set()
+        
+        # [MẸO NHỎ] Ép cửa sổ nổi lên trên cùng (đè lên VS Code) để dễ nhìn thấy.
+        self.top.lift()
+        self.top.attributes('-topmost', True)
+        # Bỏ topmost đi ngay lập tức để sau này không bị kẹt dính trên cùng.
+        self.top.after(100, lambda: self.top.attributes('-topmost', False))
+        self.top.focus_force()
 
         self.quan_ly = quan_ly
         self.nguoi_dung = None  # Sẽ gán nếu đăng nhập thành công.
