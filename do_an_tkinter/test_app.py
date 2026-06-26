@@ -297,11 +297,26 @@ print('TEST 10: TRY/EXCEPT CHO 7 THAO TÁC')
 print('=' * 70)
 
 import inspect
+import importlib
 
-# Đọc source của từng hàm để check có 'try:' và 'except'.
-for ten_ham in ['them_san_pham', 'sua_san_pham', 'xoa_san_pham',
-                 'hoan_tac', 'lam_lai', 'them_vao_gio', 'thanh_toan']:
-    fn = getattr(qly, ten_ham)
+# Map tên hàm (trên QuanLyTrungTam) → (module _tt, tên hàm trong module).
+# Sau tái cấu trúc, logic thật nằm trong các file chuc_nang/cnNN_*/*_tt.py.
+# Ta check try/except trong source của các file _tt.py này.
+MAP_HAM_THUAT_TOAN = {
+    'them_san_pham':  ('chuc_nang.cn03_them_san_pham.them_san_pham_tt',           'them_san_pham'),
+    'sua_san_pham':   ('chuc_nang.cn04_sua_san_pham.sua_san_pham_tt',             'sua_san_pham'),
+    'xoa_san_pham':   ('chuc_nang.cn05_xoa_san_pham.xoa_san_pham_tt',             'xoa_san_pham'),
+    'hoan_tac':       ('chuc_nang.cn08_hoan_tac_lam_lai.hoan_tac_lam_lai_tt',     'hoan_tac'),
+    'lam_lai':        ('chuc_nang.cn08_hoan_tac_lam_lai.hoan_tac_lam_lai_tt',     'lam_lai'),
+    'them_vao_gio':   ('chuc_nang.cn09_gio_hang.gio_hang_tt',                     'them_vao_gio'),
+    'thanh_toan':     ('chuc_nang.cn09_gio_hang.gio_hang_tt',                     'thanh_toan'),
+}
+
+for ten_ham, (ten_mod, ten_fn) in MAP_HAM_THUAT_TOAN.items():
+    # Nạp module _tt.py tương ứng.
+    mod = importlib.import_module(ten_mod)
+    fn = getattr(mod, ten_fn)
+    # Đọc source hàm thuật toán.
     src = inspect.getsource(fn)
     co_try = 'try:' in src
     co_except = 'except' in src
