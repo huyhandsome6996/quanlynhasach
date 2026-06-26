@@ -18,9 +18,10 @@
     <!-- Khung thông tin người dùng: tên + vai trò + nút đăng xuất. -->
     <div class="khung_nguoi_dung" id="khung_nguoi_dung">
         <!-- <span>: thẻ inline (không xuống dòng) để bọc 1 đoạn text nhỏ.
-             id="ten_nguoi_dung": JS sẽ cập nhật nội dung sau khi tải thông tin người dùng. -->
+             id="ten_nguoi_dung": [JS HOOK] Gọi `tuong_tac.js / tai_thong_tin_nguoi_dung()` -> Gọi API `xu_ly_yeu_cau/xac_thuc.py / thong_tin_nguoi_dung()`. -->
         <span class="ten_nguoi_dung" id="ten_nguoi_dung">Đang tải...</span>
-        <!-- Nhãn vai trò (Admin/Nhân viên) — JS sẽ đổi class + nội dung. -->
+        
+        <!-- Nhãn vai trò (Admin/Nhân viên) — [JS HOOK] Gọi `tuong_tac.js / tai_thong_tin_nguoi_dung()` -> Gọi API `xu_ly_yeu_cau/xac_thuc.py / thong_tin_nguoi_dung()`. -->
         <span class="nhan_vai_tro" id="nhan_vai_tro">...</span>
         <!-- <a href="/dang-xuat">: Liên kết đăng xuất.
              class="nut nut_dang_xuat": style CSS thành dạng nút bấm.

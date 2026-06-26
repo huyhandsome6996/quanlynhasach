@@ -27,7 +27,7 @@
             <input type="text" id="o_tim_kiem" placeholder="Tìm kiếm sản phẩm…" aria-label="Từ khoá tìm kiếm" />
 
             <!-- <button type="button">: Nút bấm thông thường (không submit form).
-                 id="nut_tim_kiem": JS gắn sự kiện click. -->
+                 id="nut_tim_kiem": [JS HOOK] Gọi `tuong_tac.js` (Bắt sự kiện click) -> Gọi `goi_du_lieu.js / tim_kiem()` -> Gọi API `xu_ly_yeu_cau/tim_kiem_thong_ke.py / tim_kiem_san_pham()`. -->
             <button id="nut_tim_kiem" class="nut nut_chinh" type="button">Tìm kiếm</button>
         </div>
 
@@ -39,20 +39,31 @@
                 <option value="ten_san_pham">Tên sản phẩm</option>
                 <option value="ton_kho">Tồn kho</option>
             </select>
+            <!-- id="nut_sap_xep": [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `goi_du_lieu.js / sap_xep()` -> Gọi API `xu_ly_yeu_cau/tim_kiem_thong_ke.py / sap_xep_danh_sach()`. -->
             <button id="nut_sap_xep" class="nut nut_phu" type="button">Sắp xếp</button>
         </div>
 
         <!-- ============== NHÓM NÚT CHỨC NĂNG ============== -->
         <div class="nhom_chuc_nang">
+            <!-- id="nut_lam_moi": [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `goi_du_lieu.js / lay_danh_sach()` -> Gọi API `xu_ly_yeu_cau/san_pham.py / lay_danh_sach()`. -->
             <button id="nut_lam_moi" class="nut nut_lam_moi" type="button">Làm mới</button>
+            
+            <!-- id="nut_thong_ke": [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `goi_du_lieu.js / lay_thong_ke()` -> Gọi API `xu_ly_yeu_cau/tim_kiem_thong_ke.py / lay_thong_ke()`. -->
             <button id="nut_thong_ke" class="nut nut_thong_ke" type="button">Thống kê</button>
-            <!-- Nút Giỏ hàng có badge số lượng bên trong (id="so_gio_hang"). -->
+            
+            <!-- Nút Giỏ hàng có badge số lượng bên trong (id="so_gio_hang"). 
+                 [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `goi_du_lieu.js / xem_gio_hang()` -> Gọi API `xu_ly_yeu_cau/gio_hang.py / xem_gio_hang()`. -->
             <button id="nut_gio_hang" class="nut nut_gio_hang" type="button" aria-label="Giỏ hàng">
                 Giỏ hàng <span id="so_gio_hang" class="dem_gio" aria-label="Số mặt hàng trong giỏ">0</span>
             </button>
-            <!-- title="...": tooltip khi di chuột, aria-label: cho screen reader. -->
+            
+            <!-- [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `goi_du_lieu.js / hoan_tac()` -> Gọi API `xu_ly_yeu_cau/hoan_tac.py / hoan_tac()`. -->
             <button id="nut_hoan_tac" class="nut nut_hoan_tac" type="button" title="Hoàn tác (Undo)" aria-label="Hoàn tác">↩ Undo</button>
+            
+            <!-- [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `goi_du_lieu.js / lam_lai()` -> Gọi API `xu_ly_yeu_cau/hoan_tac.py / lam_lai()`. -->
             <button id="nut_lam_lai" class="nut nut_lam_lai" type="button" title="Làm lại (Redo)" aria-label="Làm lại">↪ Redo</button>
+            
+            <!-- [JS HOOK] Gọi `tuong_tac.js` (Bắt click) -> Gọi `tuong_tac.js / mo_bieu_mau()` (Chỉ bật CSS hiển thị, không gọi Server). -->
             <button id="nut_mo_form" class="nut nut_them" type="button">+ Thêm sản phẩm</button>
         </div>
     </div>

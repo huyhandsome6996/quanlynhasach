@@ -6,7 +6,7 @@
 <!-- <main>: Thẻ HTML5 ngữ nghĩa cho nội dung CHÍNH của trang (chỉ có 1/main). -->
 <main class="noi_dung_chinh" id="noi_dung_chinh">
 
-    <!-- Khu vực thông báo — JS sẽ đổi class + nội dung khi có thông báo.
+    <!-- Khu vực thông báo — [JS HOOK] Gọi `tuong_tac.js / hien_thi_thong_bao()` sẽ đổi nội dung và class (màu xanh/đỏ) của thẻ này.
          role="status" aria-live="polite": screen reader đọc thông báo khi nó thay đổi. -->
     <div id="thong_bao" class="thong_bao an_di" role="status" aria-live="polite"></div>
 
@@ -15,7 +15,7 @@
     <section id="khu_vuc_thong_ke" class="khu_vuc_thong_ke an_di" aria-label="Thống kê cửa hàng">
         <h3>Thống kê cửa hàng</h3>
         <div class="bang_thong_ke" id="bang_thong_ke">
-            <!-- JS sẽ chèn nội dung HTML vào đây khi người dùng bấm nút Thống kê. -->
+            <!-- [JS HOOK] Được vẽ HTML bởi `goi_du_lieu.js / lay_thong_ke()` -> Lấy dữ liệu từ API `xu_ly_yeu_cau/tim_kiem_thong_ke.py / lay_thong_ke()`. -->
         </div>
         <!-- onclick="...": JS nội tuyến — bấm nút thì thêm class an_di để ẩn đi. -->
         <button class="nut nut_phu" type="button" onclick="document.getElementById('khu_vuc_thong_ke').classList.add('an_di')">Đóng thống kê</button>
@@ -42,7 +42,7 @@
                 </tr>
             </thead>
             <!-- <tbody>: Phần thân bảng — chứa các hàng dữ liệu thực tế.
-                 id="than_bang": JS (hàm ve_bang) sẽ innerHTML chèn các <tr> vào đây. -->
+                 id="than_bang": [JS HOOK] Được vẽ HTML bởi `tuong_tac.js / ve_bang()` -> Lấy dữ liệu từ `goi_du_lieu.js / lay_danh_sach()` -> API `xu_ly_yeu_cau/san_pham.py / lay_danh_sach()`. -->
             <tbody id="than_bang">
                 <tr>
                     <!-- colspan="8": Ô này trải dài qua 8 cột (vì đang loading chưa có dữ liệu). -->

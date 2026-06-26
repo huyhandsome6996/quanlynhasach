@@ -16,12 +16,13 @@
         <!-- Tiêu đề modal + nút đóng (×). -->
         <div class="tieu_de_hop_thoai">
             <h2 id="tieu_de_form">Thêm sản phẩm mới</h2>
-            <!-- Nút "×" đóng modal. aria-label cho screen reader. -->
+            <!-- Nút "×" đóng modal. [JS HOOK] Gọi `tuong_tac.js / dong_bieu_mau()` (Chỉ đóng CSS modal, không gọi Server). -->
             <button id="nut_dong_form" class="nut_dong" type="button" aria-label="Đóng biểu mẫu">&times;</button>
         </div>
 
         <!-- <form id="bieu_mau_them" novalidate>: Biểu mẫu thêm/sửa sản phẩm.
-             novalidate: tắt validate mặc định của trình duyệt để JS tự validate tiếng Việt. -->
+             novalidate: tắt validate mặc định của trình duyệt để JS tự validate tiếng Việt.
+             [JS HOOK] Gọi `tuong_tac.js / xu_ly_submit()` (Bắt sự kiện 'submit') -> Quyết định gọi `goi_du_lieu.js / them_san_pham()` hoặc `sua_san_pham()` -> Gọi API `xu_ly_yeu_cau/san_pham.py / them_san_pham()` hoặc `sua_san_pham()`. -->
         <form id="bieu_mau_them" novalidate>
             <!-- Trường ẨN (type="hidden"): không hiển thị, dùng lưu trạng thái nội bộ.
                  che_do_form: 'them' (thêm mới) hoặc 'sua' (chỉnh sửa).
@@ -32,7 +33,8 @@
             <!-- ============== LOẠI HÀNG ============== -->
             <div class="nhom_nhap">
                 <label for="chon_loai_hang">Loại hàng <span class="bat_buoc" aria-hidden="true">*</span></label>
-                <!-- aria-hidden="true": dấu * chỉ trang trí, screen reader bỏ qua. -->
+                <!-- aria-hidden="true": dấu * chỉ trang trí, screen reader bỏ qua.
+                     [JS HOOK] Gọi `tuong_tac.js` (Bắt sự kiện 'change' của Select) -> Chạy logic bật/tắt hiển thị các thẻ `div` con (Không gọi Server). -->
                 <select id="chon_loai_hang" name="loai_hang" required>
                     <option value="">-- Chọn loại hàng --</option>
                     <option value="Sách">Sách</option>
@@ -129,6 +131,7 @@
             <!-- ============== NHÓM NÚT ============== -->
             <div class="nhom_nut">
                 <button type="submit" id="nut_xac_nhan_form" class="nut nut_chinh nut_xac_nhan">Thêm sản phẩm</button>
+                <!-- [JS HOOK] Gọi `tuong_tac.js / dong_bieu_mau()` (Chỉ đóng CSS modal, không gọi Server). -->
                 <button type="button" id="nut_huy" class="nut nut_phu">Hủy bỏ</button>
             </div>
         </form>
