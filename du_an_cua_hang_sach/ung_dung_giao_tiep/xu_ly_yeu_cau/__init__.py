@@ -16,6 +16,14 @@ File __init__.py này re-export (xuất lại) tất cả các hàm view ra bên
     xu_ly_yeu_cau.trang_chu  ← vẫn hoạt động bình thường.
 """
 
+# KHỞI TẠO HỆ THỐNG (chạy 1 lần đầu)
+from .khoi_tao import (
+    khoi_tao_danh_sach,
+    Danh_sach_cua_hang,
+    Bo_undoredo,
+    Gio_hang_hien_tai,
+)
+
 # NHÓM 1: Xác thực
 from .xac_thuc import (
     trang_chu,
