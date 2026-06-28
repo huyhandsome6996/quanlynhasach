@@ -240,6 +240,7 @@ class BanThao(MatHang):
         """Override — Bản thảo phụ thu 15%."""
         return self.gia_co_ban * 1.15
 
+#Phục vụ cho việc chuyển dữ liệu thô thành dict
     def chuyen_thanh_dict(self):
         """Bổ sung 2 trường riêng của Bản thảo."""
         dict_co_ban = super().chuyen_thanh_dict()

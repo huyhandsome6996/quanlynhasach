@@ -29,7 +29,7 @@ def lay_thong_ke(danh_sach: DoublyLinkedList):
     """
     try:
         # Gọi hàm thong_ke() của DSLK — đã tự cài đặt duyệt + tích lũy.
-        return danh_sach.thong_ke()
+        return danh_sach.thong_ke() #Trả về dict thống kê toàn bộ danh sách.
     except Exception as loi:
         print(f'[LOI thong_ke] {loi}')
         return {}

@@ -58,12 +58,16 @@ class BangSanPhamUI:
     # ----------------------------------------------------------------
     def xoa_tat_ca_dong(self):
         """Xóa toàn bộ dòng trong bảng — dùng trước khi vẽ lại."""
-        for item in self.tree.get_children():
-            self.tree.delete(item)
+        for item in self.tree.get_children(): # self.tree: là bảng hiển thị dsach
+                                              #sản phẩm do (dc tạo bằng công cụ 
+                                              #Treeview của tkinter)
+                                              #- hàm get_children(): lấy hết con của tree
+            self.tree.delete(item) # hàm delete(item): xoá hết item trong tree
 
     def them_dong(self, sp_dict):
         """
         Thêm 1 dòng vào bảng từ dict sản phẩm.
+        -mông má lại dư liệu thô thành dạng đẹp đẽ 
 
         Tham số:
             sp_dict : dict chứa các key ma_so, ten_san_pham, loai_hang, gia_co_ban, ton_kho, gia_ban, ...
@@ -88,6 +92,7 @@ class BangSanPhamUI:
         """
         Trả về mã số của dòng đang được chọn trong bảng.
         Trả về None nếu chưa chọn dòng nào.
+        -chỉ lựa chọn các dòng hiện tại trong tree
         """
         selected = self.tree.selection()
         if not selected:
@@ -101,6 +106,8 @@ class BangSanPhamUI:
     # HÀM NỘI BỘ
     # ----------------------------------------------------------------
     def _str_truong_rieng(self, sp):
+        """Bổ trợ cho hàm them_dong() dựa trên đặc thù cùa từng loại mặt hàng"""
+
         """Tạo chuỗi hiển thị thông tin riêng theo loại hàng."""
         loai = sp.get('loai_hang', '')
         # Mỗi loại có các trường riêng khác nhau.

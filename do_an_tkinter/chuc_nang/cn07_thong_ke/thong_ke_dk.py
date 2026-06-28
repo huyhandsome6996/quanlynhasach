@@ -31,31 +31,32 @@ class DieuKhienThongKe:
         """Gọi thuật toán + cập nhật 5 label trên UI."""
         # Lấy dict thống kê từ thuật toán.
         tk = lay_thong_ke(self.danh_sach)
-        if not tk:
+        if not tk: #Nễu không có sản phẩm nào thì trả về số liệu rỗng
             # Nếu rỗng → reset UI về mặc định.
             self.ui.dat_mac_dinh()
             return
 
-        # Cập nhật từng label.
+        # Cập nhật từng label. Lấy dc dsach rồi thì đếm rồi cập nhật tổng 
+        #số sản phẩm trong UI
         self.ui.cap_nhat_tong_so(tk.get('tong_so', 0))
 
         # Mặt hàng đắt nhất.
         dat = tk.get('dat_nhat')
-        if dat:
+        if dat: #Nếu có dữ liệu thì cập nhật lên Ui tên spham+giá đắt nhất
             self.ui.cap_nhat_dat_nhat(dat.get('ten_san_pham', '-'),
                                        dat.get('gia_ban', 0))
         else:
-            self.ui.lbl_dat.config(text='Đắt nhất: -')
+            self.ui.lbl_dat.config(text='Đắt nhất: -') #Nếu rỗng thì hiện -
 
         # Mặt hàng rẻ nhất.
         re = tk.get('re_nhat')
         if re:
-            self.ui.cap_nhat_re_nhat(re.get('ten_san_pham', '-'),
+            self.ui.cap_nhat_re_nhat(re.get('ten_san_pham', '-'), #Lấy tên sản phẩm
                                       re.get('gia_ban', 0))
         else:
-            self.ui.lbl_re.config(text='Rẻ nhất: -')
+            self.ui.lbl_re.config(text='Rẻ nhất: -') #Nếu rỗng thì hiện -
 
-        # Tổng giá trị kho.
+        # Tổng giá trị kho. Tổng tiền tất cả sản phẩm trong kho
         self.ui.cap_nhat_tri_kho(tk.get('tong_gia_tri_kho', 0))
 
         # Số mặt hàng sắp hết.

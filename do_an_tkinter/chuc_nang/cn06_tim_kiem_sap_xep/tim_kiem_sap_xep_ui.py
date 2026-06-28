@@ -48,7 +48,12 @@ class ThanhTimKiemSapXepUI:
         # Separator ngăn cách 2 nhóm.
         ttk.Separator(parent, orient='vertical').pack(side='left', fill='y', padx=8)
 
-        # === NHÓM SẮP XẾP ===
+
+
+
+
+
+        # === NHÓM SẮP XẾP =========================================
         ttk.Label(parent, text='Sắp xếp:').pack(side='left', padx=2)
         # Combobox tiêu chí sắp xếp.
         self.var_sx_tieu_chi = tk.StringVar(value='gia_ban')

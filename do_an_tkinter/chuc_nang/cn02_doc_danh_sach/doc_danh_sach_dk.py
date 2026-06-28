@@ -32,7 +32,9 @@ class DieuKhienDocDanhSach:
     # NẠP LẠI TOÀN BỘ DANH SÁCH TỪ DSLK
     # ----------------------------------------------------------------
     def nap_lai(self):
-        """Đọc toàn bộ danh sách từ DSLK → vẽ lại bảng."""
+        """Đọc toàn bộ danh sách từ DSLK → vẽ lại bảng.
+        Cụ thể: 
+        """
         # Gọi thuật toán lấy danh sách.
         ds = lay_danh_sach(self.danh_sach)
         # Xóa dòng cũ trong bảng.
@@ -54,6 +56,7 @@ class DieuKhienDocDanhSach:
 
         Tham số:
             ds_dict : List[dict] — danh sách dict sản phẩm.
+-Hàm này chuẩn chỉ là reset lại bảng dữ liệu
         """
         # Xóa dòng cũ.
         self.ui.xoa_tat_ca_dong()

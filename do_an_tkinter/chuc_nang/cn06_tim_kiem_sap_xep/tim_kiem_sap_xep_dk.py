@@ -49,15 +49,20 @@ class DieuKhienTimKiemSapXep:
     # XỬ LÝ TÌM KIẾM
     # ----------------------------------------------------------------
     def xu_ly_tim(self):
-        """Đọc từ khóa + tiêu chí → gọi thuật toán → đổ kết quả vào bảng."""
-        tu_khoa = self.ui.lay_tu_khoa()
-        tieu_chi = self.ui.lay_tieu_chi_tim()
-        # Gọi thuật toán.
-        kq = tim_kiem(self.danh_sach, tu_khoa, tieu_chi)
+        """Đọc từ khóa + tiêu chí → gọi thuật toán → đổ kết quả vào bảng.
+        -bước 1: Lấy thông tin từ khoá và tiêu chí từ UI
+        -Bước 2: Gọi thuật toán tim_kiem từ _tt
+        -Bước 3: xoá hết dữ liệu trong bảng UI
+        -bước4: duyệt và lấy all sản phẩm đúng tiêu chí và thêm vào bảng UI
+        """
+        tu_khoa = self.ui.lay_tu_khoa() #Lấy từ khoá
+        tieu_chi = self.ui.lay_tieu_chi_tim() #lấy tiêu chí tìm cho từ khoá
+        # Gọi thuật toán tìm từ file _tt
+        kq = tim_kiem(self.danh_sach, tu_khoa, tieu_chi) 
         # Đổ vào bảng.
-        self.ui_bang.xoa_tat_ca_dong()
-        for sp in kq:
-            self.ui_bang.them_dong(sp)
+        self.ui_bang.xoa_tat_ca_dong() #Xoá hết những gì đang có trong bảng
+        for sp in kq: #duyệt danh sách
+            self.ui_bang.them_dong(sp) #thêm vào bảng những sản phảm đúng tiêu chí
         # Trả về số kết quả để caller hiển thị thanh trạng thái.
         return len(kq)
 
@@ -76,12 +81,17 @@ class DieuKhienTimKiemSapXep:
     # XỬ LÝ SẮP XẾP
     # ----------------------------------------------------------------
     def xu_ly_sap_xep(self):
-        """Sắp xếp DSLK theo tiêu chí → đổ kết quả vào bảng."""
-        tieu_chi = self.ui.lay_tieu_chi_sap_xep()
+        """Sắp xếp DSLK theo tiêu chí → đổ kết quả vào bảng.
+        -bước 1: lấy tiêu chí sắp xếp từ UI
+        -bước 2: gọi thuật toán sap_xep từ _tt
+        -bước 3: xoá hết dữ liệu trong bảng UI
+        -bước 4: duyệt và lấy all dữ liệu đúng tiêu chí và thêm vào bảng UI
+        """
+        tieu_chi = self.ui.lay_tieu_chi_sap_xep() #Lấy tiêu chí sắp xếp từ UI
         # Gọi thuật toán (sửa thứ tự DSLK trong RAM).
-        kq = sap_xep(self.danh_sach, tieu_chi)
+        kq = sap_xep(self.danh_sach, tieu_chi) #Gọi thuật toán sắp xếp
         # Đổ vào bảng.
-        self.ui_bang.xoa_tat_ca_dong()
-        for sp in kq:
+        self.ui_bang.xoa_tat_ca_dong() #Xoá hết dữ liệu trong bảng
+        for sp in kq: #Duyệt, và lấy all dữ liệu đúng tiêu chí và đổ vào bảng
             self.ui_bang.them_dong(sp)
         return len(kq)

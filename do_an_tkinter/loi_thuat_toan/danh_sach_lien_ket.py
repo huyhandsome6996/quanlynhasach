@@ -15,7 +15,7 @@ Bao gồm:
     - Lớp Node
     - Lớp DoublyLinkedList với:
         * them_vao_cuoi, xoa_node, cap_nhat_node  (CRUD)
-        * tim_theo_ma_so, tim_kiem, tim_theo_the_loai, tim_kiem_nang_cao
+        * tim_theo_ma_so, tim_kiem, tim_theo_the_loai
         * thong_ke
         * sap_xep_tron (Merge Sort O(n log n))
         * chuyen_thanh_danh_sach (đổi sang list Python để trả JSON)
@@ -58,7 +58,7 @@ class DoublyLinkedList:
 
     Phương thức chính (xem docstring từng hàm):
         them_vao_cuoi, xoa_node, cap_nhat_node, tim_theo_ma_so, tim_kiem,
-        tim_theo_the_loai, tim_kiem_nang_cao, thong_ke, sap_xep_tron,
+        tim_theo_the_loai, thong_ke, sap_xep_tron,
         chuyen_thanh_danh_sach.
     """
 
@@ -134,7 +134,7 @@ class DoublyLinkedList:
     # ============================================================
     # TÌM KIẾM
     # ============================================================
-
+#_tt của cn06_tim_kiem_sap_xep
     def tim_theo_ma_so(self, ma_so):
         """Tìm chính xác theo Mã số. Trả về đối tượng hoặc None. O(n)."""
         node_hien_tai = self.head
@@ -144,9 +144,13 @@ class DoublyLinkedList:
             node_hien_tai = node_hien_tai.next
         return None
 
+
+
+#_tt của cn06_tim_kiem_sap_xep
     def tim_kiem(self, tu_khoa):
         """
         Tìm kiếm theo Tên sản phẩm — so khớp CHỨA (substring),
+        -only tên sản phẩm
         không phân biệt HOA/thường.
         """
         ket_qua = [] # kết quả chứa những node có chứa từ khoá
@@ -160,6 +164,10 @@ class DoublyLinkedList:
             node_hien_tai = node_hien_tai.next #tiếp tục kiểm tra node tiếp theo cho đến khi gặp None
         return ket_qua #Trả về danh sách node chứa từ khoá
 
+
+
+
+#_tt của cn06_tim_kiem_sap_xep
     def tim_theo_the_loai(self, the_loai):
         """Tìm theo loại hàng (Sách/Tạp chí/...). Trả về list các đối tượng."""
         ket_qua = [] # ket_qua chứa node chứa the_loai
@@ -172,42 +180,7 @@ class DoublyLinkedList:
             node_hien_tai = node_hien_tai.next #tiếp tục cho đến khi gặp None
         return ket_qua 
 
-    def tim_kiem_nang_cao(self, tu_khoa):
-        """
-        Tìm kiếm nâng cao: tìm đồng thời theo MÃ SỐ, TÊN, và LOẠI HÀNG.
-        Sử dụng set để tránh trùng lặp kết quả.
 
-        -Bấm "t" là đã tự gợi ý ra "tiểu thuyết" 
-        """
-        ket_qua = []
-        ma_da_them = set() # List chứa các ptu ko trùng lặp (1 núi 1 hổ)
-        node_hien_tai = self.head #Duyệt từ node đầu
-        tu_khoa_lower = tu_khoa.lower() #dùng chữ thường để so sánh
-        while node_hien_tai is not None: # Kiểm tra hết các node cho đến khi gặp None
-            data = node_hien_tai.data #gán data với data đang dc duyệt
-            da_khop = False # Gán mặc định là chưa tìm thấy (check đúng thì sang True sau)
-
-
-            # Kiểm tra khớp theo mã số.
-            if hasattr(data, 'ma_so') and tu_khoa_lower in data.ma_so.lower():
-                da_khop = True # Nếu data có thuộc tính ma_so và chứa tu_khoa_Lower thì 
-                               #đổi thành True
-
-                
-            # Nếu chưa khớp → kiểm tra theo tên.
-            if not da_khop and hasattr(data, 'ten_san_pham') and tu_khoa_lower in data.ten_san_pham.lower():
-                da_khop = True #Tương tự thế với ten_san_pham nếu k khớp ma_so
-
-            # Nếu vẫn chưa khớp → kiểm tra theo loại hàng.
-            if not da_khop and hasattr(data, 'loai_hang') and tu_khoa_lower in data.loai_hang.lower():
-                da_khop = True #Tương tự thế với loai_hang nếu k khớp ma_so và ten_san_pham
-            
-            # Nếu khớp và chưa thêm → thêm vào kết quả.
-            if da_khop and data.ma_so not in ma_da_them: #Nếu da_khop=True và data chưa có trong ma_da_them
-                ket_qua.append(data) #Thì thêm vào ket_qua
-                ma_da_them.add(data.ma_so) #thêm vào ma_da_them để đảm bảo k bị trùng
-            node_hien_tai = node_hien_tai.next #tiếp tục node tiếp theo cho đến hết
-        return ket_qua #Trả về list kết quả
 
     # ============================================================
     # CẬP NHẬT
@@ -240,6 +213,8 @@ class DoublyLinkedList:
     # THỐNG KÊ
     # ============================================================
 
+
+#_tt của cn07_thong_ke_bao_cao
     def thong_ke(self):
         """
         Thống kê toàn bộ danh sách:
@@ -250,15 +225,16 @@ class DoublyLinkedList:
             - tong_gia_tri_kho   : tổng giá trị hàng trong kho
             - tong_ton_kho       : tổng số sản phẩm tồn
         """
-        if self.so_luong == 0:                         # Trường hợp danh sách rỗng.
+        if self.so_luong == 0: # Trường hợp danh sách rỗng.
             return {
-                'tong_so': 0,
-                'dat_nhat': None,
-                're_nhat': None,
-                'sap_het_hang': [],
-                'theo_loai': {},
-                'tong_gia_tri_kho': 0,
-                'tong_ton_kho': 0
+             #Tả về dạng dict để UI dễ đọc hiểu 
+                'tong_so': 0, #Trả về tổng số mặt hàng = 0
+                'dat_nhat': None, #Trả về mặt hàng đắt nhất = None
+                're_nhat': None, #Trả về mặt hàng rẻ nhất = None
+                'sap_het_hang': [], #Trả về danh sách hàng sắp hết = []
+                'theo_loai': {}, #Trả về số lượng + tổng tồn kho theo từng loại = {}
+                'tong_gia_tri_kho': 0, #Trả về tổng giá trị hàng trong kho = 0
+                'tong_ton_kho': 0 #Trả về tổng số sản phẩm tồn = 0
             }
 
         # Khởi tạo các biến tích lũy.
@@ -289,7 +265,7 @@ class DoublyLinkedList:
             if hasattr(data, 'ton_kho'):
                 tong_ton_kho += data.ton_kho
                 tong_gia_tri_kho += data.gia_co_ban * data.ton_kho
-                # Cảnh báo hàng sắp hết khi tồn kho ≤ 5.
+  # # # # ### Cảnh báo hàng sắp hết khi tồn kho ≤ 5.
                 if data.ton_kho <= 5:
                     sap_het_hang.append(data)
 
@@ -318,6 +294,7 @@ class DoublyLinkedList:
     # SẮP XẾP - THUẬT TOÁN MERGE SORT (ĐỆ QUY)
     # ============================================================
 
+#_tt của cn06_tim_kiem_sap_xep
     def sap_xep_tron(self, tieu_chi='gia_ban'):
         """
         Sắp xếp danh sách bằng thuật toán Merge Sort — O(n log n).
@@ -449,7 +426,8 @@ class DoublyLinkedList:
     # ============================================================
     # TIỆN ÍCH
     # ============================================================
-
+#_tt của cn02_doc_danh_sach 
+#_tt của cn06_tim_kiem_sap_xep
     def chuyen_thanh_danh_sach(self):
         """
         Đổi danh sách liên kết thành list Python các dict —
